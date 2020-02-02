@@ -1,0 +1,141 @@
+<div class="container">
+  <div class="form">
+    <div class="row">
+      <h2 class="form-title">My Cattery</h2>
+    </div>
+
+    <%= form_for(@user, url: cattery_path(@user), html: { method: :post }) do |f| %>
+      <div class="row">
+        <br>
+      </div>
+
+      <div class="row">
+        <h4 class="form-section-title">General</h4>
+      </div>
+
+      <div class="row">
+        <div class="col s12 l8">
+          <div class="input-field">
+            <%= f.label :cattery_name %>
+            <%= f.text_field :cattery_name, autofocus: true %>
+          </div>
+          <%= render 'shared/error_messages', object: @user, field: :cattery_name %>
+        </div>
+
+        <div class="col s12 l4">
+          <div class="input-field">
+            <%= f.label :certification_number %>
+            <%= f.text_field :certification_number %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <%= link_to cattery_overview_path, class:"waves-effect waves-light btn-large btn-link" do %>
+          Edit cats
+          <i class="material-icons right">create</i>
+        <% end %>
+      </div>
+
+      <div class="row">
+        <h4 class="form-section-title">Address</h4>
+      </div>
+
+      <div class="row">
+        <div class="col s9">
+          <div class="input-field">
+            <%= f.label :street %>
+            <%= f.text_field :street %>
+          </div>
+        </div>
+
+        <div class="col s3">
+          <div class="input-field">
+            <%= f.label :number %>
+            <%= f.text_field :number %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s5">
+          <div class="input-field">
+            <%= f.label :postal_code %>
+            <%= f.text_field :postal_code %>
+          </div>
+        </div>
+        
+        <div class="col s7">
+          <div class="input-field">
+            <%= f.label :city %>
+            <%= f.text_field :city %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m5">
+          <div class="input-field">
+            <%= f.select(:country, [['Country', "", { 'disabled' => 'disabled', 'selected' => 'selected', 'class' => 'inactive'}], ['Belgium', 1], ['France', 2], ['United Kingdom', 3]]) %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h4 class="form-section-title">Contact &amp; social media</h4>
+      </div>
+
+      <div class="row">
+        <div class="col s12 m6">
+          <%= link_to edit_user_registration_path, class:"tooltipped", :data => { :'position' => "bottom", :'tooltip' => "Go to 'Profile' page to change this" }  do %>
+            <div class="input-field">
+                <%= f.label :email %>
+                <%= f.text_field :email, class:"disabled-input", disabled:true%>
+            </div>
+          <% end %>
+        </div>
+        
+        <div class="col s12 m6">
+          <div class="input-field">
+            <%= f.label :phone_number %>
+            <%= f.text_field :phone_number %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 l4">
+          <div class="input-field">
+            <i class="fab fa-facebook-square prefix"></i>
+            <%= f.label :facebook_link %>
+            <%= f.text_field :facebook_link %>
+          </div>
+        </div>
+
+        <div class="col s12 l4">
+          <div class="input-field">
+            <i class="fab fa-instagram prefix"></i>
+            <%= f.label :instagram_link %>
+            <%= f.text_field :instagram_link %>
+          </div>
+        </div>
+        <div class="col s12 l4">
+          <div class="input-field">
+            <i class="fab fa-twitter prefix"></i>
+            <%= f.label :twitter_link %>
+            <%= f.text_field :twitter_link %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="actions">
+          <%= f.button class:"btn waves-effect waves-light", type:"submit" do %>
+          Update
+          <i class="material-icons right">send</i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

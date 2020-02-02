@@ -1,0 +1,525 @@
+// Form
+.form {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  padding: 2rem;
+  margin: 5rem auto;
+
+  @include small-and-up {
+    width: 75%;
+  }
+
+  .form-title {
+    position: relative;
+    right: 7px;
+    font-size: 2.8em;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0px;
+
+    &:before {
+      content:"";
+      padding: 10px 0px;
+      border-left: 5px solid $primaryColor; 
+      position: relative;
+      right: 23px;
+    }
+  }
+
+  .form-section-title {
+    display: inline-block;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+
+  .title-info {
+    font-size: 0.9em;
+  }
+
+  .input-field {
+    label.active {
+      font-weight: bold;
+      color: $black !important;
+    }
+
+    .checkbox-label {
+      position: relative !important;
+      display: block;
+      transform: scale(1.05);
+      font-weight: bold;
+      color: $black;
+    }
+
+    .switch {
+      .checkbox-label {
+        font-size: 1em;
+      }
+
+      .lever-no-margin {
+        margin-left: 5px;
+      }
+    }
+
+    .disabled-input {
+      border-bottom-style: solid !important;
+    }
+  }
+
+  .select-dropdown {      
+    font-size: 1em !important;
+
+    span {
+      color: black;
+    }
+
+    &:focus {
+      box-shadow: 0 1px 0 0 #26a69a;
+    }
+  }
+
+  .select-dropdown {
+    li {
+      &:first-child {
+        span {
+          color: $inactiveGrey;
+        }
+    }
+    }
+  }
+
+  .inactive-select {
+    color: $inactiveGrey;
+  }
+
+  button {
+    background-color: $secondaryShade5;
+
+    &:hover, &:focus {
+      background-color: $secondaryShade4;
+    }
+  }
+
+  a {
+    display: block;
+    color: black;
+    transition: ease-in-out 0.5s;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  .btn {
+    color: $white;
+    
+    &:hover, &:focus {
+      background-color: $secondaryShade4;
+      text-decoration: none;
+    }
+  }
+
+  .inner-form-btn {
+    min-width: 145px;
+    width: 30%;
+  }
+
+  .btn-link, .btn-delete {
+    color: $white;
+
+    &:hover, &:focus {
+      text-decoration: none;
+      background-color: $secondaryShade4;
+    }
+  }
+
+  .btn-link {
+    display: inline-block;
+    background-color: $secondaryShade5;
+    transition: cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
+    margin-left: 0.75rem;
+
+    &:hover, &:focus {
+      transform: scale(1.05);
+    }
+  }
+
+  .inline-link {
+    display: inline-block;
+    text-decoration: underline;
+    transition: cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
+
+    &:hover, &:focus {
+      color: $primaryColor;
+    }
+  }
+
+  .file-field {
+    .material-icons-outlined {
+      font-size: 2em;
+    }
+
+    span {
+      position: relative;
+      bottom: 7px;
+    }
+  }
+
+  .card-picture-preview, .pictures-preview {
+    span {
+      display: block;
+      text-align: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: $inactiveGrey;
+    }
+  }
+
+  .card-picture-preview {
+    max-width: 304px;
+    height: 304px;
+    border: 2px dashed $inactiveGrey;
+    overflow: hidden;
+
+    span {
+      padding-top: 15px;
+    }
+
+    img {
+      object-fit: cover;
+      width: $imgHeight;
+      height: $imgHeight;
+    }
+  }
+
+  .pictures-preview {
+    widows: 100%;
+    border: 2px dashed $inactiveGrey;
+    overflow: hidden;
+
+    span {
+      padding: 40px 0px;
+    }
+
+    .image-placeholder {
+      width: 25%;
+      height: 150px;
+      float: left;
+      overflow: hidden;
+
+      @include small-and-down {
+        width: 100%;
+      }
+    }
+
+    .thumbnail {
+      width: 100%;
+      min-height: 150px;
+      object-fit: fill;
+    }
+  }
+
+  // Datepicker
+  .datepicker-container {
+    .datepicker-date-display {
+      background-color: $primaryColor;
+    }
+
+    .datepicker-controls {
+      button {
+        &:hover {
+          background-color: $canvasColor;
+        }
+      }
+    }
+
+    .is-today {
+      button {
+        font-weight: bold;
+        color: $primaryColor;
+      }
+    }
+
+    .is-selected {
+      button{
+        font-weight: bold;
+        color: $white;
+        background-color: $primaryColor;
+      }
+    }
+
+    .confirmation-btns {
+      button {
+        color: $primaryColor;
+        border-radius: 20px;
+      }
+
+      .datepicker-done {
+        font-weight: bold;
+      }
+    }
+
+  }
+
+  .datepicker-calendar, .datepicker-footer {
+    button {
+      background-color: $canvasColor;
+      transition: ease-in-out 0.1s;
+
+      &:hover {
+        color: $white;
+        background-color: $primaryColor;
+      }
+    }
+  }
+
+  .fixed-text-ajax {
+    position: relative;
+
+    @include small-and-up {
+      top: 15px;
+    }
+  
+    b {
+      font-size: 1.1em;
+    }
+  }
+
+}
+
+// Form tooltips
+.material-tooltip {  
+  background: $secondaryShade5;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+
+  div {
+    font-size: 1em;
+  } 
+}
+
+// Errors
+.helper-text-error {
+  font-weight: bold;
+  color: $errorColor !important;
+}
+
+.field_with_errors {
+
+  label {
+    position: absolute;
+    top: -10px;
+    font-weight: bold;
+    color: $black !important;
+  }
+
+  input {
+    border-bottom: 2px solid $errorColor !important;
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
+}
+
+.empty-message {
+  display: inline-block;
+  font-size: 2em;
+  font-weight: bold;
+  color: $inactiveGrey;
+  padding: 30px 15px;
+  border-bottom: 2px dashed $inactiveGrey;
+  margin: 50px auto;
+}
+
+// Alert messages
+#toast-container {
+  @include small-and-up {
+    min-width: 10%;
+    bottom: 85%;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+  }
+}
+
+.alert-success {
+  background-color: $alertSuccess;
+}
+
+.alert-danger {
+  background-color: $alertNotice;
+}
+
+// Confirmation tooltip
+.confirmed-tooltip {
+  cursor: default !important;
+  color: $secondaryColor !important;
+  display: inline-block;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.awaiting-confirmation {
+  position: relative;
+  bottom: 15px;
+  color: $errorColor;
+  font-weight: bold;
+}
+
+.resend-confirmation-btn {
+  display: inline-block !important;
+  color: $white !important;  
+
+  &:hover, &:focus {
+    text-decoration: none !important;
+    background-color: $secondaryShade4;
+  }
+}
+
+// Delete button
+.btn-delete-large, .btn-delete  {
+  background-color: $accent3Shade3 !important;
+
+  &:hover {
+    background-color: $accent3Shade4 !important;
+  }
+}
+
+.btn-delete-large {
+  
+  .material-icons {
+    font-size: 1em;  
+    transform: scale(1.7);
+    padding-left: 10px;
+  }
+}
+
+.btn-delete {
+  max-width: 150px;
+
+  @include small-and-down {
+    span {
+      display: none;
+    }
+
+    i.right {
+      margin-left: 0px;
+    }
+  }
+}
+
+.modal {
+  border-radius: 5px;
+}
+
+.modal-confirmation {
+  max-width: 500px;
+  text-align: center;
+  padding-bottom: 25px;
+
+  .modal-content {
+    padding-bottom: 0px;
+  }
+
+  h4 {
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 1.4em;
+    margin: 15px auto !important;
+  }
+
+  .modal-footer {
+    text-align: center;
+  }
+  
+  
+  $margin-buttons: 15px;
+
+  @include small-and-down {
+    $margin-buttons: 5px;
+  }
+  
+  $width-buttons: 125px;
+
+  .btn-confirm, .btn-cancel {
+    display: inline-block;
+    min-width: $width-buttons;
+  }
+
+
+  .btn-confirm {
+    background-color: $alertSuccess;
+    margin-left: $margin-buttons !important;
+
+      &:hover, &:focus {
+        background-color: darken($alertSuccess, 10%);
+      }
+  }
+
+  .btn-cancel {
+    background-color: $accent3Shade3;
+    margin-right: $margin-buttons !important;
+
+    &:hover, &:focus {
+      background-color: darken($accent3Shade3, 10%);
+    }
+  }
+}
+
+.disabled-tooltip-wrapper {
+  cursor: default;
+  background-color: $canvasColor;
+  box-shadow: none;
+
+  &:hover, &:focus {
+    background-color: $canvasColor !important;
+    box-shadow: none;
+  }
+}
+
+button.btn-delete {
+  font-size: 0.95em !important;
+}
+
+// Social media icons
+.form {
+  .fa-facebook-square.active, .fa-facebook-square.active-social {
+    color: #3b5998;
+  }
+
+  .fa-instagram {
+    font-weight: bold;
+  }
+
+  .fa-instagram.active, .fa-instagram.active-social {
+    color: #C13584;
+  }
+
+  .fa-twitter.active, .fa-twitter.active-social {
+    color: #00acee;
+  }
+}
+
+// Dropdown options hover effect
+.dropdown-content {
+  li {
+    span {
+      color: $black;
+    }
+  }
+
+  .selected {
+    background-color: $secondaryShade3 !important;
+  }
+}
+
+// Floating action button
+.btn-floating {
+  background-color: $secondaryColor;
+
+  &:hover, &:focus {
+    background-color: darken($secondaryColor, 10%);
+  }
+}

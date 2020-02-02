@@ -1,0 +1,79 @@
+<%= form_for(@pair, url: {:controller => locals[:controller], :action => locals[:action], :form => @form}) do |f| %>
+  <div class="row">
+    <br>
+  </div>
+
+  <% if @form == "pair" %>
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="input-field">       
+          <%= f.select(:male_id, options_for_select(@male_cats_array, selected: f.object ? f.object.male_id : ""), {selected: "", disabled: "", prompt: 'Father *'}) %>
+        </div>
+        <%= render 'shared/error_messages', object: @pair, field: :male_id %>
+      </div>
+
+      <div class="col s12 m6">
+        <div class="input-field">
+          <%= f.select(:female_id, options_for_select(@female_cats_array, f.object ? f.object.female_id : ""), {selected: "", disabled: "", prompt: 'Mother *'}) %>
+        </div>
+        <%= render 'shared/error_messages', object: @pair, field: :female_id %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="actions">
+        <%= f.button class:"btn-large waves-effect waves-light", type:"submit", name:"form", value: @form do %>
+          <% if @pair.new_record? %>
+            Create
+          <% else %>
+            Update
+          <% end %>
+        <i class="material-icons right">done</i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col">
+      <%= link_to cattery_overview_path, class:"waves-effect waves-light btn left" do %>
+        <i class="material-icons left">keyboard_arrow_left</i>
+        Back
+      <% end %>
+    </div>
+    <% if !@pair.new_record? %>
+    <div class="col right">
+      <% if pair_litters_count(@pair) == 0 and pair_kittens_count(@pair) == 0 %>
+        <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal1">
+          <span>Delete</span>
+          <i class="material-icons right">delete</i>
+        </a>
+        <div id="modal1" class="modal modal-confirmation">
+          <div class="modal-content">
+            <h4>Delete <%= @form %></h4>
+            <p>Are you sure?</p>
+            <p>This action is permanent!</p>
+          </div>
+          <div class="modal-footer">
+            <a class="btn waves-effect waves-light modal-close btn-cancel">
+             Cancel
+            </a>
+            <%= link_to pair_path(@pair, form: @form), class:"btn waves-effect waves-light btn-confirm", method: :delete do %>
+              I'm sure
+            <% end %>
+          </div>
+        </div>
+      <% else %>
+        <a class="btn disabled-tooltip-wrapper tooltipped" data-position="top" data-tooltip="You can't delete a pair with kittens">
+          <button class="btn waves-effect waves-light btn-delete disabled tooltipped">
+            <span>Delete</span>
+            <i class="material-icons right">delete</i>
+          </button>
+        </a>
+      <% end %>
+    </div>
+  <% end %>
+  </div>

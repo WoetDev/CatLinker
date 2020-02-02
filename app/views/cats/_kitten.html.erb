@@ -1,0 +1,46 @@
+<% kittens.each do |cat| %>
+  <div class="col s10 offset-s1 m6 l3">
+    <a href="#">
+      <div class="card">
+        <div class="card-image">
+          <%= image_tag(cat.card_picture, :alt => "card picture") %>
+          <% if !cat.name.blank? %>
+            <span class="card-title"><%= cat.name %></span>
+          <% end %>
+        </div>
+        <div class="card-content">
+          <div class="info-block">
+            <div class="row">
+              <div class="col s4">
+                <span class="info-title">Breed:</span>
+              </div>
+              <div class="col s8">
+                <span class="info-text"><%= cat_breed(cat) %></span>
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="row">
+              <div class="col s4">
+                <span class="info-title">Gender:</span>
+              </div>
+              <div class="col s8">
+                <span class="info-text"><%= cat_gender(cat) %></span>
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="row">
+              <div class="col s4">
+                <span class="info-title">Cattery:</span>
+              </div>
+              <div class="col s8">
+                <span class="info-text"><%= cattery_name(cat) %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+<% end %>

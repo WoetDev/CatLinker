@@ -1,0 +1,13 @@
+<div class="kittens-index">
+  <h1>Kittens</h1>
+
+  <%= render 'search', :locals => {:controller => 'cats', :action => 'index'} %>
+
+  <div class="container">
+    <% if @kittens.any? %>
+      <div id="kittens" class="row">
+        <%= render 'kitten', kittens: @kittens %>
+      </div>
+    <% end %>
+  </div>
+</div>

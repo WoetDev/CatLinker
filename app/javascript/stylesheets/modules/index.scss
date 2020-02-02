@@ -1,0 +1,12 @@
+// Kittens index
+.kittens-index {
+  h1 {
+    font-size: 5em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .select-wrapper input.select-dropdown, .multiple-select-dropdown {
+    border-bottom: 2px solid $primaryColor;
+  }
+}

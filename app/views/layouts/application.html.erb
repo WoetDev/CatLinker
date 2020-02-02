@@ -1,15 +1,114 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CatLinker</title>
+    <title>Cat Linker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="turbolinks-visit-control" content="reload">
+    <%= favicon_link_tag asset_path('favicon.png') %>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/25b3ebb045.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="nav-wrapper">
+            <%= link_to root_path, class:"logo" do %>
+              <%= image_tag("logo_2.svg", :alt => "logo") %>
+              Cat Linker
+            <% end %>
+
+            <div class="right show-on-medium-and-down">
+              <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+
+            <ul class="right hide-on-med-and-down">
+              <% if user_signed_in? && current_user.is_cattery %>
+                <li><%= link_to "My Cattery", cattery_path %></li>
+              <% end %>
+              <li><a href="#">Breeds</a><% link_to "Breeds" %></li>
+              <li><%= link_to "Kittens", cats_path %></li>
+              <% if !user_signed_in? %>
+                <li><%= link_to "Login", new_user_session_path %></li>
+              <% else %>
+                <li><%= link_to "Profile", edit_user_registration_path %></li>
+                <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+              <% end %>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <div class="row">
+        <ul class="sidenav" id="mobile-demo">
+        <%= link_to root_path, class:"logo" do %>
+                <%= image_tag("logo_2.svg", :alt => "logo") %>
+                <div>Cat Linker</div>
+          <% end %>
+          <% if  user_signed_in? && current_user.is_cattery %>
+            <li><%= link_to "My Cattery", cattery_path %></li>
+          <% end %>
+          <li><a href="#">Breeds</a></li>
+          <li><%= link_to "Kittens", cats_path %></li>
+          <% if !user_signed_in? %>
+            <li><%= link_to "Login", new_user_session_path %></li>
+          <% else %>
+            <li><%= link_to "Profile", edit_user_registration_path %></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+          <% end %>
+        </ul>
+      </div>
+    </header>
+          
+    <% if notice %>
+    <script>M.toast({html: '<%= notice %>', classes: 'alert alert-success'})</script>
+    <% end %>
+    <% if alert %>
+      <script>M.toast({html: '<%= alert %>', classes: 'alert alert-danger'})</script>
+    <% end %>
+
     <%= yield %>
+    
+    <% if current_user && current_user.is_admin? %>
+      <div class="fixed-action-btn">
+        <a class="btn-floating btn-large">
+          <i class="large material-icons">group</i>
+        </a>
+      </div>
+    <% end %>
+
+    <footer class="page-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="footer-title white-text">Support</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Help</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Contact</a></li>
+            </ul>
+          </div>
+          <div class="col l6 s12">
+            <h5 class="footer-title white-text">Information</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Terms of service</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Privacy policy</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        © <%= Time.current.year %> Cat Linker
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
+

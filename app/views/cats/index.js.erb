@@ -1,0 +1,5 @@
+function replaceKittens (innerHTML) {
+  const kittens = document.getElementById('kittens');
+  kittens.innerHTML = innerHTML;
+}
+replaceKittens("<%= j render 'kitten', kittens: @kittens'} %>");

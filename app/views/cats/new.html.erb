@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="form">
+  
+    <div class="row">
+      <h2 class="form-title">Add <%= @form %></h2>
+    </div>
+    
+    <%= render 'form', :locals => {:controller => 'cats', :action => 'create'}  %>
+
+  </div>
+</div>

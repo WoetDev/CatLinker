@@ -1,0 +1,121 @@
+<div class="container">
+  <div class="form">
+    <div class="row">
+      <h2 class="form-title">Edit profile</h2>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <div class="row">
+        <br>
+      </div>
+
+      <div class="row">
+        <div class="input-field">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true %>
+          <% if devise_mapping.confirmable? && !resource.pending_reconfirmation? %>
+            <a class="tooltipped confirmed-tooltip" data-position="top" data-tooltip="Email confirmed">
+              <i class="material-icons">check_circle</i>
+            </a>
+          <% end %>
+          <% if resource.errors[:email].any? %>
+            <%= render "devise/shared/error_messages", resource: resource, field: :email %>
+          <% end %>
+        </div>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div class="row">        
+          <div class="awaiting-confirmation">Currently awaiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <%= link_to new_user_confirmation_path(resource_name), class:"btn waves-effect waves-light resend-confirmation-btn" do %>
+          Resend confirmation
+          <i class="material-icons right">redo</i>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="row">
+        <div class="col s12">
+          <div class="input-field">
+            <div class="switch">
+            <label class="checkbox-label">
+              <%= f.check_box :is_cattery %>
+              <span class="lever"></span>
+              I own a cattery
+            </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h4 class="form-section-title">Change password</h4>
+        <em class="title-info">(leave blank to not change)</em>
+      </div>
+
+      <div class="row">
+        <div class="input-field">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "new-password" %>
+          <% if resource.errors[:password].any? %>
+            <%= render "devise/shared/error_messages", resource: resource, field: :password %>
+          <% else %>
+            <% if @minimum_password_length %>
+              <span class="helper-text"><%= @minimum_password_length %> characters minimum</span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+          <% if resource.errors[:password_confirmation].any? %>
+            <%= render "devise/shared/error_messages", resource: resource, field: :password_confirmation %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <h4 class="form-section-title">Confirm changes</h4>
+      </div>
+
+      <div class="row">
+        <div class="input-field">
+          <%= f.label :current_password %>
+          <%= f.password_field :current_password, autocomplete: "current-password" %>
+          <% if resource.errors[:current_password].any? %>
+            <%= render "devise/shared/error_messages", resource: resource, field: :current_password %>
+          <% end %>
+          <span class="helper-text">we need your current password to confirm your changes</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="actions">
+          <%= f.button class:"btn waves-effect waves-light", type:"submit" do %>
+          Update
+          <i class="material-icons right">send</i>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form">
+    <div class="row">
+      <h3 class="form-title">Cancel my account</h3>
+    </div>
+
+    <div class="row">
+      <p>Unhappy or you simply don't want to have your account anymore?</p>
+      <p>We're always looking to improve our platform so please don't hesitate to <a class="inline-link">let us know</a> why you're leaving.</p>
+      <%= button_to registration_path(resource_name), data: { confirm: "Are you sure? This action is permanent!" }, method: :delete, class:"btn waves-effect waves-light btn-delete-large" do %>
+        Cancel my account
+        <i class="material-icons">delete_forever</i>
+      <% end %>
+
+    </div>
+  </div>
+</div>

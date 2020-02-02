@@ -1,0 +1,318 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+// Home - landing page
+.turbolinks-progress-bar {
+  height: 3px;
+  background-color: $secondaryColor;
+}
+
+.home-landing {
+  .image-m {
+    display: none;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .row {
+    padding: 0 2rem;
+    @include small-and-up {
+      padding: 0 8rem;
+      
+      .image-m {
+        display: block;
+      }
+    }
+  }
+
+  .col {
+    @include small-and-down {
+      padding: 0;
+      margin: 0 auto 50px auto;
+    }
+  }
+
+  // "Find a cat!" title
+  h1 {
+    font-size: 5em;
+    font-weight: bold;
+
+    @include small-and-down {
+      font-size: 4.3em;
+      margin: 0px;
+    }
+  }
+
+  // Find a cat dropdown
+  .select-dropdown {
+    border-bottom: 2px solid $primaryColor !important;
+
+    span {
+      color: black;
+    }
+  }
+}
+
+.home-landing, .kittens-landing {
+  .btn-large {
+    background: $primaryColor !important;
+
+    &:hover {
+      background: $primaryShade4 !important;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.search-landing {
+  @include small-and-up {
+    padding-left: 2em !important;
+    margin-top: 10%;
+  }
+}
+
+// Breeds section
+.container {
+  h1 {
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.breeds-landing {
+  h1 {
+    margin-bottom: -11rem;
+
+    @include small-and-up {
+      margin-top: 1.5em;
+    }
+
+    @include small-and-down {
+      margin-bottom: -5rem;
+    }
+  }
+
+  .container {
+    @include small-and-down {
+      width: 100%;
+
+      h1 {
+        margin: 0 10px -8rem 10px;
+      }
+    }
+  }
+
+  .carousel {
+    height: 640px;
+
+    @include small-and-down {
+      height: 500px;
+    }
+
+    .carousel-item {
+      width: 300px;
+
+      @include small-and-down {
+        width: 230px;
+      }
+    }
+
+    .card {
+      color: black;
+      overflow: hidden;
+
+      .card-image, .card-content {
+        cursor: pointer;
+      }
+
+      .card-content, .card-reveal {
+        border-top: 5px solid $secondaryColor;
+      }
+
+      .material-icons {
+        transition: ease-in-out 0.2s;
+        
+          &:hover {
+            background-color: $primaryColor;
+            color: $backgroundColor;
+          }
+        }
+
+      .card-content {
+        font-size: 1.4em;
+        font-weight: bold;
+
+        .material-icons {
+          position: absolute; 
+          transform: scale(2);
+        }
+
+        @include small-and-up {
+          .material-icons {
+            bottom: 25px;
+            right: 25px;
+          }
+        }
+
+        @include small-and-down {
+          font-size: 1em;
+          
+          .material-icons {
+            transform: scale(1.5);
+            bottom: 20px;
+            right: 15px;
+          }
+        }
+      }
+
+      .card-reveal {
+        .card-title {
+          font-size: 1.5em;
+          font-weight: bold;
+
+          @include small-and-down {
+            font-size: 1.15em;
+          }
+        }
+
+        .material-icons {
+          position: absolute;
+          top: 27px;
+          right: 15px;
+          transform: scale(1.2);
+          padding: 3px;
+
+          @include small-and-down {
+            top: 20px;
+            right: 10px;
+          }
+        }
+
+        a {
+          display: block;
+          font-size: 1.2em;
+          font-weight: bold;
+          color: $primaryColor;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .indicators {
+    bottom: -30px;
+
+    @include small-and-down {
+      bottom: -30px;
+    }
+
+    .indicator-item {
+      background-color: $primaryColor;
+    }
+  
+    .active {
+      background-color: $secondaryColor !important;
+    }
+  }
+}
+
+// Kittens section
+.kittens-landing, .cattery-overview, .kittens-index {
+  .card {
+    transition: ease-in-out 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+    }
+  }
+
+  .card-image {
+    max-height: $imgHeight;
+     img {
+      object-fit: cover;
+      height: $imgHeight;
+     }
+  }
+
+  .card-title {
+    display: block;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 0px 8px !important;
+    border-top-right-radius: 5px;
+    opacity: 0.8;
+    border-bottom-right-radius: 5px;
+    letter-spacing: 0.06em;
+    margin-bottom: 15px !important;
+    background-color: $secondaryColor;
+  }
+
+  .card-content {
+    color: black;
+    padding: 10px 15px 20px 15px;
+    border-top: 5px solid $secondaryColor;
+
+    .info-block {
+      // font-size: 1.3em;
+
+      // @include small-and-down {
+      //   font-size: 1.2em;
+      // }
+
+      .row {
+        margin: 0;
+      }
+
+      .col {
+        padding: 0;
+      }
+    }
+
+    .info-title {
+      font-size: 0.8em;
+      color: $accentShade4;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .info-text {
+      font-weight: bold;
+    }
+  }
+
+  .card-action {
+    text-align: center;
+
+    .row {
+      margin: 0;
+    }
+
+    a {
+      margin-right: 0 !important;
+    }
+
+    .btn-flat {
+      font-size: 1.2em;
+      color: $backgroundColor !important;
+      background-color: $primaryColor;
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+}
+
+.kittens-landing {
+  .btn-wrapper {
+    text-align: center;
+  }
+
+  .material-icons {
+    transform: scale(1.3);
+  }
+}

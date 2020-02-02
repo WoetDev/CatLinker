@@ -1,0 +1,7 @@
+<% if resource.errors.any? %>
+    <div class="helper-text helper-text-error">
+      <% resource.errors[field].each do |message| %>
+        <%= message %>
+      <% end %>
+    </div>
+<% end %>

@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# BREEDS
+breeds = ['American Shorthair','Bengal','Birman','Bombay','British Shorthair','Burmese','Chartreux','Himalayan','Maine Coon','Munchkin','Nebelung','Norwegian Forest Cat','Persian','Ragamuffin','Ragdoll','Russian Blue','Scottish Fold','Siamese','Siberian','Sphynx']
+
+breeds.each do |name|
+  Breed.create(name: name)
+end

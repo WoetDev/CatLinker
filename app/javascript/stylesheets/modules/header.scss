@@ -1,0 +1,59 @@
+// Header
+.nav-wrapper {
+  height: inherit;
+  background-color: $primaryColor;
+
+  .logo {
+    display: inline-block;
+    font-size: 2em;
+    font-weight: bold;
+    height: inherit;
+
+     img {
+      vertical-align: middle;
+      height: inherit;
+      padding: 10px;
+     }
+  }
+}
+
+nav {
+  ul {
+    .vl {
+      vertical-align: middle;
+      border-left: 6px solid $backgroundColor;
+      height: 50px;
+    }
+
+    a {
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 0px 30px;
+    }
+  }
+}
+
+// Mobile sidebar
+.sidenav {
+  background-color: $primaryShade4;
+
+  .logo {
+    display: block;
+    text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 3px dashed $backgroundColor;
+    margin: 15px auto;
+    width: 80%;
+
+    img {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+   a {
+     font-size: 1.5em !important;
+     font-weight: bold !important;
+     color: $backgroundColor !important;
+   }
+}

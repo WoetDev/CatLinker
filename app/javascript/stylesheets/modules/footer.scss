@@ -1,0 +1,30 @@
+// Footer 
+
+// Sticky footer
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+// Custom styling 
+.page-footer {
+  text-align: center;
+  background-color: $primaryColor;
+
+  li {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.footer-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-decoration: underline;
+}

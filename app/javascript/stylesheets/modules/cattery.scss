@@ -1,0 +1,92 @@
+// Cattery overview
+.cattery-overview {
+  h3 {
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .btn {
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.1em;
+    background-color: $secondaryShade5;
+
+    &:hover {
+      background-color: $secondaryShade4;
+    }
+
+    @include small-and-down {
+      span {
+        display: none;
+      }
+
+      i {
+        font-size: 1.8em;
+        padding: 0 10px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .btn-floating {
+    background-color: $primaryColor;
+  }
+
+  .card-content {
+    .btn-floating {
+      bottom: 67px;
+    }
+  }
+
+  a {
+    .info-block {
+      color: $black;
+    }
+  }
+
+  .tabs {
+    .tab {
+      a {
+        font-weight: bold;
+        color: $primaryColor;
+
+        &:focus {
+          background-color: $white;
+        }
+      }
+  
+      a.active {
+        color: $primaryColor;
+        background-color: $primaryShade6;
+  
+        &:focus {
+          background-color: $primaryShade6;
+        }
+      } 
+    }
+
+    .indicator {
+      background-color: $primaryColor;
+    }
+  }
+
+  .tabs.tabs-fixed-width {
+    overflow: hidden;
+  }
+
+  .tabs-content.carousel {
+    height: $imgHeight;
+    
+    .carousel-item {
+      min-height: 0px;
+    }
+  }
+
+  .indicators {
+    display: none;
+  }
+}
+
+#materialbox-overlay {
+  opacity: 0.8 !important;
+}
