@@ -1,16 +1,15 @@
 <div class="search-bar">
   <div class="container">
-  ::::<%= @filter %>
-    <%= form_for(:search, url: {:controller => locals[:controller], :action => locals[:action]}, method: "GET", remote: true) do |f|  %>
+    <%= form_with(url: {:controller => locals[:controller], :action => locals[:action]}, method: "GET") do |f| %>
       <div class="row">
         <div class="col s12 m4 offset-m1">
           <div class="input-field">
-            <%= f.select(:breed_id, options_for_select(@all_breeds_array), {disabled: "", prompt: 'Which breed(s) are you looking for?'}, {:multiple => true, class:"form-check-input"}) %>
+            <%= f.select(:breeds, options_for_select(@all_breeds_array, selected: f.object ? f.object.breeds : ""), {disabled: "", prompt: 'Which breed(s) are you looking for?'}, {:multiple => true, class:"form-check-input"}) %>
           </div>
         </div>
         <div class="col s12 m4 offset-m2">
           <div class="input-field">
-          <%= f.select(:city, options_for_select(@all_locations_array), {disabled: "", prompt: 'Which location(s) do you prefer?'}, {:multiple => true}) %>
+            <%= f.select(:locations, options_for_select(@all_locations_array), {disabled: "", prompt: 'Which location(s) do you prefer?'}, {:multiple => true, class:"form-check-input"}) %>
           </div>
         </div>
       </div>

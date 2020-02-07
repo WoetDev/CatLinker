@@ -2,13 +2,13 @@ class CatsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    get_all_breeds
-    get_all_locations
-    @search = params[:search]
+    get_all_available_breeds
+    get_all_available_locations
     
-    if @search.present?
-      @filter = params[:search][:breed_id].flatten.reject(&:blank?)
-      @kittens = Cat.is_parent(false).where(breed_id: @filter)
+    if params[:breeds].present? or params[:locations].present?
+      @filter = params[:breeds].concat(params[:locations]).flatten.reject(&:blank?)
+      # @kittens = Cat.is_parent(false).kitten_search(@filter).order(created_at: :desc)
+      @kittens = @filter.empty? ? Cat.is_parent(false).order(created_at: :desc) : Cat.is_parent(false).tagged_with(@filter).order(created_at: :desc)
     else
       @kittens = Cat.is_parent(false).order(created_at: :desc)
     end
@@ -22,8 +22,8 @@ class CatsController < ApplicationController
     if @form == 'parent'
       get_breeds
     elsif @form == 'kitten'
-      get_parent_breeds(user)
       get_parents(user)
+      get_parent_breeds(user)
       get_litters(user)
     end
   end
@@ -31,13 +31,15 @@ class CatsController < ApplicationController
   def create
     @form = params[:form]
     user = current_user
-
+    
     if @form == 'parent'
       get_breeds
       @cat = Cat.new(parent_params)
       @cat.user_id = user.id
       @cat.is_parent = true
-
+      @cat.breed_tag_list = "#{Breed.find(params[:cat][:breed_id]).name}"
+      @cat.location_tag_list = "#{Country.find(user.country_id).name}", "#{user.city.capitalize}"
+      
       if @cat.save
         flash[:notice] = 'Parent was successfully created'
         redirect_to cattery_overview_path
@@ -47,13 +49,15 @@ class CatsController < ApplicationController
       end
 
     elsif @form == 'kitten'
-      get_parent_breeds(user)
       get_parents(user)
+      get_parent_breeds(user)
       get_litters(user)
 
       @cat = Cat.new(kitten_params)
       @cat.user_id = user.id
       @cat.is_parent = false
+      @cat.breed_tag_list = "#{Breed.find(params[:cat][:breed_id]).name}"
+      @cat.location_tag_list = "#{Country.find(user.country_id).name}", "#{user.city.capitalize}"
 
       if @cat.save
         flash[:notice] = 'Kitten was successfully created'
@@ -76,7 +80,7 @@ class CatsController < ApplicationController
     @cat = Cat.find_by(id: params[:id])
     @form = params[:form]
     user = @cat.user
-    
+
     if @form == 'parent'
       get_breeds
     elsif @form == 'kitten'
@@ -90,10 +94,14 @@ class CatsController < ApplicationController
   def update
     @cat = Cat.find_by(id: params[:id])
     @form = params[:form]
+    user = @cat.user
+
+    @cat.breed_tag_list = "#{Breed.find(params[:cat][:breed_id]).name}"
+    @cat.location_tag_list = "#{Country.find(user.country_id).name}", "#{user.city.capitalize}"
 
     if @form == 'parent'
       get_breeds
-      
+
       if @cat.update(parent_params)
         flash[:notice] = 'Parent was successfully updated'
         redirect_to cattery_overview_path
@@ -101,13 +109,12 @@ class CatsController < ApplicationController
         flash[:alert] = 'There was a problem with updating this Parent'
         render 'edit'
       end
-    
+
     elsif @form == 'kitten'
-      user = @cat.user
       get_parent_breeds(user)
       get_parents(user)
       get_litters(user)
-      
+
       if @cat.update(kitten_params)
         flash[:notice] = 'Kitten was successfully updated'
         redirect_to cattery_overview_path
@@ -115,7 +122,7 @@ class CatsController < ApplicationController
         flash[:alert] = 'There was a problem with updating this kitten'
         render 'edit'
       end
-    
+
     else
       flash[:alert] = 'There was a problem with updating this cat'
       render 'edit'
@@ -134,7 +141,7 @@ class CatsController < ApplicationController
         flash[:alert] = 'There was a problem with deleting this parent'
         render 'edit'
       end
-    
+
     elsif @form == 'kitten'
       if @cat.destroy
         flash[:notice] = 'Kitten was successfully deleted'
@@ -150,24 +157,27 @@ class CatsController < ApplicationController
   end
   
   private
+  
+  def kittens_params
+    params.require(:cat).permit(:breeds, :locations)
+  end
 
   def parent_params
-    params.require(:cat).permit(:name, :gender, :color, :origin, :card_picture, :is_parent, :breed_id, :user_id)
+    params.require(:cat).permit(:name, :gender, :color, :origin, :card_picture, :is_parent, :breed_id, :user_id, :breed_tag_list, :location_tag_list)
   end
 
   def kitten_params
-    params.require(:cat).permit(:name, :gender, :color, :is_available, :is_vaccinated, :is_castrated, :card_picture, :breed_id, :user_id, :pair_id, :litter_number, :birth_date, pictures: [])
+    params.require(:cat).permit(:name, :gender, :color, :is_available, :is_vaccinated, :is_castrated, :card_picture, :breed_id, :user_id, :pair_id, :litter_number, :birth_date, :breed_tag_list, :location_tag_list, pictures: [])
   end
 
-  def get_all_breeds
-    breeds = Cat.distinct.pluck(:breed_id)
-    @all_breeds_array = breeds.map { |breed| ["#{Breed.find_by(id: breed).name}", breed] }.sort_by{|breed| breed[0]}
+  def get_all_available_breeds
+    breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
+    @all_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
   end
 
-  def get_all_locations
-    locations = User.distinct.where.not(city: nil).where.not(country: nil).pluck(:city, :country)
-    @all_locations_array = locations.reverse!.sort_by{|location| [location[1], location[0]]}
-    @all_locations_array = locations.map { |location| ["#{location[0]} - #{location[1]}", location[0]] }
+  def get_all_available_locations
+    locations = User.where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+    @all_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", ["#{location[0].capitalize}", "#{Country.find(location[1]).name}"]] }.uniq.sort
   end
 
   def get_breeds

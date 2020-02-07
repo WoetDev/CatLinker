@@ -3,6 +3,10 @@
     <br>
   </div>
 
+  <% @cat.errors.full_messages.each do |message|%>
+    <span><%= message %></span>
+  <% end %>
+
   <% if @form == "kitten" %>
     <div class="row">
       <div class="col s12 m6">

@@ -3,7 +3,7 @@
     <a href="#">
       <div class="card">
         <div class="card-image">
-          <%= image_tag(cat.card_picture, :alt => "card picture") %>
+          <%= image_tag(cat.thumbnail, :alt => "card picture") %>
           <% if !cat.name.blank? %>
             <span class="card-title"><%= cat.name %></span>
           <% end %>

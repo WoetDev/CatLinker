@@ -3,13 +3,18 @@ class UsersController < ApplicationController
 
   def my_cattery
     @user = current_user
+    get_all_countries
   end
 
   def update_cattery
+    get_all_countries
+
     if @user.update(cattery_params)
+      update_cat_location_tags(@user)
       flash[:notice] = 'Cattery information was successfully updated'
       render 'my_cattery'
     else
+      flash[:alert] = 'There was a problem updating your cattery information'
       render 'my_cattery'
     end
   end
@@ -51,7 +56,16 @@ class UsersController < ApplicationController
 
   def cattery_params
     params.require(:user).permit(:cattery_name, :certification_number, :street,
-    :number, :postal_code, :city, :country, :phone_number, :facebook_link,
+    :number, :postal_code, :city, :country_id, :phone_number, :facebook_link,
     :instagram_link, :twitter_link)
+  end
+
+  def get_all_countries
+    countries = Country.all.sort
+    @all_countries = countries.map { |c| [c.name, c.id] }.sort_by{|c| c[0]}
+  end
+
+  def update_cat_location_tags(user)
+    user.cats.each {|cat| cat.update_attributes(:location_tag_list => ["#{Country.find(@user.country_id).name}", "#{@user.city.capitalize}"])}
   end
 end

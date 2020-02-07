@@ -251,7 +251,7 @@ $(document).on('turbolinks:load', function() {
     
   $('.form-check-input').on('change', function() {
     console.log('Triggered');
-    $('form').submit();
+    Rails.fire(document.querySelector('form'), 'submit');
   });
 });
 

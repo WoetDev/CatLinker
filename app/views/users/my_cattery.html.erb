@@ -16,7 +16,9 @@
       <div class="row">
         <div class="col s12 l8">
           <div class="input-field">
-            <%= f.label :cattery_name %>
+            <%= f.label :cattery_name do %>
+              Cattery name *
+            <% end %>
             <%= f.text_field :cattery_name, autofocus: true %>
           </div>
           <%= render 'shared/error_messages', object: @user, field: :cattery_name %>
@@ -47,6 +49,7 @@
             <%= f.label :street %>
             <%= f.text_field :street %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :street %>
         </div>
 
         <div class="col s3">
@@ -54,30 +57,38 @@
             <%= f.label :number %>
             <%= f.text_field :number %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :number %>
         </div>
       </div>
 
       <div class="row">
         <div class="col s5">
           <div class="input-field">
-            <%= f.label :postal_code %>
+            <%= f.label :postal_code do %>
+              Postal code *
+            <% end %>
             <%= f.text_field :postal_code %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :postal_code %>
         </div>
         
         <div class="col s7">
           <div class="input-field">
-            <%= f.label :city %>
+            <%= f.label :city do %>
+              City *
+            <% end %>
             <%= f.text_field :city %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :city %>
         </div>
       </div>
 
       <div class="row">
         <div class="col s12 m5">
           <div class="input-field">
-            <%= f.select(:country, [['Country', "", { 'disabled' => 'disabled', 'selected' => 'selected', 'class' => 'inactive'}], ['Belgium', 1], ['France', 2], ['United Kingdom', 3]]) %>
+            <%= f.select(:country_id, options_for_select(@all_countries, selected: f.object ? f.object.country_id : ""), {selected: "", disabled: "", prompt: 'Country *'}) %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :country_id %>
         </div>
       </div>
 
@@ -100,6 +111,7 @@
             <%= f.label :phone_number %>
             <%= f.text_field :phone_number %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :phone_number %>
         </div>
       </div>
 
@@ -110,6 +122,7 @@
             <%= f.label :facebook_link %>
             <%= f.text_field :facebook_link %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :facebook_link %>
         </div>
 
         <div class="col s12 l4">
@@ -118,6 +131,7 @@
             <%= f.label :instagram_link %>
             <%= f.text_field :instagram_link %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :instagram_link %>
         </div>
         <div class="col s12 l4">
           <div class="input-field">
@@ -125,6 +139,7 @@
             <%= f.label :twitter_link %>
             <%= f.text_field :twitter_link %>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :twitter_link %>
         </div>
       </div>
 

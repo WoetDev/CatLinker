@@ -2,22 +2,31 @@ class Cat < ApplicationRecord
   belongs_to :user, counter_cache: true
   belongs_to :breed, counter_cache: true
   has_many :pairs
+  has_many :countries
   has_one_attached :card_picture
   has_many_attached :pictures
 
   # image processing
   def thumbnail
-    card_picture.variant(resize: '300x300').processed
+    card_picture.variant(resize: '500x500').processed
   end
 
   def other_pictures(input)
     pictures[input]
   end
 
+  # filter
+  acts_as_taggable_on :breed_tag
+  acts_as_taggable_on :location_tag
+
   include PgSearch::Model
 
   pg_search_scope :kitten_search,
-                  against: [:breed_id],
+                  against: [:breed_tag, :location_tag ],
+                  associated_against: {
+                  breeds: :name,
+                  users: [:city, :country_id]
+                  },
                   using: {
                     tsearch: {any_word: true}
                   }
