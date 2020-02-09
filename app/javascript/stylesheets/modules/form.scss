@@ -283,7 +283,6 @@
       font-size: 1.1em;
     }
   }
-
 }
 
 // Form tooltips
@@ -303,8 +302,7 @@
   color: $errorColor !important;
 }
 
-.field_with_errors {
-
+.field_with_errors {µ
   label {
     position: absolute;
     top: -10px;
@@ -321,6 +319,7 @@
   }
 }
 
+// Message if nothing was added
 .empty-message {
   display: inline-block;
   font-size: 2em;
@@ -482,6 +481,25 @@
 button.btn-delete {
   font-size: 0.95em !important;
 }
+
+// Reset dropdown button
+.reset-dropdown {
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  left: -50px;
+  bottom: -2px;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  transition: ease-in-out 0.2s;
+
+  &:hover,  &:focus  {
+    color: $white;
+    background-color: $secondaryShade5;
+  }
+}
+
 
 // Social media icons
 .form {

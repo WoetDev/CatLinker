@@ -66,6 +66,6 @@ class UsersController < ApplicationController
   end
 
   def update_cat_location_tags(user)
-    user.cats.each {|cat| cat.update_attributes(:location_tag_list => ["#{Country.find(@user.country_id).name}", "#{@user.city.capitalize}"])}
+    user.cats.each {|cat| cat.update_attributes(:location_tag_list => ["#{Country.find(@user.country_id).name}-#{@user.city.capitalize}"])}
   end
 end

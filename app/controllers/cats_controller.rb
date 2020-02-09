@@ -6,9 +6,16 @@ class CatsController < ApplicationController
     get_all_available_locations
     
     if params[:breeds].present? or params[:locations].present?
-      @filter = params[:breeds].concat(params[:locations]).flatten.reject(&:blank?)
-      # @kittens = Cat.is_parent(false).kitten_search(@filter).order(created_at: :desc)
-      @kittens = @filter.empty? ? Cat.is_parent(false).order(created_at: :desc) : Cat.is_parent(false).tagged_with(@filter).order(created_at: :desc)
+      @breed_filter = params[:breeds].flatten.reject(&:blank?)
+      @location_filter = params[:locations].flatten.reject(&:blank?)
+      # @kittens = Cat.is_parent(false).kitten_search(@filter).order(created_at: :desc) 
+      if @breed_filter.empty? && @location_filter.empty?
+        @kittens = Cat.is_parent(false).order(created_at: :desc)
+      elsif @location_filter.empty?
+        @kittens = Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).order(created_at: :desc)
+      elsif @breed_filter.empty?
+        @kittens = Cat.is_parent(false).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc)
+      end
     else
       @kittens = Cat.is_parent(false).order(created_at: :desc)
     end
@@ -38,7 +45,7 @@ class CatsController < ApplicationController
       @cat.user_id = user.id
       @cat.is_parent = true
       @cat.breed_tag_list = "#{Breed.find(params[:cat][:breed_id]).name}"
-      @cat.location_tag_list = "#{Country.find(user.country_id).name}", "#{user.city.capitalize}"
+      @cat.location_tag_list = "#{Country.find(user.country_id).name}-#{user.city.capitalize}"
       
       if @cat.save
         flash[:notice] = 'Parent was successfully created'
@@ -57,7 +64,7 @@ class CatsController < ApplicationController
       @cat.user_id = user.id
       @cat.is_parent = false
       @cat.breed_tag_list = "#{Breed.find(params[:cat][:breed_id]).name}"
-      @cat.location_tag_list = "#{Country.find(user.country_id).name}", "#{user.city.capitalize}"
+      @cat.location_tag_list = "#{Country.find(user.country_id).name}-#{user.city.capitalize}"
 
       if @cat.save
         flash[:notice] = 'Kitten was successfully created'
@@ -97,7 +104,7 @@ class CatsController < ApplicationController
     user = @cat.user
 
     @cat.breed_tag_list = "#{Breed.find(params[:cat][:breed_id]).name}"
-    @cat.location_tag_list = "#{Country.find(user.country_id).name}", "#{user.city.capitalize}"
+    @cat.location_tag_list = "#{Country.find(user.country_id).name}-#{user.city.capitalize}"
 
     if @form == 'parent'
       get_breeds
@@ -171,13 +178,25 @@ class CatsController < ApplicationController
   end
 
   def get_all_available_breeds
-    breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
+    if params[:locations].present?
+      @location_filter = params[:locations].flatten.reject(&:blank?)
+
+      breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
+    else
+      breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
+    end
     @all_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
   end
 
   def get_all_available_locations
-    locations = User.where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
-    @all_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", ["#{location[0].capitalize}", "#{Country.find(location[1]).name}"]] }.uniq.sort
+    if params[:breeds].present?
+      @breed_filter = params[:breeds].flatten.reject(&:blank?)
+      cat_ids = Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).pluck(:id)      
+      locations = User.joins(:cats).where(cats: { id: cat_ids }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+    else
+      locations = User.where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+    end
+    @all_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
   end
 
   def get_breeds

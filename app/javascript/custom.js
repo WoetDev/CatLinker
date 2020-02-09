@@ -17,6 +17,18 @@ $(document).on('turbolinks:load', function() {
   $('.fixed-action-btn').floatingActionButton();
   $('.modal').modal();
 
+  // // Add active class to text inputs on page load
+  // var textInputs = $('input[type="text"]');
+
+  // $(textInputs).each(function() {
+  //   if($(this).val() != "" && $(this).val() != null) {
+  //     $(this).addClass('active');
+  //   }
+  //   else {
+  //     $(this).removeClass('active');
+  //   }
+  // });
+
   // Close select when clicking or tapping on the first disabled option
   function closeSelectOnDisabledOption(e) {
     $(':focus').blur();    
@@ -52,7 +64,9 @@ $(document).on('turbolinks:load', function() {
 
   $(selectInForm).on('change', addActiveIfDropdownIsFilled);
 
-  
+  // Add truncation to select dropdown text inputs
+  $('.dropdown-trigger').addClass('truncate');
+
   // HOMEPAGE
   if (pathname == "/") {
 
@@ -249,9 +263,24 @@ $(document).on('turbolinks:load', function() {
     })
   }
     
+  // Trigger AJAX dropdown filters
   $('.form-check-input').on('change', function() {
-    console.log('Triggered');
     Rails.fire(document.querySelector('form'), 'submit');
+
+    // Show reset button if options are selected
+    if ($(this).val() != "" && $(this).val() != null) {
+      $($(this).parent().parent().find('.reset-dropdown')).show();
+    }
+    else {
+      $($(this).parent().parent().find('.reset-dropdown')).hide();
+    }
+  });
+
+  // Reset dropdown filters
+  $('.reset-dropdown').on('click', function() {
+    $($(this).parent().find('.form-check-input')).val($(this).parent().find('.disabled').text());
+    $($(this).parent().find('.select-dropdown')).val($(this).parent().find('.disabled').text());
+    $(this).hide();
   });
 });
 

@@ -22,10 +22,9 @@ class Cat < ApplicationRecord
   include PgSearch::Model
 
   pg_search_scope :kitten_search,
-                  against: [:breed_tag, :location_tag ],
+                  against: [:name ],
                   associated_against: {
                   breeds: :name,
-                  users: [:city, :country_id]
                   },
                   using: {
                     tsearch: {any_word: true}
