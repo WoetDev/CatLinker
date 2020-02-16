@@ -1,5 +1,11 @@
 function replaceKittens (innerHTML) {
-  const kittens = document.getElementById('kittens');
-  kittens.innerHTML = innerHTML;
+  var kittens = $('#kittens');
+  $(kittens).html(innerHTML);
 }
+
+<% if @kittens.any? %>
 replaceKittens("<%= j render 'kitten', kittens: @kittens %>");
+<% else %>
+replaceKittens("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
+<% end %>
+

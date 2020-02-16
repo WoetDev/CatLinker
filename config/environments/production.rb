@@ -112,5 +112,5 @@ Rails.application.configure do
 
   # Add default mailer url for Devise
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'catlinker.herokuapp.com', :protocol => 'https'}
+  config.action_mailer.default_url_options = { :host => 'catlinker.com', :protocol => 'https'}
 end

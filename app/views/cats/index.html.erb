@@ -1,12 +1,22 @@
 <div class="kittens-index">
   <h1>Kittens</h1>
 
-  <%= render 'search', :locals => {:controller => 'cats', :action => 'index'} %>
+  <div class="search-bar">
+    <div id="search" class="container">
+      <%= render 'search', :locals => {:controller => 'cats', :action => 'index'} %>
+    </div>
+  </div>
 
   <div class="container">
     <% if @kittens.any? %>
       <div id="kittens" class="row">
         <%= render 'kitten', kittens: @kittens %>
+      </div>
+    <% else %>
+      <div id="kittens" class="row">
+        <div class="col s12 center-align">
+          <span class="empty-message">No kittens found!</span>
+        </div>
       </div>
     <% end %>
   </div>

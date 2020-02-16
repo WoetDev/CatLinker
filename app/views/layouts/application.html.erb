@@ -74,7 +74,9 @@
       <script>M.toast({html: '<%= alert %>', classes: 'alert alert-danger'})</script>
     <% end %>
 
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
     
     <% if current_user && current_user.is_admin? %>
       <div class="fixed-action-btn">

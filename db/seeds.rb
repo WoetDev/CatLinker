@@ -6,16 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# BREEDS
-breeds = ['American Shorthair','Bengal','Birman','Bombay','British Shorthair','Burmese','Chartreux','Himalayan','Maine Coon','Munchkin','Nebelung','Norwegian Forest Cat','Persian','Ragamuffin','Ragdoll','Russian Blue','Scottish Fold','Siamese','Siberian','Sphynx']
+# # BREEDS
+# breeds = ['American Shorthair','Bengal','Birman','Bombay','British Shorthair','Burmese','Chartreux','Himalayan','Maine Coon','Munchkin','Nebelung','Norwegian Forest Cat','Persian','Ragamuffin','Ragdoll','Russian Blue','Scottish Fold','Siamese','Siberian','Sphynx']
 
-breeds.each do |name|
-  Breed.create(name: name)
-end
+# breeds.each do |name|
+#   Breed.create(name: name)
+# end
 
-# COUNTRIES
-countries = ['France','The Netherlands','Germany']
+# # COUNTRIES
+# countries = ['Belgium','France','The Netherlands','Germany']
 
-countries.each do |country|
-  Country.create(name: country)
-end
+# countries.each do |country|
+#   Country.create(name: country)
+# end

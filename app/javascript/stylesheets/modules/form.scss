@@ -83,7 +83,7 @@
         span {
           color: $inactiveGrey;
         }
-    }
+      }
     }
   }
 
@@ -348,6 +348,10 @@
   background-color: $alertNotice;
 }
 
+.alert-error {
+  background-color: $errorShade;
+}
+
 // Confirmation tooltip
 .confirmed-tooltip {
   cursor: default !important;
@@ -522,6 +526,8 @@ button.btn-delete {
 
 // Dropdown options hover effect
 .dropdown-content {
+  z-index: 1004;
+
   li {
     span {
       color: $black;
