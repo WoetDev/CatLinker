@@ -4,6 +4,29 @@ class UsersController < ApplicationController
   def my_cattery
     @user = current_user
     get_all_countries
+
+    if @user.postal_code.blank? or @user.city.blank? or @user.country_id.blank?
+      required_info = [@user.cattery_name, @user.postal_code, @user.city, @user.country_id]
+      required_info_strings = ["cattery name", "postal code", "city", "country"]
+      blank_required_info_array = []
+
+      required_info.each.with_index do |info, index|
+        if info.blank?
+          blank_required_info_array.push(required_info_strings[index])
+        end
+      end
+
+      if blank_required_info_array.size > 1
+        blank_required_info_string = blank_required_info_array.take(blank_required_info_array.size-1).join(', ')
+        blank_required_info_string = "#{blank_required_info_string} and #{blank_required_info_array.last}"
+      else
+        blank_required_info_string = blank_required_info_array.join
+      end
+
+      @required_info_message = "You must add a #{blank_required_info_string} before you can add cats"
+
+    end
+
   end
 
   def update_cattery

@@ -362,11 +362,18 @@
   right: 10px;
 }
 
+.awaiting-confirmation, .blocking-helper-text {
+  color: $errorColor;
+  font-weight: bold;
+}
+
 .awaiting-confirmation {
   position: relative;
   bottom: 15px;
-  color: $errorColor;
-  font-weight: bold;
+}
+
+.blocking-helper-text {
+  margin-top: 15px;
 }
 
 .resend-confirmation-btn {
@@ -525,9 +532,13 @@ button.btn-delete {
 }
 
 // Dropdown options hover effect
-.dropdown-content {
-  z-index: 1004;
+.input-field {
+  .dropdown-content {
+    z-index: 996;
+  }
+}
 
+.dropdown-content {
   li {
     span {
       color: $black;

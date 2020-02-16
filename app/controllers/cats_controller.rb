@@ -207,23 +207,12 @@ class CatsController < ApplicationController
   end
 
   def get_all_available_breeds
-    if params[:locations].present?
-      @location_filter = params[:locations].flatten.reject(&:blank?)
-      breeds = Cat.is_parent(false).tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:breed_id)
-    else
-      breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
-    end
+    breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
     @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
   end
 
   def get_all_available_locations
-    if params[:breeds].present?
-      @breed_filter = params[:breeds].flatten.reject(&:blank?)
-      breed_ids = Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).distinct.pluck(:breed_id)   
-      locations = User.joins(:cats).where(cats: { is_parent: false, breed_id: breed_ids }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
-    else
-      locations = User.joins(:cats).where(cats: { is_parent: false }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
-    end
+    locations = User.joins(:cats).where(cats: { is_parent: false }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
     @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
   end
 

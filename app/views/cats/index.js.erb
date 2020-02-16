@@ -3,7 +3,7 @@ function replaceKittens (innerHTML) {
   $(kittens).html(innerHTML);
 }
 
-<% if @kittens.any? %>
+<% if @kittens.exists? %>
 replaceKittens("<%= j render 'kitten', kittens: @kittens %>");
 <% else %>
 replaceKittens("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");

@@ -33,9 +33,21 @@
       </div>
 
       <div class="row">
-        <%= link_to cattery_overview_path, class:"waves-effect waves-light btn-large btn-link" do %>
-          Edit cats
-          <i class="material-icons right">create</i>
+        <% if f.object.cattery_name.present? and f.object.postal_code.present? and f.object.city.present? and f.object.country_id.present? %>
+          <%= link_to cattery_overview_path, class:"waves-effect waves-light btn-large btn-link" do %>
+            Edit cats
+            <i class="material-icons right">create</i>
+          <% end %>
+        <% else %>
+          <div class="col">
+            <button class="btn-large disabled ">
+              Edit cats
+              <i class="material-icons right">create</i>
+            </button>
+          </div>
+          <div class="col">
+            <div class="blocking-helper-text"><%= @required_info_message %></div>
+          </div>
         <% end %>
       </div>
 
