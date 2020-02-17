@@ -12,6 +12,8 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 # Use Hirb for fancier Rails Console output
 gem 'hirb'
 gem 'omniauth', '~> 1.9'
+# Use Pagy for pagination
+gem 'pagy', '~> 3.7', '>= 3.7.3'
 # Use pg_search for filtering
 gem 'pg_search'
 # Use postgresql as the database for Active Record

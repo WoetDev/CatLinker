@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def cat_gender(cat)
     if cat.gender == '1'
       'Male'

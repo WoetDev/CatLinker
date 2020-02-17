@@ -266,6 +266,7 @@ $(document).on('turbolinks:load', function() {
   // Trigger AJAX dropdown filters
   $('.form-filter').on('change', function() {
     Rails.fire(document.querySelector('form'), 'submit');
+    $('#kittens').html('');
 
     // Show reset button if options are selected
     if ($(this).val() != "" && $(this).val() != null) {
@@ -323,6 +324,7 @@ $(document).on('turbolinks:load', function() {
     $($(this).parent().find('.select-dropdown')).val($(this).parent().find('.disabled').text());
     $($(this).parent().find('select')).children('option:not(:first)').remove();
     $(this).hide();
+    $('#kittens').html('');
 
     $.ajax({
       type: 'GET',
@@ -381,6 +383,25 @@ $(document).on('turbolinks:load', function() {
       }
     });
   });
+
+  // 
+  var loadNextPage = function(){
+    // prevent multiple loading
+    if ($('#next_link').data("loading")) {
+      return
+    }  
+    var wBottom  = $(window).scrollTop() + $(window).height();
+    var elBottom = $('#kittens').offset().top + $('#kittens').height();
+    // Check if we're at the bottom of the page and a next link exists before we click it
+    if (wBottom > elBottom && $('#next_link')[0]) {
+      $('#next_link')[0].click();
+      $('#next_link').data("loading", true);
+    }
+  };
+  
+  window.addEventListener('resize', loadNextPage);
+  window.addEventListener('scroll', loadNextPage);
+  window.addEventListener('load',   loadNextPage);
 });
 
 $(document).on('turbolinks:request-end', function() {

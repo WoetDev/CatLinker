@@ -8,9 +8,9 @@
   </div>
 
   <div class="container">
-    <% if @kittens.exists? %>
+    <% if @kittens.present? %>
       <div id="kittens" class="row">
-        <%= render 'kitten', kittens: @kittens %>
+        <%= render partial: 'page_items' %>
       </div>
     <% else %>
       <div id="kittens" class="row">
@@ -20,4 +20,10 @@
       </div>
     <% end %>
   </div>
+</div>
+
+<div id="loader">
+</div>
+<div id="div_next_link">
+  <%= render partial: 'next_link' %>
 </div>

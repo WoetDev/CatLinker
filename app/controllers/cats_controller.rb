@@ -1,5 +1,5 @@
 class CatsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show, :update_filters]
 
   def index
     get_all_available_breeds
@@ -9,18 +9,19 @@ class CatsController < ApplicationController
 
       @breed_filter = params[:breeds].flatten.reject(&:blank?)
       @location_filter = params[:locations].flatten.reject(&:blank?)
+      
 
       if @breed_filter.empty? && @location_filter.empty?
-        @kittens = Cat.is_parent(false).order(created_at: :desc)
+        @pagy, @kittens = pagy_countless(Cat.is_parent(false).order(created_at: :desc))
       elsif @location_filter.empty?
-        @kittens = Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).order(created_at: :desc)
+        @pagy, @kittens = pagy_countless(Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).order(created_at: :desc))
       elsif @breed_filter.empty?
-        @kittens = Cat.is_parent(false).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc)
+        @pagy, @kittens = pagy_countless(Cat.is_parent(false).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc))
       else
-        @kittens = Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc)
+        @pagy, @kittens = pagy_countless(Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc))
       end
     else
-      @kittens = Cat.is_parent(false).order(created_at: :desc)
+      @pagy, @kittens = pagy_countless(Cat.is_parent(false).order(created_at: :desc))
     end
 
   end

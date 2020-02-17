@@ -1,10 +1,11 @@
 function replaceKittens (innerHTML) {
   var kittens = $('#kittens');
-  $(kittens).html(innerHTML);
+  $(kittens).append(innerHTML);
 }
 
-<% if @kittens.exists? %>
-replaceKittens("<%= j render 'kitten', kittens: @kittens %>");
+<% if @kittens.present? %>
+replaceKittens("<%= j(render 'page_items')%>");
+$('#div_next_link').html("<%= j(render 'next_link') %>");
 <% else %>
 replaceKittens("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
 <% end %>
