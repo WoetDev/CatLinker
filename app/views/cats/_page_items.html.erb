@@ -1,6 +1,6 @@
 <% @kittens.each do |cat| %>
   <div class="col s10 offset-s1 m6 l3">
-    <a href="#">
+    <%= link_to cat_path(cat), target:"_blank" do %>
       <div class="card">
         <div class="card-image">
           <%= image_tag(cat.thumbnail, :alt => "card picture") %>
@@ -35,12 +35,12 @@
                 <span class="info-title">Cattery:</span>
               </div>
               <div class="col s8">
-                <span class="info-text"><%= cattery_name(cat) %></span>
+                <span class="info-text"><%= cattery(cat).cattery_name %></span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </a>
+    <% end %>
   </div>
 <% end %>

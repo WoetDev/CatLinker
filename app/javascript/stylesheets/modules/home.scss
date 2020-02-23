@@ -221,7 +221,7 @@
 }
 
 // Kittens section
-.kittens-landing, .cattery-overview, .kittens-index {
+.kittens-landing, .cattery-overview, .kittens-index, .other-kittens {
   .card {
     transition: ease-in-out 0.2s;
 
@@ -259,12 +259,6 @@
     border-top: 5px solid $secondaryColor;
 
     .info-block {
-      // font-size: 1.3em;
-
-      // @include small-and-down {
-      //   font-size: 1.2em;
-      // }
-
       .row {
         margin: 0;
       }

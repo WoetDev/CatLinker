@@ -150,6 +150,7 @@
 
     &:hover, &:focus {
       color: $primaryColor;
+      font-weight: bold;
     }
   }
 
@@ -283,6 +284,10 @@
       font-size: 1.1em;
     }
   }
+
+  .hidden {
+    display: none;
+  }
 }
 
 // Form tooltips
@@ -302,7 +307,7 @@
   color: $errorColor !important;
 }
 
-.field_with_errors {µ
+.field_with_errors {
   label {
     position: absolute;
     top: -10px;
@@ -310,7 +315,7 @@
     color: $black !important;
   }
 
-  input {
+  input, textarea {
     border-bottom: 2px solid $errorColor !important;
 
     &:focus {
@@ -389,6 +394,7 @@
 // Delete button
 .btn-delete-large, .btn-delete  {
   background-color: $accent3Shade3 !important;
+  max-width: 200px;
 
   &:hover {
     background-color: $accent3Shade4 !important;
@@ -556,5 +562,38 @@ button.btn-delete {
 
   &:hover, &:focus {
     background-color: darken($secondaryColor, 10%);
+  }
+}
+
+// Contact form
+.contact {
+  .form {
+    .contact-info-block {
+      font-size: 1.6em !important;
+      $contact-margin-top: 10;
+      $contact-margin-top-first: (55-$contact-margin-top) + px;
+
+      @include small-and-up {
+        padding-left: 15px;
+      }
+      
+      &:first-child {
+        margin-top: $contact-margin-top-first;
+
+        @include small-and-down {
+          margin-top: 10px;
+        }
+      }
+
+      .info-title {
+        text-align: right;
+        position: relative;
+        right: 10px;
+      }
+
+      .info-title, .info-text {
+        margin-top: ($contact-margin-top) + px;
+      }
+    }
   }
 }

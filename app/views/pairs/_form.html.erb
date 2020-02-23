@@ -39,7 +39,7 @@
 
   <div class="row">
     <div class="col">
-      <%= link_to cattery_overview_path, class:"waves-effect waves-light btn left" do %>
+      <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn left" do %>
         <i class="material-icons left">keyboard_arrow_left</i>
         Back
       <% end %>
@@ -47,11 +47,11 @@
     <% if !@pair.new_record? %>
     <div class="col right">
       <% if pair_litters_count(@pair) == 0 and pair_kittens_count(@pair) == 0 %>
-        <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal1">
+        <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal-delete">
           <span>Delete</span>
           <i class="material-icons right">delete</i>
         </a>
-        <div id="modal1" class="modal modal-confirmation">
+        <div id="modal-delete" class="modal modal-confirmation">
           <div class="modal-content">
             <h4>Delete <%= @form %></h4>
             <p>Are you sure?</p>

@@ -1,11 +1,19 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:my_cattery, :update_cattery]
+  before_action :set_user
+  skip_before_action :authenticate_user!, only: [:index, :show]
+
+  def index
+
+  end
+
+  def show
+    @user = User.find(params[:id])
+  end
 
   def my_cattery
-    @user = current_user
     get_all_countries
 
-    if @user.postal_code.blank? or @user.city.blank? or @user.country_id.blank?
+    if @user.cattery_name.blank? or @user.postal_code.blank? or @user.city.blank? or @user.country_id.blank?
       required_info = [@user.cattery_name, @user.postal_code, @user.city, @user.country_id]
       required_info_strings = ["cattery name", "postal code", "city", "country"]
       blank_required_info_array = []

@@ -1,5 +1,5 @@
 <main>
-  <div class="section home-landing" id="homeTab">
+  <div class="section home-landing">
     <div class="row">
       <div class="col l5 hide-on-med-and-down">
         <%= image_tag("undraw_Playful_cat_rchv.svg", :alt => "cat", class:"image-m") %>
@@ -118,7 +118,7 @@
           <h1>New kittens</h1>
           <% @kittens.each do |cat| %>
             <div class="col s10 offset-s1 m6 l3">
-              <a href="#">
+              <%= link_to cat_path(cat) do %>
                 <div class="card">
                   <div class="card-image">
                     <%= image_tag(cat.card_picture, :alt => "card picture") %>
@@ -153,18 +153,18 @@
                           <span class="info-title">Cattery:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= cattery_name(cat) %></span>
+                          <span class="info-text"><%= cattery(cat).cattery_name %></span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </a>
+              <% end %>
             </div>
           <% end %>
         </div>
         <div class="row btn-wrapper">
-        <%= link_to cats_path(anchor: "kittens"), class:"waves-effect waves-light btn-large" do %>
+        <%= link_to cats_path, class:"waves-effect waves-light btn-large" do %>
           See all kittens
           <i class="fas fa-cat"></i>
         <% end %>

@@ -4,9 +4,11 @@ function replaceKittens (innerHTML) {
 }
 
 <% if @kittens.present? %>
+$('#kittens').html('');
 replaceKittens("<%= j(render 'page_items')%>");
 $('#div_next_link').html("<%= j(render 'next_link') %>");
 <% else %>
+$('#kittens').html('');
 replaceKittens("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
 <% end %>
 

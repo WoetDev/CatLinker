@@ -9,8 +9,12 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 gem 'acts-as-taggable-on'
 # Use Devise for user authentication
 gem 'devise', '~> 4.7', '>= 4.7.1'
+# User figaro for setting environment variables
+gem 'figaro'
 # Use Hirb for fancier Rails Console output
 gem 'hirb'
+# User mail_form gem for custom email forms
+gem 'mail_form'
 gem 'omniauth', '~> 1.9'
 # Use Pagy for pagination
 gem 'pagy', '~> 3.7', '>= 3.7.3'

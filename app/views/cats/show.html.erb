@@ -1,0 +1,206 @@
+<div id="kitten-view" class="container">
+  <div class="row">
+    <div class="col s12">
+        <h1><%= cat_breed(@cat) %><h1>
+        <% if @cat.name.present? %>
+          <h1 class="cat-name"><%= @cat.name %><h1>
+        <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m6 picture-main-container"> 
+      <%= image_tag(@cat.card_picture, :alt => "main picture", class:"picture-main z-depth-2") %>
+    </div>
+    <div class="col s12 m6">
+      <div class="info-main">
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Cattery:
+          </div>
+          <div class="col s6 m7 info-text">
+            <%= link_to cattery_path(@user), class:"info-link" do %>
+              <%= cattery(@cat).cattery_name %>
+            <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Location:
+          </div>
+          <div class="col s6 m7 info-text">
+            <%= cat_location(@cat) %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Gender:
+          </div>
+          <div class="col s6 m7 info-text">
+            <%= cat_gender(@cat) %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Birth date:
+          </div>
+          <div class="col s6 m7 info-text">
+            <%= format_birth_date(@cat) %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Color:
+          </div>
+          <div class="col s6 m7 info-text">
+            <%= @cat.color %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Vaccinated:
+          </div>
+          <div class="col s6 m7 info-text">
+            <% if @cat.is_vaccinated %>
+              <i class="material-icons check">check</i>
+            <% else %>
+              <i class="material-icons close">close</i>
+            <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Castrated:
+          </div>
+          <div class="col s6 m7 info-text">
+            <% if @cat.is_castrated %>
+              <i class="material-icons check">check</i>
+            <% else %>
+              <i class="material-icons close">close</i>
+            <% end %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 m5 info-title">
+            Available:
+          </div>
+          <div class="col s6 m7 info-text">
+            <% if @cat.is_available %>
+              <i class="material-icons check">check</i>
+            <% else %>
+              <i class="material-icons close">close</i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <% if @cat.pictures.any? %>
+        <div class="pictures-other-container grid">
+          <div class="grid-col grid-col--1"></div>
+          <div class="grid-col grid-col--2"></div>
+          <div class="grid-col grid-col--3"></div>
+          <div class="grid-col grid-col--4"></div>
+          <% (0...@cat.pictures.count).each do |picture| %>
+            <div class="image-placeholder grid-item">
+              <%= image_tag(@cat.other_pictures(picture), class:"thumbnail materialboxed") %> 
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="section parents">
+    <h1>Parents</h1>
+    <div class="row">
+      <div class="pictures-parents-container">
+        <div class="col s12 m5 offset-m1">
+          <div class="picture-parent-container"> 
+            <%= image_tag(cat_father(@cat).square, :alt => "father picture") %>
+          </div>
+          <div class="parent-info">
+            <h3><%= cat_father(@cat).name %></h3>
+            <% if cat_father(@cat).origin.present? %>
+              <h4><span>Origin:</span>&nbsp;<%= cat_father(@cat).origin %><h4>
+            <% end %>
+          </div>
+        </div>
+        <div class="col s12 m5">
+          <div class="picture-parent-container"> 
+            <%= image_tag(cat_mother(@cat).square, :alt => "mother picture") %>
+          </div>
+          <div class="parent-info">
+            <h3><%= cat_mother(@cat).name %></h3>
+            <% if cat_mother(@cat).origin.present? %>
+              <h4><span>Origin:</span>&nbsp;<%= cat_mother(@cat).origin %><h4>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if other_kittens_from_same_litter(@cat).any? %>
+    <div class="section other-kittens">
+      <div class="row">
+        <h1>Siblings</h1>
+      </div>
+      <div class="row">
+        <% other_kittens_from_same_litter(@cat).each do |cat| %>
+          <div class="col s10 offset-s1 m6 l4">
+            <%= link_to cat_path(cat) do %>
+              <div class="card">
+                <div class="card-image">
+                  <%= image_tag(cat.thumbnail, :alt => "card picture") %>
+                  <% if !cat.name.blank? %>
+                    <span class="card-title"><%= cat.name %></span>
+                  <% end %>
+                </div>
+                <div class="card-content">
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Breed:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= cat_breed(cat) %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Gender:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= cat_gender(cat) %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s8 offset-s4">
+                        <div class="info-available">
+                          <% if cat.is_available %>
+                            <i class="material-icons check">check</i>
+                            <span class="available-text">Available</span>
+                          <% else %>
+                            <i class="material-icons close">close</i>
+                            <span class="unavailable-text">Unavailable</span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div id="contact" class="section contact">
+    <%= render 'shared/contact_form' %>
+  </div>
+</div>

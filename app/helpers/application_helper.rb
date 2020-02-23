@@ -10,13 +10,17 @@ module ApplicationHelper
   end
 
   def cat_breed(cat)
-    Breed.find_by(id: cat.breed_id).name
+    Breed.find(cat.breed_id).name
   end
 
-  def cattery_name(cat)
-    User.find_by(id: cat.user_id).cattery_name
+  def cattery(cat)
+    User.find(cat.user_id)
   end
 
+  def cattery_user(user)
+    User.find(user.id)
+  end
+  
   def parent_litters_count(cat)
     if cat.gender == '1'
       pairs = Pair.user_id(current_user.id).male_id(cat.id)

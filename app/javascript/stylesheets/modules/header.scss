@@ -1,4 +1,24 @@
 // Header
+header {
+  .nav-dropdown-trigger {
+    span {
+      position: relative;
+      right: 10px;
+    }
+  }
+  .material-icons {
+    position: absolute;
+    right: 8px;
+    top: 0px;
+  }
+
+  .dropdown-content {
+    li > a {
+      color: $primaryColor;
+    }
+  }
+}
+
 .nav-wrapper {
   height: inherit;
   background-color: $primaryColor;
@@ -43,9 +63,6 @@ nav {
     display: block;
     text-align: center;
     padding-bottom: 15px;
-    border-bottom: 3px dashed $backgroundColor;
-    margin: 15px auto;
-    width: 80%;
 
     img {
       display: block;
@@ -57,5 +74,20 @@ nav {
      font-size: 1.5em !important;
      font-weight: bold !important;
      color: $backgroundColor !important;
+   }
+
+   .logo, .divider {
+    border-bottom: 3px dashed $backgroundColor;
+    width: 80%;
+    margin: 15px auto;
+   }
+
+   .divider {
+      background-color: transparent;
+   }
+
+   .subitem {
+    font-size: 1.2em !important;
+    padding-left: 40px;
    }
 }

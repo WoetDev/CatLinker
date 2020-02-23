@@ -1,4 +1,5 @@
 class CatsController < ApplicationController
+  before_action :set_user
   skip_before_action :authenticate_user!, only: [:index, :show, :update_filters]
 
   def index
@@ -6,10 +7,8 @@ class CatsController < ApplicationController
     get_all_available_locations
 
     if params[:breeds].present? or params[:locations].present?
-
       @breed_filter = params[:breeds].flatten.reject(&:blank?)
       @location_filter = params[:locations].flatten.reject(&:blank?)
-      
 
       if @breed_filter.empty? && @location_filter.empty?
         @pagy, @kittens = pagy_countless(Cat.is_parent(false).order(created_at: :desc))
@@ -23,7 +22,6 @@ class CatsController < ApplicationController
     else
       @pagy, @kittens = pagy_countless(Cat.is_parent(false).order(created_at: :desc))
     end
-
   end
 
   def new
@@ -54,7 +52,7 @@ class CatsController < ApplicationController
 
       if @cat.save
         flash[:notice] = 'Parent was successfully created'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       else
         flash[:alert] = 'There was a problem with creating this parent'
         render 'new'
@@ -73,7 +71,7 @@ class CatsController < ApplicationController
 
       if @cat.save
         flash[:notice] = 'Kitten was successfully created'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       else
         flash[:alert] = 'There was a problem with creating this kitten'
         render 'new'
@@ -86,6 +84,9 @@ class CatsController < ApplicationController
   end
 
   def show
+    @cat = Cat.find(params[:id])
+    @user = User.find(@cat.user_id)
+    @message = Message.new(params[:message])
   end
 
   def edit
@@ -116,7 +117,7 @@ class CatsController < ApplicationController
 
       if @cat.update(parent_params)
         flash[:notice] = 'Parent was successfully updated'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       else
         flash[:alert] = 'There was a problem with updating this Parent'
         render 'edit'
@@ -129,7 +130,7 @@ class CatsController < ApplicationController
 
       if @cat.update(kitten_params)
         flash[:notice] = 'Kitten was successfully updated'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       else
         flash[:alert] = 'There was a problem with updating this kitten'
         render 'edit'
@@ -145,11 +146,12 @@ class CatsController < ApplicationController
   def destroy
     @form = params[:form]
     @cat = Cat.find_by(id: params[:id])
+    user = User.find(@cat.user_id)
 
     if @form == 'parent'
       if @cat.destroy
         flash[:notice] = 'Parent was successfully deleted'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       else
         flash[:alert] = 'There was a problem with deleting this parent'
         render 'edit'
@@ -158,7 +160,7 @@ class CatsController < ApplicationController
     elsif @form == 'kitten'
       if @cat.destroy
         flash[:notice] = 'Kitten was successfully deleted'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       else
         flash[:alert] = 'There was a problem with deleting this kitten'
         render 'edit'
@@ -189,11 +191,14 @@ class CatsController < ApplicationController
     @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
     @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
 
-
-    render json:{ breeds: @all_available_breeds_array, locations: @all_available_locations_array }
+    render json: { breeds: @all_available_breeds_array, locations: @all_available_locations_array }
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
 
   def kittens_params
     params.require(:cat).permit(:breeds, :locations)

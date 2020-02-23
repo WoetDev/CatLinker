@@ -4,7 +4,7 @@
       <h2 class="form-title">My Cattery</h2>
     </div>
 
-    <%= form_for(@user, url: cattery_path(@user), html: { method: :post }) do |f| %>
+    <%= form_for(@user, url: my_cattery_cattery_path(@user), html: { method: :post }) do |f| %>
       <div class="row">
         <br>
       </div>
@@ -34,7 +34,7 @@
 
       <div class="row">
         <% if f.object.cattery_name.present? and f.object.postal_code.present? and f.object.city.present? and f.object.country_id.present? %>
-          <%= link_to cattery_overview_path, class:"waves-effect waves-light btn-large btn-link" do %>
+          <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn-large btn-link" do %>
             Edit cats
             <i class="material-icons right">create</i>
           <% end %>

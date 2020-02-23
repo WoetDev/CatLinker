@@ -30,16 +30,25 @@
             </div>
 
             <ul class="right hide-on-med-and-down">
-              <% if user_signed_in? && current_user.is_cattery %>
-                <li><%= link_to "My Cattery", cattery_path %></li>
-              <% end %>
               <li><a href="#">Breeds</a><% link_to "Breeds" %></li>
+              <li><%= link_to "Catteries", catteries_path %></li>
               <li><%= link_to "Kittens", cats_path %></li>
               <% if !user_signed_in? %>
                 <li><%= link_to "Login", new_user_session_path %></li>
               <% else %>
-                <li><%= link_to "Profile", edit_user_registration_path %></li>
-                <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+                <li>
+                  <a class="nav-dropdown-trigger" data-target='dropdown1'>
+                    <span>Account</span>
+                    <i class="material-icons">arrow_drop_down</i>
+                  </a>
+                </li>
+                <ul id='dropdown1' class='dropdown-content'>
+                  <% if user_signed_in? && current_user.is_cattery %>
+                    <li><%= link_to "My Cattery", my_cattery_cattery_path(@user) %></li>
+                  <% end %>
+                  <li><%= link_to "Profile", edit_user_registration_path %></li>
+                  <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+                </ul>
               <% end %>
             </ul>
           </div>
@@ -52,16 +61,19 @@
                 <%= image_tag("logo_2.svg", :alt => "logo") %>
                 <div>Cat Linker</div>
           <% end %>
-          <% if  user_signed_in? && current_user.is_cattery %>
-            <li><%= link_to "My Cattery", cattery_path %></li>
-          <% end %>
           <li><a href="#">Breeds</a></li>
+          <li><%= link_to "Catteries", catteries_path %></li>
           <li><%= link_to "Kittens", cats_path %></li>
           <% if !user_signed_in? %>
             <li><%= link_to "Login", new_user_session_path %></li>
           <% else %>
-            <li><%= link_to "Profile", edit_user_registration_path %></li>
-            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+            <li><div class="divider"></div></li>
+            <li><a class="subheader">Account</a></li>
+            <% if  user_signed_in? && current_user.is_cattery %>
+              <li><%= link_to "My Cattery", my_cattery_cattery_path(@user), class:"subitem" %></li>
+            <% end %>
+            <li><%= link_to "Profile", edit_user_registration_path, class:"subitem" %></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete, class:"subitem" %></li>
           <% end %>
         </ul>
       </div>

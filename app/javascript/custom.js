@@ -9,6 +9,7 @@ $(document).on('turbolinks:load', function() {
   // GLOBAL FUNCTIONS
   // MaterializeCSS initialization without custom code
   $('select').formSelect();
+  $('.nav-dropdown-trigger').dropdown({coverTrigger: false, alignment: 'right'});
   $('.sidenav').sidenav({edge: 'right'});
   $('.tooltipped').tooltip();
   $('.tabs').tabs({swipeable: true});
@@ -66,6 +67,9 @@ $(document).on('turbolinks:load', function() {
 
   // Add truncation to select dropdown text inputs
   $('.dropdown-trigger').addClass('truncate');
+
+   // Force scroll position to reset at top of the page
+   $(window).scrollTop(0);
 
   // HOMEPAGE
   if (pathname == "/") {
@@ -261,147 +265,155 @@ $(document).on('turbolinks:load', function() {
       catBirthdateInput.attr('disabled', false);
     })
   }
-  
-    
-  // Trigger AJAX dropdown filters
-  $('.form-filter').on('change', function() {
-    Rails.fire(document.querySelector('form'), 'submit');
-    $('#kittens').html('');
 
-    // Show reset button if options are selected
-    if ($(this).val() != "" && $(this).val() != null) {
-      $($(this).parent().parent().find('.reset-dropdown')).show();
-    }
-    else {
-      $($(this).parent().parent().find('.reset-dropdown')).hide();
-    }
+  // KITTEN INDEX
+  if (pathname == '/cats') {
+    // Trigger AJAX dropdown filters
+    $('.form-filter').on('change', function() {
+      Rails.fire(document.querySelector('form'), 'submit');
 
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      context: this, 
-      url: 'cats/update_filters',
-      data: {
-        breeds: $('#breeds').val(),
-        locations: $('#locations').val()
-      },
-      success: function(data){
-        $('.form-filter').not(this).each(function() {
-          var currentFilter = $(this).attr('id');
-
-          // Reset the options in the select but skip the placeholder & selected options         
-          var selectedOptions = $(this).parent().find('.selected');
-          var retainOptionsString = 'option:first';
-
-          for(var i = 0; i < selectedOptions.length; i++) {
-            var retainOptionsString = retainOptionsString + ', option:contains("' + $(selectedOptions[i]).text() + '")';
-          }
-
-          var retainOptionsString = "'" + retainOptionsString + "'";
-
-          $(this).children().not(retainOptionsString).remove();
-          for(var i = 0; i < data[currentFilter].length; i++) {
-            if (!retainOptionsString.includes(data[currentFilter][i][0])) {
-              $(this).append($("<option></option>").attr("value", data[currentFilter][i][1]).text(data[currentFilter][i][0]));
-            }  
-          }
-          
-          // Reinitiliaze select
-          $(this).formSelect();
-          $('.disabled').on('click', closeSelectOnDisabledOption);
-        });
-      },
-      error: function() {
-        console.log('Ajax request failed');
-        M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+      // Show reset button if options are selected
+      if ($(this).val() != "" && $(this).val() != null) {
+        $($(this).parent().parent().find('.reset-dropdown')).show();
       }
-    });
-  });
+      else {
+        $($(this).parent().parent().find('.reset-dropdown')).hide();
+      }
 
-  // Reset dropdown filters
-  $('.reset-dropdown').on('click', function() {
-    $($(this).parent().find('.form-filter')).val($(this).parent().find('.disabled').text());
-    $($(this).parent().find('.select-dropdown')).val($(this).parent().find('.disabled').text());
-    $($(this).parent().find('select')).children('option:not(:first)').remove();
-    $(this).hide();
-    $('#kittens').html('');
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        context: this, 
+        url: 'cats/update_filters',
+        data: {
+          breeds: $('#breeds').val(),
+          locations: $('#locations').val()
+        },
+        success: function(data){
+          $('.form-filter').not(this).each(function() {
+            var currentFilter = $(this).attr('id');
 
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      context: this, 
-      url: 'cats/update_filters',
-      data: {
-        breeds: $('#breeds').val(),
-        locations: $('#locations').val()
-      },
-      success: function(data) {
-        // Fully reset the current dropdown
-        var thisSelectForm = $(this).parent().find('select');
-        var thisFormId = $(thisSelectForm).attr('id');
+            // Reset the options in the select but skip the placeholder & selected options         
+            var selectedOptions = $(this).parent().find('.selected');
+            var retainOptionsString = 'option:first';
 
-        $(thisSelectForm).children().not('option:first').remove();
+            for(var i = 0; i < selectedOptions.length; i++) {
+              var retainOptionsString = retainOptionsString + ', option:contains("' + $(selectedOptions[i]).text() + '")';
+            }
 
-        for(var i = 0; i < data[thisFormId].length; i++) {
-          $(thisSelectForm).append($("<option></option>").attr("value", data[thisFormId][i][1]).text(data[thisFormId][i][0]));
+            var retainOptionsString = "'" + retainOptionsString + "'";
+
+            $(this).children().not(retainOptionsString).remove();
+            for(var i = 0; i < data[currentFilter].length; i++) {
+              if (!retainOptionsString.includes(data[currentFilter][i][0])) {
+                $(this).append($("<option></option>").attr("value", data[currentFilter][i][1]).text(data[currentFilter][i][0]));
+              }  
+            }
+            
+            // Reinitiliaze select
+            $(this).formSelect();
+            $('.disabled').on('click', closeSelectOnDisabledOption);
+          });
+        },
+        error: function() {
+          console.log('Ajax request failed');
+          M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
         }
-        
-        // Reinitiliaze select
-        $(thisSelectForm).formSelect();
-        $('.disabled').on('click', closeSelectOnDisabledOption);
+      });
+    });
 
-        
-        // Reset the other dropdowns
-        $('.form-filter').not($(this).parent().find('select')).each(function() {
-          var currentFilter = $(this).attr('id');
+    // Reset dropdown filters
+    $('.reset-dropdown').on('click', function() {
+      $($(this).parent().find('.form-filter')).val($(this).parent().find('.disabled').text());
+      $($(this).parent().find('.select-dropdown')).val($(this).parent().find('.disabled').text());
+      $($(this).parent().find('select')).children('option:not(:first)').remove();
+      $(this).hide();
 
-          // Reset the options in the select but skip the placeholder & selected options
-          var selectedOptions = $(this).parent().find('.selected');
-          var retainOptionsString = 'option:first';
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        context: this, 
+        url: 'cats/update_filters',
+        data: {
+          breeds: $('#breeds').val(),
+          locations: $('#locations').val()
+        },
+        success: function(data) {
+          // Fully reset the current dropdown
+          var thisSelectForm = $(this).parent().find('select');
+          var thisFormId = $(thisSelectForm).attr('id');
 
-          for(var i = 0; i < selectedOptions.length; i++) {
-            var retainOptionsString = retainOptionsString + ', option:contains("' + $(selectedOptions[i]).text() + '")';
-          }
+          $(thisSelectForm).children().not('option:first').remove();
 
-          var retainOptionsString = "'" + retainOptionsString + "'";
-
-          $(this).children().not(retainOptionsString).remove();
-          for(var i = 0; i < data[currentFilter].length; i++) {
-            if (!retainOptionsString.includes(data[currentFilter][i][0])) {
-              $(this).append($("<option></option>").attr("value", data[currentFilter][i][1]).text(data[currentFilter][i][0]));
-            }  
+          for(var i = 0; i < data[thisFormId].length; i++) {
+            $(thisSelectForm).append($("<option></option>").attr("value", data[thisFormId][i][1]).text(data[thisFormId][i][0]));
           }
           
           // Reinitiliaze select
-          $(this).formSelect();
+          $(thisSelectForm).formSelect();
           $('.disabled').on('click', closeSelectOnDisabledOption);
-        });
-      },
-      error: function() {
-        console.log('Ajax request failed');
-        M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
-      }
-    });
-  });
 
-  // 
-  var loadNextPage = function(){
-    // prevent multiple loading
-    if ($('#next_link').data("loading")) {
-      return
-    }  
-    var wBottom  = $(window).scrollTop() + $(window).height();
-    var elBottom = $('#kittens').offset().top + $('#kittens').height();
-    // Check if we're at the bottom of the page and a next link exists before we click it
-    if (wBottom > elBottom && $('#next_link')[0]) {
-      $('#next_link')[0].click();
-      $('#next_link').data("loading", true);
-    }
-  };
+          
+          // Reset the other dropdowns
+          $('.form-filter').not($(this).parent().find('select')).each(function() {
+            var currentFilter = $(this).attr('id');
+
+            // Reset the options in the select but skip the placeholder & selected options
+            var selectedOptions = $(this).parent().find('.selected');
+            var retainOptionsString = 'option:first';
+
+            for(var i = 0; i < selectedOptions.length; i++) {
+              var retainOptionsString = retainOptionsString + ', option:contains("' + $(selectedOptions[i]).text() + '")';
+            }
+
+            var retainOptionsString = "'" + retainOptionsString + "'";
+
+            $(this).children().not(retainOptionsString).remove();
+            for(var i = 0; i < data[currentFilter].length; i++) {
+              if (!retainOptionsString.includes(data[currentFilter][i][0])) {
+                $(this).append($("<option></option>").attr("value", data[currentFilter][i][1]).text(data[currentFilter][i][0]));
+              }  
+            }
+            
+            // Reinitiliaze select
+            $(this).formSelect();
+            $('.disabled').on('click', closeSelectOnDisabledOption);
+          });
+        },
+        error: function() {
+          console.log('Ajax request failed');
+          M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+        }
+      });
+    });
+
+    // 
+    var loadNextPage = function(){
+      // prevent multiple loading
+      if ($('#next_link').data("loading")) {
+        return
+      }  
+      var wBottom  = $(window).scrollTop() + $(window).height();
+      var elBottom = $('#kittens').offset().top + $('#kittens').height();
+      // Check if we're at the bottom of the page and a next link exists before we click it
+      if (wBottom > elBottom && $('#next_link')[0]) {
+        $('#next_link')[0].click();
+        $('#next_link').data("loading", true);
+      }
+    };
+    
+    window.addEventListener('resize', loadNextPage);
+    window.addEventListener('scroll', loadNextPage);
+    window.addEventListener('load',   loadNextPage);
+  }
+
+  // Show page masonry layout
+  $('.grid').colcade({
+    columns: '.grid-col',
+    items: '.grid-item'
+  });
   
-  window.addEventListener('resize', loadNextPage);
-  window.addEventListener('scroll', loadNextPage);
-  window.addEventListener('load',   loadNextPage);
+  
 });
 
 $(document).on('turbolinks:request-end', function() {

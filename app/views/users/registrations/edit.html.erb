@@ -111,11 +111,26 @@
     <div class="row">
       <p>Unhappy or you simply don't want to have your account anymore?</p>
       <p>We're always looking to improve our platform so please don't hesitate to <a class="inline-link">let us know</a> why you're leaving.</p>
-      <%= button_to registration_path(resource_name), data: { confirm: "Are you sure? This action is permanent!" }, method: :delete, class:"btn waves-effect waves-light btn-delete-large" do %>
+      <a class="btn waves-effect waves-light btn-delete-large modal-trigger" href="#modal-delete">
         Cancel my account
         <i class="material-icons">delete_forever</i>
-      <% end %>
+      </a>
+    </div>
 
+    <div id="modal-delete" class="modal modal-confirmation">
+      <div class="modal-content">
+        <h4>Cancel my account</h4>
+        <p>Are you sure?</p>
+        <p>This action is permanent!</p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn waves-effect waves-light modal-close btn-cancel">
+          Cancel
+        </a>
+        <%= link_to registration_path(resource_name), method: :delete, class:"btn waves-effect waves-light btn-confirm" do %>
+          I'm sure
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

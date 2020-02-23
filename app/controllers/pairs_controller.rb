@@ -1,7 +1,9 @@
 class PairsController < ApplicationController
+
   def new
     @form = params[:form]
     @pair = Pair.new
+    @user = current_user
 
     males = Cat.user_id(current_user.id).is_parent(true).gender('1')
     @male_cats_array = males.map { |cat| [cat.name, cat.id] }
@@ -23,7 +25,7 @@ class PairsController < ApplicationController
     if @form == 'pair'
       if @pair.save
         flash[:notice] = 'Pair was successfully created'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       else
         flash[:alert] = 'There was a problem with creating this pair'
         render 'new'
@@ -34,10 +36,10 @@ class PairsController < ApplicationController
   def edit
     @form = params[:form]
     @pair = Pair.find_by(id: params[:id])
-    user = @pair.user
+    @user = @pair.user
 
-    get_males(user)
-    get_females(user)
+    get_males(@user)
+    get_females(@user)
   end
 
   def update
@@ -50,7 +52,7 @@ class PairsController < ApplicationController
 
     if @pair.update(pair_params)
       flash[:notice] = 'Pair was successfully updated'
-      redirect_to cattery_overview_path
+      redirect_to overview_cattery_path(user)
     else
       flash[:alert] = 'There was a problem with updating this pair'
       render 'edit'
@@ -60,11 +62,12 @@ class PairsController < ApplicationController
   def destroy
     @form = params[:form]
     @pair = Pair.find_by(id: params[:id])
+    user = @pair.user
 
     if @form == 'pair'
       if @pair.destroy
         flash[:notice] = 'Pair was successfully deleted'
-        redirect_to cattery_overview_path
+        redirect_to overview_cattery_path(user)
       end
     end
   end

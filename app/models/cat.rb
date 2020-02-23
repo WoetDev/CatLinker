@@ -11,6 +11,10 @@ class Cat < ApplicationRecord
     card_picture.variant(resize: '500x500').processed
   end
 
+  def square
+    card_picture.variant(resize_to_fill: [ 500, 500, gravity: "Center" ])
+  end
+
   def other_pictures(input)
     pictures[input]
   end
@@ -42,6 +46,8 @@ class Cat < ApplicationRecord
   end
 
   # validations
+  validate :image_type
+
   validates :name, presence: true, unless: :is_kitten?
   validates :name, length: { maximum: 15 }
   validates :breed, presence: true
@@ -51,4 +57,12 @@ class Cat < ApplicationRecord
   validates :litter_number, presence: true, if: :is_kitten?
   validates :birth_date, presence: true, if: :is_kitten?
   validates :pair_id, presence: true, if: :is_kitten?
+
+  private
+
+  def image_type
+    if !card_picture.content_type.in?(%('image/jpeg image/png'))
+      errors.add(:card_picture, "Only jpeg or png files are allowed")
+    end
+  end
 end
