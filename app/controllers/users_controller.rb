@@ -3,60 +3,47 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-
+    @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id))
   end
 
   def show
     @user = User.find(params[:id])
+    @message = Message.new(params[:message])
+    @cat = Cat.user_id(@user.id).first
   end
 
   def my_cattery
+    @user = User.find(params[:id])
+
     get_all_countries
-
-    if @user.cattery_name.blank? or @user.postal_code.blank? or @user.city.blank? or @user.country_id.blank?
-      required_info = [@user.cattery_name, @user.postal_code, @user.city, @user.country_id]
-      required_info_strings = ["cattery name", "postal code", "city", "country"]
-      blank_required_info_array = []
-
-      required_info.each.with_index do |info, index|
-        if info.blank?
-          blank_required_info_array.push(required_info_strings[index])
-        end
-      end
-
-      if blank_required_info_array.size > 1
-        blank_required_info_string = blank_required_info_array.take(blank_required_info_array.size-1).join(', ')
-        blank_required_info_string = "#{blank_required_info_string} and #{blank_required_info_array.last}"
-      else
-        blank_required_info_string = blank_required_info_array.join
-      end
-
-      @required_info_message = "You must add a #{blank_required_info_string} before you can add cats"
-
-    end
-
+    check_required_cattery_information(@user)
   end
 
   def update_cattery
+    @user = User.find(params[:id])
     get_all_countries
 
     if @user.update(cattery_params)
       update_cat_location_tags(@user)
+      check_required_cattery_information(@user)
       flash[:notice] = 'Cattery information was successfully updated'
       render 'my_cattery'
     else
+      check_required_cattery_information(@user)
       flash[:alert] = 'There was a problem updating your cattery information'
       render 'my_cattery'
     end
+
   end
 
   def cattery_overview
-    @parents = Cat.user_id(current_user.id).is_parent(true)
-    @pairs = Pair.user_id(current_user.id)
-    @kittens = Cat.user_id(current_user.id).is_parent(false)
+    @user = User.find(params[:id])
+    @parents = Cat.user_id(@user.id).is_parent(true)
+    @pairs = Pair.user_id(@user.id)
+    @kittens = Cat.user_id(@user.id).is_parent(false)
 
-    @male_parents = Cat.user_id(current_user.id).is_parent(true).gender('1')
-    @female_parents = Cat.user_id(current_user.id).is_parent(true).gender('2')
+    @male_parents = Cat.user_id(@user.id).is_parent(true).gender('1')
+    @female_parents = Cat.user_id(@user.id).is_parent(true).gender('2')
   end
 
   def birth_date
@@ -88,12 +75,35 @@ class UsersController < ApplicationController
   def cattery_params
     params.require(:user).permit(:cattery_name, :certification_number, :street,
     :number, :postal_code, :city, :country_id, :phone_number, :facebook_link,
-    :instagram_link, :twitter_link)
+    :instagram_link, :twitter_link, :profile_picture)
   end
 
   def get_all_countries
     countries = Country.all.sort
     @all_countries = countries.map { |c| [c.name, c.id] }.sort_by{|c| c[0]}
+  end
+
+  def check_required_cattery_information(user)
+    if user.profile_picture.blank? or user.cattery_name.blank? or user.postal_code.blank? or user.city.blank? or user.country_id.blank?
+      required_info = [user.profile_picture, user.cattery_name, user.postal_code, user.city, user.country_id]
+      required_info_strings = ["profile picture", "cattery name", "postal code", "city", "country"]
+      blank_required_info_array = []
+
+      required_info.each.with_index do |info, index|
+        if info.blank?
+          blank_required_info_array.push(required_info_strings[index])
+        end
+      end
+
+      if blank_required_info_array.size > 1
+        blank_required_info_string = blank_required_info_array.take(blank_required_info_array.size-1).join(', ')
+        blank_required_info_string = "#{blank_required_info_string} and #{blank_required_info_array.last}"
+      else
+        blank_required_info_string = blank_required_info_array.join
+      end
+
+      @required_info_message = "You must add a #{blank_required_info_string} before you can add cats"
+    end
   end
 
   def update_cat_location_tags(user)

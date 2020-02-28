@@ -9,11 +9,17 @@
 }
 
 .home-landing {
+  @include small-and-down {
+    display: flex;
+    align-items: center;
+    min-height: 60vh;
+  }
+
   .image-m {
     display: none;
     width: 100%;
     margin-top: 30px;
-  }
+  } 
 
   .row {
     padding: 0 2rem;
@@ -39,7 +45,7 @@
     font-weight: bold;
 
     @include small-and-down {
-      font-size: 4.3em;
+      font-size: 3.9em;
       margin: 0px;
     }
   }
@@ -124,6 +130,11 @@
 
       .card-image, .card-content {
         cursor: pointer;
+      }
+
+      .card-image {
+        overflow: hidden;
+        max-height: 300px;
       }
 
       .card-content, .card-reveal {
@@ -221,7 +232,7 @@
 }
 
 // Kittens section
-.kittens-landing, .cattery-overview, .kittens-index, .other-kittens {
+.kittens-landing, .cattery-overview, .kittens-index, .other-kittens, .catteries-index, #cattery-view {
   .card {
     transition: ease-in-out 0.2s;
 

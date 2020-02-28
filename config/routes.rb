@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.htmlµ
   root 'home#index'
 
-  resources :users, only: [:index, :show ], as: 'catteries' do
+  resources :users, path: 'catteries', as: 'catteries', only: [:index, :show ] do
     member do 
       get 'my_cattery' => 'users#my_cattery', as: 'my_cattery'
       post 'my_cattery' => 'users#update_cattery'

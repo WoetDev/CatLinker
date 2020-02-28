@@ -69,7 +69,7 @@
           <% else %>
             <li><div class="divider"></div></li>
             <li><a class="subheader">Account</a></li>
-            <% if  user_signed_in? && current_user.is_cattery %>
+            <% if user_signed_in? && current_user.is_cattery %>
               <li><%= link_to "My Cattery", my_cattery_cattery_path(@user), class:"subitem" %></li>
             <% end %>
             <li><%= link_to "Profile", edit_user_registration_path, class:"subitem" %></li>

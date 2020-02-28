@@ -32,11 +32,21 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row my-cattery-pages">
         <% if f.object.cattery_name.present? and f.object.postal_code.present? and f.object.city.present? and f.object.country_id.present? %>
-          <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn-large btn-link" do %>
-            Edit cats
-            <i class="material-icons right">create</i>
+          <div class="col">
+            <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn-large btn-link" do %>
+              Edit cats
+              <i class="material-icons right">create</i>
+            <% end %>
+          </div>
+          <% if @user.cats.any? %>
+            <div class="col">
+              <%= link_to cattery_path(@user), class:"waves-effect waves-light btn-large btn-link" do %>
+                View page
+                <i class="material-icons right">remove_red_eye</i>
+              <% end %>
+            </div>
           <% end %>
         <% else %>
           <div class="col">
@@ -49,6 +59,38 @@
             <div class="blocking-helper-text"><%= @required_info_message %></div>
           </div>
         <% end %>
+      </div>
+
+      <div class="row">
+        <h4 class="form-section-title">Profile picture</h4>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <div class="file-field input-field">
+            <div class="btn">
+              <i class="material-icons-outlined">add_photo_alternate</i>
+              <span>Profile picture</span>
+              <%= f.file_field :profile_picture %>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <div class="card-picture-preview">
+            <% if @user.profile_picture.blank? %>
+              <span>Preview *</span>
+            <% else %>
+              <%= image_tag(@user.profile_picture) if @user.profile_picture.attached? %> 
+            <% end %>
+            <%= render 'shared/error_messages', object: @user, field: :profile_picture %>
+          </div>
+        </div>
       </div>
 
       <div class="row">
@@ -145,6 +187,7 @@
           </div>
           <%= render 'shared/error_messages', object: @user, field: :instagram_link %>
         </div>
+        
         <div class="col s12 l4">
           <div class="input-field">
             <i class="fab fa-twitter prefix"></i>

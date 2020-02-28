@@ -113,7 +113,25 @@ $(document).on('turbolinks:load', function() {
   }
 
   // UPDATE CATTERY INFORMATION FORM 
-  if (pathname == '/cattery') {  
+  if (pathname.endsWith('my_cattery')) {  
+    // Single card image preview
+    var cardPicturePreview = document.querySelector('.card-picture-preview');
+
+    function showCardPicturePreview(e) {
+      var input = e.target;
+
+      var reader = new FileReader();
+      reader.onload = function(){
+        image = reader.result;
+        cardPicturePreview.innerHTML = '<img src="'+ image +'" />';
+      };
+      // Produce a data URL (base64 encoded string of the data in the file)
+      // We are retrieving the first file from the FileList object
+      reader.readAsDataURL(input.files[0]);
+    }
+
+    $('#user_profile_picture').on('change', showCardPicturePreview);
+
     // Add active class to social media icon if input is filled
     var socialMediaInputs = ['#user_facebook_link', '#user_instagram_link', '#user_twitter_link'];
     var socialMediaIcons = ['i.fa-facebook-square', '.fa-instagram', '.fa-twitter'];
@@ -182,7 +200,6 @@ $(document).on('turbolinks:load', function() {
   if (pathname == '/cats/new' && querystring.startsWith('?form=kitten') || pathname.startsWith('/cats') && pathname.endsWith('/edit') && querystring.startsWith('?form=kitten')) {
     // Multiple images previews
     var picturesPreview = document.querySelector('.pictures-preview');
-    var previewSpan = document.querySelector('.pictures-preview span');
 
     function showPicturesPreview() {
       if (window.File && window.FileList && window.FileReader) {
@@ -320,6 +337,8 @@ $(document).on('turbolinks:load', function() {
           M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
         }
       });
+
+      $('#kittens').html('');
     });
 
     // Reset dropdown filters
@@ -385,6 +404,8 @@ $(document).on('turbolinks:load', function() {
           M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
         }
       });
+
+      $('#kittens').html('');
     });
 
     // 

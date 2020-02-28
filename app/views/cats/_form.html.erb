@@ -219,13 +219,13 @@
 
 <div class="row">
   <div class="col">
-    <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn left" do %>
+    <%= link_to 'javascript:history.back()', class:"waves-effect waves-light btn left" do %>
       <i class="material-icons left">keyboard_arrow_left</i>
       Back
     <% end %>
   </div>
   <% if !@cat.new_record? %>
-      <% if parent_litters_count(@cat) == 0 and parent_kittens_count(@cat) == 0 and @cat.pairs.size == 0 %>
+      <% if parent_litters_count(@cat, @user) == 0 and parent_kittens_count(@cat, @user) == 0 and @cat.pairs.size == 0 %>
         <div class="col right">
           <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal-delete">
             <span>Delete</span>

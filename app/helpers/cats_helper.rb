@@ -3,10 +3,6 @@ module CatsHelper
     "#{User.find(cat.user_id).city.capitalize} - #{Country.find(User.find(cat.user_id).country_id).name}"
   end
 
-  def format_birth_date(cat)
-    cat.birth_date.to_date.to_formatted_s(:rfc822)
-  end
-
   def cat_father(cat)
     Cat.find(Pair.find(cat.pair_id).male_id)
   end

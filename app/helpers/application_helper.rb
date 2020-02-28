@@ -13,6 +13,10 @@ module ApplicationHelper
     Breed.find(cat.breed_id).name
   end
 
+  def format_birth_date(cat)
+    cat.birth_date.to_date.to_formatted_s(:rfc822)
+  end
+
   def cattery(cat)
     User.find(cat.user_id)
   end
@@ -21,17 +25,17 @@ module ApplicationHelper
     User.find(user.id)
   end
   
-  def parent_litters_count(cat)
+  def parent_litters_count(cat, user)
     if cat.gender == '1'
-      pairs = Pair.user_id(current_user.id).male_id(cat.id)
+      pairs = Pair.user_id(user.id).male_id(cat.id)
     else
-      pairs = Pair.user_id(current_user.id).female_id(cat.id)
+      pairs = Pair.user_id(user.id).female_id(cat.id)
     end
 
     cats_array = []
 
     pairs.each do |pair|
-      cat = Cat.user_id(current_user.id).pair_id(pair.id)
+      cat = Cat.user_id(user.id).pair_id(pair.id)
       cats_array.push(cat)
     end
 
@@ -44,17 +48,17 @@ module ApplicationHelper
     return @count
   end
 
-  def parent_kittens_count(cat)
+  def parent_kittens_count(cat, user)
     if cat.gender == '1'
-      pairs = Pair.user_id(current_user.id).male_id(cat.id)
+      pairs = Pair.user_id(user.id).male_id(cat.id)
     else
-      pairs = Pair.user_id(current_user.id).female_id(cat.id)
+      pairs = Pair.user_id(user.id).female_id(cat.id)
     end
 
     cats_array = []
 
     pairs.each do |pair|
-      cat = Cat.user_id(current_user.id).pair_id(pair.id)
+      cat = Cat.user_id(user.id).pair_id(pair.id)
       cats_array.push(cat)
     end
 
@@ -67,11 +71,11 @@ module ApplicationHelper
     return @count
   end
 
-  def pair_litters_count(pair)
-    Cat.user_id(current_user.id).pair_id(pair.id).group(:litter_number).count.size
+  def pair_litters_count(pair, user)
+    Cat.user_id(user.id).pair_id(pair.id).group(:litter_number).count.size
   end
 
-  def pair_kittens_count(pair)
-    Cat.user_id(current_user.id).pair_id(pair.id).size
+  def pair_kittens_count(pair, user)
+    Cat.user_id(user.id).pair_id(pair.id).size
   end
 end

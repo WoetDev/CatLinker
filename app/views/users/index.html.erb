@@ -1,5 +1,24 @@
-<div class="container">
-  <div class="row">
-    <h1>Catteries</h1>
+<div class="catteries-index">
+  <h1>Catteries</h1>
+
+  <div class="container">
+    <% if @catteries.present? %>
+      <div id="catteries" class="row">
+        <%= render partial: 'page_items' %>
+      </div>
+    <% else %>
+      <div id="catteries" class="row">
+        <div class="col s12 center-align">
+          <span class="empty-message">No catteries found!</span>
+        </div>
+      </div>
+    <% end %>
   </div>
+</div>
+
+<div id="loader">
+</div>
+<div id="div_next_link">
+  <%= render partial: 'cats/next_link' %>
+</div>
 </div>

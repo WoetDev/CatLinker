@@ -51,7 +51,7 @@
         <div class="row">
           <div class="actions">
             <div class="col">
-              <%= f.button class:"btn-large waves-effect waves-light", type:"submit", name:"cat_id", value: @cat.id do %>
+              <%= f.button class:"btn-large waves-effect waves-light", type:"submit", name:"cat_id", value: cat.id do %>
                 Send
                 <i class="material-icons right">send</i>
               <% end %>
@@ -64,23 +64,23 @@
     <div class="col s12 m6 l5">
       <div class="row">
         <div class="contact-info-block">
-          <div class="col s6 m5 info-title">
+          <div class="col s4 m4 info-title">
             Email:
           </div>
-          <div class="col s6 m7 info-text">
-            <%= mail_to cattery(@cat).email, class:"info-link" do %>
-              <%= cattery(@cat).email %>
+          <div class="col s8 m8 info-text">
+            <%= mail_to cattery(cat).email, class:"info-link" do %>
+              <%= cattery(cat).email %>
             <% end %>
           </div>
         </div>
-        <% if cattery(@cat).phone_number.present? %>
+        <% if cattery(cat).phone_number.present? %>
           <div class="contact-info-block">
-            <div class="col s6 m5 info-title">
+            <div class="col s4 m4 info-title">
               Phone:
             </div>
-            <div class="col s6 m7 info-text">
-              <%= link_to "tel:#{cattery(@cat).phone_number}", class:"info-link" do %>
-                <%= cattery(@cat).phone_number %>
+            <div class="col s8 m8 info-text">
+              <%= link_to "tel:#{cattery(cat).phone_number}", class:"info-link" do %>
+                <%= cattery(cat).phone_number %>
               <% end %>
             </div>
           </div>

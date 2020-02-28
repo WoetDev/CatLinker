@@ -12,7 +12,7 @@ class Cat < ApplicationRecord
   end
 
   def square
-    card_picture.variant(resize_to_fill: [ 500, 500, gravity: "Center" ])
+    card_picture.variant(resize_to_fill: [ 500, 500, gravity: 'Center' ])
   end
 
   def other_pictures(input)
@@ -22,17 +22,6 @@ class Cat < ApplicationRecord
   # filter
   acts_as_taggable_on :breed_tag
   acts_as_taggable_on :location_tag
-
-  include PgSearch::Model
-
-  pg_search_scope :kitten_search,
-                  against: [:name ],
-                  associated_against: {
-                  breeds: :name,
-                  },
-                  using: {
-                    tsearch: {any_word: true}
-                  }
 
   # scopes
   scope :user_id, -> (user_id) { where user_id: user_id }

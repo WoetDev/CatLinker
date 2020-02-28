@@ -146,7 +146,7 @@ class CatsController < ApplicationController
   def destroy
     @form = params[:form]
     @cat = Cat.find_by(id: params[:id])
-    user = User.find(@cat.user_id)
+    user = @cat.user
 
     if @form == 'parent'
       if @cat.destroy

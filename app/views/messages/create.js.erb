@@ -1,7 +1,7 @@
 // Test for ajax success
 console.log("This is the create.js.erb file");
 // Render flash message
-$('#contact').html("<%= j render 'shared/contact_form' %>");
+$('#contact').html("<%= j render 'shared/contact_form', cat: @cat %>");
 <% if notice %>
   M.toast({html: '<%= notice %>', classes: 'alert alert-success'})
 <% end %>

@@ -46,7 +46,7 @@
     </div>
     <% if !@pair.new_record? %>
     <div class="col right">
-      <% if pair_litters_count(@pair) == 0 and pair_kittens_count(@pair) == 0 %>
+      <% if pair_litters_count(@pair, @user) == 0 and pair_kittens_count(@pair, @user) == 0 %>
         <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal-delete">
           <span>Delete</span>
           <i class="material-icons right">delete</i>

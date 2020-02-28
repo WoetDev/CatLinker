@@ -1,5 +1,5 @@
 // Kitten show page
-#kitten-view {
+#kitten-view, #cattery-view {
   img {
     border-radius: 5px;
     box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
@@ -102,7 +102,7 @@
   .pictures-other-container {    
     .image-placeholder {
       display: inline-block;
-      padding: 0.5em 0.75em 0.5em 0;
+      padding: 0.5em;
 
       .thumbnail {
         width: 100%;
@@ -171,7 +171,9 @@
     img {
       height: $height !important;
     }
+  }
 
+  .other-kittens, .cattery-litters, .cattery-kittens {
     .available-text, .check, .unavailable-text, .close  {
       font-size: 1.2em;
       font-weight: bold;    
@@ -202,6 +204,18 @@
 
     .unavailable-text, .close {
       color: $errorShade;
+    }
+  }
+
+  .cattery-litters, .cattery-kittens {
+    .available-text, .check, .unavailable-text, .close {
+      font-size: 1em;
+    }
+
+    .info-available {
+      position: relative;
+      right: 0px;
+      text-align: center;
     }
   }
 }

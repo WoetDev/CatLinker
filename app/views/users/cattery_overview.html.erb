@@ -71,7 +71,7 @@
                           <span class="info-title">Litters:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= parent_litters_count(cat) %></span>
+                          <span class="info-text"><%= parent_litters_count(cat, @user) %></span>
                         </div>
                       </div>
                     </div>
@@ -81,7 +81,7 @@
                           <span class="info-title">Kittens:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= parent_kittens_count(cat) %></span>
+                          <span class="info-text"><%= parent_kittens_count(cat, @user) %></span>
                         </div>
                       </div>
                     </div>
@@ -160,7 +160,7 @@
                           <span class="info-title">Litters:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= pair_litters_count(pair) %></span>
+                          <span class="info-text"><%= pair_litters_count(pair, @user) %></span>
                         </div>
                       </div>
                     </div>
@@ -170,7 +170,7 @@
                           <span class="info-title">Kittens:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= pair_kittens_count(pair) %></span>
+                          <span class="info-text"><%= pair_kittens_count(pair, @user) %></span>
                         </div>
                       </div>
                     </div>
@@ -215,17 +215,17 @@
             <div class="col s10 offset-s1 m6 l3">
               <div class="card">
                 <div class="card-image">
-                  <a href="#">
+                  <%= link_to cat_path(cat), target:"_blank" do %>
                     <%= image_tag(cat.thumbnail, :alt => "card picture") if cat.card_picture.attached? %>
                     <% if !cat.name.blank? %>
                       <span class="card-title"><%= cat.name %></span>
                     <% end %>
-                  </a>
+                  <% end %>
                   <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
                     <i class="material-icons">edit</i>
                   <% end %>
                 </div>
-                <a href="#">
+                <%= link_to cat_path(cat), target:"_blank" do %>
                   <div class="card-content">
                     <div class="info-block">
                       <div class="row">
@@ -277,7 +277,7 @@
                       </div>
                     </div>
                   </div>
-                </a>
+                <% end %>
               </div>               
             </div>
           <% end%>
