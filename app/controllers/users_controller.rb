@@ -7,20 +7,20 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     @message = Message.new(params[:message])
     @cat = Cat.user_id(@user.id).first
   end
 
   def my_cattery
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
 
     get_all_countries
     check_required_cattery_information(@user)
   end
 
   def update_cattery
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     get_all_countries
 
     if @user.update(cattery_params)
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def cattery_overview
-    @user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
     @parents = Cat.user_id(@user.id).is_parent(true)
     @pairs = Pair.user_id(@user.id)
     @kittens = Cat.user_id(@user.id).is_parent(false)

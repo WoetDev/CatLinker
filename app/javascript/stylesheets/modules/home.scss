@@ -135,6 +135,10 @@
       .card-image {
         overflow: hidden;
         max-height: 300px;
+
+        @include small-and-down {
+          max-height: 250px;
+        }
       }
 
       .card-content, .card-reveal {

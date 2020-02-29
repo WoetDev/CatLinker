@@ -1,8 +1,10 @@
 class User < ApplicationRecord
+  extend FriendlyId
   belongs_to :country, optional: true
   has_many :cats
   has_many :pairs
   has_one_attached :profile_picture
+  friendly_id :cattery_name, use: :slugged
 
   # image processing
   def thumbnail

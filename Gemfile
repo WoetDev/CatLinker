@@ -9,8 +9,10 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
 gem 'acts-as-taggable-on'
 # Use Devise for user authentication
 gem 'devise', '~> 4.7', '>= 4.7.1'
-# User figaro for setting environment variables
+# Use figaro for setting environment variables
 gem 'figaro'
+# Use friendly_id to use names in the url instead of ids
+gem 'friendly_id'
 # Use Hirb for fancier Rails Console output
 gem 'hirb'
 # User mail_form gem for custom email forms
