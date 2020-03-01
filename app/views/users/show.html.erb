@@ -30,7 +30,7 @@
             Parents:
           </div>
           <div class="col s6 m7 info-text">
-            <%= cattery_parent_count(@user)[:parents] %> (<%= cattery_parent_count(@user)[:males] %> males, <%= cattery_parent_count(@user)[:females] %> females)
+            <%= cattery_parent_count(@user)[:parents] %> (<%= cattery_parent_count(@user)[:males] %> male<% unless cattery_parent_count(@user)[:males] == 1 %>s<% end %>, <%= cattery_parent_count(@user)[:females] %> female<% unless cattery_parent_count(@user)[:females] == 1 %>s<% end %>)
           </div>
         </div>
         <div class="row">
@@ -311,19 +311,21 @@
     <div class="row cattery-kittens">
       <% cattery_kittens(@user).each do |cat| %>
         <div class="col s10 offset-s1 m6 l3">
-          <%= link_to cat_path(cat) do %>
-            <div class="card">
-              <div class="card-image">
+          <div class="card">
+            <div class="card-image">
+              <%= link_to cat_path(cat) do %>
                 <%= image_tag(cat.thumbnail, :alt => "card picture") %>
                 <% if !cat.name.blank? %>
                   <span class="card-title"><%= cat.name %></span>
                 <% end %>
-                <% if user_signed_in? && current_user == @user %>
-                  <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
-                    <i class="material-icons">edit</i>
-                  <% end %>
+              <% end %>
+              <% if user_signed_in? && current_user == @user %>
+                <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                  <i class="material-icons">edit</i>
                 <% end %>
-              </div>
+              <% end %>
+            </div>
+            <%= link_to cat_path(cat) do %>
               <div class="card-content">
                 <div class="info-block">
                   <div class="row">
@@ -386,13 +388,13 @@
                   </div>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
   <% end %>
   <div id="contact" class="section contact">
-    <%= render 'shared/contact_form', cat: @cat %>
+    <%= render 'shared/contact_form', user: @user, cat: nil %>
   </div>
 </div>

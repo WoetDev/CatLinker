@@ -1,5 +1,4 @@
 class PairsController < ApplicationController
-
   def new
     @form = params[:form]
     @pair = Pair.new
@@ -73,7 +72,7 @@ class PairsController < ApplicationController
   end
 
   private
-
+  
   def pair_params
     params.require(:pair).permit(:user_id, :male_id, :female_id)
   end

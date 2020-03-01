@@ -8,16 +8,20 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(params[:message])
     @message.request = request
-    @cat = Cat.find(params[:cat_id])
+    @user = User.find(params[:message][:user_id])
+    
+    if params[:message][:cat_id].present?
+      @cat = Cat.find(params[:message][:cat_id])
+    end
     
     respond_to do |format|
       if @message.deliver
         # re-initialize Home object for cleared form
         @message = Message.new
-        format.html { render 'cats/show'}
+        # format.html { render 'cats/show'}
         format.js {  flash.now[:notice] = @flash_message = "Message was sent successfully!" }
       else
-        format.html { render 'cats/show' }
+        # format.html { render 'cats/show' }
         format.js { flash.now[:alert] = @flash_message = "Message could not be sent" }
       end
     end

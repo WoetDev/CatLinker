@@ -1,4 +1,4 @@
-// Kittens index
+// Kittens & catteries index
 .kittens-index, .catteries-index {
   h1 {
     font-size: 5em;
@@ -8,5 +8,11 @@
 
   .select-wrapper input.select-dropdown, .multiple-select-dropdown {
     border-bottom: 2px solid $primaryColor;
+  }
+}
+
+#kittens, #catteries {
+  .row {
+    margin-bottom: 0px;
   }
 }

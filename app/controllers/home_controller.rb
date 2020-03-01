@@ -4,6 +4,11 @@ class HomeController < ApplicationController
   
   def index
     @kittens = Cat.is_parent(false).last(4).reverse
+    @support = User.find(6)
+  end
+
+  def contact
+    @message = Message.new(params[:message])
   end
 
   private

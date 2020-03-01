@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   def show
     @user = User.friendly.find(params[:id])
     @message = Message.new(params[:message])
-    @cat = Cat.user_id(@user.id).first
   end
 
   def my_cattery
@@ -33,7 +32,6 @@ class UsersController < ApplicationController
       flash[:alert] = 'There was a problem updating your cattery information'
       render 'my_cattery'
     end
-
   end
 
   def cattery_overview

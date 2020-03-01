@@ -51,7 +51,7 @@ module UsersHelper
   end
 
   def cattery_parents(user)
-    Cat.user_id(user.id).is_parent(true).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.gender] }
+    Cat.user_id(user.id).is_parent(true).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.gender, cat.name] }
   end
 
   def cattery_pairs(user)

@@ -1,5 +1,7 @@
 class Message < MailForm::Base
   attribute :email,  :validate => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
+  attribute :cattery_name
+  attribute :cattery_email
   attribute :subject, :validate => true
   attribute :description, :validate => true
 
@@ -7,8 +9,8 @@ class Message < MailForm::Base
   # in ActionMailer accepts.
   def headers
     {
-      :subject => %("#{subject}"),
-      :to => "wouter.bruynsteen@gmail.com",
+      :subject => %(#{subject}),
+      :to => %("#{cattery_name}" <#{cattery_email}>),
       :from => %("#{email}" <#{email}>)
     }
   end

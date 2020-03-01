@@ -429,12 +429,21 @@ $(document).on('turbolinks:load', function() {
   }
 
   // Show page masonry layout
-  $('.grid').colcade({
-    columns: '.grid-col',
-    items: '.grid-item'
-  });
-  
-  
+  $('.grid').imagesLoaded()
+    .progress(function(instance, image) {
+      $('.preloader-wrapper').addClass('active');
+    })
+    .done(function(instance) {
+      $('.preloader-wrapper').removeClass('active');
+      $('.grid').addClass('active');
+      $('.grid').colcade({
+        columns: '.grid-col',
+        items: '.grid-item'
+      });
+    })
+    .fail(function() {
+      console.log('Extra images failed to load');
+    });
 });
 
 $(document).on('turbolinks:request-end', function() {

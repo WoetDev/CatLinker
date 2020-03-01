@@ -97,6 +97,17 @@
   <div class="row">
     <div class="col s12">
       <% if @cat.pictures.any? %>
+        <div class="preloader-wrapper">
+          <div class="spinner-layer spinner-teal-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
         <div class="pictures-other-container grid">
           <div class="grid-col grid-col--1"></div>
           <div class="grid-col grid-col--2"></div>
@@ -201,6 +212,6 @@
     </div>
   <% end %>
   <div id="contact" class="section contact">
-    <%= render 'shared/contact_form', cat: @cat %>
+    <%= render 'shared/contact_form', user: @user, cat: @cat %>
   </div>
 </div>

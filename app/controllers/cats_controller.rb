@@ -5,22 +5,24 @@ class CatsController < ApplicationController
   def index
     get_all_available_breeds
     get_all_available_locations
+    user_ids = User.is_cattery(true).pluck(:id)
+    cats = Cat.where(user_id: user_ids).is_parent(false)
 
     if params[:breeds].present? or params[:locations].present?
       @breed_filter = params[:breeds].flatten.reject(&:blank?)
       @location_filter = params[:locations].flatten.reject(&:blank?)
 
       if @breed_filter.empty? && @location_filter.empty?
-        @pagy, @kittens = pagy_countless(Cat.is_parent(false).order(created_at: :desc))
+        @pagy, @kittens = pagy_countless(cats.order(created_at: :desc))
       elsif @location_filter.empty?
-        @pagy, @kittens = pagy_countless(Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).order(created_at: :desc))
+        @pagy, @kittens = pagy_countless(cats.tagged_with(@breed_filter, :on => :breed_tag, :any => true).order(created_at: :desc))
       elsif @breed_filter.empty?
-        @pagy, @kittens = pagy_countless(Cat.is_parent(false).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc))
+        @pagy, @kittens = pagy_countless(cats.tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc))
       else
-        @pagy, @kittens = pagy_countless(Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc))
+        @pagy, @kittens = pagy_countless(cats.tagged_with(@breed_filter, :on => :breed_tag, :any => true).tagged_with(@location_filter, :on => :location_tag, :any => true).order(created_at: :desc))
       end
     else
-      @pagy, @kittens = pagy_countless(Cat.is_parent(false).order(created_at: :desc))
+      @pagy, @kittens = pagy_countless(cats.order(created_at: :desc))
     end
   end
 
