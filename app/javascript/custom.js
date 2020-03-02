@@ -420,14 +420,13 @@ $(document).on('turbolinks:load', function() {
       $('#preloader').addClass('active');
     });
 
-    // 
     var loadNextPage = function(){
       // prevent multiple loading
       if ($('#next_link').data("loading")) {
         return
       }  
       var wBottom  = $(window).scrollTop() + $(window).height();
-      var elBottom = $('#kittens').offset().top + $('#kittens').height();
+      var elBottom = $(cards_container_id).offset().top + $(cards_container_id).height();
       // Check if we're at the bottom of the page and a next link exists before we click it
       if (wBottom > elBottom && $('#next_link')[0]) {
         $('#next_link')[0].click();
