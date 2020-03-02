@@ -1,0 +1,13 @@
+function replaceCatteries (innerHTML) {
+  var catteries = $('#catteries');
+  $('.preloader-wrapper').removeClass('active');
+  $(catteries).append(innerHTML);
+}
+
+<% if @catteries.present? %>
+replaceCatteries("<%= j(render 'page_items')%>");
+$('#div_next_link').html("<%= j(render 'shared/next_link') %>");
+<% else %>
+replaceCatteries("<div class='col s12 center-align'><span class='empty-message'>No catteries found!</span></div>");
+<% end %>
+

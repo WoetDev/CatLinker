@@ -284,7 +284,17 @@ $(document).on('turbolinks:load', function() {
   }
 
   // KITTEN INDEX
-  if (pathname == '/cats') {
+  if (pathname == '/cats' || pathname == '/catteries') {
+    if (pathname == '/cats') {
+      var update_filters_path = '/cats/update_filters';
+      var cards_container_id = $('#kittens');
+    }
+
+    else if (pathname == '/catteries') {
+      var update_filters_path = '/users/update_filters';
+      var cards_container_id = $('#catteries');
+    }
+    
     // Trigger AJAX dropdown filters
     $('.form-filter').on('change', function() {
       Rails.fire(document.querySelector('form'), 'submit');
@@ -301,7 +311,7 @@ $(document).on('turbolinks:load', function() {
         type: 'GET',
         dataType: 'json',
         context: this, 
-        url: 'cats/update_filters',
+        url: update_filters_path,
         data: {
           breeds: $('#breeds').val(),
           locations: $('#locations').val()
@@ -338,7 +348,8 @@ $(document).on('turbolinks:load', function() {
         }
       });
 
-      $('#kittens').html('');
+      $(cards_container_id).html('');
+      $('#preloader').addClass('active');
     });
 
     // Reset dropdown filters
@@ -352,7 +363,7 @@ $(document).on('turbolinks:load', function() {
         type: 'GET',
         dataType: 'json',
         context: this, 
-        url: 'cats/update_filters',
+        url: update_filters_path,
         data: {
           breeds: $('#breeds').val(),
           locations: $('#locations').val()
@@ -405,7 +416,8 @@ $(document).on('turbolinks:load', function() {
         }
       });
 
-      $('#kittens').html('');
+      $(cards_container_id).html('');
+      $('#preloader').addClass('active');
     });
 
     // 

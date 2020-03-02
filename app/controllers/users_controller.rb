@@ -1,9 +1,30 @@
 class UsersController < ApplicationController
   before_action :set_user
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: [:index, :show, :update_filters]
 
   def index
-    @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id))
+    all_available_breeds
+    all_available_locations
+    
+    if params[:breeds].present? or params[:locations].present?
+      @breed_filter = params[:breeds].flatten.reject(&:blank?)
+      @location_filter = params[:locations].flatten.reject(&:blank?)
+
+      if @breed_filter.empty? && @location_filter.empty?
+        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).order(cats_count: :desc))
+      elsif @location_filter.empty?
+        breed_ids = Cat.tagged_with(@breed_filter, :on => :breed_tag, :any => true).distinct.pluck(:breed_id)
+        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).where(cats: { breed_id: breed_ids }).order(cats_count: :desc))
+      elsif @breed_filter.empty?
+        cat_ids = Cat.tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:id)
+        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).where(cats: { id: cat_ids }).order(cats_count: :desc))
+      else
+        cat_ids = Cat.tagged_with(@breed_filter, :on => :breed_tag, :any => true).tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:id)
+        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).where(cats: { id: cat_ids }).order(cats_count: :desc))
+      end
+    else
+      @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).order(cats_count: :desc))
+    end
   end
 
   def show
@@ -64,10 +85,44 @@ class UsersController < ApplicationController
     render json: @new_litter_number
   end
 
+  def update_filters
+    @breed_filter = params[:breeds]
+    @location_filter = params[:locations]
+
+    if params[:breeds].present?
+      breed_ids = Cat.tagged_with(@breed_filter, :on => :breed_tag, :any => true).distinct.pluck(:breed_id)
+      locations = User.is_cattery(true).joins(:cats).where(cats: { breed_id: breed_ids }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+    else
+      locations = User.is_cattery(true).joins(:cats).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+    end
+
+    if params[:locations].present?
+      breed_ids = Cat.tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:breed_id)
+      breeds = User.is_cattery(true).joins(:cats).where(cats: { breed_id: breed_ids }).distinct.pluck(:breed_id)
+    else
+      breeds = User.is_cattery(true).joins(:cats).distinct.pluck(:breed_id)
+    end
+
+    @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
+    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+
+    render json: { breeds: @all_available_breeds_array, locations: @all_available_locations_array }
+  end
+
   private
 
   def set_user
     @user = current_user
+  end
+
+  def all_available_breeds
+    breeds = User.is_cattery(true).joins(:cats).distinct.pluck(:breed_id)
+    @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
+  end
+
+  def all_available_locations
+    locations = User.is_cattery(true).joins(:cats).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
   end
 
   def cattery_params

@@ -1,11 +1,12 @@
 function replaceKittens (innerHTML) {
   var kittens = $('#kittens');
+  $('.preloader-wrapper').removeClass('active');
   $(kittens).append(innerHTML);
 }
 
 <% if @kittens.present? %>
 replaceKittens("<%= j(render 'page_items')%>");
-$('#div_next_link').html("<%= j(render 'next_link') %>");
+$('#div_next_link').html("<%= j(render 'shared/next_link') %>");
 <% else %>
 replaceKittens("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
 <% end %>

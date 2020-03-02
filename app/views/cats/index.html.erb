@@ -3,11 +3,22 @@
 
   <div class="search-bar">
     <div id="search" class="container">
-      <%= render 'search', :locals => {:controller => 'cats', :action => 'index'} %>
+      <%= render 'shared/search', :locals => {:controller => 'cats', :action => 'index'} %>
     </div>
   </div>
 
   <div class="container">
+    <div class="preloader-wrapper" id="preloader">
+      <div class="spinner-layer spinner-teal-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
     <% if @kittens.present? %>
       <div id="kittens">
         <%= render partial: 'page_items' %>
@@ -22,8 +33,6 @@
   </div>
 </div>
 
-<div id="loader">
-</div>
 <div id="div_next_link">
-  <%= render partial: 'next_link' %>
+  <%= render partial: 'shared/next_link' %>
 </div>

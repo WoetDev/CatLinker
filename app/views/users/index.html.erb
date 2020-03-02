@@ -1,7 +1,24 @@
 <div class="catteries-index">
   <h1>Catteries</h1>
 
+  <div class="search-bar">
+    <div id="search" class="container">
+      <%= render 'shared/search', :locals => {:controller => 'users', :action => 'index'} %>
+    </div>
+  </div>
+
   <div class="container">
+    <div class="preloader-wrapper" id="preloader">
+      <div class="spinner-layer spinner-teal-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
     <% if @catteries.present? %>
       <div id="catteries" class="row">
         <%= render partial: 'page_items' %>
@@ -16,9 +33,6 @@
   </div>
 </div>
 
-<div id="loader">
-</div>
 <div id="div_next_link">
-  <%= render partial: 'cats/next_link' %>
-</div>
+  <%= render partial: 'shared/next_link' %>
 </div>

@@ -25,5 +25,3 @@ application up and running.
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-
-* ...

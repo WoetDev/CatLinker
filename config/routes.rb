@@ -14,12 +14,14 @@ Rails.application.routes.draw do
       get 'my_cattery' => 'users#my_cattery', as: 'my_cattery'
       post 'my_cattery' => 'users#update_cattery'
       get 'cattery/overview' => 'users#cattery_overview', as: 'overview'
+      
     end
   end
 
   get 'cats/new_litter' => 'users#new_litter'
   get 'cats/birth_date' => 'users#birth_date'
   get 'cats/update_filters' => 'cats#update_filters'
+  get 'users/update_filters' => 'users#update_filters'
 
   resources :cats
   resources :pairs

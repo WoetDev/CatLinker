@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   private
 
   def set_support
-    @support = User.find(6)
+    @support = User.find_by(email: "support@catlinker.com")
   end
 end
