@@ -1,0 +1,83 @@
+<% @kittens.each do |cat| %>
+  <div class="col s10 offset-s1 m6 l3">
+    <div class="card">
+      <div class="card-image">
+        <%= link_to cat_path(cat) do %>
+          <%= image_tag(cat.thumbnail, :alt => "card picture") %>
+          <% if !cat.name.blank? %>
+            <span class="card-title"><%= cat.name %></span>
+          <% end %>
+        <% end %>
+        <% if user_signed_in? && current_user == @user %>
+          <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+            <i class="material-icons">edit</i>
+          <% end %>
+        <% end %>
+      </div>
+      <%= link_to cat_path(cat) do %>
+        <div class="card-content">
+          <div class="info-block">
+            <div class="row">
+              <div class="col s4">
+                <span class="info-title">Breed:</span>
+              </div>
+              <div class="col s8">
+                <span class="info-text"><%= cat_breed(cat) %></span>
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="row">
+              <div class="col s4">
+                <span class="info-title">Gender:</span>
+              </div>
+              <div class="col s8">
+                <span class="info-text"><%= cat_gender(cat) %></span>
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="row">
+              <div class="col s4">
+                <span class="info-title">Birth date:</span>
+              </div>
+              <div class="col s8">
+                <span class="info-text"><%= format_birth_date(cat) %></span>
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="row">
+              <div class="col s4">
+                <span class="info-title">Parents:</span>
+              </div>
+              <div class="col s8">
+                <span class="info-text">
+                <% parents = Pair.find(cat.pair_id) %>
+                <%= parents.male.name %> 
+                &amp;   
+                <%= parents.female.name %> 
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="info-block">
+            <div class="row">
+              <div class="col s12">
+                <div class="info-available">
+                  <% if cat.is_available %>
+                    <i class="material-icons check">check</i>
+                    <span class="available-text">available</span>
+                  <% else %>
+                    <i class="material-icons close">close</i>
+                    <span class="unavailable-text">Unavailable</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

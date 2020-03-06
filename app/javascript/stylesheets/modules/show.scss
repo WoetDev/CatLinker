@@ -181,7 +181,7 @@
     }
   }
 
-  .other-kittens, .cattery-litters, .cattery-kittens {
+  .other-kittens, #litters, #kittens {
     .available-text, .check, .unavailable-text, .close  {
       font-size: 1.2em;
       font-weight: bold;    
@@ -215,7 +215,7 @@
     }
   }
 
-  .cattery-litters, .cattery-kittens {
+  #litters, #kittens {
     .available-text, .check, .unavailable-text, .close {
       font-size: 1em;
     }
@@ -228,3 +228,62 @@
   }
 }
 
+// Card filter icon
+.filter-icon-container {
+  display: none;
+  position: absolute;
+  right: -10px;
+  top: -20px;
+  color: $primaryColor;
+  background-color: $white;
+  opacity: 0.9;
+  z-index: 1;
+  padding: 10px;
+
+    .filter-list {
+      font-size: 2em;
+    }
+
+    .add-circle, .check-circle {
+      position: absolute;
+      bottom: 10px;
+      right: 6px;
+      font-size: 1.1em;
+    }
+
+    .check-circle {
+      display: none;
+    }
+}
+
+.filter-icon-container.active {
+  color: $secondaryColor;
+  display: block;
+}
+
+.selected-filters-message {
+  display:none;
+  font-size: 1.1em;
+  text-align: center;
+  margin-top: -20px;
+  margin-bottom: 20px;
+
+  span, b {
+    position: relative;
+    bottom: 2px;
+  }
+
+  span {
+    font-style: italic;
+    padding-right: 5px;
+  }
+
+  .material-icons {
+    position: relative;
+    top: 5px;
+    font-size: 1.7em;
+    font-weight: bold;
+    color: $secondaryColor;
+    padding-right: 5px;
+  }
+}

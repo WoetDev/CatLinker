@@ -46,7 +46,7 @@ module UsersHelper
     facebook_link = user.facebook_link.sub(/^https?\:\/\/(www.)?/,'')
     instagram_link = user.instagram_link.sub(/^https?\:\/\/(www.)?/,'')
     twitter_link = user.twitter_link.sub(/^https?\:\/\/(www.)?/,'')
-    
+
     @social_links = { facebook: facebook_link, instagram: instagram_link, twitter: twitter_link }
   end
 
@@ -54,19 +54,7 @@ module UsersHelper
     Cat.user_id(user.id).is_parent(true).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.gender, cat.name] }
   end
 
-  def cattery_pairs(user)
-    Pair.user_id(user.id).sort_by { |pair| [Breed.find(Cat.find(pair.male_id).breed_id).name] }
-  end
-
-  def cattery_litters(user)
-    Cat.user_id(user.id).is_parent(false).group(:litter_number).select('array_agg(id) as ids, litter_number').sort_by { |litter| litter.litter_number }.reverse
-  end
-
   def cattery_kittens_per_litter(ids)
     Cat.where(id: ids)
-  end
-
-  def cattery_kittens(user)
-    Cat.user_id(user.id).is_parent(false).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
   end
 end

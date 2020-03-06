@@ -7,14 +7,14 @@
     <div class="row">
       <div class="col s12 m6">
         <div class="input-field">       
-          <%= f.select(:male_id, options_for_select(@male_cats_array, selected: f.object ? f.object.male_id : ""), {selected: "", disabled: "", prompt: 'Father *'}) %>
+          <%= f.select(:male_id, options_for_select(@male_cats_array, selected: f.object ? f.object.male_id : ""), {selected: "", disabled: "", prompt: 'Father *'}, {class:"icons"}) %>
         </div>
         <%= render 'shared/error_messages', object: @pair, field: :male_id %>
       </div>
 
       <div class="col s12 m6">
         <div class="input-field">
-          <%= f.select(:female_id, options_for_select(@female_cats_array, f.object ? f.object.female_id : ""), {selected: "", disabled: "", prompt: 'Mother *'}) %>
+          <%= f.select(:female_id, options_for_select(@female_cats_array, f.object ? f.object.female_id : ""), {selected: "", disabled: "", prompt: 'Mother *'}, {class:"icons"}) %>
         </div>
         <%= render 'shared/error_messages', object: @pair, field: :female_id %>
       </div>

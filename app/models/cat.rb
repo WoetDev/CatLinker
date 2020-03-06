@@ -11,6 +11,10 @@ class Cat < ApplicationRecord
     card_picture.variant(resize: '500x500').processed
   end
 
+  def icon_thumbnail
+    card_picture.variant(resize: '100x100').processed
+  end
+
   def square
     card_picture.variant(resize_to_fill: [ 500, 500, gravity: 'Center' ])
   end

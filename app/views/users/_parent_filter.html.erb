@@ -1,0 +1,12 @@
+<%= form_with(url: {:controller => locals[:controller], :action => locals[:action], :id => locals[:id]}, method: "GET") do |f| %>
+  <div class="row">
+    <div class="col s10 offset-s1 m8 offset-m2">
+      <div class="input-field">
+        <button class="reset-dropdown circle">
+          <i class="material-icons">restore</i>
+        </button>
+        <%= f.select(:parents, options_for_select(@all_parents), {disabled: "", prompt: 'Select parent(s) to filter pairs, litters and kittens'}, {:multiple => true, class:"form-filter icons"}) %>
+      </div>
+    </div>
+  </div>
+<% end %>

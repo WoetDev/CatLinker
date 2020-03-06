@@ -1,0 +1,16 @@
+function ReplaceWithParentsFilter(pairs, litters, kittens) {
+  var pairsContainer = $('#pairs');
+  var littersContainer = $('#litters');
+  var kittensContainer = $('#kittens');
+  
+  $(pairsContainer).html(pairs);
+  $(littersContainer).html(litters);
+  $(kittensContainer).html(kittens);
+  $('.tabs').tabs({swipeable: true});
+}
+
+<% if @pairs.any? %>
+ReplaceWithParentsFilter("<%= j(render 'cattery_pairs')%>","<%= j(render 'cattery_litters')%>","<%= j(render 'cattery_kittens')%>");
+<% else %>
+ReplaceWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No pairs found!</span></div>","<div class='col s12 center-align'><span class='empty-message'>No litters found!</span></div>","<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
+<% end %>

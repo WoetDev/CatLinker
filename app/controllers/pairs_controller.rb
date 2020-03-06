@@ -4,11 +4,8 @@ class PairsController < ApplicationController
     @pair = Pair.new
     @user = current_user
 
-    males = Cat.user_id(current_user.id).is_parent(true).gender('1')
-    @male_cats_array = males.map { |cat| [cat.name, cat.id] }
-
-    females = Cat.user_id(current_user.id).is_parent(true).gender('2')
-    @female_cats_array = females.map { |cat| [cat.name, cat.id] }
+    get_males(@user)
+    get_females(@user)
   end
 
   def create
@@ -79,11 +76,11 @@ class PairsController < ApplicationController
 
   def get_males(user)
     males = Cat.user_id(user.id).is_parent(true).gender('1')
-    @male_cats_array = males.map { |cat| [cat.name, cat.id] }
+    @male_cats_array = males.map { |cat| [cat.name, cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
   end
 
   def get_females(user)
     females = Cat.user_id(user.id).is_parent(true).gender('2')
-    @female_cats_array = females.map { |cat| [cat.name, cat.id] }
+    @female_cats_array = females.map { |cat| [cat.name, cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
   end
 end

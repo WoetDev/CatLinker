@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
   before_action :set_user
-  skip_before_action :authenticate_user!, only: [:index, :show, :update_filters]
+  skip_before_action :authenticate_user!, only: [:index, :show, :update_filters, :parent_filters]
 
   def index
     all_available_breeds
     all_available_locations
-    
+
     if params[:breeds].present? or params[:locations].present?
       @breed_filter = params[:breeds].flatten.reject(&:blank?)
       @location_filter = params[:locations].flatten.reject(&:blank?)
@@ -30,6 +30,13 @@ class UsersController < ApplicationController
   def show
     @user = User.friendly.find(params[:id])
     @message = Message.new(params[:message])
+
+    all_cattery_parents(@user)
+    all_cattery_litters(@user)
+
+    cattery_pairs(@user)
+    cattery_litters(@user)
+    cattery_kittens(@user)
   end
 
   def my_cattery
@@ -109,10 +116,22 @@ class UsersController < ApplicationController
     render json: { breeds: @all_available_breeds_array, locations: @all_available_locations_array }
   end
 
+  def parent_filters
+    @user = User.find(params[:id])
+
+    all_cattery_parents(@user)
+  end
+
   private
 
   def set_user
     @user = current_user
+  end
+
+  def cattery_params
+    params.require(:user).permit(:cattery_name, :certification_number, :street,
+    :number, :postal_code, :city, :country_id, :phone_number, :facebook_link,
+    :instagram_link, :twitter_link, :profile_picture)
   end
 
   def all_available_breeds
@@ -125,10 +144,67 @@ class UsersController < ApplicationController
     @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
   end
 
-  def cattery_params
-    params.require(:user).permit(:cattery_name, :certification_number, :street,
-    :number, :postal_code, :city, :country_id, :phone_number, :facebook_link,
-    :instagram_link, :twitter_link, :profile_picture)
+  def cat_gender(cat)
+    if cat.gender == '1'
+      'Male'
+    else
+      'Female'
+    end
+  end
+
+  def all_cattery_parents(user)
+    cats = Cat.user_id(user.id).is_parent(true).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.gender, cat.name] }
+    @all_parents = cats.map { |cat| ["#{cat.name}", cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
+  end
+
+  def all_cattery_litters(user)
+    litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
+    @all_litters = litter_number_information.reverse.map { |l| ["#{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1]).male.name} & #{Pair.find_by(id: l[1]).female.name}", l[0]] }
+  end
+
+  def cattery_pairs(user)
+    if params[:parents].present?
+      parents_filter = params[:parents].flatten.reject(&:blank?)
+
+      if parents_filter.empty?
+        @pairs = Pair.user_id(user.id).sort_by { |pair| [Breed.find(Cat.find(pair.male_id).breed_id).name] }
+      else
+        @pairs = Pair.user_id(user.id).where(male_id: parents_filter).or(Pair.user_id(user.id).where(female_id: parents_filter)).sort_by { |pair| [Breed.find(Cat.find(pair.male_id).breed_id).name] }
+      end
+    else
+      @pairs = Pair.user_id(user.id).sort_by { |pair| [Breed.find(Cat.find(pair.male_id).breed_id).name] }
+    end
+  end
+
+  def cattery_litters(user)
+    if params[:parents].present?
+      parents_filter = params[:parents].flatten.reject(&:blank?)
+
+      if parents_filter.empty?
+        @litters = Cat.user_id(user.id).is_parent(false).group(:litter_number).select('array_agg(id) as ids, litter_number').sort_by { |litter| litter.litter_number }.reverse
+      else
+        pair_ids = Pair.user_id(user.id).where(male_id: parents_filter).or(Pair.user_id(user.id).where(female_id: parents_filter)).pluck(:id)
+        @litters = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids).group(:litter_number).select('array_agg(id) as ids, litter_number').sort_by { |litter| litter.litter_number }.reverse
+      end
+    else
+      @litters = Cat.user_id(user.id).is_parent(false).group(:litter_number).select('array_agg(id) as ids, litter_number').sort_by { |litter| litter.litter_number }.reverse
+    end  
+  end
+
+  def cattery_kittens(user)
+    if params[:parents].present?
+      parents_filter = params[:parents].flatten.reject(&:blank?)
+
+      if parents_filter.empty?
+        @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
+      else
+        pair_ids = Pair.user_id(user.id).where(male_id: parents_filter).or(Pair.user_id(user.id).where(female_id: parents_filter)).pluck(:id)
+        @kittens = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
+      end
+    else
+      @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
+    end
+    
   end
 
   def get_all_countries
