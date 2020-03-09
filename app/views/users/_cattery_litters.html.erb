@@ -1,6 +1,12 @@
 <% @litters.each do |litter| %>
   <div class="col s10 offset-s1 m6 l3">
     <div class="card">
+      <span class="filter-icon-container circle z-depth-4">
+        <i class="material-icons filter-list">filter_list</i>
+        <i class="material-icons add-circle">add_circle</i>
+        <i class="material-icons check-circle">check_circle</i>
+        <span class="cat-id"><%= litter.litter_number %></span>
+      </span>
       <% cattery_kittens_per_litter(litter.ids).each do |cat| %>
         <div class="card-image">
           <%= image_tag(cat.thumbnail, :alt => "card picture") if cat.card_picture.attached? %>

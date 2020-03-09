@@ -1,16 +1,97 @@
-function ReplaceWithParentsFilter(pairs, litters, kittens) {
+function ReplacePairsWithParentsFilter(pairs) {
   var pairsContainer = $('#pairs');
-  var littersContainer = $('#litters');
+  if ($('#litters_filter').val() == "" || $('#litters_filter').val() == null) {
+    $(pairsContainer).html(pairs);
+    $('.tabs').tabs({swipeable: true});
+  }
+}
+
+function ReplaceLittersWithParentsFilter(litters) {
+  if ($('#litters_filter').val() == "" || $('#litters_filter').val() == null) {
+    var littersContainer = $('#litters');
+    $(littersContainer).html(litters);
+
+    // Close select when clicking or tapping on the first disabled option
+    function closeSelectOnDisabledOption(e) {
+      $(':focus').blur();    
+      $('header').trigger('click');
+    }
+
+    function showActiveFilterIcon(card) {
+      $(card).find('.filter-icon-container').show();
+      $(card).find('.filter-icon-container').addClass('active');
+      $(card).find('.add-circle').hide();
+      $(card).find('.check-circle').show();
+    }
+
+    function hideActiveFilterIcon(card) {
+      $(card).find('.filter-icon-container').hide();
+      $(card).find('.filter-icon-container').removeClass('active');
+      $(card).find('.check-circle').hide();
+      $(card).find('.add-circle').show();
+    }
+      
+    // Cards filtering event
+    function cardFilteringIcon() {
+      var animationTime = 100; 
+      $('#litters .card').on({
+        mouseenter: function() {
+          $(this).find('.filter-icon-container').fadeIn(animationTime);
+        },
+        mouseleave: function() {
+          $(this).find('.filter-icon-container:not(.active)').fadeOut(animationTime*2);
+        },
+        click: function() {
+          var currentSection = $(this).closest('.section');
+          var selectForm = $(currentSection).find('select');
+          var catId = $(this).find('.cat-id').text();
+
+          if ($(this).find('.filter-icon-container').hasClass('active')) {
+            hideActiveFilterIcon(this);
+
+            // Remove selected options from dropdown
+            $(selectForm).find("option[value='" + catId + "']").prop('selected', false)
+            $(selectForm).formSelect();
+            $('.disabled').on('click', closeSelectOnDisabledOption);
+            $(currentSection).find('.form-filter').trigger('change');
+          }
+
+          else {
+            showActiveFilterIcon(this);
+
+            // Add selected options to dropdown
+            $(selectForm).find("option[value='" + catId + "']").prop('selected', true);
+            $(selectForm).formSelect();
+            $('.disabled').on('click', closeSelectOnDisabledOption);
+            $(currentSection).find('.form-filter').trigger('change');
+          }
+        }
+      });
+    }
+    cardFilteringIcon();
+  }
+}
+
+function ReplaceKittensWithParentsFilter(kittens) {
   var kittensContainer = $('#kittens');
-  
-  $(pairsContainer).html(pairs);
-  $(littersContainer).html(litters);
   $(kittensContainer).html(kittens);
-  $('.tabs').tabs({swipeable: true});
 }
 
 <% if @pairs.any? %>
-ReplaceWithParentsFilter("<%= j(render 'cattery_pairs')%>","<%= j(render 'cattery_litters')%>","<%= j(render 'cattery_kittens')%>");
+ReplacePairsWithParentsFilter("<%= j(render 'cattery_pairs')%>");
 <% else %>
-ReplaceWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No pairs found!</span></div>","<div class='col s12 center-align'><span class='empty-message'>No litters found!</span></div>","<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
+ReplacePairsWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No pairs found!</span></div>");
 <% end %>
+
+<% if @litters.any? %>
+ReplaceLittersWithParentsFilter("<%= j(render 'cattery_litters')%>");
+<% else %>
+ReplaceLittersWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No litters found!</span></div>");
+<% end %>
+
+<% if @kittens.any? %>
+ReplaceKittensWithParentsFilter("<%= j(render 'cattery_kittens')%>");
+<% else %>
+ReplaceKittensWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
+<% end %>
+  

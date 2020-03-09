@@ -18,23 +18,6 @@ $(document).on('turbolinks:load', function() {
   $('.fixed-action-btn').floatingActionButton();
   $('.modal').modal();
 
-  // // Add active class to text inputs on page load
-  // var textInputs = $('input[type="text"]');
-
-  // $(textInputs).each(function() {
-  //   if($(this).val() != "" && $(this).val() != null) {
-  //     $(this).addClass('active');
-  //   }
-  //   else {
-  //     $(this).removeClass('active');
-  //   }
-  // });
-
-  // Helper function to check empty input
-  function isEmpty( el ){
-      return !$.trim(el.html())
-  }
-
   // Close select when clicking or tapping on the first disabled option
   function closeSelectOnDisabledOption(e) {
     $(':focus').blur();    
@@ -131,7 +114,7 @@ $(document).on('turbolinks:load', function() {
         cardPicturePreview.innerHTML = '<img src="'+ image +'" />';
       };
       // Produce a data URL (base64 encoded string of the data in the file)
-      // We are retrieving the first file from the FileList object
+      // Retrieve the first file from the FileList object
       reader.readAsDataURL(input.files[0]);
     }
 
@@ -223,7 +206,7 @@ $(document).on('turbolinks:load', function() {
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
             //Only pics
-            if (/\.(jpe?g|png|gif)$/i.test(file.name)) {;
+            if (/\.(jpe?g|png)$/i.test(file.name)) {;
 
             var reader = new FileReader();
             reader.addEventListener("load", function (event) {
@@ -251,7 +234,7 @@ $(document).on('turbolinks:load', function() {
 
     $('#cat_pictures').on('change', showPicturesPreview);
 
-    // Ajax - Get a new litter number
+    // AJAX - Get a new litter number
     $(document).on('ajax:before', '[data-remote]', () => {
       Turbolinks.clearCache();
     });
@@ -267,7 +250,7 @@ $(document).on('turbolinks:load', function() {
       catBirthdateInput.attr('disabled', false);
     });
 
-    // Ajax - Get birth date of selected litter
+    // AJAX - Get birth date of selected litter
     document.querySelector('#cat_litter_number').addEventListener('change', function(event) {
       $.ajax({
         type: "GET",
@@ -288,7 +271,7 @@ $(document).on('turbolinks:load', function() {
     })
   }
 
-  // KITTEN INDEX
+  // KITTEN & CATTERIES INDEX
   if (pathname == '/cats' || pathname == '/catteries') {
     if (pathname == '/cats') {
       var update_filters_path = '/cats/update_filters';
@@ -462,63 +445,83 @@ $(document).on('turbolinks:load', function() {
     });
 
     if (pathname.startsWith('/catteries/') && !pathname.endsWith('my_cattery')) {
-      function showActiveFilterIcon(parent) {
-        $(parent).find('.filter-icon-container').show();
-        $(parent).find('.filter-icon-container').addClass('active');
-        $(parent).find('.add-circle').hide();
-        $(parent).find('.check-circle').show();
+      function showActiveFilterIcon(card) {
+        $(card).find('.filter-icon-container').show();
+        $(card).find('.filter-icon-container').addClass('active');
+        $(card).find('.add-circle').hide();
+        $(card).find('.check-circle').show();
       }
 
-      function hideActiveFilterIcon(parent) {
-        $(parent).find('.filter-icon-container').hide();
-        $(parent).find('.filter-icon-container').removeClass('active');
-        $(parent).find('.check-circle').hide();
-        $(parent).find('.add-circle').show();
+      function hideActiveFilterIcon(card) {
+        $(card).find('.filter-icon-container').hide();
+        $(card).find('.filter-icon-container').removeClass('active');
+        $(card).find('.check-circle').hide();
+        $(card).find('.add-circle').show();
       }
       
       // Cards filtering event
-      var animationTime = 100; 
-      $('.card').on({
-        mouseenter: function() {
-          $(this).find('.filter-icon-container').fadeIn(animationTime);
-        },
-        mouseleave: function() {
-          $(this).find('.filter-icon-container:not(.active)').fadeOut(animationTime*2);
-        },
-        click: function() {
-          var currentSection = $(this).closest('.section');
-          var selectForm = $(currentSection).find('select');
-          var catId = $(this).find('.cat-id').text();
-
-          if ($(this).find('.filter-icon-container').hasClass('active')) {
-            hideActiveFilterIcon(this);
-
-            // Remove selected options from dropdown
-            $(selectForm).find("option[value='" + catId + "']").prop('selected', false)
-            $(selectForm).formSelect();
-            $('.disabled').on('click', closeSelectOnDisabledOption);
-            // $(currentSection).find('.form-filter').val($('.form-filter').val()).trigger('change');
-            $(currentSection).find('.form-filter').trigger('change');
+      function cardFilteringIcon() {
+        var animationTime = 100; 
+        $('.card').on({
+          mouseenter: function() {
+            $(this).find('.filter-icon-container').fadeIn(animationTime);
+          },
+          mouseleave: function() {
+            $(this).find('.filter-icon-container:not(.active)').fadeOut(animationTime*2);
+          },
+          click: function() {
+            var currentSection = $(this).closest('.section');
+            var selectForm = $(currentSection).find('select');
+            var catId = $(this).find('.cat-id').text();
+  
+            if ($(this).find('.filter-icon-container').hasClass('active')) {
+              hideActiveFilterIcon(this);
+  
+              // Remove selected options from dropdown
+              $(selectForm).find("option[value='" + catId + "']").prop('selected', false)
+              $(selectForm).formSelect();
+              $('.disabled').on('click', closeSelectOnDisabledOption);
+              $(currentSection).find('.form-filter').trigger('change');
+            }
+  
+            else {
+              showActiveFilterIcon(this);
+  
+              // Add selected options to dropdown
+              $(selectForm).find("option[value='" + catId + "']").prop('selected', true);
+              $(selectForm).formSelect();
+              $('.disabled').on('click', closeSelectOnDisabledOption);
+              $(currentSection).find('.form-filter').trigger('change');
+            }
           }
+        });
+      }
+      cardFilteringIcon();
 
-          else {
-            showActiveFilterIcon(this);
-
-            // Add selected options to dropdown
-            $(selectForm).find("option[value='" + catId + "']").prop('selected', true);
-            $(selectForm).formSelect();
-            $('.disabled').on('click', closeSelectOnDisabledOption);
-            // $(currentSection).find('.form-filter').val($('.form-filter').val()).trigger('change');
-            $(currentSection).find('.form-filter').trigger('change');
-          }
-        }
-      });
-
+      // Cattery show page filtering
       $('.form-filter').on('change', function() {
-        // Send AJAX request to update cats
-        Rails.fire(document.querySelector('form'), 'submit');
-
         var currentSection = $(this).closest('.section');
+
+        // Reset the next filters
+        var otherFilters = $(currentSection).nextAll().find('.form-filter');
+
+        $(otherFilters).each(function() {
+          var filterSection = $(this).closest('.section');
+
+          // Reset the dropdown with only the placeholder value
+          var placeholderText = $(filterSection).find('.disabled').text();
+          $(this).val(placeholderText);
+          $(filterSection).find('.select-dropdown').val(placeholderText);
+          $(filterSection).find('.reset-dropdown').hide();
+        });
+
+        if ($(currentSection).find('.form-filter').val() == "" || $(currentSection).find('.form-filter').val() == null) {
+          $($(currentSection).find('.form-filter')).val($(currentSection).find('.disabled').text());
+          $($(currentSection).find('.select-dropdown')).val($(currentSection).find('.disabled').text());
+        }
+
+        // Submit the filter
+        Rails.fire($('form')[0], 'submit');
 
         // Set filter icons on cards to be the same as selected options in dropdown
         $(currentSection).find('.card').each(function() {
@@ -534,83 +537,72 @@ $(document).on('turbolinks:load', function() {
             }
           }
         });
-        
-        // Show reset button if options are selected       
-        var selectedFilterMessage = $('.selected-filters-message');
+
+        var filterForms = $('form').find('.form-filter');
+
+         // Show which parents/litters are being filtered on
+         var selectedFilterMessage = $(currentSection).nextAll().find('.selected-filters-message');
+         $(selectedFilterMessage).html('');
  
-        if ($(this).val() != "" && $(this).val() != null) {
-          $($(this).parent().parent().find('.reset-dropdown')).show();
+         $(filterForms).each(function() {
+           var filterSection = $(this).closest('.section');
+           var selectedOptions = $(filterSection).find('option:selected');
+         
+           $(selectedFilterMessage).each(function() {
+             $(this).show();
+             var messageSection = $(this).closest('.section');
+             var selectedOptionsString = '';
+ 
+             // Create string of selected options (taking the value of .select-dropdown input directly sometimes returns placeholder)
+             for(var i = 0; i < selectedOptions.length; i++) {
+               var selectedOptionsString = selectedOptionsString + $(selectedOptions[i]).text();
+               if (i+1 != selectedOptions.length ) {
+                 var selectedOptionsString = selectedOptionsString + ', ';
+               }
+             }
+             
+             // Only add a message if the filter is used
+             if (filterSection.find('.form-filter').val() != "" && filterSection.find('.form-filter').val() != null) {
+               $(this).append('<i class="material-icons filter-list">filter_list</i><span>Showing ' + $(messageSection).find('h1').first().text().toLowerCase() +' from the ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
+             }
+ 
+             // Add a line break if more than one filter is active
+             if ($(this).html != '') {
+               $(this).append('<br>');
+             }
+           });
+         });
 
-          // Show which parents are being filtered on
-          $(selectedFilterMessage).show();
-          $(selectedFilterMessage).each(function() {
-            var messageSection = $(this).closest('.section');
-            var selectedOptions = $(currentSection).find('option:selected');
-            var selectedOptionsString = '';
+         // Check if values exist in other filters, in case there they do, submit the form
+          var allFiltersAreEmpty = true;
 
-            // Create string of selected options; taking the value of .select-dropdown input directly sometimes returns placeholder
-            for(var i = 0; i < selectedOptions.length; i++) {
-              var selectedOptionsString = selectedOptionsString + $(selectedOptions[i]).text();
-              if (i+1 != selectedOptions.length ) {
-                var selectedOptionsString = selectedOptionsString + ', ';
-              }
+          for (var i = 0; i < filterForms.length; i++) {
+            var valueFilterForm = $(filterForms[i]).val();
+
+            if (valueFilterForm != "" && valueFilterForm != null) {
+              var allFiltersAreEmpty = false;
             }
+          }
 
-            $(this).html('<i class="material-icons filter-list">filter_list</i><span>Showing ' + $(messageSection).find('h1').first().text().toLowerCase() +' from the ' + $(currentSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
+         if (allFiltersAreEmpty) {
+          // Hide and reset the selected parents message when the filter is empty
+          $(selectedFilterMessage).each(function() {
+            $(this).hide();
           });
+        }
+        
+        if ($(this).val() != "" && $(this).val() != null) {
+          // Show reset button if options are selected
+          $($(this).parent().parent().find('.reset-dropdown')).show();
         }
 
         else {
+          // Hide reset button if no options are selected
           $($(this).parent().parent().find('.reset-dropdown')).hide();
-
-          // Hide and reset the selected parents message when the filter is empty
-          $(selectedFilterMessage).hide();
-          $(selectedFilterMessage).each(function() {
-            $(this).html('');
-          });
         }
-
-        // $.ajax({
-        //   type: 'GET',
-        //   dataType: 'json',
-        //   context: this, 
-        //   url: $(currentSection).find('form').attr('action'),
-        //   data: {
-        //     parents: $('#parents').val(),
-        //   },
-        //   success: function(data){
-        //     $('.form-filter').not(this).each(function() {
-        //       var currentFilter = $(this).attr('id');
-  
-        //       // Reset the options in the select but skip the placeholder & selected options         
-        //       var selectedOptions = $(this).parent().find('.selected');
-        //       var retainOptionsString = 'option:first';
-  
-        //       for(var i = 0; i < selectedOptions.length; i++) {
-        //         var retainOptionsString = retainOptionsString + ', option:contains("' + $(selectedOptions[i]).text() + '")';
-        //       }
-  
-        //       var retainOptionsString = "'" + retainOptionsString + "'";
-  
-        //       $(this).children().not(retainOptionsString).remove();
-        //       for(var i = 0; i < data[currentFilter].length; i++) {
-        //         if (!retainOptionsString.includes(data[currentFilter][i][0])) {
-        //           $(this).append($("<option></option>").attr("value", data[currentFilter][i][1]).text(data[currentFilter][i][0]));
-        //         }  
-        //       }
-              
-        //       // Reinitiliaze select
-        //       $(this).formSelect();
-        //       $('.disabled').on('click', closeSelectOnDisabledOption);
-        //     });
-        //   },
-        //   error: function() {
-        //     console.log('Ajax request failed');
-        //     M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
-        //   }
-        // });
       });
 
+      // Cattery show page filter reset
       $('.reset-dropdown').on('click', function() {
         var currentSection = $(this).closest('.section');
 
@@ -620,9 +612,55 @@ $(document).on('turbolinks:load', function() {
         });
 
         // Reset the dropdown with only the placeholder value
-        $($(this).parent().find('.form-filter')).val($(this).parent().find('.disabled').text()).trigger('change');
-        $($(this).parent().find('.select-dropdown')).val($(this).parent().find('.disabled').text());
+        $($(currentSection).find('.form-filter')).val($(currentSection).find('.disabled').text());
+        $($(currentSection).find('.select-dropdown')).val($(currentSection).find('.disabled').text());
         $(this).hide();
+
+        // Reset the next filters
+        var otherFilters = $(currentSection).nextAll().find('.form-filter');
+
+        $(otherFilters).each(function() {
+          var filterSection = $(this).closest('.section');
+
+          // Reset the dropdown with only the placeholder value
+          var placeholderText = $(filterSection).find('.disabled').text();
+          $(this).val(placeholderText);
+          $(filterSection).find('.select-dropdown').val(placeholderText);
+          $(filterSection).find('.reset-dropdown').hide();
+        });
+
+        if ($(currentSection).find('.form-filter').val() == "" || $(currentSection).find('.form-filter').val() == null) {
+          $($(currentSection).find('.form-filter')).val($(currentSection).find('.disabled').text());
+          $($(currentSection).find('.select-dropdown')).val($(currentSection).find('.disabled').text());
+        }
+
+        // Send AJAX request to reset cats
+        var filterForms = $('form').find('.form-filter');
+
+        // Check if values exist in other filters, in case there they do, submit the form
+        var allFiltersAreEmpty = true;
+
+        for (var i = 0; i < filterForms.length; i++) {
+          var valueFilterForm = $(filterForms[i]).val();
+
+          if (valueFilterForm != "" && valueFilterForm != null) {
+            var allFiltersAreEmpty = false;
+          }
+        }
+
+       if (allFiltersAreEmpty) {
+        // Hide and reset the selected parents message when the filter is empty
+        $(selectedFilterMessage).each(function() {
+          $(this).hide();
+        });
+      }
+
+        // Reset active filter messages
+        var selectedFilterMessage = $(currentSection).nextAll().find('.selected-filters-message');
+        $(selectedFilterMessage).html('');
+
+        console.log('all filters are empty: ' + allFiltersAreEmpty);
+
       });
     }
 });

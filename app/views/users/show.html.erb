@@ -85,129 +85,136 @@
       </div>
     </div>
   </div>
-  <% if cattery_parents(@user).any? %>
-    <div class="section">
-      <div class="row">
-        <h1>Parents</h1>
-      </div>
-      <div class="filter-bar">
-        <div class="container parent-filter">
-          <%= render 'parent_filter', :locals => {:controller => 'users', :action => 'show', :id => @user.id} %>
+  <%= form_with(url: {:controller => 'users', :action => 'show', :id => @user.id}, :html => {:class => "filter"}, method: "GET") do |f| %>
+    <% if cattery_parents(@user).any? %>
+      <div class="section">
+        <div class="row">
+          <h1>Parents</h1>
         </div>
-      </div>
-      <div class="row">
-      <% cattery_parents(@user).each do |cat| %>
-        <div class="col s10 offset-s1 m6 l3">
-            <div class="card">
-              <span class="filter-icon-container circle z-depth-4">
-                <i class="material-icons filter-list">filter_list</i>
-                <i class="material-icons add-circle">add_circle</i>
-                <i class="material-icons check-circle">check_circle</i>
-                <span class="cat-id"><%= cat.id %></span>
-              </span>
-              <div class="card-image">
-                <%= image_tag(cat.thumbnail, :alt => "card picture") %>
-                <% if !cat.name.blank? %>
-                  <span class="card-title"><%= cat.name %></span>
-                <% end %>
-                <% if user_signed_in? && current_user == @user %>
-                  <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
-                    <i class="material-icons">edit</i>
+        <div class="filter-bar">
+          <div class="container parent-filter">
+            <%= render 'parent_filter', f: f %>
+          </div>
+        </div>
+        <div class="row">
+        <% cattery_parents(@user).each do |cat| %>
+          <div class="col s10 offset-s1 m6 l3">
+              <div class="card">
+                <span class="filter-icon-container circle z-depth-4">
+                  <i class="material-icons filter-list">filter_list</i>
+                  <i class="material-icons add-circle">add_circle</i>
+                  <i class="material-icons check-circle">check_circle</i>
+                  <span class="cat-id"><%= cat.id %></span>
+                </span>
+                <div class="card-image">
+                  <%= image_tag(cat.thumbnail, :alt => "card picture") %>
+                  <% if !cat.name.blank? %>
+                    <span class="card-title"><%= cat.name %></span>
                   <% end %>
-                <% end %>
-              </div>
-              <div class="card-content">
-                <div class="info-block">
-                  <div class="row">
-                    <div class="col s4">
-                      <span class="info-title">Breed:</span>
-                    </div>
-                    <div class="col s8">
-                      <span class="info-text"><%= cat_breed(cat) %></span>
+                  <% if user_signed_in? && current_user == @user %>
+                    <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                      <i class="material-icons">edit</i>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="card-content">
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Breed:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= cat_breed(cat) %></span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="info-block">
-                  <div class="row">
-                    <div class="col s4">
-                      <span class="info-title">Gender:</span>
-                    </div>
-                    <div class="col s8">
-                      <span class="info-text"><%= cat_gender(cat) %></span>
-                    </div>
-                  </div>
-                </div>
-                <div class="info-block">
-                  <div class="row">
-                    <div class="col s4">
-                      <span class="info-title">Partners:</span>
-                    </div>
-                    <div class="col s8">
-                      <span class="info-text"><%= cat.pairs.size %></span>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Gender:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= cat_gender(cat) %></span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="info-block">
-                  <div class="row">
-                    <div class="col s4">
-                      <span class="info-title">Litters:</span>
-                    </div>
-                    <div class="col s8">
-                      <span class="info-text"><%= parent_litters_count(cat, @user) %></span>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Partners:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= cat.pairs.size %></span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="info-block">
-                  <div class="row">
-                    <div class="col s4">
-                      <span class="info-title">Kittens:</span>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Litters:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= parent_litters_count(cat, @user) %></span>
+                      </div>
                     </div>
-                    <div class="col s8">
-                      <span class="info-text"><%= parent_kittens_count(cat, @user) %></span>
+                  </div>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Kittens:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= parent_kittens_count(cat, @user) %></span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          <% end %>
+        </div>
+      </div> 
+    <% end %>
+    <% if @pairs.any? %>
+      <div class="section">
+        <div class="row">
+          <h1>Pairs</h1>
+        </div>
+        <div class="selected-filters-message"></div>
+        <div id="pairs" class="row">
+          <%= render partial: 'cattery_pairs' %>
+        </div>
+      </div>
+    <% end %>
+    <% if @litters.any? %>
+      <div class="section">
+        <div class="row">
+          <h1>Litters</h1>
+        </div>
+        <div class="filter-bar">
+          <div class="container parent-filter">
+            <%= render 'litter_filter', f: f %>
           </div>
-        <% end %>
+        </div>
+        <div class="selected-filters-message"></div>
+        <div id="litters" class="row">
+          <%= render partial: 'cattery_litters' %>
+        </div>
       </div>
-    </div> 
-  <% end %>
-  <% if @pairs.any? %>
-    <div class="section">
-      <div class="row">
-        <h1>Pairs</h1>
+    <% end %>
+    <% if @kittens.any? %>
+      <div class="section">
+        <div class="row">
+          <h1>Kittens</h1>
+        </div>
+        <div class="selected-filters-message"></div>
+        <div id="kittens" class="row">
+          <%= render partial: 'cattery_kittens' %>
+        </div>
       </div>
-      <div class="selected-filters-message"></div>
-      <div id="pairs" class="row">
-        <%= render partial: 'cattery_pairs' %>
-      </div>
+    <% end %>
+    <div id="contact" class="section contact">
+      <%= render 'shared/contact_form', user: @user, cat: nil %>
     </div>
   <% end %>
-  <% if @litters.any? %>
-    <div class="section">
-      <div class="row">
-        <h1>Litters</h1>
-      </div>
-      <div class="selected-filters-message"></div>
-      <div id="litters" class="row">
-        <%= render partial: 'cattery_litters' %>
-      </div>
-    </div>
-  <% end %>
-  <% if @kittens.any? %>
-    <div class="section">
-      <div class="row">
-        <h1>Kittens</h1>
-      </div>
-      <div class="selected-filters-message"></div>
-      <div id="kittens" class="row">
-        <%= render partial: 'cattery_kittens' %>
-      </div>
-    </div>
-  <% end %>
-  <div id="contact" class="section contact">
-    <%= render 'shared/contact_form', user: @user, cat: nil %>
-  </div>
 </div>

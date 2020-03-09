@@ -15,11 +15,11 @@ require('jquery')
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-import 'materialize-css/dist/js/materialize.min'
-import 'imagesloaded/imagesloaded.pkgd.min'
-import 'colcade/colcade'
-import '../stylesheets/application'
-require("custom")
+require('materialize-css/dist/js/materialize.min')
+require('imagesloaded/imagesloaded.pkgd.min')
+require('colcade/colcade')
+require('../stylesheets/application')
+require('custom')
 
 
 
