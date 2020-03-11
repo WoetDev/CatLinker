@@ -538,9 +538,9 @@ $(document).on('turbolinks:load', function() {
           }
         });
 
-        var filterForms = $('form').find('.form-filter');
-
          // Show which parents/litters are being filtered on
+         var filterForms = $('.form-filter');
+
          var selectedFilterMessage = $(currentSection).nextAll().find('.selected-filters-message');
          $(selectedFilterMessage).html('');
  
@@ -573,7 +573,7 @@ $(document).on('turbolinks:load', function() {
            });
          });
 
-         // Check if values exist in other filters, in case there they do, submit the form
+         // Check if values exist in other filters, in case there aren't, reset the select options messages
           var allFiltersAreEmpty = true;
 
           for (var i = 0; i < filterForms.length; i++) {
@@ -635,7 +635,7 @@ $(document).on('turbolinks:load', function() {
         }
 
         // Send AJAX request to reset cats
-        var filterForms = $('form').find('.form-filter');
+        var filterForms = $('.form-filter');
 
         // Check if values exist in other filters, in case there they do, submit the form
         var allFiltersAreEmpty = true;
@@ -648,20 +648,86 @@ $(document).on('turbolinks:load', function() {
           }
         }
 
-       if (allFiltersAreEmpty) {
-        // Hide and reset the selected parents message when the filter is empty
-        $(selectedFilterMessage).each(function() {
-          $(this).hide();
-        });
-      }
-
-        // Reset active filter messages
         var selectedFilterMessage = $(currentSection).nextAll().find('.selected-filters-message');
-        $(selectedFilterMessage).html('');
 
-        console.log('all filters are empty: ' + allFiltersAreEmpty);
+        if (allFiltersAreEmpty) {
+          // Reset active filter messages
+          $(selectedFilterMessage).each(function() {
+            $(this).hide();
+            $(this).html('');
+          });
+        }
 
+        else {
+          $(selectedFilterMessage).html('');
+
+          $(filterForms).each(function() {
+            var filterSection = $(this).closest('.section');
+            var selectedOptions = $(filterSection).find('option:selected');
+          
+            $(selectedFilterMessage).each(function() {
+              $(this).show();
+              var messageSection = $(this).closest('.section');
+              var selectedOptionsString = '';
+
+              // Create string of selected options (taking the value of .select-dropdown input directly sometimes returns placeholder)
+              for(var i = 0; i < selectedOptions.length; i++) {
+                var selectedOptionsString = selectedOptionsString + $(selectedOptions[i]).text();
+                if (i+1 != selectedOptions.length ) {
+                  var selectedOptionsString = selectedOptionsString + ', ';
+                }
+              }
+              
+              // Only add a message if the filter is used
+              if (filterSection.find('.form-filter').val() != "" && filterSection.find('.form-filter').val() != null) {
+                $(this).append('<i class="material-icons filter-list">filter_list</i><span>Showing ' + $(messageSection).find('h1').first().text().toLowerCase() +' from the ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
+              }
+
+              // Add a line break if more than one filter is active
+              if ($(this).html != '') {
+                $(this).append('<br>');
+              }
+            });
+          });
+        }
       });
+
+      // Switch tabs when clicking on pair card image
+      $('.card .tabs-content').on('click', function(e) {
+
+        // Get the properties and instance of the tabs
+        var card = $(this).closest('.card');
+        var elem = $(card).find('.tabs');
+        var instance = M.Tabs.getInstance(elem);
+        var tabs = $(card).find('.tab');
+        var tabIndex = instance.index;
+        var totalTabs = elem.length;
+
+        if (tabIndex == totalTabs) {
+          var tabId = $(tabs[0]).find('a').attr('href');
+        }
+
+        else {
+          var tabId = $(tabs[tabIndex+1]).find('a').attr('href');
+        }
+
+        // Trigger a click on one of the tabs when clicking on the image
+        var selector = "a[href|='" + tabId + "']";
+        $(selector)[0].click();
+      });
+
+      // Add image carousel for litters
+      $('.carousel').carousel({ 
+        fullWidth: true,
+        indicators: true,
+        noWrap: true
+      });
+
+      // autoplay()   
+      // function autoplay() {
+      //   $('.carousel').carousel('next');
+      //   setTimeout(autoplay, 4500);
+      // }
     }
 });
 

@@ -225,6 +225,15 @@
       right: 0px;
       text-align: center;
     }
+    .carousel, .carousel-item {
+      max-height: 300px;
+    }
+
+    .indicators {
+      display: block;
+      transform: scale(1.3);
+      bottom: -10px;
+    }
   }
 }
 

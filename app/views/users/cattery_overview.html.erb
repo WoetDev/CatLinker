@@ -131,50 +131,46 @@
                     <li class="tab"><a  href="#<%= pair.id %><%= pair.female.id %>"><%= pair.female.name %></a></li>
                   </ul>
                 </div>
-                <a href="#">
-                  <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >
-                    <%= image_tag(pair.male.thumbnail, :alt => "breed") if pair.male.card_picture.attached? %>
-                  </div>
-                  <div class="card-image" id="<%= pair.id %><%= pair.female.id %>" >
-                    <%= image_tag(pair.female.thumbnail, :alt => "breed") if pair.female.card_picture.attached? %>
-                  </div>
-                </a>
+                <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >
+                  <%= image_tag(pair.male.thumbnail, :alt => "breed") if pair.male.card_picture.attached? %>
+                </div>
+                <div class="card-image" id="<%= pair.id %><%= pair.female.id %>" >
+                  <%= image_tag(pair.female.thumbnail, :alt => "breed") if pair.female.card_picture.attached? %>
+                </div>
                 <div class="card-content">
                   <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
                     <i class="material-icons">edit</i>
                   <% end %>
-                  <a href="#">
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title">Breed:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= cat_breed(pair.male) %></span>
-                        </div>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Breed:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= cat_breed(pair.male) %></span>
                       </div>
                     </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title">Litters:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= pair_litters_count(pair, @user) %></span>
-                        </div>
+                  </div>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Litters:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= pair_litters_count(pair, @user) %></span>
                       </div>
                     </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title">Kittens:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= pair_kittens_count(pair, @user) %></span>
-                        </div>
+                  </div>
+                  <div class="info-block">
+                    <div class="row">
+                      <div class="col s4">
+                        <span class="info-title">Kittens:</span>
+                      </div>
+                      <div class="col s8">
+                        <span class="info-text"><%= pair_kittens_count(pair, @user) %></span>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>

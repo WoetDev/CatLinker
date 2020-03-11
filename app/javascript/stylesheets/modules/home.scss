@@ -216,22 +216,22 @@
         }
       }
     }
+  }  
+}
+
+.indicators {
+  bottom: -30px;
+
+  @include small-and-down {
+    bottom: -30px;
   }
 
-  .indicators {
-    bottom: -30px;
+  .indicator-item {
+    background-color: $primaryColor;
+  }
 
-    @include small-and-down {
-      bottom: -30px;
-    }
-
-    .indicator-item {
-      background-color: $primaryColor;
-    }
-  
-    .active {
-      background-color: $secondaryColor !important;
-    }
+  .active {
+    background-color: $secondaryColor !important;
   }
 }
 
