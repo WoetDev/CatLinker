@@ -4,6 +4,30 @@ function ReplacePairsWithParentsFilter(pairs) {
     $(pairsContainer).html(pairs);
     $('.tabs').tabs({swipeable: true});
   }
+
+  // Switch tabs when clicking on pair card image
+  $('.card .tabs-content').on('click', function(e) {
+
+    // Get the properties and instance of the tabs
+    var card = $(this).closest('.card');
+    var elem = $(card).find('.tabs');
+    var instance = M.Tabs.getInstance(elem);
+    var tabs = $(card).find('.tab');
+    var tabIndex = instance.index;
+    var totalTabs = elem.length;
+
+    if (tabIndex == totalTabs) {
+      var tabId = $(tabs[0]).find('a').attr('href');
+    }
+
+    else {
+      var tabId = $(tabs[tabIndex+1]).find('a').attr('href');
+    }
+
+    // Trigger a click on one of the tabs when clicking on the image
+    var selector = "a[href|='" + tabId + "']";
+    $(selector)[0].click();
+  });
 }
 
 function ReplaceLittersWithParentsFilter(litters) {

@@ -219,21 +219,24 @@
   }  
 }
 
-.indicators {
-  bottom: -30px;
-
-  @include small-and-down {
+.carousel {
+  .indicators {
     bottom: -30px;
-  }
-
-  .indicator-item {
-    background-color: $primaryColor;
-  }
-
-  .active {
-    background-color: $secondaryColor !important;
+  
+    @include small-and-down {
+      bottom: -30px;
+    }
+  
+    .indicator-item {
+      background-color: $primaryColor;
+    }
+  
+    .active {
+      background-color: $secondaryColor !important;
+    }
   }
 }
+
 
 // Kittens section
 .kittens-landing, .cattery-overview, .kittens-index, .other-kittens, .catteries-index, #cattery-view {

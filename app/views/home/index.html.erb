@@ -7,17 +7,15 @@
       <div class="col l6 m12 offset-l1 search-landing">
           <h1>Find your cat!</h1>
           <div class="input-field">
-            <select multiple>
-              <option value="" disabled class="selectPlaceholder">Which breed(s) are you looking for?</option>
-              <option value="">Maine Coon</option>
-              <option value="2">Bengal</option>
-              <option value="3">British Shorthair</option>
-            </select>
+            <%= form_with(url: {:controller => 'home', :action => 'search'}, method: "GET", local: true) do |f| %>
+              <%= f.select(:breeds, options_for_select(@all_available_breeds_array), {disabled: "", prompt: 'Which breed(s) are you looking for?'}, {:multiple => true, class:"form-filter"}) %>
+              <%= f.hidden_field(:locations, :multiple => true, :value => @all_available_locations_array) %>
+              <%= f.button class:"waves-effect waves-light btn-large", type:"submit" do %>
+                Search
+                <i class="material-icons right">send</i>
+              <% end %>
+            <% end %>
           </div>
-          <button class="waves-effect waves-light btn-large" type="submit" name="action">
-            Search
-            <i class="material-icons right">send</i>
-          </button>
       </div>
     </div>
   </div>
