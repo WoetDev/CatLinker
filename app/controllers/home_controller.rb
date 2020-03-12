@@ -11,7 +11,6 @@ class HomeController < ApplicationController
   def search
     all_available_breeds
     @all_available_locations_array = []
-    
     redirect_to controller: "cats", action: "index", params: request.query_parameters and return
   end
 

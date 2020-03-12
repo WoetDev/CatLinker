@@ -63,6 +63,7 @@
 .home-landing, .kittens-landing {
   .btn-large {
     background: $primaryColor !important;
+    margin-top: 10px;
 
     &:hover {
       background: $primaryShade4 !important;

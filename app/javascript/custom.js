@@ -62,7 +62,6 @@ $(document).on('turbolinks:load', function() {
   // HOMEPAGE
   if (pathname == "/") {
 
-
     // Only initialize carousel on homepage so it doesn't interfere with changing images with tabs inside the cards
     // Adjust carousel size based on device screen width
     var cardReveals =  document.querySelectorAll('.card-reveal');
@@ -289,11 +288,11 @@ $(document).on('turbolinks:load', function() {
         }
         return params;
     }
-
+    
+    // If a search is made from the homepage, add selected breeds in filter and update location filter on page load
     function addSearchToDropdown() {
       var selectedBreeds = getUrlParams();
 
-      // If a search is made from the homepage, add selected breeds and update location filter on page load
       if (selectedBreeds.length > 0) {
         $('#breeds option').each(function() {
           var selected = $.inArray($(this).val(), selectedBreeds);
@@ -521,6 +520,7 @@ $(document).on('turbolinks:load', function() {
         columns: '.grid-col',
         items: '.grid-item'
       });
+      $('.materialboxed').materialbox();
     })
     .fail(function() {
       console.log('Extra images failed to load');
@@ -682,6 +682,52 @@ $(document).on('turbolinks:load', function() {
           // Hide reset button if no options are selected
           $($(this).parent().parent().find('.reset-dropdown')).hide();
         }
+
+        // Send AJAX request to update other filters
+        var ajaxUrlPath = '/catteries/' + $('#message_user_id').val() + '/show_filters';
+
+        $.ajax({
+          type: 'GET',
+          dataType: 'json',
+          context: this, 
+          url: ajaxUrlPath,
+          data: {
+            parents_filter: $('#parents_filter').val()
+          },
+          success: function(data) {          
+            // Reset the other dropdowns
+            $(currentSection).nextAll().find('.form-filter').not($(this).parent().find('select')).each(function() {
+              var currentFilter = $(this).attr('id');
+  
+              // Reset the options in the select but skip the placeholder & selected options
+              var selectedOptions = $(this).parent().find('.selected');
+              var retainOptionsString = 'option:first';
+
+              if (selectedOptions) {
+                for(var i = 0; i < selectedOptions.length; i++) {
+                  var retainOptionsString = retainOptionsString + ', option:contains("' + $(selectedOptions[i]).text() + '")';
+                }
+              }
+
+              var retainOptionsString = "'" + retainOptionsString + "'";
+  
+              $(this).children().not(retainOptionsString).remove();
+              for(var i = 0; i < data[currentFilter].length; i++) {
+                if (!retainOptionsString.includes(data[currentFilter][i][0])) {
+                  $(this).append($("<option></option>").attr("value", data[currentFilter][i][1]).text(data[currentFilter][i][0]));
+                }  
+              }
+              
+              // Reinitiliaze select
+              $(this).formSelect();
+              $('.disabled').on('click', closeSelectOnDisabledOption);
+            });
+          },
+          error: function() {
+            console.log('Ajax request failed');
+            M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+          }
+        });
       });
 
       // Cattery show page filter reset
@@ -772,6 +818,52 @@ $(document).on('turbolinks:load', function() {
             });
           });
         }
+
+        // Send AJAX request to reset ALL of the next filter dropdowns
+        var ajaxUrlPath = '/catteries/' + $('#message_user_id').val() + '/show_filters';
+        
+        $.ajax({
+          type: 'GET',
+          dataType: 'json',
+          context: this, 
+          url: ajaxUrlPath,
+          data: {
+            parents_filter: $('#parents_filter').val()
+          },
+          success: function(data) {          
+            // Reset the other dropdowns
+            $(currentSection).nextAll().find('.form-filter').each(function() {
+              var currentFilter = $(this).attr('id');
+  
+              // Reset the options in the select but skip the placeholder & selected options
+              var selectedOptions = $(this).parent().find('.selected');
+              var retainOptionsString = 'option:first';
+
+              if (selectedOptions) {
+                for(var i = 0; i < selectedOptions.length; i++) {
+                  var retainOptionsString = retainOptionsString + ', option:contains("' + $(selectedOptions[i]).text() + '")';
+                }
+              }
+
+              var retainOptionsString = "'" + retainOptionsString + "'";
+  
+              $(this).children().not(retainOptionsString).remove();
+              for(var i = 0; i < data[currentFilter].length; i++) {
+                if (!retainOptionsString.includes(data[currentFilter][i][0])) {
+                  $(this).append($("<option></option>").attr("value", data[currentFilter][i][1]).text(data[currentFilter][i][0]));
+                }  
+              }
+              
+              // Reinitiliaze select
+              $(this).formSelect();
+              $('.disabled').on('click', closeSelectOnDisabledOption);
+            });
+          },
+          error: function() {
+            console.log('Ajax request failed');
+            M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+          }
+        });
       });
 
       // Switch tabs when clicking on pair card image

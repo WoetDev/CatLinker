@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get 'my_cattery' => 'users#my_cattery', as: 'my_cattery'
       post 'my_cattery' => 'users#update_cattery'
       get 'cattery/overview' => 'users#cattery_overview', as: 'overview'
-      get 'parent_filters' => 'users#parent_filters'
+      get 'show_filters' => 'users#show_filters'
     end
   end
 
