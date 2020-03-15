@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_29_154855) do
+ActiveRecord::Schema.define(version: 2020_03_15_102612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,21 @@ ActiveRecord::Schema.define(version: 2020_02_29_154855) do
     t.integer "cats_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "short_description"
+    t.string "personality"
+    t.string "history"
+    t.integer "playfulness"
+    t.integer "activity_level"
+    t.integer "friendliness_to_other_pets"
+    t.integer "friendliness_to_children"
+    t.integer "grooming_requirements"
+    t.integer "vocality"
+    t.integer "need_for_attention"
+    t.integer "affection_toward_its_owners"
+    t.integer "docility"
+    t.integer "intelligence"
+    t.integer "independence"
+    t.integer "hardiness"
     t.index ["cat_id"], name: "index_breeds_on_cat_id"
   end
 

@@ -1,0 +1,12 @@
+<%= form_with(url: {:controller => locals[:controller], :action => locals[:action]}, method: "GET") do |f| %>
+  <div class="row">
+    <div class="col s10 offset-s1 m6 offset-m3">
+      <div class="input-field">
+        <button class="reset-dropdown circle">
+          <i class="material-icons">restore</i>
+        </button>
+        <%= f.select(:breeds_filter, options_for_select(@all_available_breeds_array), {disabled: "", prompt: 'Which breed(s) are you looking for?'}, {:multiple => true, class:"form-filter icons"}) %>
+      </div>
+    </div>
+  </div>
+<% end %>

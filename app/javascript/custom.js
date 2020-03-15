@@ -897,4 +897,33 @@ $(document).on('turbolinks:load', function() {
         noWrap: true
       });
     }
+
+    // BREEDS INDEX
+    if (pathname == '/breeds') {
+      // Trigger AJAX dropdown filters
+      $('.form-filter').on('change', function() {
+        Rails.fire(document.querySelector('form'), 'submit');
+
+        // Show reset button if options are selected
+        if ($(this).val() != "" && $(this).val() != null) {
+          $($(this).parent().parent().find('.reset-dropdown')).show();
+        }
+        else {
+          $($(this).parent().parent().find('.reset-dropdown')).hide();
+        }
+
+        $('#breeds').html('');
+        $('#preloader').addClass('active');
+      });
+
+      // Reset dropdown filters
+      $('.reset-dropdown').on('click', function() {
+        $($(this).parent().find('.form-filter')).val($(this).parent().find('.disabled').text());
+        $($(this).parent().find('.select-dropdown')).val($(this).parent().find('.disabled').text());
+        $(this).hide();
+
+        $('#breeds').html('');
+        $('#preloader').addClass('active');
+      });
+    }
 });

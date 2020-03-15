@@ -1,0 +1,25 @@
+<div class="container breeds-index">
+  <div class="row">
+    <h1>Breeds</h1>
+  </div>
+
+  <div class="row">
+    <%= render 'search', :locals => {:controller => 'breeds', :action => 'index'} %>
+  </div>
+  
+  <div class="preloader-wrapper" id="preloader">
+    <div class="spinner-layer spinner-teal-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="breeds">
+    <%= render partial: 'page_items' %>
+  </div>
+</div>

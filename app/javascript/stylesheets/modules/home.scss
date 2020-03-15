@@ -124,99 +124,6 @@
         width: 230px;
       }
     }
-
-    .card {
-      color: black;
-      overflow: hidden;
-
-      .card-image, .card-content {
-        cursor: pointer;
-      }
-
-      .card-image {
-        overflow: hidden;
-        max-height: 300px;
-
-        @include small-and-down {
-          max-height: 250px;
-        }
-      }
-
-      .card-content, .card-reveal {
-        border-top: 5px solid $secondaryColor;
-      }
-
-      .material-icons {
-        transition: ease-in-out 0.2s;
-        
-          &:hover {
-            background-color: $primaryColor;
-            color: $backgroundColor;
-          }
-        }
-
-      .card-content {
-        font-size: 1.4em;
-        font-weight: bold;
-
-        .material-icons {
-          position: absolute; 
-          transform: scale(2);
-        }
-
-        @include small-and-up {
-          .material-icons {
-            bottom: 25px;
-            right: 25px;
-          }
-        }
-
-        @include small-and-down {
-          font-size: 1em;
-          
-          .material-icons {
-            transform: scale(1.5);
-            bottom: 20px;
-            right: 15px;
-          }
-        }
-      }
-
-      .card-reveal {
-        .card-title {
-          font-size: 1.5em;
-          font-weight: bold;
-
-          @include small-and-down {
-            font-size: 1.15em;
-          }
-        }
-
-        .material-icons {
-          position: absolute;
-          top: 27px;
-          right: 15px;
-          transform: scale(1.2);
-          padding: 3px;
-
-          @include small-and-down {
-            top: 20px;
-            right: 10px;
-          }
-        }
-
-        a {
-          display: block;
-          font-size: 1.2em;
-          font-weight: bold;
-          color: $primaryColor;
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
-    }
   }  
 }
 
@@ -238,6 +145,100 @@
   }
 }
 
+.breeds-landing, .breeds-index {
+  .card {
+    color: black;
+    overflow: hidden;
+  
+    .card-image, .card-content {
+      cursor: pointer;
+    }
+  
+    .card-image {
+      overflow: hidden;
+      max-height: 300px;
+  
+      @include small-and-down {
+        max-height: 250px;
+      }
+    }
+  
+    .card-content, .card-reveal {
+      border-top: 5px solid $secondaryColor;
+    }
+  
+    .material-icons {
+      transition: ease-in-out 0.2s;
+      
+        &:hover {
+          background-color: $primaryColor;
+          color: $backgroundColor;
+        }
+      }
+  
+    .card-content {
+      font-size: 1.4em;
+      font-weight: bold;
+  
+      .material-icons {
+        position: absolute; 
+        transform: scale(2);
+      }
+  
+      @include small-and-up {
+        .material-icons {
+          bottom: 25px;
+          right: 25px;
+        }
+      }
+  
+      @include small-and-down {
+        font-size: 1em;
+        
+        .material-icons {
+          transform: scale(1.5);
+          bottom: 20px;
+          right: 15px;
+        }
+      }
+    }
+  
+    .card-reveal {
+      .card-title {
+        font-size: 1.5em;
+        font-weight: bold;
+  
+        @include small-and-down {
+          font-size: 1.15em;
+        }
+      }
+  
+      .material-icons {
+        position: absolute;
+        top: 27px;
+        right: 15px;
+        transform: scale(1.2);
+        padding: 3px;
+  
+        @include small-and-down {
+          top: 20px;
+          right: 10px;
+        }
+      }
+  
+      a {
+        display: block;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: $primaryColor;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
 
 // Kittens section
 .kittens-landing, .cattery-overview, .kittens-index, .other-kittens, .catteries-index, #cattery-view {

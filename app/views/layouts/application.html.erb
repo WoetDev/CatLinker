@@ -30,7 +30,7 @@
             </div>
 
             <ul class="right hide-on-med-and-down">
-              <li><a href="#">Breeds</a><% link_to "Breeds" %></li>
+              <li><%= link_to "Breeds", breeds_path %></li>
               <li><%= link_to "Catteries", catteries_path %></li>
               <li><%= link_to "Kittens", cats_path %></li>
               <% if !user_signed_in? %>
@@ -61,7 +61,7 @@
                 <%= image_tag("logo_2.svg", :alt => "logo") %>
                 <div>Cat Linker</div>
           <% end %>
-          <li><a href="#">Breeds</a></li>
+          <li><%= link_to "Breeds", breeds_path %></li>
           <li><%= link_to "Catteries", catteries_path %></li>
           <li><%= link_to "Kittens", cats_path %></li>
           <% if !user_signed_in? %>

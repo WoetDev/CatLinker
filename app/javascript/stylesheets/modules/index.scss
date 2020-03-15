@@ -1,5 +1,5 @@
 // Kittens & catteries index
-.kittens-index, .catteries-index, .filter-bar {
+.kittens-index, .catteries-index, .breeds-index, .filter-bar {
   h1 {
     font-size: 5em;
     font-weight: bold;
@@ -11,8 +11,21 @@
   }
 }
 
-#kittens, #catteries {
+#kittens, #catteries, #breeds {
   .row {
     margin-bottom: 0px;
+  }
+}
+
+// Breeds index
+.breeds-index {
+  .card {
+    transition: ease-in-out 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      box-shadow: 0 8px 17px 2px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+    }
   }
 }

@@ -1,0 +1,22 @@
+<% @breeds.each_slice(4) do |slice| -%>
+  <div class="row">
+    <% slice.each do |breed| %>
+      <div class="col s10 offset-s1 m6 l3">
+        <div class="card">
+          <div class="card-image">
+            <%= image_tag(breed.thumbnail, :alt => 'breed-image', class:"activator") if breed.picture.attached? %>
+          </div>
+          <div class="card-content activator">
+            <%= breed.name %>
+            <i class="material-icons right circle">keyboard_arrow_up</i>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title"><%= breed.name %><i class="material-icons right circle">close</i></span>
+            <p><%= breed.short_description %></p>
+            <%= link_to "Read more", breed_path(breed) %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   get 'cats/update_filters' => 'cats#update_filters'
   get 'users/update_filters' => 'users#update_filters'
   
-
+  resources :breeds, only: [:index, :show]
   resources :cats
   resources :pairs
   resources :messages, only: [:index, :new, :create]

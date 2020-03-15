@@ -21,92 +21,30 @@
   </div>
   <div class="section breeds-landing">
     <div class="container">
-    <div class="row">  
-    <h1>Popular breeds</h1>
-      <div class="carousel">
-        <div class="carousel-item">
-          <div class="card">
-            <div class="card-image">
-              <%= image_tag("maine_coon_placeholder.jpg", :alt => "breed", class:"activator") %>
+      <div class="row">  
+      <h1>Popular breeds</h1>
+        <div class="carousel">
+          <% @breeds.each do |breed| %>
+          <div class="carousel-item">
+              <div class="card">
+                <div class="card-image">
+                  <%= image_tag(breed.thumbnail, :alt => 'breed-image', class:"activator") %>
+                </div>
+                <div class="card-content activator">
+                  <%= breed.name %>
+                  <i class="material-icons right circle">keyboard_arrow_up</i>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title"><%= breed.name %><i class="material-icons right circle">close</i></span>
+                  <p><%= breed.short_description %></p>
+                  <%= link_to "Read more", breed_path(breed) %>
+                </div>
+              </div>
             </div>
-            <div class="card-content activator">
-              Maine Coon
-              <i class="material-icons right circle">keyboard_arrow_up</i>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title">Maine Coon<i class="material-icons right circle">close</i></span>
-              <p>The Maine Coon is well-proportioned, has a balanced appearance, and has adapted to varied environments. A distinctive characteristic of this cat is the smooth, shaggy coat.</p>
-              <a>Read more</a>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="card">
-            <div class="card-image">
-              <%= image_tag("scottish_fold_placeholder.jpg", :alt => "breed", class:"activator") %>
-            </div>
-            <div class="card-content activator">
-              Scottish Fold
-              <i class="material-icons right circle">keyboard_arrow_up</i>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title">Scottish Fold<i class="material-icons right circle">close</i></span>
-              <p>Borleone</p>
-              <a>Read more</a>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="card">
-            <div class="card-image">
-              <%= image_tag("bengal_placeholder.jpg", :alt => "breed", class:"activator") %>
-            </div>
-            <div class="card-content activator">
-              Bengal
-              <i class="material-icons right circle">keyboard_arrow_up</i>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title">Bengal<i class="material-icons right circle">close</i></span>
-              <p>Something about this cat</p>
-              <a>Read more</a>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="card">
-            <div class="card-image">
-              <%= image_tag("british_shorthair_placeholder.jpg", :alt => "breed", class:"activator") %>
-            </div>
-            <div class="card-content activator">
-              British Shorthair
-              <i class="material-icons right circle">keyboard_arrow_up</i>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title">British Shorthair<i class="material-icons right circle">close</i></span>
-              <p>Something about this cat</p>
-              <a>Read more</a>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="card">
-            <div class="card-image">
-              <%= image_tag("norwegian_forest_cat_placeholder.jpg", :alt => "breed", class:"activator") %>
-            </div>
-            <div class="card-content activator">
-              Norwegian Forest Cat
-              <i class="material-icons right circle">keyboard_arrow_up</i>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title">Norwegian Forest Cat<i class="material-icons right circle">close</i></span>
-              <p>Something about this cat</p>
-              <a>Read more</a>
-            </div>
-          </div>
+          <% end %>        
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <% if @kittens.any? %>

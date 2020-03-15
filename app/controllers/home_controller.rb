@@ -3,9 +3,10 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @kittens = Cat.is_parent(false).last(4).reverse
     all_available_breeds
     @all_available_locations_array = []
+    @breeds = Breed.where.not(cats_count: nil).sort_by{|b| b.cats_count}.reverse.take(8)
+    @kittens = Cat.is_parent(false).last(4).reverse
   end
 
   def search
