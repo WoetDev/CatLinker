@@ -18,6 +18,7 @@ require('jquery')
 require('materialize-css/dist/js/materialize.min')
 require('imagesloaded/imagesloaded.pkgd.min')
 require('colcade/colcade')
+require('truncatise/index')
 require('../stylesheets/application')
 require('custom')
 

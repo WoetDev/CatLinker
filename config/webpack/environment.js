@@ -5,6 +5,7 @@ environment.plugins.prepend('Provide',
   new webpack.ProvidePlugin({
     $: 'jquery/src/jquery',
     jQuery: 'jquery/src/jquery',
+    truncatise: 'truncatise/index',
     Rails: ['@rails/ujs']
   })
 )

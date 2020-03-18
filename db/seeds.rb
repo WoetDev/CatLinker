@@ -14,7 +14,7 @@
 # end
 
 # UPDATE BREEDS INFORMATION
-breeds = [ { id: 4, filepath: '../Images/bombay_placeholder.jpg', filename: 'bombay_placeholder.jpg' } ]
+breeds = [ { id: 10, filepath: '../Images/munchkin_placeholder.jpg', filename: 'munchkin_placeholder.jpg' } ]
 
 breeds.each do |breed_hash|
   breed_hash = breed_hash

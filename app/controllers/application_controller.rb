@@ -8,7 +8,6 @@ class ApplicationController < ActionController::Base
   def set_support
     @support = User.find_by(email: "support@catlinker.com")
   end
-
   
   def set_user
     @user = current_user

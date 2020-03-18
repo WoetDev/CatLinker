@@ -1,6 +1,10 @@
 $small: 600px;
+$medium: 992px;
+$large: 1200px;
 
 // Media queries
+
+// Mobile Devices
 @mixin small-and-down {
   @media only screen and (max-width : $small) {
       @content;
@@ -9,6 +13,39 @@ $small: 600px;
 
 @mixin small-and-up {
   @media only screen and (min-width : $small + 1) {
+      @content;
+  }
+}
+
+// Tablet Devices
+@mixin medium-only {
+  @media only screen and (min-width : $small + 1) and (max-width : $medium) {
+      @content;
+  }
+}
+
+@mixin medium-and-down {
+  @media only screen and (max-width : $medium) {
+      @content;
+  }
+}
+
+@mixin medium-and-up {
+  @media only screen and (min-width : $medium + 1) {
+      @content;
+  }
+}
+
+// Desktop Devices
+@mixin large-and-down {
+  @media only screen and (max-width : $large) {
+      @content;
+  }
+}
+
+// Large Desktop Devices
+@mixin large-and-up {
+  @media only screen and (min-width : $large + 1) {
       @content;
   }
 }

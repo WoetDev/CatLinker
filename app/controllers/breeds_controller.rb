@@ -19,6 +19,13 @@ class BreedsController < ApplicationController
 
   def show
     @breed = Breed.find(params[:id])
+    @properties_array = ['playfulness','activity_level','friendliness_to_other_pets',
+                        'friendliness_to_children','grooming_requirements','vocality',
+                        'need_for_attention','affection_toward_its_owners','docility', 
+                        'intelligence', 'independence', 'hardiness']
+    users = User.joins(:cats).where(cats: { breed_id: @breed.id }).distinct.pluck(:id)
+    @catteries = User.find(users)
+    @kittens = Cat.is_parent(false).where(breed_id: @breed.id)
   end
 
   private

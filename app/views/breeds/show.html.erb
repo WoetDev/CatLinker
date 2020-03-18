@@ -1,3 +1,80 @@
-<h1>Show page from <%= @breed.name %></h1>
+<div class="container breed-show">
+  <div class="row">
+    <h1><%= @breed.name %></h1>
+  </div>
 
-<%= image_tag(@breed.square, :alt => 'breed-image', class:"activator") %>
+  <div class="row">
+    <div class="col s12 l6">
+      <div class="breed-image">
+        <%= image_tag(@breed.vertical_rectangle, :alt => 'breed-image', class:"z-depth-2") %>
+      </div>
+    </div>
+
+    <div class="col s12 l6">
+      <% @properties_array.each do |prop| %>
+        <div class="col s12 l6 breed-property">
+          <div class="col s12 m5 l12">
+            <div class="range-title"><%= prop.capitalize.gsub('_', ' ') %>:</div>
+          </div>
+          <div class="col s12 m7 l12">
+            <div class="range-dots">
+              <% cat_attribute_rating(@breed, prop).each do |dot| %>
+                <% if dot == 1 %>
+                  <i class="active"></i>
+                <% else %>
+                  <i></i>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="paragraph-block z-depth-1">
+    <div class="row">
+      <h1>Personality</h1>
+    </div>
+
+    <div class="row text-box">
+      <p><span><%== @breed.personality %></span></p>
+    </div>
+  </div>
+
+  <% if @catteries.any? %>
+    <div class="row">
+      <h1>Catteries</h1>
+    </div>
+
+    <div class="row">
+      <%= render 'breed_catteries' %>
+    </div>
+  <% end %>
+
+  <% if @kittens.any? %>
+    <div class="row">
+      <h1>Kittens</h1>
+    </div>
+
+    <div class="row">
+      <%= render 'breed_kittens' %>
+    </div>
+  <% end %>
+
+  <div class="paragraph-block z-depth-1">
+    <div class="row">
+      <h1>History</h1>
+    </div>
+    
+    <div class="row text-box">
+      <p><%== @breed.history %></p>
+    </div>
+  </div>
+
+  <div class="disclaimer-block z-depth-1">  
+    <div class="row">
+      <p><b>DISCLAIMER:</b> While the characteristics mentioned here may frequently represent this breed, cats are individuals whose personalities and appearances will vary. Please consult the adoption organization for details on a specific pet.</p>
+    </div>
+  </div>
+</div>
