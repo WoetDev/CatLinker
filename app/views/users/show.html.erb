@@ -22,7 +22,14 @@
             Breeds:
           </div>
           <div class="col s6 m7 info-text">
-            <%= cattery_breed_names(@user) %>
+            <% cattery_breeds(@user).each_with_index do |breed, index| %>
+              <%= link_to breed_path(breed), class:"info-link" do %>
+                <%= Breed.find(breed).name %>
+              <% end %>
+              <% unless index == cattery_breeds(@user).length - 1 %>
+                ,&nbsp;
+              <% end %>
+            <% end %>
           </div>
         </div>
         <div class="row">

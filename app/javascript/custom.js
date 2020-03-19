@@ -18,6 +18,9 @@ $(document).on('turbolinks:load', function() {
   $('.fixed-action-btn').floatingActionButton();
   $('.modal').modal();
 
+  // Remove touchend events on select and dropdown for iOS13
+
+
   // Close select when clicking or tapping on the first disabled option
   function closeSelectOnDisabledOption(e) {
     $(':focus').blur();    
@@ -982,4 +985,7 @@ $(document).on('turbolinks:load', function() {
         addTruncatedText(paragraph);
       });
     }
+
+    $(document).off('touchend', 'select');
+    $(document).off('touchend', '.nav-dropdown-trigger');
 });
