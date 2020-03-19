@@ -7,7 +7,7 @@ $(document).on('turbolinks:load', function() {
   var querystring = window.location.search;
 
   // GLOBAL FUNCTIONS
-  
+
   // Remove MaterializeCSS select for iOS13
   // Helper function to detect which OS is running
   function getOS() {
@@ -33,7 +33,7 @@ $(document).on('turbolinks:load', function() {
     return os;
   }
   
-  if (getOS() == 'IOS') {
+  if (getOS() == 'iOS') {
     $('select:not([multiple])').addClass('browser-default');
   }
 
