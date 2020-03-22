@@ -12,7 +12,7 @@
       <div class="row">
         <div class="input-field">
           <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true %>
+          <%= f.email_field :email, autofocus: true, disabled: @user.provider.present? %>
           <% if devise_mapping.confirmable? && !resource.pending_reconfirmation? %>
             <a class="tooltipped confirmed-tooltip" data-position="top" data-tooltip="Email confirmed">
               <i class="material-icons">check_circle</i>
@@ -33,6 +33,10 @@
           <% end %>
         </div>
       <% end %>
+
+      <div class="row">
+        <h4 class="form-section-title no-margin">Cattery</h4>
+      </div>
 
       <div class="row">
         <div class="col s12">
@@ -57,49 +61,52 @@
         <% end %>
       </div>
 
-      <div class="row">
-        <h4 class="form-section-title">Change password</h4>
-        <em class="title-info">(leave blank to not change)</em>
-      </div>
+      <% unless @user.provider.present? %>
+        <div class="row">
+          <h4 class="form-section-title">Change password</h4>
+          <em class="title-info">(leave blank to not change)</em>
+        </div>
 
-      <div class="row">
-        <div class="input-field">
-          <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "new-password" %>
-          <% if resource.errors[:password].any? %>
-            <%= render "devise/shared/error_messages", resource: resource, field: :password %>
-          <% else %>
-            <% if @minimum_password_length %>
-              <span class="helper-text"><%= @minimum_password_length %> characters minimum</span>
+        <div class="row">
+          <div class="input-field">
+            <%= f.label :password %>
+            <%= f.password_field :password, autocomplete: "new-password" %>
+            <% if resource.errors[:password].any? %>
+              <%= render "devise/shared/error_messages", resource: resource, field: :password %>
+            <% else %>
+              <% if @minimum_password_length %>
+                <span class="helper-text"><%= @minimum_password_length %> characters minimum</span>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="input-field">
-          <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-          <% if resource.errors[:password_confirmation].any? %>
-            <%= render "devise/shared/error_messages", resource: resource, field: :password_confirmation %>
-          <% end %>
+        <div class="row">
+          <div class="input-field">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            <% if resource.errors[:password_confirmation].any? %>
+              <%= render "devise/shared/error_messages", resource: resource, field: :password_confirmation %>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="row">
-        <h4 class="form-section-title">Confirm changes</h4>
-      </div>
-
-      <div class="row">
-        <div class="input-field">
-          <%= f.label :current_password %>
-          <%= f.password_field :current_password, autocomplete: "current-password" %>
-          <% if resource.errors[:current_password].any? %>
-            <%= render "devise/shared/error_messages", resource: resource, field: :current_password %>
-          <% end %>
-          <span class="helper-text">we need your current password to confirm your changes</span>
+        <div class="row">
+          <h4 class="form-section-title">Confirm changes</h4>
         </div>
-      </div>
+
+        <div class="row">
+          <div class="input-field">
+            <%= f.label :current_password %>
+            <%= f.password_field :current_password, autocomplete: "current-password" %>
+            <% if resource.errors[:current_password].any? %>
+              <%= render "devise/shared/error_messages", resource: resource, field: :current_password %>
+            <% end %>
+            <span class="helper-text">we need your current password to confirm your changes</span>
+          </div>
+        </div>
+
+      <% end %> 
 
       <div class="row">
         <div class="actions">

@@ -42,12 +42,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :is_cattery, :given_consent])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :is_cattery, :given_consent, :provider, :uid])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :is_cattery, :password, :password_confirmation, :current_password])
+    if resource.provider.present?
+      devise_parameter_sanitizer.permit(:account_update, keys: [:is_cattery])
+    else
+      devise_parameter_sanitizer.permit(:account_update, keys: [:email, :is_cattery, :password, :password_confirmation, :current_password])
+    end
   end
 
   # The path used after sign up.
@@ -59,6 +63,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def update_resource(resource, params)
+    if resource.provider.present?
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
+    end
+  end
 
   def after_update_path_for(resource)
     sign_in_after_change_password? ? edit_user_registration_path(resource) : new_session_path(resource_name)

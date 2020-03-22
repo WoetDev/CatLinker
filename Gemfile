@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
+gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use 'acts-as-taggable-on' to add tags to objects for filtering
 gem 'acts-as-taggable-on'
 # Use Devise for user authentication
@@ -18,6 +18,8 @@ gem 'hirb'
 # User mail_form gem for custom email forms
 gem 'mail_form'
 gem 'omniauth', '~> 1.9'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 # Use Pagy for pagination
 gem 'pagy', '~> 3.7', '>= 3.7.3'
 # Use pg_search for filtering

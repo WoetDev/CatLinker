@@ -32,6 +32,10 @@
     margin-bottom: 15px;
   }
 
+  .form-section-title.no-margin {
+    margin: 0;
+  }
+
   .title-info {
     font-size: 0.9em;
   }
@@ -585,19 +589,142 @@ button.btn-delete {
   .fa-instagram {
     font-size: 2em;
   }
+}
 
-  .facebook {
-    background-color: $facebook-primary !important;
-  }
+// Social media background colors
+.facebook {
+  background-color: $facebook-primary !important;
+}
+
+.instagram {
+  background-color: $instagram-primary !important;
+}
+
+.twitter {
+  background-color: $twitter-primary !important;
+}
+
+.google {
+  background-color: transparent;
+}
+
+// Create colored Google icon
+.fa-google {
+  background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+// External login buttons
+
+// divider with text in middle
+.text-divider-container.row {  
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.text-divider-container {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: $black;
+  text-align: center;
+  width: 60%;
+
+  .text-divider {
+    overflow: hidden;
+    text-align: center;
   
-  .instagram {
-    background-color: $instagram-primary !important;
-  }
+    &:before, &:after {
+      content: "";
+      display: inline-block;
+      height: 2px;
+      position: relative;
+      vertical-align: middle;
+      width: 50%;
+    }
   
-  .twitter {
-    background-color: $twitter-primary !important;
+    &:before {
+      background: linear-gradient(to right, transparent, $black);
+      right: 0.5em;
+      margin-left: -50%;
+    }
+  
+    &:after {
+      background: linear-gradient(to left, transparent, $black);
+      left: 0.5em;
+      margin-right: -50%;
+    }
   }
 }
+
+
+.form {
+  .social {
+    position: relative;
+  
+    @include medium-and-up {
+      top: 20px;
+    }
+
+    @include medium-and-down {
+      &:before, &:after {
+        content: "";
+        background: $inactiveGrey;// linear-gradient(to left, transparent, $inactiveGrey, transparent);
+        display: inline-block;
+        height: 1px;
+        position: relative;
+        vertical-align: middle;
+        width: 100%;
+      }
+
+      &:before {
+        margin-bottom: 20px;
+      }
+
+    }
+
+    .btn-external-login {
+      font-weight: bold;
+      
+      &:hover, &:focus {
+        text-decoration: none;
+        background-color: transparent;
+      }
+
+      &:hover {
+        transform: scale(1.02);
+        background-color: transparent;
+      }
+
+      .fab {
+        font-size: 1.5em;
+        margin-right: 10px;
+      }
+
+      @include medium-and-up {
+        width: 80%;
+        margin: 0 auto;
+      }
+      
+      @include medium-and-down {
+        width: 100%;
+        margin-left: 0px;
+      }
+    }
+
+    .facebook.btn-external-login {
+      color: $white;
+
+      &:hover {
+        background-color: darken($color: $facebook-primary, $amount: 25);
+      }
+    }
+  }
+  
+}
+
 
 // Select thumbnail image
 .select-dropdown {

@@ -35,6 +35,26 @@ $(document).on('turbolinks:load', function() {
   
   if (getOS() == 'iOS') {
     $('select:not([multiple])').addClass('browser-default');
+
+    $('select:not([multiple])').each(function() {
+      if($(this).val() != "" && $(this).val() != null) {
+        $(this).removeClass('inactive-select');
+      }
+      else {
+        $(this).addClass('inactive-select');
+      }
+    });
+    
+    $('select:not([multiple])').on('change', addDefaultActiveIfDropdownIsFilled);
+  
+    function addDefaultActiveIfDropdownIsFilled() {
+      if($(this).val() != "" && $(this).val() != null) {
+        $(this).removeClass('inactive-select');
+      }
+      else {
+        $(this).addClass('inactive-select');
+      }
+    }
   }
 
   // MaterializeCSS initialization without custom code

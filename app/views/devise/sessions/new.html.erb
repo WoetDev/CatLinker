@@ -4,45 +4,66 @@
       <h2 class="form-title">Login</h2>
     </div>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="row">
-        <br>
-      </div>
+    <div class="row">
+      <div class="col s12 l7">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="row">
+            <br>
+          </div>
 
-      <div class="row">
-        <div class="input-field">
-          <%= f.label :email %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
-      </div>
+          <div class="row">
+            <div class="input-field">
+              <%= f.label :email %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            </div>
+          </div>
 
-      <div class="row">
-        <div class="input-field">
-          <%= f.label :password %>
-          <%= f.password_field :password, autocomplete: "current-password" %>
-        </div>
-      </div>
+          <div class="row">
+            <div class="input-field">
+              <%= f.label :password %>
+              <%= f.password_field :password, autocomplete: "current-password" %>
+            </div>
+          </div>
 
-      <% if devise_mapping.rememberable? %>
-      <div class="row">
-        <div class="input-field">
-          <label class="checkbox-label">
-            <%= f.check_box :remember_me %>
-            <span>Remember me</span>
-          </label>
-        </div>
-      </div>
-      <% end %>
+          <% if devise_mapping.rememberable? %>
+          <div class="row">
+            <div class="input-field">
+              <label class="checkbox-label">
+                <%= f.check_box :remember_me %>
+                <span>Remember me</span>
+              </label>
+            </div>
+          </div>
+          <% end %>
 
-      <div class="row">
-        <div class="actions">
-          <%= f.button class:"btn waves-effect waves-light btn-large", type:"submit" do %>
-            Login
-            <i class="material-icons right">send</i>
+          <div class="row">
+            <div class="actions">
+              <%= f.button class:"btn waves-effect waves-light btn-large", type:"submit" do %>
+                Login
+                <i class="material-icons right">send</i>
+              <% end %>
+            </div>
+          </div>    
+        <% end %>
+      </div>
+      <div class="col s12 l5 social">
+        <div class="row">
+          <%= link_to user_facebook_omniauth_authorize_path, class:"facebook btn-external-login waves-effect btn-large" do %>
+            <i class="fab fa-facebook-f"></i>
+            Facebook login
           <% end %>
         </div>
-      </div>    
-    <% end %>
+        <div class="row text-divider-container">
+          <span class="text-divider">OR</span>
+        </div>
+        <div class="row">
+          <%= link_to user_google_oauth2_omniauth_authorize_path, class:"google btn-external-login waves-effect btn-large" do %>
+            <i class="fab fa-google"></i>
+            Google login
+          <% end %>
+        </div>
+      </div>
+    </div>
 
     <%= render "devise/shared/links" %>
   </div>
