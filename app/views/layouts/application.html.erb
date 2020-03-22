@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Cat Linker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
-    <%= favicon_link_tag asset_path('favicon.png') %>
     <meta name="turbolinks-visit-control" content="reload">
+
+    <%= favicon_link_tag asset_path('favicon.png') %>
+    <title><%= meta_title %></title>
+    <meta name="description" content="<%= meta_description %>">
+
+    <!-- Facebook Open Graph data -->
+    <meta property="og:title" content="<%= meta_title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:image" content="<%= meta_facebook_image %>" />
+    <meta property="og:description" content="<%= meta_description %>" />
+    <meta property="og:site_name" content="<%= meta_site_name %>" />
+    <meta property="og:image:alt" content="<%= meta_image_alt %>">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<%= meta_title %>">
+    <meta name="twitter:description" content="<%= meta_description %>">
+    <meta name="twitter:image:src" content="<%= meta_twitter_image %>">
+    <meta name="twitter:image:alt" content="<%= meta_image_alt %>">
+
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <script src="https://kit.fontawesome.com/25b3ebb045.js" crossorigin="anonymous"></script>

@@ -40,7 +40,14 @@ class UsersController < ApplicationController
   end
 
   def my_cattery
-    @user = User.friendly.find(params[:id])
+    @user = current_user
+    if @user.provider.present?
+      @change_email_path = "javascript:void(0)"
+      @change_email_tooltip = "Go to your #{@user.provider[/[^_]+/].capitalize} account to change this"
+    else
+      @change_email_path = edit_user_registration_path
+      @change_email_tooltip = "Go to the 'Profile' page to change this"
+    end
 
     get_all_countries
     check_required_cattery_information(@user)

@@ -86,7 +86,7 @@ class CatsController < ApplicationController
   end
 
   def show
-    @cat = Cat.find(params[:id])
+    @cat = Cat.friendly.find(params[:id])
     @user = User.find(@cat.user_id)
     @message = Message.new(params[:message])
   end
@@ -147,7 +147,7 @@ class CatsController < ApplicationController
 
   def destroy
     @form = params[:form]
-    @cat = Cat.find_by(id: params[:id])
+    @cat = Cat.friendly.find_by(id: params[:id])
     user = @cat.user
 
     if @form == 'parent'

@@ -152,10 +152,10 @@
 
       <div class="row">
         <div class="col s12 m6">
-          <%= link_to edit_user_registration_path, class:"tooltipped", :data => { :'position' => "bottom", :'tooltip' => "Go to 'Profile' page to change this" }  do %>
+          <%= link_to @change_email_path, class:"tooltipped", :data => { :'position' => "bottom", :'tooltip' => @change_email_tooltip }  do %>
             <div class="input-field">
-                <%= f.label :email %>
-                <%= f.text_field :email, class:"disabled-input", disabled:true%>
+              <%= f.label :email %>
+              <%= f.text_field :email, class:"disabled-input", disabled: true %>
             </div>
           <% end %>
         </div>

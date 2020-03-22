@@ -152,7 +152,6 @@
     .parent-info {
       text-align: center;
       margin-top: -15px;
-      margin-bottom: 50px;
       
       h3 {
         font-weight: bold;
@@ -299,7 +298,7 @@
 
 // Breed show page
 .breed-show {
-  img, .paragraph-block, .disclaimer-block {
+  img, .paragraph-block {
     border-radius: 10px;
   }
 
@@ -370,7 +369,7 @@
     }
   }
 
-  .paragraph-block, .disclaimer-block {
+  .paragraph-block {
     font-size: 1.2em;
     background-color: $white;
     padding: 30px;
@@ -429,6 +428,23 @@
 
     .less {
       bottom: -5px;
+    }
+  }
+}
+
+// Social media buttons
+.social-media {
+  text-align: center;
+
+  .btn-social-share {
+    margin: 0 10px;
+
+    @include small-and-down {
+      margin: 15px; 
+    }
+    
+    &:hover {
+      transform: scale(1.05);
     }
   }
 }

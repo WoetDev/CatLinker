@@ -1,10 +1,18 @@
 class Cat < ApplicationRecord
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   belongs_to :user, counter_cache: true
   belongs_to :breed, counter_cache: true
   has_many :pairs
   has_many :countries
   has_one_attached :card_picture
   has_many_attached :pictures
+
+  # slug for kittens
+  def slug_candidates
+    breed.name
+  end
 
   # image processing
   def thumbnail
@@ -13,6 +21,14 @@ class Cat < ApplicationRecord
 
   def icon_thumbnail
     card_picture.variant(resize: '100x100').processed
+  end
+
+  def facebook_thumbnail
+    card_picture.variant(resize_to_fill: [ 600, 314, gravity: 'Center' ]).processed
+  end
+
+  def twitter_thumbnail
+    card_picture.variant(resize_to_fill: [ 600, 335, gravity: 'Center' ]).processed
   end
 
   def square

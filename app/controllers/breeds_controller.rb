@@ -18,7 +18,7 @@ class BreedsController < ApplicationController
   end
 
   def show
-    @breed = Breed.find(params[:id])
+    @breed = Breed.friendly.find(params[:id])
     @properties_array = ['playfulness','activity_level','friendliness_to_other_pets',
                         'friendliness_to_children','grooming_requirements','vocality',
                         'need_for_attention','affection_toward_its_owners','docility', 

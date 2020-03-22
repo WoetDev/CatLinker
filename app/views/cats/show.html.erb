@@ -1,3 +1,10 @@
+<!-- Page specific meta data -->
+<% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{Breed.find(@cat.breed_id).name} kitten | #{cat_location(@cat)}" %>
+<% content_for :meta_description, "#{@cat.color} #{Breed.find(@cat.breed_id).name} kitten (#{cat_gender(@cat)}) from #{cattery(@cat).cattery_name}. This kitten was born on #{format_birth_date(@cat)} and can be found in #{cat_location(@cat)}." %>
+<% content_for :meta_facebook_image, "#{url_for(@cat.facebook_thumbnail)}" %>
+<% content_for :meta_twitter_image, "#{url_for(@cat.twitter_thumbnail)}" %>
+<% content_for :meta_image_alt, "Kitten card picture" %>
+
 <div id="kitten-view" class="container">
   <div class="row">
     <div class="col s12">
@@ -211,6 +218,12 @@
       </div>
     </div>
   <% end %>
+  <div class="section social-media">
+    <div class="row">
+      <h1>Share this kitten</h1>
+    </div>
+    <%= render 'shared/social_media_share_buttons' %>
+  </div>
   <div id="contact" class="section contact">
     <%= render 'shared/contact_form', user: @user, cat: @cat %>
   </div>

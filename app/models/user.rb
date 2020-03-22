@@ -1,15 +1,25 @@
 class User < ApplicationRecord
   extend FriendlyId
+  friendly_id :cattery_name, use: :slugged
+
   belongs_to :country, optional: true
   has_many :cats
   has_many :pairs
   has_one_attached :profile_picture
-  friendly_id :cattery_name, use: :slugged
 
   # image processing
   def thumbnail
-    profile_picture.variant(resize: '500x500').processed
+    profile_picture.variant(resize_to_fill: [ 500, 500, gravity: 'Center' ]).processed
   end
+
+  def facebook_thumbnail
+    profile_picture.variant(resize_to_fill: [ 600, 314, gravity: 'Center' ]).processed
+  end
+
+  def twitter_thumbnail
+    profile_picture.variant(resize_to_fill: [ 600, 335, gravity: 'Center' ]).processed
+  end
+
 
   # filter
   acts_as_tagger

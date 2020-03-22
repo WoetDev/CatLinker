@@ -9,7 +9,11 @@ module UsersHelper
 
     breeds.each do |breed|
       unless breed == breeds.last
-        breed_names << "#{Breed.find(breed).name}, "
+        if breeds.length > 1 and breed == breeds[-2]
+          breed_names << "#{Breed.find(breed).name} and "
+        else
+          breed_names << "#{Breed.find(breed).name}, "
+        end
       else
         breed_names << "#{Breed.find(breed).name}"
       end

@@ -1,3 +1,10 @@
+<!-- Page specific meta data -->
+<% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{cattery_user(@user).cattery_name} | #{cattery_location(@user)}" %>
+<% content_for :meta_description, "#{cattery_user(@user).cattery_name} is a cattery in #{cattery_location(@user)} with a passionate focus on raising #{cattery_breed_names(@user)} cats." %>
+<% content_for :meta_facebook_image, "#{url_for(@user.facebook_thumbnail)}" %>
+<% content_for :meta_twitter_image, "#{url_for(@user.twitter_thumbnail)}" %>
+<% content_for :meta_image_alt, "Cattery profile picture" %>
+
 <div id="cattery-view" class="container">
   <div class="row">
     <h1><%= cattery_user(@user).cattery_name %></h1>
@@ -221,6 +228,12 @@
       </div>
     <% end %>
   <% end %>
+  <div class="section social-media">
+    <div class="row">
+      <h1>Share this cattery</h1>
+    </div>
+    <%= render 'shared/social_media_share_buttons' %>
+  </div>
   <div id="contact" class="section contact">
     <%= render 'shared/contact_form', user: @user, cat: nil %>
   </div>

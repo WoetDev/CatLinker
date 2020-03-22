@@ -1,3 +1,10 @@
+<!-- Page specific meta data -->
+<% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{@breed.name}" %>
+<% content_for :meta_description, "Find any #{@breed.name} catteries and kittens on Cat Linker, or simply read up about the personality and history of the #{@breed.name}. " %>
+<% content_for :meta_facebook_image, "#{url_for(@breed.facebook_thumbnail)}" %>
+<% content_for :meta_twitter_image, "#{url_for(@breed.twitter_thumbnail)}" %>
+<% content_for :meta_image_alt, "Breed card picture" %>
+
 <div class="container breed-show">
   <div class="row">
     <h1><%= @breed.name %></h1>
@@ -72,7 +79,12 @@
     </div>
   </div>
 
-  <div class="disclaimer-block z-depth-1">  
+  <div class="section social-media">
+    <h1>Share this breed</h1>
+    <%= render 'shared/social_media_share_buttons' %>
+  </div>
+
+  <div class="disclaimer-block">  
     <div class="row">
       <p><b>DISCLAIMER:</b> While the characteristics mentioned here may frequently represent this breed, cats are individuals whose personalities and appearances will vary. Please consult the adoption organization for details on a specific pet.</p>
     </div>

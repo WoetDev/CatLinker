@@ -686,21 +686,15 @@ button.btn-delete {
     }
 
     .btn-external-login {
-      font-weight: bold;
-      
+
       &:hover, &:focus {
         text-decoration: none;
         background-color: transparent;
       }
-
+    
       &:hover {
         transform: scale(1.02);
         background-color: transparent;
-      }
-
-      .fab {
-        font-size: 1.5em;
-        margin-right: 10px;
       }
 
       @include medium-and-up {
@@ -716,13 +710,18 @@ button.btn-delete {
 
     .facebook.btn-external-login {
       color: $white;
-
-      &:hover {
-        background-color: darken($color: $facebook-primary, $amount: 25);
-      }
     }
   }
-  
+}
+
+// Shared for external login and social media sharing buttons
+.btn-external-login, .btn-social-share {
+  font-weight: bold;
+
+  .fab {
+    font-size: 1.5em;
+    margin-right: 10px;
+  }
 }
 
 
