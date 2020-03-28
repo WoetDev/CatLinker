@@ -1,9 +1,17 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
   protect_from_forgery prepend: true
-  before_action :authenticate_user!, :set_support, :set_user, :twitter_url_options
+  before_action :authenticate_user!, :set_locale, :default_url_options, :set_support, :set_user, :twitter_url_options
 
   private
+  def set_locale
+    I18n.locale = params[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
+  end
+
+  def default_url_options(options = {})
+    { locale: I18n.locale,
+       host: ENV['DOMAIN'] || 'localhost:3000' }.merge options
+  end
 
   def set_support
     @support = User.find_by(email: 'support@catlinker.com')
@@ -11,10 +19,6 @@ class ApplicationController < ActionController::Base
 
   def set_user
     @user = current_user
-  end
-
-  def default_url_options
-    { host: ENV['DOMAIN'] || 'localhost:3000' }
   end
 
   def twitter_url_options

@@ -48,7 +48,7 @@
       </div>
       <div class="col s12 l5 social">
         <div class="row">
-          <%= link_to user_facebook_omniauth_authorize_path, class:"facebook btn-external-login waves-effect btn-large" do %>
+          <%= link_to localized_omniauth_path(:facebook), class:"facebook btn-external-login waves-effect btn-large" do %>
             <i class="fab fa-facebook-f"></i>
             Facebook login
           <% end %>
@@ -57,8 +57,16 @@
           <span class="text-divider">OR</span>
         </div>
         <div class="row">
-          <%= link_to user_google_oauth2_omniauth_authorize_path, class:"google btn-external-login waves-effect btn-large" do %>
-            <i class="fab fa-google"></i>
+          <%= link_to localized_omniauth_path(:google_oauth2), class:"google btn-external-login waves-effect btn-large" do %>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="svg-settings">
+              <defs>                  
+                <radialGradient id="radial">
+                  <stop class="radial-stop1" offset="0%"></stop>
+                  <stop class="radial-stop2" offset="100%"></stop>
+                </radialGradient>
+              </defs>
+            </svg>
+            <i class="fab fa-google fill-gradient-radial"></i>
             Google login
           <% end %>
         </div>

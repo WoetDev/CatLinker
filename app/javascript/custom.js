@@ -3,8 +3,23 @@ Turbolinks.setProgressBarDelay(250)
 $(document).on('turbolinks:load', function() {
   document.body.style.visibility = 'visible'
   // GLOBAL VARIABLES 
+  var host = window.location.host;
   var pathname = window.location.pathname;
   var querystring = window.location.search;
+
+  if (pathname == '/') {
+    var locale = 'en';
+  } else {
+    var locale = pathname.substring(1,3);
+  }
+
+  // PATHS
+  var rootPath = '/';
+  var localeRootPath = rootPath.concat(locale);
+  var catsPath = rootPath.concat(locale, '/cats');
+  var newCatPath = rootPath.concat(locale, '/cats/new');
+  var catteriesPath = rootPath.concat(locale, '/catteries');
+  var breedsPath = rootPath.concat(locale, '/breeds');
 
   // GLOBAL FUNCTIONS
 
@@ -29,7 +44,6 @@ $(document).on('turbolinks:load', function() {
     } else if (!os && /Linux/.test(platform)) {
       os = 'Linux';
     }
-  
     return os;
   }
   
@@ -89,17 +103,24 @@ $(document).on('turbolinks:load', function() {
   $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
     FB.init({
       appId: '613634386154840',
-      version: 'v2.7' // or v2.1, v2.2, v2.3, ...
+      version: 'v2.7'
     });     
-    $('#loginbutton,#feedbutton').removeAttr('disabled');
+    // $('#loginbutton,#feedbutton').removeAttr('disabled');
     // FB.getLoginStatus(updateStatusCallback);
   });
 
   $('#facebookShareBtn').on('click', function() {
+    if (host.includes('localhost')) {
+      var fbShareLink = 'http://www.catlinker.com';
+    }
+    else {
+      var fbShareLink = window.location.href;
+    }
+    
     FB.ui({
       display: 'popup',
       method: 'share',
-      href: window.location.href,
+      href: fbShareLink,
     }, function(response){});
   });
 
@@ -170,11 +191,11 @@ $(document).on('turbolinks:load', function() {
   // Add truncation to select dropdown text inputs
   $('.dropdown-trigger').addClass('truncate');
 
-   // Force scroll position to reset at top of the page
-   $(window).scrollTop(0);
+  // Force scroll position to reset at top of the page  
+  $(window).scrollTop(0);
 
   // HOMEPAGE
-  if (pathname == "/") {
+  if (pathname == rootPath || pathname == localeRootPath) {
 
     // Only initialize carousel on homepage so it doesn't interfere with changing images with tabs inside the cards
     // Adjust carousel size based on device screen width
@@ -234,50 +255,41 @@ $(document).on('turbolinks:load', function() {
     $('#user_profile_picture').on('change', showCardPicturePreview);
 
     // Add active class to social media icon if input is filled
-    var socialMediaInputs = ['#user_facebook_link', '#user_instagram_link', '#user_twitter_link'];
-    var socialMediaIcons = ['i.fa-facebook-square', '.fa-instagram', '.fa-twitter'];
+    var socialMediaLinks = $('#user_facebook_link, #user_instagram_link, #user_twitter_link');
 
     // Check if an active class should be added on page load
-    for(var i = 0; i < socialMediaIcons.length;  i++) {
-      if ($.trim($(socialMediaInputs[i]).val()) != '') {
-        $(socialMediaIcons[i]).addClass('active-social');
+    // Fire this function until the FontAwesome SVGs have loaded
+    var timer = setInterval(colorFilledSocialMediaLinks, 250);
+
+    function colorFilledSocialMediaLinks() {
+      $(socialMediaLinks).each(function() {
+        checkIfSocialMediaLinkIsEmpty(this);
+      });
+
+      if ($('.fontawesome-i2svg-complete')) {
+        clearInterval(timer);
+        return;
+      }
+    }
+
+    function checkIfSocialMediaLinkIsEmpty(link) {
+      if ($.trim($(link).val()) != '' && $.trim($(link).val()) != null) {
+        $(link).closest('.input-field').find("[class*='fa-']").addClass('active-social');
       }
       else {
-        $(socialMediaIcons[i]).removeClass('active-social');
+        $(link).closest('.input-field').find("[class*='fa-']").removeClass('active');
+        $(link).closest('.input-field').find("[class*='fa-']").removeClass('active-social');
       }
     }
 
     // Watch changes during page visit to see if active class should be added
-    $(socialMediaInputs[0]).on('change', function() {
-      if ($.trim($(this).val()) != '') {
-        $(socialMediaIcons[0]).addClass('active-social');
-      }
-      else {
-        $(socialMediaIcons[0]).removeClass('active-social');
-      }
-    });
-
-    $(socialMediaInputs[1]).on('change', function() {
-      if ($.trim($(this).val()) != '') {
-        $(socialMediaIcons[1]).addClass('active-social');
-      }
-      else {
-        $(socialMediaIcons[1]).removeClass('active-social');
-      }
-    });
-
-    $(socialMediaInputs[2]).on('change', function() {
-      if ($.trim($(this).val()) != '') {
-        $(socialMediaIcons[2]).addClass('active-social');
-      }
-      else {
-        $(socialMediaIcons[2]).removeClass('active-social');
-      }
+    $(socialMediaLinks).on('change', function() {
+      checkIfSocialMediaLinkIsEmpty(this);
     });
   }
 
   // NEW / EDIT CAT FORM
-  if (pathname == '/cats/new' || pathname.startsWith('/cats') && pathname.endsWith('/edit')) {
+  if (pathname == newCatPath || (pathname.includes(catsPath) && pathname.endsWith('/edit'))) {
     // Single card image preview
     var cardPicturePreview = document.querySelector('.card-picture-preview');
 
@@ -298,7 +310,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   // NEW / EDIT KITTEN FORM
-  if (pathname == '/cats/new' && querystring.startsWith('?form=kitten') || pathname.startsWith('/cats') && pathname.endsWith('/edit') && querystring.startsWith('?form=kitten')) {
+  if (pathname.includes('/cats/new') && querystring.startsWith('?form=kitten') || pathname.includes('/cats') && pathname.endsWith('/edit') && querystring.startsWith('?form=kitten')) {
     // Multiple images previews
     var picturesPreview = document.querySelector('.pictures-preview');
 
@@ -307,7 +319,6 @@ $(document).on('turbolinks:load', function() {
 
         var files = event.target.files; //FileList object
         picturesPreview.innerHTML = "";
-        console.log(files.length);
         
         if (files.length > 0) {
           picturesPreview.innerHTML = "";
@@ -385,7 +396,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   // KITTEN & CATTERIES INDEX
-  if (pathname == '/cats') {   
+  if (pathname == catsPath) {   
     // Helper function to get the query params from the URL
     function getUrlParams()
     {
@@ -420,7 +431,7 @@ $(document).on('turbolinks:load', function() {
           }
         });
 
-        var update_filters_path = '/cats/update_filters';
+        var update_filters_path = rootPath.concat(locale, '/cats/update_filters');
 
         $.ajax({
           type: 'GET',
@@ -467,14 +478,14 @@ $(document).on('turbolinks:load', function() {
     addSearchToDropdown();
   }
 
-  if (pathname == '/cats' || pathname == '/catteries') {
-    if (pathname == '/cats') {
-      var update_filters_path = '/cats/update_filters';
+  if (pathname == catsPath || pathname == catteriesPath) {
+    if (pathname == catsPath) {
+      var update_filters_path = rootPath.concat(locale, '/cats/update_filters');
       var cards_container_id = $('#kittens');
     }
 
-    else if (pathname == '/catteries') {
-      var update_filters_path = '/users/update_filters';
+    else if (pathname == catteriesPath) {
+      var update_filters_path = rootPath.concat(locale, '/users/update_filters');
       var cards_container_id = $('#catteries');
     }
     
@@ -608,8 +619,12 @@ $(document).on('turbolinks:load', function() {
       if ($('#next_link').data("loading")) {
         return
       }  
-      var wBottom  = $(window).scrollTop() + $(window).height();
-      var elBottom = $(cards_container_id).offset().top + $(cards_container_id).height();
+      if ($('#next_link')[0]) {
+        var elBottom = $(cards_container_id).offset().top + $(cards_container_id).height();
+        var wBottom  = $(window).scrollTop() + $(window).height();
+      }
+
+
       // Check if we're at the bottom of the page and a next link exists before we click it
       if (wBottom > elBottom && $('#next_link')[0]) {
         $('#next_link')[0].click();
@@ -640,7 +655,7 @@ $(document).on('turbolinks:load', function() {
       console.log('Extra images failed to load');
     });
 
-    if (pathname.startsWith('/catteries/') && !pathname.endsWith('my_cattery')) {
+    if (pathname.includes(catteriesPath.concat('/')) && !pathname.endsWith('my_cattery')) {
       function showActiveFilterIcon(card) {
         $(card).find('.filter-icon-container').show();
         $(card).find('.filter-icon-container').addClass('active');
@@ -798,7 +813,7 @@ $(document).on('turbolinks:load', function() {
         }
 
         // Send AJAX request to update other filters
-        var ajaxUrlPath = '/catteries/' + $('#message_user_id').val() + '/show_filters';
+        var ajaxUrlPath = '/' + locale + '/catteries/' + $('#message_user_id').val() + '/show_filters';
 
         $.ajax({
           type: 'GET',
@@ -934,7 +949,7 @@ $(document).on('turbolinks:load', function() {
         }
 
         // Send AJAX request to reset ALL of the next filter dropdowns
-        var ajaxUrlPath = '/catteries/' + $('#message_user_id').val() + '/show_filters';
+        var ajaxUrlPath = '/' + locale +'/catteries/' + $('#message_user_id').val() + '/show_filters';
         
         $.ajax({
           type: 'GET',
@@ -1013,7 +1028,7 @@ $(document).on('turbolinks:load', function() {
     }
 
     // BREEDS INDEX
-    if (pathname == '/breeds') {
+    if (pathname == breedsPath) {
       // Trigger AJAX dropdown filters
       $('.form-filter').on('change', function() {
         Rails.fire(document.querySelector('form'), 'submit');
@@ -1042,7 +1057,7 @@ $(document).on('turbolinks:load', function() {
     }
 
     // BREEDS SHOW PAGE
-    if (pathname.startsWith('/breeds/')) {
+    if (pathname.includes(breedsPath.concat('/'))) {
 
       // Truncate blocks of text on page load
       const textContainers = $('.paragraph-block');

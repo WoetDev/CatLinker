@@ -433,11 +433,45 @@
 }
 
 // Social media buttons
+
+// Cattery sociale media pages
+.social {
+  width: 100%;
+  margin: 15px 0px;
+
+  @include small-and-down {
+    .col {
+      text-align: center;
+    }
+  }
+  
+  .btn-large {
+    margin: 0px 10px;
+    transition: 0.2s cubic-bezier(0.57, 0.04, 0.61, 1.3);
+
+    &:hover {
+      transform: scale(1.15);
+      
+    }
+
+    .svg-inline--fa {
+      transform: scale(1.8);
+      vertical-align: middle;
+    }
+
+    .fa-instagram {
+      transform: scale(2);
+    }
+  }
+}
+
+// Share
 .social-media {
   text-align: center;
 
   .btn-social-share {
     margin: 0 10px;
+    letter-spacing: 2px;
 
     @include small-and-down {
       margin: 15px; 

@@ -1,0 +1,35 @@
+nl:
+  languages:
+    en: "English"
+    nl: "Nederlands"
+  header:
+    breeds: "Rassen"
+    catteries: "Catteries"
+    kittens: "Kittens"
+    login: "Login"
+    account: "Account"
+    my_cattery: "My Cattery"
+    profile: "Profiel"
+    logout: "Uitloggen"
+    change_language: "Wijzig taal"
+  footer:
+    support: "Support"
+    help: "Help"
+    contact: "Contact"
+    information: "Informatie"
+    terms_of_service: "Servicevoorwaarden"
+    privacy_policy: "Privacybeleid"
+    cookies_policy: "Cookies beleid"
+  select:
+    which_breeds_are_you_looking_for: "Naar welk ras ben je op zoek?"
+  buttons:
+    search: "Zoek"
+    see_all_kittens: "Bekijk alle kittens"
+  cards:
+    breed: "Ras"
+    gender: "Geslacht"
+    cattery: "Cattery"
+  home:
+    find_your_cat: "Zoek je kat!"
+    popular_breeds: "Populaire rassen"
+    new_kittens: "Nieuwe kittens"

@@ -92,7 +92,7 @@ class CatsController < ApplicationController
   end
 
   def edit
-    @cat = Cat.find_by(id: params[:id])
+    @cat = Cat.friendly.find(params[:id])
     @form = params[:form]
     user = @cat.user
 
@@ -107,7 +107,7 @@ class CatsController < ApplicationController
   end
 
   def update
-    @cat = Cat.find_by(id: params[:id])
+    @cat = Cat.friendly.find(params[:id])
     @form = params[:form]
     user = @cat.user
 
@@ -147,7 +147,7 @@ class CatsController < ApplicationController
 
   def destroy
     @form = params[:form]
-    @cat = Cat.friendly.find_by(id: params[:id])
+    @cat = Cat.friendly.find(params[:id])
     user = @cat.user
 
     if @form == 'parent'

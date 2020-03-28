@@ -15,6 +15,7 @@ require('jquery')
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+require('@fortawesome/fontawesome-free/js/all.min')
 require('materialize-css/dist/js/materialize.min')
 require('imagesloaded/imagesloaded.pkgd.min')
 require('colcade/colcade')

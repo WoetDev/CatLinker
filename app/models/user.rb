@@ -20,7 +20,6 @@ class User < ApplicationRecord
     profile_picture.variant(resize_to_fill: [ 600, 335, gravity: 'Center' ]).processed
   end
 
-
   # filter
   acts_as_tagger
 

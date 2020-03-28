@@ -565,32 +565,6 @@ button.btn-delete {
   }
 }
 
-// Show page
-.social {
-  width: 100%;
-  margin: 15px 0px;
-
-  @include small-and-down {
-    .col {
-      text-align: center;
-    }
-  }
-  
-  .btn-large {
-    margin: 0px 10px;
-    transition: 0.2s cubic-bezier(0.57, 0.04, 0.61, 1.3);
-
-    &:hover {
-      transform: scale(1.15);
-      
-    }
-  }
-
-  .fa-instagram {
-    font-size: 2em;
-  }
-}
-
 // Social media background colors
 .facebook {
   background-color: $facebook-primary !important;
@@ -606,15 +580,6 @@ button.btn-delete {
 
 .google {
   background-color: transparent;
-}
-
-// Create colored Google icon
-.fa-google {
-  background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
 }
 
 // External login buttons
@@ -686,7 +651,6 @@ button.btn-delete {
     }
 
     .btn-external-login {
-
       &:hover, &:focus {
         text-decoration: none;
         background-color: transparent;
@@ -718,10 +682,35 @@ button.btn-delete {
 .btn-external-login, .btn-social-share {
   font-weight: bold;
 
-  .fab {
-    font-size: 1.5em;
+  // External login buttons icons
+  [class*='fa-'] {
+    transform: scale(1.6) !important;
     margin-right: 10px;
   }
+
+  .svg-settings {
+    /* Hiding this content since it's just settings. See - https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
+    position: absolute !important;
+    height: 1px; width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+
+  /* radial gradient */
+  .fill-gradient-radial path {
+    fill: url(#radial);
+  }
+
+  /* setting colors for radial gradient */
+  .radial-stop1 {
+    stop-color: #DB4437;
+  }
+
+  .radial-stop2 {
+    stop-color: #DB4437;
+  }
+
 }
 
 

@@ -30,4 +30,38 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  languages:
+    en: "English"
+    nl: "Nederlands"
+  header:
+    breeds: "Breeds"
+    catteries: "Catteries"
+    kittens: "Kittens"
+    login: "Login"
+    account: "Account"
+    my_cattery: "My Cattery"
+    profile: "Profile"
+    logout: "Logout"
+    change_language: "Change language"
+  footer:
+    support: "Support"
+    help: "Help"
+    contact: "Contact"
+    information: "Information"
+    terms_of_service: "Terms of service"
+    privacy_policy: "Privacy Policy"
+    cookies_policy: "Cookies Policy"
+  select:
+    which_breeds_are_you_looking_for: "Which breed(s) are you looking for?"
+  buttons:
+    search: "Search"
+    see_all_kittens: "See all kittens"
+  cards:
+    breed: "Breed"
+    gender: "Gender"
+    cattery: "Cattery"
+  home:
+    find_your_cat: "Find your cat!"
+    popular_breeds: "Popular breeds"
+    new_kittens: "New kittens"
+  

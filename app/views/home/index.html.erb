@@ -5,13 +5,13 @@
         <%= image_tag("undraw_cat_image_1.svg", :alt => "cat", class:"image-m") %>
       </div>
       <div class="col l6 m12 offset-l1 search-landing">
-          <h1>Find your cat!</h1>
+          <h1><%= t('home.find_your_cat') %></h1>
           <div class="input-field">
             <%= form_with(url: {:controller => 'home', :action => 'search'}, method: "GET", local: true) do |f| %>
-              <%= f.select(:breeds, options_for_select(@all_available_breeds_array), {disabled: "", prompt: 'Which breed(s) are you looking for?'}, {:multiple => true, class:"form-filter"}) %>
+              <%= f.select(:breeds, options_for_select(@all_available_breeds_array), {disabled: "", prompt: t("select.which_breeds_are_you_looking_for")}, {:multiple => true, class:"form-filter"}) %>
               <%= f.hidden_field(:locations, :multiple => true, :value => @all_available_locations_array) %>
               <%= f.button class:"waves-effect waves-light btn-large", type:"submit" do %>
-                Search
+                <%= t('buttons.search') %>
                 <i class="material-icons right">send</i>
               <% end %>
             <% end %>
@@ -22,7 +22,7 @@
   <div class="section breeds-landing">
     <div class="container">
       <div class="row">  
-      <h1>Popular breeds</h1>
+      <h1><%= t('home.popular_breeds') %></h1>
         <div class="carousel">
           <% @breeds.each do |breed| %>
           <div class="carousel-item">
@@ -51,7 +51,7 @@
     <div class="section kittens-landing">
       <div class="container">
         <div class="row">
-          <h1>New kittens</h1>
+          <h1><%= t('home.new_kittens') %></h1>
           <% @kittens.each do |cat| %>
             <div class="col s10 offset-s1 m6 l3">
               <%= link_to cat_path(cat) do %>
@@ -66,7 +66,7 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Breed:</span>
+                          <span class="info-title"><%= t('cards.breed')%>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= cat_breed(cat) %></span>
@@ -76,7 +76,7 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Gender:</span>
+                          <span class="info-title"><%= t('cards.gender')%>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= cat_gender(cat) %></span>
@@ -86,7 +86,7 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Cattery:</span>
+                          <span class="info-title"><%= t('cards.cattery')%>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= cattery(cat).cattery_name %></span>
@@ -101,7 +101,7 @@
         </div>
         <div class="row btn-wrapper">
         <%= link_to cats_path, class:"waves-effect waves-light btn-large" do %>
-          See all kittens
+          <%= t('buttons.see_all_kittens') %>
           <i class="fas fa-cat"></i>
         <% end %>
         </div>
