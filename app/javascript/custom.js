@@ -1,3 +1,6 @@
+// IMPORTS
+import {strftime} from './lib/strftime.js';
+
 Turbolinks.setProgressBarDelay(250)
 
 $(document).on('turbolinks:load', function() {
@@ -21,15 +24,131 @@ $(document).on('turbolinks:load', function() {
     var errorRefreshFilters = "Oeps! De filters konden niet hernieuwd worden"
     var showing = "Gefilterde"
     var fromThe = "van de"
+
+    // Datepicker
+    var cancel = 'Annuleer';
+    var clear =	'Herstel';
+    var done =	'Ok';
+    var previousMonth =	'‹';
+    var nextMonth =	'›';
+    var months =
+      [
+        'Januari',
+        'Februari',
+        'Maart',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Augustus',
+        'September',
+        'Oktober',
+        'November',
+        'December'
+      ];     
+      var monthsShort = 
+      [
+        'Jan',
+        'Feb',
+        'Mrt',
+        'Apr',
+        'Mei',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Okt',
+        'Nov',
+        'Dec'
+      ];        
+      var weekdays =
+      [
+        'Zondag',
+        'Maandag',
+        'Dinsdag',
+        'Woensdag',
+        'Donderdag',
+        'Vrijdag',
+        'Zaterdag'
+      ];       
+      var weekdaysShort = 
+      [
+        'Zo',
+        'Ma',
+        'Di',
+        'Wo',
+        'Do',
+        'Vr',
+        'Za'
+      ];           
+      var weekdaysAbbrev = ['ZO','MA','DI','WO','DO','VR','ZA'];
   }
 
   else {
     var readMore = "Read more"
     var showLess = "Show less"
-    var litterNumber = "Litter nummer"
+    var litterNumber = "Litter number"
     var errorRefreshFilters = "Oops! The filters couldn't be refreshed"
     var showing = "Showing"
     var fromThe = "from the"
+
+    // Datepicker
+    var cancel = 'Cancel';
+    var clear =	'Clear';
+    var done =	'Ok';
+    var previousMonth =	'‹';
+    var nextMonth =	'›';
+    var months =
+      [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];     
+      var monthsShort = 
+      [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ];        
+      var weekdays =
+      [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];       
+      var weekdaysShort = 
+      [
+        'Sun',
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat'
+      ];           
+      var weekdaysAbbrev = ['S','M','T','W','T','F','S'];
   }
 
   // PATHS
@@ -168,9 +287,26 @@ $(document).on('turbolinks:load', function() {
   $('.tooltipped').tooltip();
   $('.tabs').tabs({swipeable: true});
   $('.materialboxed').materialbox();
-  $('.datepicker').datepicker({maxDate: new Date(Date.now()), format: 'mmm dd yyyy'});
   $('.fixed-action-btn').floatingActionButton();
   $('.modal').modal();
+
+  // Set the datepicker with i18n options
+  $('.datepicker').datepicker({ 
+    maxDate: new Date(Date.now()), 
+    format: 'dd mmm yyyy',
+    i18n: {
+      cancel:	cancel,
+      clear:	clear,
+      done:	done,
+      previousMonth:	previousMonth,
+      nextMonth: nextMonth,
+      months:	months,         
+      monthsShort: monthsShort,
+      weekdays: weekdays,              
+      weekdaysShort: weekdaysShort,                
+      weekdaysAbbrev:	weekdaysAbbrev
+    }
+  });
 
   // Close select when clicking or tapping on the first disabled option
   function closeSelectOnDisabledOption(e) {
@@ -402,7 +538,8 @@ $(document).on('turbolinks:load', function() {
         success: function(data) {
           catBirthdateInput.parent().find('label').addClass('active');          
           catBirthdateInput.val('');          
-          catBirthdateInput.val(new Date(data).toDateString().split(' ').slice(1).join(' '));          
+          // catBirthdateInput.val(new Date(data).toDateString().split(' ').slice(1).join(' '));          
+          catBirthdateInput.val(strftime('%d %b %Y', new Date(data)));          
           catBirthdateInput.attr('disabled', true);
         }
       });

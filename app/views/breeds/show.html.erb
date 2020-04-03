@@ -1,6 +1,6 @@
 <!-- Page specific meta data -->
-<% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{@breed.name}" %>
-<% content_for :meta_description, "Find any #{@breed.name} catteries and kittens on Cat Linker, or simply read up on the personality and history of the #{@breed.name}. " %>
+<% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{t("breeds.#{Breed.find(@breed.id).breed_code}.name")}" %>
+<% content_for :meta_description, t('meta.show_breed', breed_name: t("breeds.#{Breed.find(@breed.id).breed_code}.name")) %>
 <% content_for :meta_facebook_image, "#{url_for(@breed.facebook_thumbnail)}" %>
 <% content_for :meta_twitter_image, "#{url_for(@breed.twitter_thumbnail)}" %>
 <% content_for :meta_image_alt, "Breed card picture" %>

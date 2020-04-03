@@ -1,6 +1,6 @@
 module CatsHelper
   def cat_location(cat)
-    "#{User.find(cat.user_id).city.capitalize} - #{Country.find(User.find(cat.user_id).country_id).name}"
+    "#{User.find(cat.user_id).city.capitalize} - #{(I18n.t "countries.#{Country.find(User.find(cat.user_id).country_id).country_code}")}"
   end
 
   def cat_father(cat)

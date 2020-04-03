@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def format_birth_date(cat)
-    cat.birth_date.to_date.to_formatted_s(:rfc822)
+    I18n.l(cat.birth_date.to_date, format: :default)
   end
 
   def cattery(cat)

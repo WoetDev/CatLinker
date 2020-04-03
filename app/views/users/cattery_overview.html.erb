@@ -39,7 +39,7 @@
                           <span class="info-title"><%= t('breed', count: 1) %>:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= cat_breed(cat) %></span>
+                          <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code.upcase}.name") %></span>
                         </div>
                       </div>
                     </div>
@@ -147,7 +147,7 @@
                         <span class="info-title"><%= t('breed', count:1) %>:</span>
                       </div>
                       <div class="col s8">
-                        <span class="info-text"><%= cat_breed(pair.male) %></span>
+                        <span class="info-text"><%= t("breeds.#{cat_breed(pair.male).breed_code.upcase}.name") %></span>
                       </div>
                     </div>
                   </div>
@@ -229,7 +229,7 @@
                           <span class="info-title"><%= t('breed', count:1) %>:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= cat_breed(cat) %></span>
+                          <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code.upcase}.name") %></span>
                         </div>
                       </div>
                     </div>

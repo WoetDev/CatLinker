@@ -3,8 +3,8 @@ class CatsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show, :update_filters]
 
   def index
-    get_all_available_breeds
-    get_all_available_locations
+    all_available_breeds
+    all_available_locations
     user_ids = User.is_cattery(true).pluck(:id)
     cats = Cat.where(user_id: user_ids).is_parent(false)
 
@@ -34,9 +34,9 @@ class CatsController < ApplicationController
     if @form == 'parent'
       all_breeds
     elsif @form == 'kitten'
-      get_parents(user)
-      get_parent_breeds(user)
-      get_litters(user)
+      parents(user)
+      parent_breeds(user)
+      litters(user)
     end
   end
 
@@ -65,9 +65,9 @@ class CatsController < ApplicationController
       end
 
     elsif @form == 'kitten'
-      get_parents(user)
-      get_parent_breeds(user)
-      get_litters(user)
+      parents(user)
+      parent_breeds(user)
+      litters(user)
 
       @cat = Cat.new(kitten_params)
       @cat.user_id = user.id
@@ -109,9 +109,9 @@ class CatsController < ApplicationController
     if @form == 'parent'
       all_breeds
     elsif @form == 'kitten'
-      get_parent_breeds(user)
-      get_parents(user)
-      get_litters(user)
+      parent_breeds(user)
+      parents(user)
+      litters(user)
       @cat.birth_date = @cat.birth_date.to_date.to_formatted_s(:rfc822)
     end
   end
@@ -140,9 +140,9 @@ class CatsController < ApplicationController
       end
 
     elsif @form == 'kitten'
-      get_parent_breeds(user)
-      get_parents(user)
-      get_litters(user)
+      parent_breeds(user)
+      parents(user)
+      litters(user)
 
       if @cat.update(kitten_params)
         flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
@@ -244,14 +244,14 @@ class CatsController < ApplicationController
     params.require(:cat).permit(:name, :gender, :color, :is_available, :is_vaccinated, :is_castrated, :card_picture, :breed_id, :user_id, :pair_id, :litter_number, :birth_date, :breed_tag_list, :location_tag_list, pictures: [])
   end
 
-  def get_all_available_breeds
+  def all_available_breeds
     breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
-    @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
+    @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort_by { |b| b[0] }
   end
 
-  def get_all_available_locations
+  def all_available_locations
     locations = User.is_cattery(true).joins(:cats).where(cats: { is_parent: false }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort_by { |l| l[0] }
   end
 
   def all_countries
@@ -261,21 +261,21 @@ class CatsController < ApplicationController
 
   def all_breeds
     breeds = Breed.order(:name)
-    @breeds_array = breeds.map { |breed| [breed.name, breed.id] }
+    @breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{breed.breed_code}.name")}", breed.id] }.sort_by { |b| b[0] }
   end
 
-  def get_parent_breeds(user)
+  def parent_breeds(user)
     breeds = Cat.user_id(user.id).distinct.pluck(:breed_id)
-    @breeds_array = breeds.map { |breed| [Breed.find_by(id: breed).name, Breed.find_by(id: breed).id] }.sort
+    @breeds_array = breeds.map { |breed| [(I18n.t "breeds.#{Breed.find(breed).breed_code.upcase}.name"), Breed.find(breed).id] }.sort_by { |b| b[0] }
   end
 
-  def get_parents(user)
+  def parents(user)
     pairs = Pair.user_id(user.id)
-    @parents_array = pairs.map { |pair| ["#{pair.male.name} & #{pair.female.name}", pair.id] }
+    @parents_array = pairs.map { |pair| ["#{pair.male.name} & #{pair.female.name}", pair.id] }.sort_by { |b| b[0] }
   end
 
-  def get_litters(user)
+  def litters(user)
     litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-    @litter_numbers = litter_number_information.reverse.map { |l| ["#{l[0]} - #{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1]).male.name} & #{Pair.find_by(id: l[1]).female.name}", l[0]] }
+    @litter_numbers = litter_number_information.reverse.map { |l| ["#{l[0]} - #{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find(l[1]).male.name} & #{Pair.find(l[1]).female.name}", l[0]] }.sort_by { |p| p[0] }.reverse
   end
 end

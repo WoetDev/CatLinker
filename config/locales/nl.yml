@@ -45,6 +45,7 @@ nl:
     default_description: "Heb je graag katten? Bekijk hier catteries en kittens met gedetailleerde informatie en de schattigste foto's! Wil je een bezoekje plannen? Maak eenvoudig een afspraak met de cattery."
     show_kitten: "%{cat_breed} kitten (%{cat_gender}) van %{cattery}. Deze kitten werd geboren op %{cat_birth_date} en is te vinden in %{cat_location}."
     show_cattery: "%{cattery_name} is een cattery in %{cattery_location} met een passie voor het grootbrengen van %{cattery_breeds} katten."
+    show_breed: "Bekijk hier alle %{breed_name} catteries en kittens of lees meer over de persoonlijkheid en geschiedenis van de %{breed_name}."
   select:
     which_breeds_are_you_looking_for: "Naar welk ras ben je op zoek?"
     which_locations_do_you_prefer: "Welke locatie(s) verkies je?"

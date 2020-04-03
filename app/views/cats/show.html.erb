@@ -1,6 +1,6 @@
 <!-- Page specific meta data -->
 <% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{Breed.find(@cat.breed_id).name} kitten | #{cat_location(@cat)}" %>
-<% content_for :meta_description, t('meta.show_kitten', cat_breed: Breed.find(@cat.breed_id).name, cat_gender: cat_gender(@cat), cattery: cattery(@cat).cattery_name, cat_birth_date: format_birth_date(@cat), cat_location: cat_location(@cat)) %>
+<% content_for :meta_description, t('meta.show_kitten', cat_breed: t("breeds.#{Breed.find(@cat.breed_id).breed_code.upcase}.name"), cat_gender: cat_gender(@cat), cattery: cattery(@cat).cattery_name, cat_birth_date: format_birth_date(@cat), cat_location: cat_location(@cat)) %>
 <% content_for :meta_facebook_image, "#{url_for(@cat.facebook_thumbnail)}" %>
 <% content_for :meta_twitter_image, "#{url_for(@cat.twitter_thumbnail)}" %>
 <% content_for :meta_image_alt, "Kitten card picture" %>
