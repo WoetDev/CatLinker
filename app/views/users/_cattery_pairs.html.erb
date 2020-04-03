@@ -22,17 +22,17 @@
         <div class="info-block">
           <div class="row">
             <div class="col s4">
-              <span class="info-title">Breed:</span>
+              <span class="info-title"><%= t('breed', count:1) %>:</span>
             </div>
             <div class="col s8">
-              <span class="info-text"><%= cat_breed(pair.male) %></span>
+              <span class="info-text"><%= t("breeds.#{cat_breed(pair.male).breed_code}.name") %></span>
             </div>
           </div>
         </div>
         <div class="info-block">
           <div class="row">
             <div class="col s4">
-              <span class="info-title">Litters:</span>
+              <span class="info-title"><%= t('cat_info.litters') %>:</span>
             </div>
             <div class="col s8">
               <span class="info-text"><%= pair_litters_count(pair, @user) %></span>
@@ -42,7 +42,7 @@
         <div class="info-block">
           <div class="row">
             <div class="col s4">
-              <span class="info-title">Kittens:</span>
+              <span class="info-title"><%= t('header.kittens') %>:</span>
             </div>
             <div class="col s8">
               <span class="info-text"><%= pair_kittens_count(pair, @user) %></span>

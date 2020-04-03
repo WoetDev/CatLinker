@@ -7,7 +7,7 @@
 
 <div class="container breed-show">
   <div class="row">
-    <h1><%= @breed.name %></h1>
+    <h1><%= t("breeds.#{@breed.breed_code.upcase}.name") %></h1>
   </div>
 
   <div class="row">
@@ -21,7 +21,7 @@
       <% @properties_array.each do |prop| %>
         <div class="col s12 l6 breed-property">
           <div class="col s12 m5 l12">
-            <div class="range-title"><%= prop.capitalize.gsub('_', ' ') %>:</div>
+            <div class="range-title"><%= t("breed_info.#{prop}").capitalize %>:</div>
           </div>
           <div class="col s12 m7 l12">
             <div class="range-dots">
@@ -41,7 +41,7 @@
 
   <div class="paragraph-block z-depth-1">
     <div class="row">
-      <h1>Personality</h1>
+      <h1><%= t('breed_info.personality').capitalize %></h1>
     </div>
 
     <div class="row text-box">
@@ -51,7 +51,7 @@
 
   <% if @catteries.any? %>
     <div class="row">
-      <h1>Catteries</h1>
+      <h1><%= t('header.catteries')%></h1>
     </div>
 
     <div class="row">
@@ -61,7 +61,7 @@
 
   <% if @kittens.any? %>
     <div class="row">
-      <h1>Kittens</h1>
+      <h1><%= t('header.kittens')%></h1>
     </div>
 
     <div class="row">
@@ -71,7 +71,7 @@
 
   <div class="paragraph-block z-depth-1">
     <div class="row">
-      <h1>History</h1>
+      <h1><%= t('breed_info.history').capitalize %></h1>
     </div>
     
     <div class="row text-box">
@@ -80,13 +80,13 @@
   </div>
 
   <div class="section social-media">
-    <h1>Share this breed</h1>
+    <h1><%= t('social.share_this_breed') %></h1>
     <%= render 'shared/social_media_share_buttons' %>
   </div>
 
   <div class="disclaimer-block">  
     <div class="row">
-      <p><b>DISCLAIMER:</b> While the characteristics mentioned here may frequently represent this breed, cats are individuals whose personalities and appearances will vary. Please consult the adoption organization for details on a specific pet.</p>
+      <p><b><%= t('breed_info.disclaimer').upcase %>:</b>&nbsp;<%= t('breed_info.disclaimer_text') %></p>
     </div>
   </div>
 </div>

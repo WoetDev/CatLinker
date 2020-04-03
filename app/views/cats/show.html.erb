@@ -1,6 +1,6 @@
 <!-- Page specific meta data -->
 <% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{Breed.find(@cat.breed_id).name} kitten | #{cat_location(@cat)}" %>
-<% content_for :meta_description, "#{@cat.color} #{Breed.find(@cat.breed_id).name} kitten (#{cat_gender(@cat)}) from #{cattery(@cat).cattery_name}. This kitten was born on #{format_birth_date(@cat)} and can be found in #{cat_location(@cat)}." %>
+<% content_for :meta_description, t('meta.show_kitten', cat_breed: Breed.find(@cat.breed_id).name, cat_gender: cat_gender(@cat), cattery: cattery(@cat).cattery_name, cat_birth_date: format_birth_date(@cat), cat_location: cat_location(@cat)) %>
 <% content_for :meta_facebook_image, "#{url_for(@cat.facebook_thumbnail)}" %>
 <% content_for :meta_twitter_image, "#{url_for(@cat.twitter_thumbnail)}" %>
 <% content_for :meta_image_alt, "Kitten card picture" %>
@@ -8,7 +8,7 @@
 <div id="kitten-view" class="container">
   <div class="row">
     <div class="col s12">
-        <h1><%= cat_breed(@cat) %><h1>
+        <h1><%= t("breeds.#{cat_breed(@cat).breed_code}.name") %><h1>
         <% if @cat.name.present? %>
           <h1 class="cat-name"><%= @cat.name %><h1>
         <% end %>
@@ -22,7 +22,7 @@
       <div class="info-main">
         <div class="row">
           <div class="col s6 m5 info-title">
-            Cattery:
+            <%= t('cat_info.cattery') %>:
           </div>
           <div class="col s6 m7 info-text">
             <%= link_to cattery_path(@user), class:"info-link" do %>
@@ -32,7 +32,7 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Location:
+            <%= t('cat_info.location') %>:
           </div>
           <div class="col s6 m7 info-text">
             <%= cat_location(@cat) %>
@@ -40,15 +40,15 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Gender:
+            <%= t('cat_info.gender') %>:
           </div>
           <div class="col s6 m7 info-text">
-            <%= cat_gender(@cat) %>
+            <%= cat_gender(@cat).capitalize %>
           </div>
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Birth date:
+            <%= t('cat_info.birth_date') %>:
           </div>
           <div class="col s6 m7 info-text">
             <%= format_birth_date(@cat) %>
@@ -56,15 +56,15 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Color:
+            <%= t('cat_info.color') %>:
           </div>
           <div class="col s6 m7 info-text">
-            <%= @cat.color %>
+            <%= @cat.color.capitalize %>
           </div>
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Vaccinated:
+            <%= t('cat_info.vaccinated') %>:
           </div>
           <div class="col s6 m7 info-text">
             <% if @cat.is_vaccinated %>
@@ -76,7 +76,7 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Castrated:
+            <%= t('cat_info.castrated') %>:
           </div>
           <div class="col s6 m7 info-text">
             <% if @cat.is_castrated %>
@@ -88,7 +88,7 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Available:
+            <%= t('cat_info.available') %>:
           </div>
           <div class="col s6 m7 info-text">
             <% if @cat.is_available %>
@@ -130,7 +130,7 @@
     </div>
   </div>
   <div class="section parents">
-    <h1>Parents</h1>
+    <h1><%= t('cat_info.parents') %></h1>
     <div class="row">
       <div class="pictures-parents-container">
         <div class="col s12 m5 offset-m1">
@@ -140,7 +140,7 @@
           <div class="parent-info">
             <h3><%= cat_father(@cat).name %></h3>
             <% if cat_father(@cat).origin.present? %>
-              <h4><span>Origin:</span>&nbsp;<%= cat_father(@cat).origin %><h4>
+              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= cat_father(@cat).origin %><h4>
             <% end %>
           </div>
         </div>
@@ -151,7 +151,7 @@
           <div class="parent-info">
             <h3><%= cat_mother(@cat).name %></h3>
             <% if cat_mother(@cat).origin.present? %>
-              <h4><span>Origin:</span>&nbsp;<%= cat_mother(@cat).origin %><h4>
+              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= cat_mother(@cat).origin %><h4>
             <% end %>
           </div>
         </div>
@@ -161,7 +161,7 @@
   <% if other_kittens_from_same_litter(@cat).any? %>
     <div class="section other-kittens">
       <div class="row">
-        <h1>Siblings</h1>
+        <h1><%= t('cat_info.siblings') %></h1>
       </div>
       <div class="row">
         <% other_kittens_from_same_litter(@cat).each do |cat| %>
@@ -178,20 +178,20 @@
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Breed:</span>
+                        <span class="info-title"><%= t('breed', count: 1) %>:</span>
                       </div>
                       <div class="col s8">
-                        <span class="info-text"><%= cat_breed(cat) %></span>
+                        <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></span>
                       </div>
                     </div>
                   </div>
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Gender:</span>
+                        <span class="info-title"><%= t('cat_info.gender') %>:</span>
                       </div>
                       <div class="col s8">
-                        <span class="info-text"><%= cat_gender(cat) %></span>
+                        <span class="info-text"><%= cat_gender(cat).capitalize %></span>
                       </div>
                     </div>
                   </div>
@@ -201,10 +201,10 @@
                         <div class="info-available">
                           <% if cat.is_available %>
                             <i class="material-icons check">check</i>
-                            <span class="available-text">Available</span>
+                            <span class="available-text"><%= t('cat_info.available') %></span>
                           <% else %>
                             <i class="material-icons close">close</i>
-                            <span class="unavailable-text">Unavailable</span>
+                            <span class="unavailable-text"><%= t('cat_info.unavailable') %></span>
                           <% end %>
                         </div>
                       </div>
@@ -220,7 +220,7 @@
   <% end %>
   <div class="section social-media">
     <div class="row">
-      <h1>Share this kitten</h1>
+      <h1><%= t('social.share_this_kitten') %></h1>
     </div>
     <%= render 'shared/social_media_share_buttons' %>
   </div>

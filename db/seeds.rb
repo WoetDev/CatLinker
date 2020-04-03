@@ -7,11 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # # BREEDS
-# breeds = ['American Shorthair','Bengal','Birman','Bombay','British Shorthair','Burmese','Chartreux','Himalayan','Maine Coon','Munchkin','Nebelung','Norwegian Forest Cat','Persian','Ragamuffin','Ragdoll','Russian Blue','Scottish Fold','Siamese','Siberian','Sphynx']
+breeds = { id: 1, name: 'American Shorthair', breed_code: 'AS' },{ id: 2, name: 'Bengal', breed_code: 'BG' },{ id: 3, name: 'Birman', breed_code: 'BI' },{ id: 4, name: 'Bombay', breed_code: 'BO' },{ id: 5, name: 'British Shorthair', breed_code: 'BS' },{ id: 6, name: 'Burmese', breed_code: 'BU' },{ id: 7, name: 'Chartreux', breed_code: 'CX' },{ id: 8, name: 'Himalayan', breed_code: 'HI' },{ id: 9, name: 'Maine Coon', breed_code: 'MC' },{ id: 10, name: 'Munchkin', breed_code: 'MK' },{ id: 11, name: 'Nebelung', breed_code: 'NB' },{ id: 12, name: 'Norwegian Forest Cat', breed_code: 'NF' },{ id: 13, name: 'Persian', breed_code: 'PS' },{ id: 14, name: 'Ragamuffin', breed_code: 'RM' },{ id: 15, name: 'Ragdoll', breed_code: 'RD' },{ id: 16, name: 'Russian Blue', breed_code: 'RB' },{ id: 17, name: 'Scottish Fold', breed_code: 'SF' },{ id: 18, name: 'Siamese', breed_code: 'SI' },{ id: 19, name: 'Siberian', breed_code: 'SB' },{ id: 20, name: 'Sphynx', breed_code: 'SX' }
 
-# breeds.each do |name|
-#   Breed.create(name: name)
-# end
+breeds.each do |breed_hash|
+  breed = Breed.find(breed_hash[:id])
+  breed.update(breed_code: breed_hash[:breed_code])
+end
 
 # UPDATE BREEDS INFORMATION
 # breeds = [ { id: 10, filepath: '../Images/munchkin_placeholder.jpg', filename: 'munchkin_placeholder.jpg' } ]

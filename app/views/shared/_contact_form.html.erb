@@ -1,11 +1,11 @@
 <div class="form">
 
   <div class="row">
-    <h2 class="form-title">Contact</h2>
+    <h2 class="form-title"><%= t('footer.contact') %></h2>
   </div>
 
   <div class="row">
-    <div class="col s12 m6 l7">
+    <div class="col s12 l7">
       <%= form_with(model: @message, url: messages_path) do |f| %>
         <div class="row">
           <br>
@@ -22,7 +22,7 @@
           <div class="col s12">
             <div class="input-field">
               <%= f.label :email do %>
-                Your email *
+                <%= t('form.contact.your_email') %> *
               <% end %>
               <%= f.text_field :email %>
               <%= render 'shared/error_messages', object: @message, field: :email %>
@@ -35,7 +35,7 @@
           <div class="col s12">
             <div class="input-field">
               <%= f.label :subject do %>
-                Subject *
+                <%= t('form.contact.subject') %> *
               <% end %>
               <%= f.text_field :subject %>
               <%= render 'shared/error_messages', object: @message, field: :subject %>
@@ -47,7 +47,7 @@
           <div class="col s12">
             <div class="input-field">
               <%= f.label :description do %>
-                Message *
+                <%= t('form.contact.message') %> *
               <% end %>
               <%= f.text_area :description, class:'materialize-textarea' %>
               <%= render 'shared/error_messages', object: @message, field: :description %>
@@ -59,7 +59,7 @@
           <div class="actions">
             <div class="col">
               <%= f.button class:"btn-large waves-effect waves-light", type:"submit" do %>
-                Send
+                <%= t('form.contact.send') %>
                 <i class="material-icons right">send</i>
               <% end %>
             </div>
@@ -68,11 +68,11 @@
       <% end %>
     </div>
 
-    <div class="col s12 m6 l5">
+    <div class="col s12 l5">
       <div class="row">
         <div class="contact-info-block">
           <div class="col s4 m4 info-title">
-            Email:
+            <%= t('form.contact.email') %>:
           </div>
           <div class="col s8 m8 info-text">
             <%= mail_to user.email, class:"info-link" do %>
@@ -83,7 +83,7 @@
         <% if user.phone_number.present? %>
           <div class="contact-info-block">
             <div class="col s4 m4 info-title">
-              Phone:
+              <%= t('form.contact.phone') %>:
             </div>
             <div class="col s8 m8 info-text">
               <%= link_to "tel:#{user.phone_number}", class:"info-link" do %>

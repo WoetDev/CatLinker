@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     devise_for :users, :controllers => { confirmations: 'users/confirmations', 
                                         registrations: 'users/registrations',
                                         omniauth_callbacks: 'users/omniauth_callbacks' }, skip: :omniauth_callbacks
-    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.htmlµ
+    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
     get 'home/search' => 'home#search'
 

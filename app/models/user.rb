@@ -42,10 +42,6 @@ class User < ApplicationRecord
       user.provider = auth.provider
       user.uid = auth.uid
 
-      # User model does not have a name and facebook image will not be used for profile picture by default, but this info is required for authentication
-      # user.name = auth.info.name   # assuming the user model has a name
-      # user.profile_picture = auth.info.image # assuming the user model has an image
-
       # If you are using confirmable and the provider(s) you use validate emails, uncomment the line below to skip the confirmation emails.
       user.skip_confirmation!
     end
@@ -53,14 +49,11 @@ class User < ApplicationRecord
 
   def self.from_google_oauth2_omniauth(access_token)
     data = access_token.info
-
     user = User.where(email: data['email']).first
-    user.provider = access_token.provider
-    user.uid = access_token.uid
 
     # Uncomment the section below if you want users to be created if they don't exist
     unless user
-      user = User.create( email: data['email'], password: Devise.friendly_token[0,20] )
+      user = User.create( email: data['email'], password: Devise.friendly_token[0,20], provider: access_token.provider, uid: access_token.uid, given_consent: true )
       user.skip_confirmation!
     end
     user
@@ -78,12 +71,8 @@ class User < ApplicationRecord
   def is_cattery?
     is_cattery == true
   end
-  
+
   # custom validations
-  validates :given_consent, presence: true
-  # validates :cattery_name, presence: true, if: :is_cattery?
-  # validates :profile_picture, presence: true, if: :is_cattery?
-  # validates :postal_code, presence: true, if: :is_cattery?
-  # validates :city, presence: true, if: :is_cattery?
-  # validates :country_id, presence: true, if: :is_cattery?
+  validates :given_consent, presence: true, on: :create
+  validates :cattery_name, :profile_picture, :postal_code, :city, :country_id, presence: true, allow_blank: false, if: :is_cattery?, on: :required_cattery_information
 end

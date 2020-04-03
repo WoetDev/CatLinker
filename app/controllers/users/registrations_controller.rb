@@ -73,6 +73,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    sign_in_after_change_password? ? edit_user_registration_path(resource) : new_session_path(resource_name)
+    sign_in_after_change_password? ? edit_user_registration_path : new_session_path(resource_name)
   end
 end

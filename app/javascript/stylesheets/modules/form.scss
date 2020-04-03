@@ -1,7 +1,8 @@
 // Form
 .form {
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: $z-depth-1;
   padding: 2rem;
+  border-radius: 5px;
   margin: 5rem auto;
 
   @include small-and-up {
@@ -73,11 +74,11 @@
     font-size: 1em !important;
 
     span {
-      color: black;
+      color: $black;
     }
 
     &:focus {
-      box-shadow: 0 1px 0 0 #26a69a;
+      box-shadow: 0 1px 0 0 $secondaryColor;
     }
   }
 
@@ -105,7 +106,7 @@
 
   a {
     display: block;
-    color: black;
+    color: $black;
     transition: ease-in-out 0.5s;
 
     &:hover, &:focus {
@@ -123,7 +124,7 @@
   }
 
   .inner-form-btn {
-    min-width: 145px;
+    min-width: 160px;
     width: 30%;
   }
 
@@ -297,7 +298,7 @@
 .material-tooltip {  
   background: $secondaryShade5;
   border-radius: 2px;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+  box-shadow: $z-depth-1;
 
   div {
     font-size: 1em;
@@ -382,11 +383,13 @@
 
 .blocking-helper-text {
   margin-top: 15px;
+  
 }
 
 .resend-confirmation-btn {
   display: inline-block !important;
   color: $white !important;  
+  margin-bottom: 20px;
 
   &:hover, &:focus {
     text-decoration: none !important;
@@ -455,12 +458,12 @@
   
   
   $margin-buttons: 15px;
+  $width-buttons: 125px;
 
   @include small-and-down {
     $margin-buttons: 5px;
   }
   
-  $width-buttons: 125px;
 
   .btn-confirm, .btn-cancel {
     display: inline-block;
@@ -584,7 +587,7 @@ button.btn-delete {
 
 // External login buttons
 
-// divider with text in middle
+// Divider with text in middle
 .text-divider-container.row {  
   margin-left: auto;
   margin-right: auto; 
@@ -628,6 +631,10 @@ button.btn-delete {
 .form {
   .social {
     position: relative;
+
+    @include medium-and-up {
+      border-left: 1px solid $inactiveGrey;
+    }
   
     @include medium-and-up {
       top: 20px;
@@ -636,7 +643,7 @@ button.btn-delete {
     @include medium-and-down {
       &:before, &:after {
         content: "";
-        background: $inactiveGrey;// linear-gradient(to left, transparent, $inactiveGrey, transparent);
+        background: $inactiveGrey;
         display: inline-block;
         height: 1px;
         position: relative;
@@ -674,6 +681,19 @@ button.btn-delete {
 
     .facebook.btn-external-login {
       color: $white;
+
+      .fa-facebook-f {
+        position: relative;
+        bottom: 2px;
+      }
+    }
+
+    .google-logo {
+      width: .625em;
+      transform: scale(2.8);
+      position: relative;
+      right: 10px;
+      top: 2px;
     }
   }
 }
@@ -687,30 +707,6 @@ button.btn-delete {
     transform: scale(1.6) !important;
     margin-right: 10px;
   }
-
-  .svg-settings {
-    /* Hiding this content since it's just settings. See - https://snook.ca/archives/html_and_css/hiding-content-for-accessibility */
-    position: absolute !important;
-    height: 1px; width: 1px;
-    overflow: hidden;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
-    clip: rect(1px, 1px, 1px, 1px);
-  }
-
-  /* radial gradient */
-  .fill-gradient-radial path {
-    fill: url(#radial);
-  }
-
-  /* setting colors for radial gradient */
-  .radial-stop1 {
-    stop-color: #DB4437;
-  }
-
-  .radial-stop2 {
-    stop-color: #DB4437;
-  }
-
 }
 
 
@@ -785,6 +781,7 @@ button.btn-delete {
         text-align: right;
         position: relative;
         right: 15px;
+        word-wrap: break-word;
 
         @include small-and-down {
           text-align: left;

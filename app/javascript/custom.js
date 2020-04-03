@@ -13,6 +13,25 @@ $(document).on('turbolinks:load', function() {
     var locale = pathname.substring(1,3);
   }
 
+  // TRANSLATIONS
+  if (locale == 'nl') {
+    var readMore = "Lees meer"
+    var showLess = "Verberg"
+    var litterNumber = "Nestje nummer"
+    var errorRefreshFilters = "Oeps! De filters konden niet hernieuwd worden"
+    var showing = "Gefilterde"
+    var fromThe = "van de"
+  }
+
+  else {
+    var readMore = "Read more"
+    var showLess = "Show less"
+    var litterNumber = "Litter nummer"
+    var errorRefreshFilters = "Oops! The filters couldn't be refreshed"
+    var showing = "Showing"
+    var fromThe = "from the"
+  }
+
   // PATHS
   var rootPath = '/';
   var localeRootPath = rootPath.concat(locale);
@@ -369,7 +388,7 @@ $(document).on('turbolinks:load', function() {
       var detail = event.detail;
       var data = detail[0], status = detail[1], xhr = detail[2];
       $("#cat_litter_number").parent().find('.select-dropdown').remove();
-      $("#cat_litter_number").parent().html("<span class='fixed-text-ajax'><b>Litter number:&nbsp;</b> " + data + "</span>");
+      $("#cat_litter_number").parent().html("<span class='fixed-text-ajax'><b>" + litterNumber + ":&nbsp;</b> " + data + "</span>");
       $("#hidden_cat_litter_number").val(data);
       catBirthdateInput.attr('disabled', false);
     });
@@ -470,7 +489,7 @@ $(document).on('turbolinks:load', function() {
           },
           error: function() {
             console.log('Ajax request failed');
-            M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+            M.toast({html: errorRefreshFilters, classes: "alert-error"})
           }
         });
       }
@@ -538,7 +557,7 @@ $(document).on('turbolinks:load', function() {
         },
         error: function() {
           console.log('Ajax request failed');
-          M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+          M.toast({html: errorRefreshFilters, classes: "alert-error"})
         }
       });
 
@@ -606,7 +625,7 @@ $(document).on('turbolinks:load', function() {
         },
         error: function() {
           console.log('Ajax request failed');
-          M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+          M.toast({html: errorRefreshFilters, classes: "alert-error"})
         }
       });
 
@@ -774,7 +793,7 @@ $(document).on('turbolinks:load', function() {
              
              // Only add a message if the filter is used
              if (filterSection.find('.form-filter').val() != "" && filterSection.find('.form-filter').val() != null) {
-               $(this).append('<i class="material-icons filter-list">filter_list</i><span>Showing ' + $(messageSection).find('h1').first().text().toLowerCase() +' from the ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
+               $(this).append('<i class="material-icons filter-list">filter_list</i><span>' + showing + ' ' + $(messageSection).find('h1').first().text().toLowerCase() +' ' + fromThe + ' ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
              }
  
              // Add a line break if more than one filter is active
@@ -854,7 +873,7 @@ $(document).on('turbolinks:load', function() {
           },
           error: function() {
             console.log('Ajax request failed');
-            M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+            M.toast({html: errorRefreshFilters, classes: "alert-error"})
           }
         });
       });
@@ -937,7 +956,7 @@ $(document).on('turbolinks:load', function() {
               
               // Only add a message if the filter is used
               if (filterSection.find('.form-filter').val() != "" && filterSection.find('.form-filter').val() != null) {
-                $(this).append('<i class="material-icons filter-list">filter_list</i><span>Showing ' + $(messageSection).find('h1').first().text().toLowerCase() +' from the ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
+                $(this).append('<i class="material-icons filter-list">filter_list</i><span>' + showing + ' ' + $(messageSection).find('h1').first().text().toLowerCase() +' ' + fromThe + ' ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
               }
 
               // Add a line break if more than one filter is active
@@ -990,7 +1009,7 @@ $(document).on('turbolinks:load', function() {
           },
           error: function() {
             console.log('Ajax request failed');
-            M.toast({html: "Oops! The filters couldn't be refreshed", classes: "alert-error"})
+            M.toast({html: errorRefreshFilters, classes: "alert-error"})
           }
         });
       });
@@ -1081,7 +1100,7 @@ $(document).on('turbolinks:load', function() {
           TruncateBy : "words",
           Strict : false,
           StripHTML : true,
-          Suffix : '<div class="truncation-link more">Read more..</div>'
+          Suffix : '<div class="truncation-link more">' + readMore + '..</div>'
         };
 
         var text = $(textContainer).html();
@@ -1095,7 +1114,7 @@ $(document).on('turbolinks:load', function() {
         var fullText = $(originalText).get($(textContainers).index(textContainer))
         var paragraph = $(textContainer).find('p');
         $(paragraph).html(fullText);
-        $(paragraph).append('<div class="truncation-link less">Show less..</div>')
+        $(paragraph).append('<div class="truncation-link less">'+ showLess +'..</div>')
         
       }
 
@@ -1111,7 +1130,4 @@ $(document).on('turbolinks:load', function() {
         addTruncatedText(paragraph);
       });
     }
-
-    $(document).off('touchend', 'select');
-    $(document).off('touchend', '.nav-dropdown-trigger');
 });

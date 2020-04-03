@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form">
     <div class="row">
-      <h2 class="form-title">Edit <%= @form %></h2>
+      <h2 class="form-title"><%= t('words.edit', kind: (I18n.t "#{@form}", count:1).downcase ) %></h2>
     </div>
 
     <%= render 'form', :locals => {:controller => 'pairs', :action => 'update'} %>

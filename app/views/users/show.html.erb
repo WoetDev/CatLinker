@@ -1,6 +1,6 @@
 <!-- Page specific meta data -->
 <% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{cattery_user(@user).cattery_name} | #{cattery_location(@user)}" %>
-<% content_for :meta_description, "#{cattery_user(@user).cattery_name} is a cattery in #{cattery_location(@user)} with a passionate focus on raising #{cattery_breed_names(@user)} cats." %>
+<% content_for :meta_description, t('meta.show_cattery', cattery_name: cattery_user(@user).cattery_name, cattery_location: cattery_location(@user), cattery_breeds: cattery_breed_names(@user)) %>
 <% content_for :meta_facebook_image, "#{url_for(@user.facebook_thumbnail)}" %>
 <% content_for :meta_twitter_image, "#{url_for(@user.twitter_thumbnail)}" %>
 <% content_for :meta_image_alt, "Cattery profile picture" %>
@@ -18,7 +18,7 @@
       <div class="info-main">
         <div class="row">
           <div class="col s6 m5 info-title">
-            Location:
+            <%= t('cat_info.location') %>:
           </div>
           <div class="col s6 m7 info-text">
             <%= cattery_location(@user) %>
@@ -26,12 +26,12 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Breeds:
+            <%= t('breed', count: cattery_breeds(@user).size ) %>:
           </div>
           <div class="col s6 m7 info-text">
             <% cattery_breeds(@user).each_with_index do |breed, index| %>
-              <%= link_to breed_path(breed), class:"info-link" do %>
-                <%= Breed.find(breed).name %>
+              <%= link_to breed_path(breed.friendly_id), class:"info-link" do %>
+                <%= t("breeds.#{breed.breed_code.upcase}.name") %>
               <% end %>
               <% unless index == cattery_breeds(@user).length - 1 %>
                 ,&nbsp;
@@ -41,15 +41,17 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Parents:
+            <%= t('cat_info.parents') %>:
           </div>
           <div class="col s6 m7 info-text">
-            <%= cattery_parent_count(@user)[:parents] %> (<%= cattery_parent_count(@user)[:males] %> male<% unless cattery_parent_count(@user)[:males] == 1 %>s<% end %>, <%= cattery_parent_count(@user)[:females] %> female<% unless cattery_parent_count(@user)[:females] == 1 %>s<% end %>)
+            <%= cattery_parent_count(@user)[:parents] %> 
+            (<%= cattery_parent_count(@user)[:males] %>&nbsp;<%= t('male', count: cattery_parent_count(@user)[:males] ) %>, 
+            <%= cattery_parent_count(@user)[:females] %>&nbsp;<%= t('female', count: cattery_parent_count(@user)[:females] ) %>)
           </div>
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Litters:
+            <%= t('cat_info.litters') %>:
           </div>
           <div class="col s6 m7 info-text">
             <%= cattery_litter_count(@user) %>
@@ -57,42 +59,38 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            Kittens:
+            <%= t('header.kittens') %>:
           </div>
           <div class="col s6 m7 info-text">
             <%= cattery_kitten_count(@user) %>
           </div>
         </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            Kittens available:
-          </div>
-          <div class="col s6 m7 info-text">
-            <% if @kittens.any? && cattery_kittens_available(@user).is_available %>
-              <i class="material-icons check">check</i>
-            <% else %>
-              <i class="material-icons close">close</i>
-            <% end %>
-          </div>
-        </div>
         <% if @user.facebook_link.present? or @user.instagram_link.present? or @user.twitter_link.present? %>
-        <div class="row social">
-          <div class="col s12">
-            <% if @user.facebook_link.present? %>
-              <%= link_to "http://#{cattery_social_links(@user)[:facebook]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large facebook" do %>
-                <i class="fab fa-facebook-f"></i>
+          <div class="row social">
+            <div class="col s12">
+              <% if @user.facebook_link.present? %>
+                <%= link_to "http://#{cattery_social_links(@user)[:facebook]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large facebook" do %>
+                  <i class="fab fa-facebook-f"></i>
+                <% end %>
               <% end %>
-            <% end %>
-            <% if @user.instagram_link.present? %>
-                <%= link_to "http://#{cattery_social_links(@user)[:instagram]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large instagram" do %>
-                  <i class="fab fa-instagram"></i>
-                <% end %>
-            <% end %>
-            <% if @user.twitter_link.present? %>
-                <%= link_to "http://#{cattery_social_links(@user)[:twitter]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large twitter" do %>
-                  <i class="fab fa-twitter"></i>
-                <% end %>
-            <% end %>
+              <% if @user.instagram_link.present? %>
+                  <%= link_to "http://#{cattery_social_links(@user)[:instagram]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large instagram" do %>
+                    <i class="fab fa-instagram"></i>
+                  <% end %>
+              <% end %>
+              <% if @user.twitter_link.present? %>
+                  <%= link_to "http://#{cattery_social_links(@user)[:twitter]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large twitter" do %>
+                    <i class="fab fa-twitter"></i>
+                  <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% if @kittens.any? && cattery_kittens_available(@user).is_available %>
+        <div class="row">
+          <div class="col s12 info-title available-message">
+            <i class="material-icons check">check_circle_outline</i>
+            <%= t('cat_info.kittens_available') %>!
           </div>
         </div>
         <% end %>
@@ -103,7 +101,7 @@
     <% if cattery_parents(@user).any? %>
       <div class="section">
         <div class="row">
-          <h1>Parents</h1>
+          <h1><%= t('cat_info.parents')%></h1>
         </div>
         <div class="filter-bar">
           <div class="container parent-filter">
@@ -135,27 +133,27 @@
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Breed:</span>
+                        <span class="info-title"><%= t('breed', count: 1)%>:</span>
                       </div>
                       <div class="col s8">
-                        <span class="info-text"><%= cat_breed(cat) %></span>
+                        <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></span>
                       </div>
                     </div>
                   </div>
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Gender:</span>
+                        <span class="info-title"><%= t('cat_info.gender')%>:</span>
                       </div>
                       <div class="col s8">
-                        <span class="info-text"><%= cat_gender(cat) %></span>
+                        <span class="info-text"><%= cat_gender(cat).capitalize %></span>
                       </div>
                     </div>
                   </div>
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Partners:</span>
+                        <span class="info-title"><%= t('cat_info.partners')%>:</span>
                       </div>
                       <div class="col s8">
                         <span class="info-text"><%= cat.pairs.size %></span>
@@ -165,7 +163,7 @@
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Litters:</span>
+                        <span class="info-title"><%= t('cat_info.litters')%>:</span>
                       </div>
                       <div class="col s8">
                         <span class="info-text"><%= parent_litters_count(cat, @user) %></span>
@@ -175,7 +173,7 @@
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Kittens:</span>
+                        <span class="info-title"><%= t('header.kittens') %>:</span>
                       </div>
                       <div class="col s8">
                         <span class="info-text"><%= parent_kittens_count(cat, @user) %></span>
@@ -192,7 +190,7 @@
     <% if @pairs.any? %>
       <div class="section">
         <div class="row">
-          <h1>Pairs</h1>
+          <h1><%= t('cat_info.pairs') %></h1>
         </div>
         <div class="selected-filters-message"></div>
         <div id="pairs" class="row">
@@ -203,7 +201,7 @@
     <% if @litters.any? %>
       <div class="section">
         <div class="row">
-          <h1>Litters</h1>
+          <h1><%= t('cat_info.litters') %></h1>
         </div>
         <div class="filter-bar">
           <div class="container parent-filter">
@@ -219,7 +217,7 @@
     <% if @kittens.any? %>
       <div class="section">
         <div class="row">
-          <h1>Kittens</h1>
+          <h1><%= t('header.kittens') %></h1>
         </div>
         <div class="selected-filters-message"></div>
         <div id="kittens" class="row">
@@ -230,7 +228,7 @@
   <% end %>
   <div class="section social-media">
     <div class="row">
-      <h1>Share this cattery</h1>
+      <h1><%= t('social.share_this_cattery') %></h1>
     </div>
     <%= render 'shared/social_media_share_buttons' %>
   </div>

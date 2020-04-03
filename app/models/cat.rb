@@ -59,7 +59,7 @@ class Cat < ApplicationRecord
 
   validates :name, presence: true, unless: :is_kitten?
   validates :name, length: { maximum: 15 }
-  validates :breed, presence: true
+  validates :breed_id, presence: true
   validates :gender, presence: true
   validates :color, presence: true
   validates :card_picture, presence: true

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form">
     <div class="row">
-      <h2 class="form-title">Sign up</h2>
+      <h2 class="form-title"><%= t('form.new_registration.sign_up') %></h2>
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -24,7 +24,7 @@
           <%= f.label :password %>
           <%= f.password_field :password, autocomplete: "new-password" %>
           <% if @minimum_password_length and !resource.errors[:password].any? %>
-           <span class="helper-text">(<%= @minimum_password_length %> characters minimum)</span>
+           <span class="helper-text">(<%= t('form.new_registration.minimum_character_message', minimum_char_count: @minimum_password_length) %>)</span>
           <% end %>
           <% if resource.errors[:password].any? %>
             <%= render "devise/shared/error_messages", resource: resource, field: :password %>
@@ -49,7 +49,7 @@
             <label class="checkbox-label">
               <%= f.check_box :is_cattery %>
               <span class="lever"></span>
-              I own a cattery
+              <%= t('form.new_registration.own_cattery') %>
             </label>
             </div>
           </div>
@@ -61,7 +61,7 @@
           <div class="input-field">
             <label class="checkbox-label">
               <%= f.check_box :given_consent, required:true %>
-              <span>I have read and agree to the terms of service and the privacy policy</span>  
+              <span><%= t('form.new_registration.consent_message') %></span>  
             </label>
             
             <% if resource.errors[:given_consent].any? %>
@@ -74,7 +74,7 @@
       <div class="row">
         <div class="actions">
           <%= f.button class:"btn waves-effect waves-light btn-large", type:"submit" do %>
-            Sign up
+            <%= t('form.new_registration.sign_up') %>
             <i class="material-icons right">send</i>
           <% end %>
         </div>

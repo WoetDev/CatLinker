@@ -2,6 +2,27 @@ nl:
   languages:
     en: "English"
     nl: "Nederlands"
+
+  # models
+  activerecord:
+    attributes:
+      user:
+        email: "Email"
+        password: "Wachtwoord"
+        password_confirmation: "Herhaal wachtwoord"
+        current_password: "Huidig wachtwoord"
+        certification_number: "Certificaat nummer"
+        street: "Straat"
+        number: "Nummer"
+        phone_number: "Telefoon nummer"
+        facebook_link: "Facebook link"
+        instagram_link: "Instagram link"
+        twitter_link: "Twitter link"
+      cat:
+        name: "Naam"
+        origin: "Oorsprong"        
+
+  # UI
   header:
     breeds: "Rassen"
     catteries: "Catteries"
@@ -20,16 +41,210 @@ nl:
     terms_of_service: "Servicevoorwaarden"
     privacy_policy: "Privacybeleid"
     cookies_policy: "Cookies beleid"
+  meta:
+    default_description: "Heb je graag katten? Bekijk hier catteries en kittens met gedetailleerde informatie en de schattigste foto's! Wil je een bezoekje plannen? Maak eenvoudig een afspraak met de cattery."
+    show_kitten: "%{cat_breed} kitten (%{cat_gender}) van %{cattery}. Deze kitten werd geboren op %{cat_birth_date} en is te vinden in %{cat_location}."
+    show_cattery: "%{cattery_name} is een cattery in %{cattery_location} met een passie voor het grootbrengen van %{cattery_breeds} katten."
   select:
     which_breeds_are_you_looking_for: "Naar welk ras ben je op zoek?"
+    which_locations_do_you_prefer: "Welke locatie(s) verkies je?"
+    select_parents_to_filter: "Selecteer ouder(s) om koppels, nestjes en kittens te filteren"
+    select_litters_to_filter: "Selecteer nestjes om kittens te filteren"
   buttons:
     search: "Zoek"
     see_all_kittens: "Bekijk alle kittens"
-  cards:
-    breed: "Ras"
+    create: "Voeg toe"
+    update: "Update"
+    delete: "Verwijder"
+    back: "Terug"
+    add_parent: "Nieuwe ouder"
+    add_pair: "Nieuw koppel"
+    add_kitten: "Nieuwe kitten"
+    new_litter: "Nieuw nestje"
+    other_pictures: "Andere foto's"
+    read_more: "Lees meer"
+  action:
+    created: "aangemaakt"
+    updated: "bijgewerkt"
+    deleted: "verwijderd"
+  modal:
+    are_you_sure: "Ben je zeker"
+    this_action_is_permanent: "Deze actie is definitief"
+
+  # cats and cattery related info
+  cat_info:
+    name: "Naam"
     gender: "Geslacht"
     cattery: "Cattery"
+    location: "Locatie"
+    birth_date: "Geboren"
+    color: "Kleur"
+    vaccinated: "Gevaccineerd"
+    castrated: "Gecastreerd"
+    available: "Beschikbaar"
+    unavailable: "Onbeschikbaar"
+    kittens_available: "Er zijn kittens beschikbaar"
+    no_kittens_available: "Geen kittens beschikbaar"
+    parents: "Ouders"
+    partners: "Partners"
+    origin: "Oorsprong"
+    siblings: "Broers/zussen"
+    litters: "Nestjes"
+    litter_nr: "Nestje nr"
+    pairs: "Koppels"
+    father: "Vader"
+    mother: "Moeder"
+  breed_info:
+    playfulness: "speelsheid"
+    activity_level: "activiteitsniveau"
+    friendliness_to_other_pets: "liefheid t.o.v. andere huisdieren"
+    friendliness_to_children: "liefheid t.o.v. kinderen"
+    grooming_requirements: "verzorgingsvereisten"
+    vocality: "vocaliteit"
+    need_for_attention: "nood aan aandacht"
+    affection_toward_its_owners: "affectie t.o.v. de eigenaren"
+    docility: "volgzaamheid"
+    intelligence: "intelligentie"
+    independence: "zelfstandigheid"
+    hardiness: "taaiheid"
+    personality: "persoonlijkheid"
+    history: "geschiedenis"
+    disclaimer: "disclaimer"
+    disclaimer_text: "Terwijl de kenmerken die hier worden vermeld vaak voorkomen bij dit specifiek ras, blijven katten individuen waarbij persoonlijkheden en fysieke uitstralingen zullen verschillen. Gelieve de adoptie organisatie na te vragen over gedetailleerde informatie over een specifiek huisdier."
+                      
+
+  # forms
+  form:
+
+    # contact form
+    contact:
+      your_email: "Jouw email"
+      subject: "Onderwerp"
+      message: "Bericht"
+      send: "Verzend"
+      email: "Email"
+      phone: "Telefoon"
+      sent_success: "Bericht is met succes verzonden!"
+      sent_fail: "Bericht kon niet worden verzonden"
+
+    # devise forms
+    new_session:
+      remember_me: "Blijf ingelogd"
+      external_login: "%{kind} login"
+    new_registration:
+      sign_up: "Registreer"
+      minimum_character_message: "moet ten minste %{minimum_char_count} tekens lang zijn"
+      own_cattery: "Ik heb een cattery"
+      consent_message: "Ik ben akkoord met de servicevoorwaarden en het privacy beleid"
+    edit_registration:
+      edit_profile: "Wijzig profiel"
+      currently_awaiting_confirmation_for: "Nog in afwachting voor bevesting van"
+      send_confirmation_instructions_again: "Verstuur bevestigingsmail opnieuw"
+      confirm_changes: "Bevestig wijzigingen"
+      we_need_your_current_password: "we hebben je huidig wachtwoord nodig om je wijzigingen te bevestigen"
+      cancel_account: "Verwijder account"
+      cancel_account_unhappy: "Niet tevreden of heb je je account niet meer nodig?"
+      cancel_account_feedback_1: "We proberen ons altijd te verbeteren dus hou je niet in om"
+      cancel_account_feedback_let_us_know: "ons te laten weten"
+      cancel_account_feedback_2: "waarom je vertrekt."
+      tooltip:
+        email_confirmed: "Email bevestigd"
+    resend_confirmation:
+      resend_confirmation_instructions: "Verstuur bevestigingsmail"
+    resend_unlock:
+      resend_unlock_instructions: "Verstuur ontgrendelingsmail"
+    forgot_password:
+      forgot_password_title: "Wachtwoord vergeten?"
+      forgot_password_button: "Verstuur mail om wachtwoord te herstellen"
+    change_password:
+      change_password_title: "Wijzig wachtwoord"
+      leave_blank_to_not_change: "laat blanco om niet te wijzigen"
+      change_password_button: "Update mijn wachtwoord"
+      new_password: "Nieuw wachtwoord"
+      confirm_new_password: "Bevestig nieuw wachtwoord"
+    links:
+      sign_up: "Heb je nog geen account? Registreer nu!"
+      forgot_password: "Wachtwoord vergeten?"
+      no_confirmation_instructions: "Geen bevestingsmail ontvangen?"
+      no_unlock_instructions: "Geen ontgrendelingsmail ontvangen?"    
+
+  # social media
+  social:
+    share_this_kitten: "Deel deze kitten"
+    share_this_cattery: "Deel deze cattery"
+    share_this_breed: "Deel dit ras"
+    share_on: "Deel op %{kind}"
+
+  # word helpers
+  words:
+    or: "of"
+    and: "en"
+    go_to: "ga naar"
+    cancel: "annuleer"
+    im_sure: "ik ben zeker"
+    image: "Foto"
+    preview: "Voorbeeld"
+    add: "Voeg %{kind} toe"
+    edit: "Bewerk %{kind}"
+
+  # pluralization
+  breed:
+    one: "Ras"
+    other: "Rassen"
+  male:
+    one: "kater"
+    other: "katers"
+  female:
+    one: "poes"
+    other: "poezen"
+  cat:
+    one: "Kat"
+    other: "Katten"
+  kitten:
+    one: "Kitten"
+    other: "Kittens"
+  parent:
+    one: "Ouder"
+    other: "Ouders"
+  pair:
+    one: "Koppel"
+    other: "Koppels"
+
+  # page specific
   home:
-    find_your_cat: "Zoek je kat!"
+    find_your_cat: "Zoek je kat"
     popular_breeds: "Populaire rassen"
     new_kittens: "Nieuwe kittens"
+  index:
+    no_pairs_found: "Geen koppels gevonden"
+    no_litters_found: "Geen nestjes gevonden"
+    no_kittens_found: "Geen kittens gevonden"
+    no_catteries_found: "Geen catteries gevonden"
+  my_cattery:
+    general: "Algemeen"
+    cattery_name: "Cattery naam"
+    edit_cats: "Wijzig katten"
+    view_page: "Bekijk pagina"
+    profile_picture: "Profielfoto"
+    address: "Adres"
+    postal_code: "Postcode"
+    city: "Stad"
+    country: "Land"
+    contact_and_social_media: "Contact & sociale media"
+    required_information_message: "Je moet nog een %{missing_info} in te vulllen voordat je katten kan toevoegen"
+    tooltip:
+      profile: "Ga naar de 'Profiel' pagina om dit te wijzigen" 
+      provider: "Ga naar je %{provider} account om dit te wijzigen"
+  cattery_overview: 
+    cattery_overview_title: "Overzicht cattery"
+    no_records_added: "Er werden nog geen %{kind} toegevoegd"
+    cattery_information: "Cattery informatie"
+    tooltip:
+      create_pairs_condition: "Je moet een kater en poes als ouder toevoegen voordat je koppels kan maken"
+      create_kittens_condition: "Je moet een koppel maken voordat je een kitten kan toevoegen"
+      delete_parent_condition: "Je kan geen ouder met partners en/of kittens verwijderen"
+      delete_pair_condition: "Je kan geen koppel met kittens verwijderen"
+    toast:
+      successful_action: "%{kind} werd met succes %{action}"
+      failed_action: "%{kind} kon nog niet worden %{action}"
+  

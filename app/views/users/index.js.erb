@@ -8,6 +8,6 @@ function replaceCatteries (innerHTML) {
 replaceCatteries("<%= j(render 'page_items')%>");
 $('#div_next_link').html("<%= j(render 'shared/next_link') %>");
 <% else %>
-replaceCatteries("<div class='col s12 center-align'><span class='empty-message'>No catteries found!</span></div>");
+replaceCatteries("<div class='col s12 center-align'><span class='empty-message'><%= t('index.no_catteries_found') %>!</span></div>");
 <% end %>
 

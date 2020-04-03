@@ -53,10 +53,14 @@ class CatsController < ApplicationController
       @cat.location_tag_list = "#{Country.find(user.country_id).name}-#{user.city.capitalize}"
 
       if @cat.save
-        flash[:notice] = 'Parent was successfully created'
+        flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                          kind: (I18n.t 'parent', count: 1), 
+                          action: (I18n.t 'action.created'))
         redirect_to overview_cattery_path(user)
       else
-        flash[:alert] = 'There was a problem with creating this parent'
+        flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                        kind: (I18n.t 'parent', count: 1), 
+                        action: (I18n.t 'action.created'))
         render 'new'
       end
 
@@ -72,15 +76,21 @@ class CatsController < ApplicationController
       @cat.location_tag_list = "#{Country.find(user.country_id).name}-#{user.city.capitalize}"
 
       if @cat.save
-        flash[:notice] = 'Kitten was successfully created'
+        flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                          kind: (I18n.t 'kitten', count: 1), 
+                          action: (I18n.t 'action.created'))
         redirect_to overview_cattery_path(user)
       else
-        flash[:alert] = 'There was a problem with creating this kitten'
+        flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                        kind: (I18n.t 'kitten', count: 1), 
+                        action: (I18n.t 'action.created'))
         render 'new'
       end
 
     else
-      flash[:alert] = 'There was a problem with creating this cat'
+      flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                      kind: (I18n.t 'cat', count: 1), 
+                      action: (I18n.t 'action.created'))
       render 'new'
     end
   end
@@ -118,10 +128,14 @@ class CatsController < ApplicationController
       all_breeds
 
       if @cat.update(parent_params)
-        flash[:notice] = 'Parent was successfully updated'
+        flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                          kind: (I18n.t 'parent', count: 1), 
+                          action: (I18n.t 'action.updated'))
         redirect_to overview_cattery_path(user)
       else
-        flash[:alert] = 'There was a problem with updating this Parent'
+        flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                        kind: (I18n.t 'parent', count: 1), 
+                        action: (I18n.t 'action.updated'))
         render 'edit'
       end
 
@@ -131,15 +145,21 @@ class CatsController < ApplicationController
       get_litters(user)
 
       if @cat.update(kitten_params)
-        flash[:notice] = 'Kitten was successfully updated'
+        flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                          kind: (I18n.t 'kitten', count: 1), 
+                          action: (I18n.t 'action.updated'))
         redirect_to overview_cattery_path(user)
       else
-        flash[:alert] = 'There was a problem with updating this kitten'
+        flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                        kind: (I18n.t 'kitten', count: 1), 
+                        action: (I18n.t 'action.updated'))
         render 'edit'
       end
 
     else
-      flash[:alert] = 'There was a problem with updating this cat'
+      flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                      kind: (I18n.t 'cat', count: 1),  
+                      action: (I18n.t 'action.updated'))
       render 'edit'
     end
   end
@@ -152,23 +172,33 @@ class CatsController < ApplicationController
 
     if @form == 'parent'
       if @cat.destroy
-        flash[:notice] = 'Parent was successfully deleted'
+        flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                          kind: (I18n.t 'parent', count: 1), 
+                          action: (I18n.t 'action.deleted'))
         redirect_to overview_cattery_path(user)
       else
-        flash[:alert] = 'There was a problem with deleting this parent'
+        flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                        kind: (I18n.t 'parent', count: 1), 
+                        action: (I18n.t 'action.deleted'))
         render 'edit'
       end
 
     elsif @form == 'kitten'
       if @cat.destroy
-        flash[:notice] = 'Kitten was successfully deleted'
+        flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                          kind: (I18n.t 'kitten', count: 1), 
+                          action: (I18n.t 'action.deleted'))
         redirect_to overview_cattery_path(user)
       else
-        flash[:alert] = 'There was a problem with deleting this kitten'
+        flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                        kind: (I18n.t 'kitten', count: 1), 
+                        action: (I18n.t 'action.deleted'))
         render 'edit'
       end
     else
-      flash[:alert] = 'There was a problem with deleting this cat'
+      flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                      kind: (I18n.t 'cat', count: 1), 
+                      action: (I18n.t 'action.updated'))
       render 'edit'
     end
   end
@@ -190,8 +220,8 @@ class CatsController < ApplicationController
       breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
     end
 
-    @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+    @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
+    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
 
     render json: { breeds: @all_available_breeds_array, locations: @all_available_locations_array }
   end
@@ -216,12 +246,17 @@ class CatsController < ApplicationController
 
   def get_all_available_breeds
     breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
-    @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
+    @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
   end
 
   def get_all_available_locations
     locations = User.is_cattery(true).joins(:cats).where(cats: { is_parent: false }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+  end
+
+  def all_countries
+    countries = Country.all
+    @all_countries = countries.map { |c| [(I18n.t "countries.#{c.country_code}"), c.id] }.sort_by{|c| c[0]}
   end
 
   def all_breeds

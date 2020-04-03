@@ -43,28 +43,32 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.provider.present?
       @change_email_path = "javascript:void(0)"
-      @change_email_tooltip = "Go to your #{@user.provider[/[^_]+/].capitalize} account to change this"
+      @change_email_tooltip = I18n.t "my_cattery.tooltip.provider", provider: @user.provider[/[^_]+/].capitalize
     else
       @change_email_path = edit_user_registration_path
-      @change_email_tooltip = "Go to the 'Profile' page to change this"
+      @change_email_tooltip = I18n.t "my_cattery.tooltip.profile"
     end
 
-    get_all_countries
+    all_countries
     check_required_cattery_information(@user)
   end
 
   def update_cattery
     @user = User.friendly.find(params[:id])
-    get_all_countries
+    all_countries
 
-    if @user.update(cattery_params)
+    if @user.valid?(:required_cattery_information) and @user.update(cattery_params)
       update_cat_location_tags(@user)
       check_required_cattery_information(@user)
-      flash[:notice] = 'Cattery information was successfully updated'
+      flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                        kind: (I18n.t 'cattery_overview.cattery_information', count: 1), 
+                        action: (I18n.t 'action.updated'))
       render 'my_cattery'
     else
       check_required_cattery_information(@user)
-      flash[:alert] = 'There was a problem updating your cattery information'
+      flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                      kind: (I18n.t 'cattery_overview.cattery_information', count: 1), 
+                      action: (I18n.t 'action.updated'))
       render 'my_cattery'
     end
   end
@@ -117,8 +121,8 @@ class UsersController < ApplicationController
       breeds = User.is_cattery(true).joins(:cats).distinct.pluck(:breed_id)
     end
 
-    @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+    @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
+    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
 
     render json: { breeds: @all_available_breeds_array, locations: @all_available_locations_array }
   end
@@ -153,24 +157,16 @@ class UsersController < ApplicationController
 
   def all_available_breeds
     breeds = User.is_cattery(true).joins(:cats).distinct.pluck(:breed_id)
-    @all_available_breeds_array = breeds.map { |breed| ["#{Breed.find(breed).name}", Breed.find(breed).name] }.sort
+    @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
   end
 
   def all_available_locations
     locations = User.is_cattery(true).joins(:cats).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{Country.find(location[1]).name}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
-  end
-
-  def cat_gender(cat)
-    if cat.gender == '1'
-      'Male'
-    else
-      'Female'
-    end
+    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
   end
 
   def all_cattery_parents(user)
-    cats = Cat.user_id(user.id).is_parent(true).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.gender, cat.name] }
+    cats = Cat.user_id(user.id).is_parent(true).sort_by { |cat| [(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name"), cat.gender, cat.name] }
     @all_parents = cats.map { |cat| ["#{cat.name}", cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
   end
 
@@ -216,46 +212,50 @@ class UsersController < ApplicationController
     if params[:litters_filter].present?
       litters_filter = params[:litters_filter].flatten.reject(&:blank?)
     end
-    
+
     if params[:parents_filter].present? or params[:litters_filter].present?
       if params[:litters_filter] && litters_filter.any?
-        @kittens = Cat.user_id(user.id).is_parent(false).where(litter_number: litters_filter).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
+        @kittens = Cat.user_id(user.id).is_parent(false).where(litter_number: litters_filter).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
       elsif params[:parents_filter] && parents_filter.any?
         pair_ids = Pair.user_id(user.id).where(male_id: parents_filter).or(Pair.user_id(user.id).where(female_id: parents_filter)).pluck(:id)
-        @kittens = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
+        @kittens = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
       else
-        @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
+        @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
       end
     else
-      @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| [Breed.find(cat.breed_id).name, cat.litter_number, cat.gender] }
+      @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
     end
   end
 
-  def get_all_countries
-    countries = Country.all.sort
-    @all_countries = countries.map { |c| [c.name, c.id] }.sort_by{|c| c[0]}
+  def all_countries
+    countries = Country.all
+    @all_countries = countries.map { |c| [(I18n.t "countries.#{c.country_code}"), c.id] }.sort_by{|c| c[0]}
   end
 
   def check_required_cattery_information(user)
     if user.profile_picture.blank? or user.cattery_name.blank? or user.postal_code.blank? or user.city.blank? or user.country_id.blank?
       required_info = [user.profile_picture, user.cattery_name, user.postal_code, user.city, user.country_id]
-      required_info_strings = ["profile picture", "cattery name", "postal code", "city", "country"]
+      required_info_strings = [(I18n.t "my_cattery.profile_picture"), 
+                               (I18n.t "my_cattery.cattery_name"), 
+                               (I18n.t "my_cattery.postal_code"), 
+                               (I18n.t "my_cattery.city"), 
+                               (I18n.t "my_cattery.country")]
       blank_required_info_array = []
 
       required_info.each.with_index do |info, index|
         if info.blank?
-          blank_required_info_array.push(required_info_strings[index])
+          blank_required_info_array.push(required_info_strings[index].downcase)
         end
       end
 
       if blank_required_info_array.size > 1
         blank_required_info_string = blank_required_info_array.take(blank_required_info_array.size-1).join(', ')
-        blank_required_info_string = "#{blank_required_info_string} and #{blank_required_info_array.last}"
+        blank_required_info_string = "#{blank_required_info_string} #{I18n.t "words.and"} #{blank_required_info_array.last}"
       else
         blank_required_info_string = blank_required_info_array.join
       end
 
-      @required_info_message = "You must add a #{blank_required_info_string} before you can add cats"
+      @required_info_message = (I18n.t "my_cattery.required_information_message", missing_info: blank_required_info_string)
     end
   end
 

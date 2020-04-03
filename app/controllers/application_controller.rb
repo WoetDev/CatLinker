@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def twitter_url_options
     params = {
-      text: 'Check this out on Cat Linker!',
+      text: 'Cat Linker:',
       url: request.original_url
     }
 

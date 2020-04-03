@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form">
     <div class="row">
-      <h2 class="form-title">Resend unlock instructions</h2>
+      <h2 class="form-title"><%= t('form.resend_unlock.resend_unlock_instructions') %></h2>
     </div>
 
 <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
@@ -22,7 +22,7 @@
   <div class="row">
     <div class="actions">
       <%= f.button class:"btn waves-effect waves-light", type:"submit" do %>
-        Resend unlock instructions
+        <%= t('form.resend_unlock.resend_unlock_instructions') %>
         <i class="material-icons right">send</i>
       <% end %>
     </div>

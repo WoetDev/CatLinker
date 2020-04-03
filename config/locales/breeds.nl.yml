@@ -1,0 +1,81 @@
+nl:
+  breeds:
+    # American Shorthair
+    AS: 
+      name: "Amerikaanse Korthaar"
+
+    # Bengal
+    BG: 
+      name: "Bengaal"
+
+    # Birman
+    BI: 
+      name: "Heilige Birmaan"
+
+    # Bombay
+    BO: 
+      name: "Bombay"
+
+    # British Shorthair
+    BS: 
+      name: "Britse Korthaar"
+
+    # Burmese
+    BU: 
+      name: "Burmees"
+
+    # Chartreux
+    CX: 
+      name: "Chartreux"
+
+    # Himalayan
+    HI: 
+      name: "Himalayan"
+
+    # Maine Coon
+    MC: 
+      name: "Maine Coon"
+
+    # Munchkin
+    MK: 
+      name: "Munchkin"
+
+    # Nebelung
+    NB: 
+      name: "Nebelung"
+
+    # Norwegian Forest Cat
+    NF: 
+      name: "Noorse Boskat"
+
+    # Persian
+    PS: 
+      name: "Pers"
+
+    # Ragamuffin
+    RM: 
+      name: "Ragamuffin"
+
+    # Ragdoll
+    RD: 
+      name: "Ragdoll"
+
+    # Russian Blue
+    RB: 
+      name: "Blauwe Rus"
+
+    # Scottish Fold
+    SF: 
+      name: "Scottish Fold"
+
+    # Siamese
+    SI: 
+      name: "Siamees"
+
+    # Siberian
+    SB: 
+      name: "Siberische Boskat"
+
+    # Sphynx
+    SX: 
+      name: "Sphynx"

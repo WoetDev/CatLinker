@@ -1,11 +1,11 @@
 <div class="container">
   <div class="form">
     <div class="row">
-      <h2 class="form-title">Login</h2>
+      <h2 class="form-title"><%= t('header.login') %></h2>
     </div>
 
     <div class="row">
-      <div class="col s12 l7">
+      <div class="col s12 l6">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="row">
             <br>
@@ -30,7 +30,7 @@
             <div class="input-field">
               <label class="checkbox-label">
                 <%= f.check_box :remember_me %>
-                <span>Remember me</span>
+                <span><%= t('form.new_session.remember_me')%></span>
               </label>
             </div>
           </div>
@@ -39,35 +39,27 @@
           <div class="row">
             <div class="actions">
               <%= f.button class:"btn waves-effect waves-light btn-large", type:"submit" do %>
-                Login
+                <%= t('header.login') %>
                 <i class="material-icons right">send</i>
               <% end %>
             </div>
           </div>    
         <% end %>
       </div>
-      <div class="col s12 l5 social">
+      <div class="col s12 l5 offset-l1 social">
         <div class="row">
           <%= link_to localized_omniauth_path(:facebook), class:"facebook btn-external-login waves-effect btn-large" do %>
             <i class="fab fa-facebook-f"></i>
-            Facebook login
+            <%= t('form.new_session.external_login', kind: "Facebook") %>
           <% end %>
         </div>
         <div class="row text-divider-container">
-          <span class="text-divider">OR</span>
+          <span class="text-divider"><%= t('words.or').upcase %></span>
         </div>
         <div class="row">
           <%= link_to localized_omniauth_path(:google_oauth2), class:"google btn-external-login waves-effect btn-large" do %>
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" class="svg-settings">
-              <defs>                  
-                <radialGradient id="radial">
-                  <stop class="radial-stop1" offset="0%"></stop>
-                  <stop class="radial-stop2" offset="100%"></stop>
-                </radialGradient>
-              </defs>
-            </svg>
-            <i class="fab fa-google fill-gradient-radial"></i>
-            Google login
+            <%= image_tag("google_logo.svg", alt: "Google logo", class:"google-logo") %>
+            <%= t('form.new_session.external_login', kind: "Google") %>
           <% end %>
         </div>
       </div>

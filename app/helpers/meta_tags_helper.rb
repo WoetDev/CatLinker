@@ -8,7 +8,7 @@ module MetaTagsHelper
   end
 
   def meta_description
-    content_for?(:meta_description) ? content_for(:meta_description) : DEFAULT_META["meta_description"]
+    content_for?(:meta_description) ? content_for(:meta_description) : t("meta.#{DEFAULT_META["meta_description"]}")
   end
 
   def meta_facebook_image

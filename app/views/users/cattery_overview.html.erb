@@ -1,17 +1,17 @@
 <div class="cattery-overview">
   <div class="container">
     <div class="row">
-      <h1>Cattery Overview</h1>
+      <h1><%= t('cattery_overview.cattery_overview_title') %></h1>
     </div>
 
     <div class="section">
       <div class="row">
         <div class="col s8">
-          <h3>Parents</h3>
+          <h3><%= t('cat_info.parents') %></h3>
         </div>
         <div class="col s4">
           <%= link_to new_cat_path(form: "parent"), class:"waves-effect waves-light btn right" do %>
-            <span>Add parent</span>
+            <span><%= t('buttons.add_parent') %></span>
             <i class="material-icons left">add</i>
           <% end %>
         </div>
@@ -23,20 +23,20 @@
             <div class="col s10 offset-s1 m6 l3">
               <div class="card">
                 <div class="card-image">
-                  <a href="#">
+                  <%= link_to  edit_cat_path(cat, form: "parent") do %>
                     <%= image_tag(cat.thumbnail) if cat.card_picture.attached? %> 
                     <span class="card-title"><%= cat.name %></span>
-                  </a>
+                  <% end %>
                   <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
                     <i class="material-icons">edit</i>
                   <% end %>
                 </div>
-                <a href="#">
+                <%= link_to  edit_cat_path(cat, form: "parent") do %>
                   <div class="card-content">
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Breed:</span>
+                          <span class="info-title"><%= t('breed', count: 1) %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= cat_breed(cat) %></span>
@@ -46,11 +46,11 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Gender:</span>
+                          <span class="info-title"><%= t('cat_info.gender') %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text">
-                            <%= cat_gender(cat) %>
+                            <%= cat_gender(cat).capitalize %>
                           </span>
                         </div>
                       </div>
@@ -58,7 +58,7 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Partners:</span>
+                          <span class="info-title"><%= t('cat_info.partners') %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= cat.pairs.size %></span>
@@ -68,7 +68,7 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Litters:</span>
+                          <span class="info-title"><%= t('cat_info.litters') %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= parent_litters_count(cat, @user) %></span>
@@ -78,7 +78,7 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Kittens:</span>
+                          <span class="info-title"><%= t('header.kittens') %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= parent_kittens_count(cat, @user) %></span>
@@ -86,13 +86,13 @@
                       </div>
                     </div>
                   </div>
-                </a>
+                <% end %>
               </div>
             </div>
           <% end %>
         <% else %>
           <div class="col s12 center-align">
-            <span class="empty-message">No parents have been added yet!</span>
+            <span class="empty-message"><%= t('cattery_overview.no_records_added', kind: (I18n.t "cat_info.parents").downcase ) %></span>
           </div>
         <% end %>
       </div>
@@ -101,21 +101,21 @@
     <div class="section">
       <div class="row">
         <div class="col s8">
-          <h3>Pairs</h3>
+          <h3><%= t('cat_info.pairs') %></h3>
         </div>
         <div class="col s4">
           <% if @male_parents.any? and @female_parents.any? %>
             <%= link_to new_pair_path(form: "pair"), class:"waves-effect waves-light btn right" do %>
-              <span>Add pair</span>
+              <span><%= t('buttons.add_pair') %></span>
               <i class="material-icons left">add</i>
             <% end %>
           <% else %>
-            <a class="disabled-tooltip-wrapper tooltipped right" data-position="top" data-tooltip="You have to create a male and female parent before you can create a pair">
+            <%= link_to "javascript:void(0)", class:"disabled-tooltip-wrapper tooltipped right", data: { position:"top", tooltip: (I18n.t "cattery_overview.tooltip.create_pairs_condition") } do %>
               <button class="btn disabled right">
-                <span>Add pair</span>
+                <span><%= t('buttons.add_pair') %></span>
                 <i class="material-icons left">add</i>
               </button>
-            </a>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -144,7 +144,7 @@
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Breed:</span>
+                        <span class="info-title"><%= t('breed', count:1) %>:</span>
                       </div>
                       <div class="col s8">
                         <span class="info-text"><%= cat_breed(pair.male) %></span>
@@ -154,7 +154,7 @@
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Litters:</span>
+                        <span class="info-title"><%= t('cat_info.litters') %>:</span>
                       </div>
                       <div class="col s8">
                         <span class="info-text"><%= pair_litters_count(pair, @user) %></span>
@@ -164,7 +164,7 @@
                   <div class="info-block">
                     <div class="row">
                       <div class="col s4">
-                        <span class="info-title">Kittens:</span>
+                        <span class="info-title"><%= t('header.kittens') %>:</span>
                       </div>
                       <div class="col s8">
                         <span class="info-text"><%= pair_kittens_count(pair, @user) %></span>
@@ -177,7 +177,7 @@
           <% end %>
         <% else %>
           <div class="col s12 center-align">
-            <span class="empty-message">No pairs have been added yet!</span>
+            <span class="empty-message"><%= t('cattery_overview.no_records_added', kind: (I18n.t "cat_info.pairs").downcase ) %></span>
           </div>
         <% end %>
       </div>
@@ -186,21 +186,21 @@
     <div class="section">
       <div class="row">
         <div class="col s8">
-          <h3>Kittens</h3>
+          <h3><%= t('header.kittens') %></h3>
         </div>
         <div class="col s4">
           <% if @pairs.any? %>
             <%= link_to new_cat_path(form: "kitten"), class:"waves-effect waves-light btn right" do %>
-              <span>Add kitten</span>
+              <span><%= t('buttons.add_kitten') %></span>
               <i class="material-icons left">add</i>
             <% end %>
           <% else %>
-            <a class="disabled-tooltip-wrapper tooltipped right" data-position="top" data-tooltip="You have to create a pair before you can create a kitten">
-              <button class="btn waves-effect waves-light btn-delete disabled right">
-                <span>Add kitten</span>
+            <%= link_to "javascript:void(0)", class:"disabled-tooltip-wrapper tooltipped right", data: { position: "top", tooltip: (I18n.t "cattery_overview.tooltip.create_kittens_condition") } do %>
+              <button class="btn disabled right">
+                <span><%= t('buttons.add_kitten') %></span>
                 <i class="material-icons left">add</i>
               </button>
-            </a>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -226,7 +226,7 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Breed:</span>
+                          <span class="info-title"><%= t('breed', count:1) %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= cat_breed(cat) %></span>
@@ -236,11 +236,11 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Gender:</span>
+                          <span class="info-title"><%= t('cat_info.gender') %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text">
-                            <%= cat_gender(cat) %>
+                            <%= cat_gender(cat).capitalize %>
                           </span>
                         </div>
                       </div>
@@ -248,14 +248,26 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Parents:</span>
+                          <span class="info-title"><%= t('cat_info.birth_date') %>:</span>
+                        </div>
+                        <div class="col s8">
+                          <span class="info-text">
+                            <%= format_birth_date(cat) %>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="info-block">
+                      <div class="row">
+                        <div class="col s4">
+                          <span class="info-title"><%= t('cat_info.parents').downcase %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text">
                           <% parents = @pairs.find(cat.pair_id) %>
-                            <%= parents.male.name %> 
+                            <%= parents.male.name.capitalize %> 
                             &amp; 
-                            <%= parents.female.name %> 
+                            <%= parents.female.name.capitalize %> 
                           </span>
                         </div>
                       </div>
@@ -263,11 +275,11 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title">Litter nr:</span>
+                          <span class="info-title"><%= t('cat_info.litter_nr') %>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text">
-                            <%= cat.litter_number%>
+                            <%= cat.litter_number %>
                           </span>
                         </div>
                       </div>
@@ -279,7 +291,7 @@
           <% end%>
         <% else %>
           <div class="col s12 center-align">
-            <span class="empty-message">No kittens have been added yet!</span>
+            <span class="empty-message"><%= t('cattery_overview.no_records_added', kind: (I18n.t "header.kittens").downcase) %></span>
           </div>
         <% end %>
       </div>

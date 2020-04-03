@@ -5,7 +5,7 @@
         <%= image_tag("undraw_cat_image_1.svg", :alt => "cat", class:"image-m") %>
       </div>
       <div class="col l6 m12 offset-l1 search-landing">
-          <h1><%= t('home.find_your_cat') %></h1>
+          <h1><%= t('home.find_your_cat') %>!</h1>
           <div class="input-field">
             <%= form_with(url: {:controller => 'home', :action => 'search'}, method: "GET", local: true) do |f| %>
               <%= f.select(:breeds, options_for_select(@all_available_breeds_array), {disabled: "", prompt: t("select.which_breeds_are_you_looking_for")}, {:multiple => true, class:"form-filter"}) %>
@@ -31,13 +31,13 @@
                   <%= image_tag(breed.thumbnail, :alt => 'breed-image', class:"activator") %>
                 </div>
                 <div class="card-content activator">
-                  <%= breed.name %>
+                  <%= t("breeds.#{breed.breed_code.upcase}.name") %>
                   <i class="material-icons right circle">keyboard_arrow_up</i>
                 </div>
                 <div class="card-reveal">
-                  <span class="card-title"><%= breed.name %><i class="material-icons right circle">close</i></span>
+                  <span class="card-title"><%= t("breeds.#{breed.breed_code.upcase}.name") %><i class="material-icons right circle">close</i></span>
                   <p><%= breed.short_description %></p>
-                  <%= link_to "Read more", breed_path(breed) %>
+                  <%= link_to t('buttons.read_more'), breed_path(breed) %>
                 </div>
               </div>
             </div>
@@ -66,27 +66,27 @@
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title"><%= t('cards.breed')%>:</span>
+                          <span class="info-title"><%= t('breed', count: 1)%>:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= cat_breed(cat) %></span>
+                          <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></span>
                         </div>
                       </div>
                     </div>
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title"><%= t('cards.gender')%>:</span>
+                          <span class="info-title"><%= t('cat_info.gender')%>:</span>
                         </div>
                         <div class="col s8">
-                          <span class="info-text"><%= cat_gender(cat) %></span>
+                          <span class="info-text"><%= cat_gender(cat).capitalize %></span>
                         </div>
                       </div>
                     </div>
                     <div class="info-block">
                       <div class="row">
                         <div class="col s4">
-                          <span class="info-title"><%= t('cards.cattery')%>:</span>
+                          <span class="info-title"><%= t('cat_info.cattery')%>:</span>
                         </div>
                         <div class="col s8">
                           <span class="info-text"><%= cattery(cat).cattery_name %></span>

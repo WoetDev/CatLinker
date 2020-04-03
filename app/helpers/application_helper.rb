@@ -3,14 +3,14 @@ module ApplicationHelper
 
   def cat_gender(cat)
     if cat.gender == '1'
-      'Male'
+      I18n.t 'male', count: 1
     else
-      'Female'
+      I18n.t 'female', count: 1
     end
   end
 
   def cat_breed(cat)
-    Breed.find(cat.breed_id).name
+    Breed.find(cat.breed_id)
   end
 
   def format_birth_date(cat)

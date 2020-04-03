@@ -2,7 +2,7 @@
 <% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | Kittens" %>
 
 <div class="kittens-index">
-  <h1>Kittens</h1>
+  <h1><%= t('header.kittens') %></h1>
 
   <div class="search-bar">
     <div id="search" class="container">
@@ -29,7 +29,7 @@
     <% else %>
       <div id="kittens" class="row">
         <div class="col s12 center-align">
-          <span class="empty-message">No kittens found!</span>
+          <span class="empty-message"><%= t('index.no_kittens_found') %>!</span>
         </div>
       </div>
     <% end %>

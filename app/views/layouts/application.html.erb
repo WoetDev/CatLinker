@@ -84,7 +84,7 @@
               <ul id="dropdown2" class="dropdown-content">
                 <% I18n.available_locales.each do |lang| %>
                   <% unless lang == I18n.locale %>
-                    <li><%= link_to t("languages.#{lang}"), url_for(locale: lang) %></li>
+                    <li><%= link_to t("languages.#{lang}"), url_for(locale: lang, form: @form) %></li>
                   <% end %>
                 <% end %>
               </ul>

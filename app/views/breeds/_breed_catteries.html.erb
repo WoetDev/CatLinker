@@ -11,7 +11,7 @@
             <div class="info-block">
                 <div class="row">
                   <div class="col s4">
-                    <span class="info-title">Cattery:</span>
+                    <span class="info-title"><%= t('cat_info.cattery') %>:</span>
                   </div>
                   <div class="col s8">
                     <span class="info-text"><%= cattery_user(cattery).cattery_name %></span>
@@ -21,7 +21,7 @@
               <div class="info-block">
                 <div class="row">
                   <div class="col s4">
-                    <span class="info-title">Breed<% if cattery_breeds(cattery).size > 1 %>s<% end %>:</span>
+                    <span class="info-title"><%= t('breed', count: cattery_breeds(cattery).size) %>:</span>
                   </div>
                   <div class="col s8">
                     <span class="info-text"><%= cattery_breed_names(cattery) %></span>
@@ -32,7 +32,7 @@
               <div class="info-block">
                 <div class="row">
                   <div class="col s4">
-                    <span class="info-title">Location:</span>
+                    <span class="info-title"><%= t('cat_info.location') %>:</span>
                   </div>
                   <div class="col s8">
                     <span class="info-text"><%= cattery_location(cattery) %></span>

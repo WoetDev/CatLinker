@@ -21,11 +21,11 @@
           <div class="info-block">
             <div class="row">
               <div class="col s4">
-                <span class="info-title">Breed:</span>
+                <span class="info-title"><%= t('breed', count:1) %>:</span>
               </div>
               <div class="col s8">
                 <span class="info-text">
-                  <%= cat_breed(cat) %>
+                  <%= t("breeds.#{cat_breed(cat).breed_code}.name") %>
                 </span>
               </div>
             </div>
@@ -33,7 +33,7 @@
           <div class="info-block">
             <div class="row">
               <div class="col s4">
-                <span class="info-title">Birth date:</span>
+                <span class="info-title"><%= t('cat_info.birth_date') %>:</span>
               </div>
               <div class="col s8">
                 <span class="info-text">
@@ -47,7 +47,7 @@
           <div class="info-block">
             <div class="row">
               <div class="col s4">
-                <span class="info-title">Kittens:</span>
+                <span class="info-title"><%= t('header.kittens') %>:</span>
               </div>
               <div class="col s8">
                 <span class="info-text">
@@ -63,10 +63,10 @@
                   <% cattery_kittens_per_litter(litter.ids).sort_by{|cat| cat.is_available ? 0 : 1 }.each do |cat| %>
                     <% if cat.is_available %>
                       <i class="material-icons check">check</i>
-                      <span class="available-text">Kittens available</span>
+                      <span class="available-text"><%= t('header.kittens') %>&nbsp;<%= t('cat_info.available') %></span>
                     <% else %>
                       <i class="material-icons close">close</i>
-                      <span class="unavailable-text">Unavailable</span>
+                      <span class="unavailable-text"><%= t('cat_info.no_kittens_available') %></span>
                     <% end %>
                     <% break %>
                   <% end %>

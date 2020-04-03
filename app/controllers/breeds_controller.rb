@@ -8,12 +8,12 @@ class BreedsController < ApplicationController
       breed_filter = params[:breeds_filter].flatten.reject(&:blank?)
 
       if breed_filter.empty?
-        @breeds = Breed.all.sort_by{ |breed| breed[:name] }
+        @breeds = Breed.all.sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}"  }
       else
-        @breeds = Breed.where(id: breed_filter).sort_by{ |breed| breed[:name] }
+        @breeds = Breed.where(id: breed_filter).sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}" }
       end
     else
-      @breeds = Breed.all.sort_by{ |breed| breed[:name] }
+      @breeds = Breed.all.sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}"  }
     end
   end
 
@@ -32,6 +32,6 @@ class BreedsController < ApplicationController
 
   def all_available_breeds
     breeds = Breed.all
-    @all_available_breeds_array = breeds.map { |breed| ["#{breed.name}", breed.id, data: {"icon": url_for(breed.icon_thumbnail)}] }.sort
+    @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{breed.breed_code}.name")}", breed.id, data: {"icon": url_for(breed.icon_thumbnail)}] }.sort_by{|b| b[0]}
   end
 end

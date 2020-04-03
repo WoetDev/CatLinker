@@ -8,6 +8,6 @@ function replaceKittens (innerHTML) {
 replaceKittens("<%= j(render 'page_items')%>");
 $('#div_next_link').html("<%= j(render 'shared/next_link') %>");
 <% else %>
-replaceKittens("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
+replaceKittens("<div class='col s12 center-align'><span class='empty-message'><%= t('index.no_kittens_found') %>!</span></div>");
 <% end %>
 

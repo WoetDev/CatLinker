@@ -1,38 +1,28 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
   languages:
     en: "English"
     nl: "Nederlands"
+
+  # models
+  activerecord:
+    attributes:
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        current_password: "Current password"
+        certification_number: "Certification number"
+        street: "Street"
+        number: "Number"
+        phone_number: "Phone number"
+        facebook_link: "Facebook link"
+        instagram_link: "Instagram link"
+        twitter_link: "Twitter link"
+      cat:
+        name: "Name"
+        origin: "Origin"    
+  
+  # UI
   header:
     breeds: "Breeds"
     catteries: "Catteries"
@@ -51,17 +41,211 @@ en:
     terms_of_service: "Terms of service"
     privacy_policy: "Privacy Policy"
     cookies_policy: "Cookies Policy"
+  meta:
+    default_description: "Do you like cats? Check out catteries and kittens with detailed information and the most adorable pictures! Want to plan a visit? Get in touch with the cattery easily."
+    show_kitten: "%{cat_breed} kitten (%{cat_gender}) from %{cattery}. This kitten was born on %{cat_birth_date} and can be found in %{cat_location}."
+    show_cattery: "%{cattery_name} is a cattery in %{cattery_location} with a passionate focus on raising %{cattery_breeds} cats."
   select:
     which_breeds_are_you_looking_for: "Which breed(s) are you looking for?"
+    which_locations_do_you_prefer: "Which location(s) do you prefer?"
+    select_parents_to_filter: "Select parent(s) to filter pairs, litters and kittens"
+    select_litters_to_filter: "Select litter(s) to filter kittens"
   buttons:
     search: "Search"
     see_all_kittens: "See all kittens"
-  cards:
-    breed: "Breed"
+    create: "Create"
+    update: "Update"
+    delete: "Delete"
+    back: "Back"
+    add_parent: "Add parent"
+    add_pair: "Add pair"
+    add_kitten: "Add kitten"
+    new_litter: "New litter"
+    other_pictures: "Other pictures"
+    read_more: "Read more"
+  action:
+    created: "created"
+    updated: "updated"
+    deleted: "deleted"
+  modal:
+    are_you_sure: "Are you sure"
+    this_action_is_permanent: "This action is permanent"
+
+  # cats and cattery related info
+  cat_info:
+    name: "Name"
     gender: "Gender"
     cattery: "Cattery"
+    location: "Location"
+    birth_date: "Birth date"
+    color: "Color"
+    vaccinated: "Vaccinated"
+    castrated: "Castrated"
+    available: "Available"
+    unavailable: "Unavailable"
+    kittens_available: "There are kittens available"
+    no_kittens_available: "No kittens available"
+    parents: "Parents"
+    partners: "Partners"
+    origin: "Origin"
+    siblings: "Siblings"
+    litters: "Litters"
+    litter_nr: "Litter nr"
+    pairs: "Pairs"
+    kittens: "Kittens"
+    father: "Father"
+    mother: "Mother"
+  breed_info:
+    playfulness: "playfulness"
+    activity_level: "activity level"
+    friendliness_to_other_pets: "friendliness to other pets"
+    friendliness_to_children: "friendliness to children"
+    grooming_requirements: "grooming requirements"
+    vocality: "vocality"
+    need_for_attention: "need for attention"
+    affection_toward_its_owners: "affection toward its owners"
+    docility: "docility"
+    intelligence: "intelligence"
+    independence: "independence"
+    hardiness: "hardiness"
+    personality: "personality"
+    history: "history"
+    disclaimer: "disclaimer"
+    disclaimer_text: " While the characteristics mentioned here may frequently represent this breed, cats are individuals whose personalities and appearances will vary. Please consult the adoption organization for details on a specific pet."
+
+  # forms and social media
+  form:
+    
+    # contact form
+    contact:
+      your_email: "Your email"
+      subject: "Subject"
+      message: "Message"
+      send: "Send"
+      email: "Email"
+      phone: "Phone"
+      sent_success: "Message was sent successfully!"
+      sent_fail: "Message could not be sent"
+
+    # devise forms
+    new_session:
+      remember_me: "Remember me"
+      external_login: "%{kind} login"
+    new_registration:
+      sign_up: "Sign up"
+      minimum_character_message: "%{minimum_char_count} characters minimum"
+      own_cattery: "I own a cattery"
+      consent_message: "I have read and agree to the terms of service and the privacy policy"
+    edit_registration:
+      edit_profile: "Edit profile"
+      currently_awaiting_confirmation_for: "Currenly awaiting confirmation for"
+      send_confirmation_instructions_again: "Resend confirmation instructions"
+      confirm_changes: "Confirm changes"
+      we_need_your_current_password: "we need your current password to confirm your changes"
+      cancel_account: "Cancel my account"
+      cancel_account_unhappy: "Unhappy or you simply don't want to have your account anymore?"
+      cancel_account_feedback_1: "We're always looking to improve our platform so please don't hesitate to"
+      cancel_account_feedback_let_us_know: "let us know"
+      cancel_account_feedback_2: "why you're leaving."
+      tooltip:
+        email_confirmed: "Email confirmed"
+    resend_confirmation:
+      resend_confirmation_instructions: "Resend confirmation instructions"
+    resend_unlock:
+      resend_unlock_instructions: "Resend unlock instructions"
+    forgot_password:
+      forgot_password_title: "Forgot your password?"
+      forgot_password_button: "Send me reset password instructions"
+    change_password:
+      change_password_title: "Change password"
+      leave_blank_to_not_change: "leave blank to not change"
+      change_password_button: "Change my password"
+      new_password: "New password"
+      confirm_new_password: "Confirm new password"
+    links:
+      sign_up: "Don't have an account yet? Sign up!"
+      forgot_password: "Forgot your password?"
+      no_confirmation_instructions: "Didn't receive confirmation instructions?"
+      no_unlock_instructions: "Didn't receive unlock instructions?"      
+
+  social:
+    share_this_kitten: "Share this kitten"
+    share_this_cattery: "Share this cattery"
+    share_this_breed: "Share this breed"
+    share_on: "Share on %{kind}"
+
+  # word helpers
+  words:
+    or: "or"
+    and: "and"
+    go_to: "go to"
+    cancel: "cancel"
+    im_sure: "I'm sure"
+    image: "Picture"
+    preview: "Preview"
+    add: "Add %{kind}"
+    edit: "Edit %{kind}"
+
+  # pluralization
+  breed:
+    one: "Breed"
+    other: "Breeds"
+  male:
+    one: "male"
+    other: "males"
+  female:
+    one: "female"
+    other: "females"
+  cat:
+    one: "Cat"
+    other: "Cats"
+  kitten:
+    one: "Kitten"
+    other: "Kittens"
+  parent:
+    one: "Parent"
+    other: "Parents"
+  pair:
+    one: "Pair"
+    other: "Pairs"
+
+  # page specific    
   home:
-    find_your_cat: "Find your cat!"
+    find_your_cat: "Find your cat"
     popular_breeds: "Popular breeds"
     new_kittens: "New kittens"
-  
+  index:
+    no_pairs_found: "No pairs found"
+    no_litters_found: "No litters found"
+    no_kittens_found: "No kittens found"
+    no_catteries_found: "No catteries found"
+  my_cattery:
+    general: "General"
+    cattery_name: "Cattery name"
+    edit_cats: "Edit cats"
+    view_page: "View page"
+    profile_picture: "Profile picture"
+    address: "Address"
+    postal_code: "Postal code"
+    city: "City"
+    country: "Country"
+    contact_and_social_media: "Contact & social media"
+    required_information_message: "You must add a %{missing_info} before you can add cats"
+    tooltip:
+      profile: "Go to the 'Profile' page to change this" 
+      provider: "Go to your %{provider} account to change this"
+  cattery_overview: 
+    cattery_overview_title: "Cattery overview"
+    no_records_added: "No %{kind} have been added yet"
+    cattery_information: "Cattery information"
+    tooltip:
+      create_pairs_condition: "You have to create a male and female parent before you can create a pair"
+      create_kittens_condition: "You have to create a pair before you can create a kitten"
+      delete_parent_condition: "You can't delete a parent with partners and/or kittens"
+      delete_pair_condition: "You can't delete a pair with kittens"
+    toast:
+      successful_action: "%{kind} was successfully %{action}"
+      failed_action: "%{kind} could not be %{action} yet"
+
+
+    

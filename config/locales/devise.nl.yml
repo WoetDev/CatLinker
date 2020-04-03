@@ -55,7 +55,7 @@ nl:
       updated: Het updaten van je wachtwoord is gelukt en je bent nu ingelogd.
       updated_not_active: Het updaten van je wachtwoord is gelukt.
     registrations:
-      destroyed: Je account is verwijderd. Dag!
+      destroyed: Je account is verwijderd. Tot ziens!
       signed_up: Je account is aangemaakt. Welkom!
       signed_up_but_inactive: Je account is aangemaakt. Je account is nog niet actief en daarom ben je niet automatisch ingelogd.
       signed_up_but_locked: Je account is aangemaakt, maar het is geblokkeerd.

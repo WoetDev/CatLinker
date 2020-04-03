@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form">
     <div class="row">
-      <h2 class="form-title">Edit profile</h2>
+      <h2 class="form-title"><%= t('form.edit_registration.edit_profile') %></h2>
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
@@ -14,9 +14,9 @@
           <%= f.label :email %>
           <%= f.email_field :email, autofocus: true, disabled: @user.provider.present? %>
           <% if devise_mapping.confirmable? && !resource.pending_reconfirmation? %>
-            <a class="tooltipped confirmed-tooltip" data-position="top" data-tooltip="Email confirmed">
+            <%= link_to "javascript:void(0)", class:"tooltipped confirmed-tooltip", data: { position: "top", tooltip: t('form.edit_registration.tooltip.email_confirmed') } do %>
               <i class="material-icons">check_circle</i>
-            </a>
+            <% end %>
           <% end %>
           <% if resource.errors[:email].any? %>
             <%= render "devise/shared/error_messages", resource: resource, field: :email %>
@@ -26,16 +26,16 @@
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div class="row">        
-          <div class="awaiting-confirmation">Currently awaiting confirmation for: <%= resource.unconfirmed_email %></div>
-          <%= link_to new_user_confirmation_path(resource_name), class:"btn waves-effect waves-light resend-confirmation-btn" do %>
-          Resend confirmation
-          <i class="material-icons right">redo</i>
+          <div class="awaiting-confirmation"><%= t('form.edit_registration.currently_awaiting_confirmation_for') %>: <%= resource.unconfirmed_email %></div>
+          <%= link_to new_user_confirmation_path, class:"btn waves-effect waves-light resend-confirmation-btn btn-link" do %>
+            <%= t('form.edit_registration.send_confirmation_instructions_again') %>
+            <i class="material-icons right">redo</i>
           <% end %>
         </div>
       <% end %>
 
       <div class="row">
-        <h4 class="form-section-title no-margin">Cattery</h4>
+        <h4 class="form-section-title no-margin"><%= t('cat_info.cattery') %></h4>
       </div>
 
       <div class="row">
@@ -45,7 +45,7 @@
             <label class="checkbox-label">
               <%= f.check_box :is_cattery %>
               <span class="lever"></span>
-              I own a cattery
+              <%= t('form.new_registration.own_cattery') %>
             </label>
             </div>
           </div>
@@ -55,7 +55,7 @@
       <div class="row">
         <% if @user.is_cattery %>
           <%= link_to my_cattery_cattery_path(@user), class:"waves-effect waves-light btn btn-link" do %>
-            Go to my cattery
+            <%= t('words.go_to') %> 'my cattery'
             <i class="material-icons right">navigate_next</i>
           <% end %>
         <% end %>
@@ -63,8 +63,8 @@
 
       <% unless @user.provider.present? %>
         <div class="row">
-          <h4 class="form-section-title">Change password</h4>
-          <em class="title-info">(leave blank to not change)</em>
+          <h4 class="form-section-title"><%= t('form.change_password.change_password_title') %></h4>
+          <em class="title-info">(<%= t('form.change_password.leave_blank_to_not_change') %>)</em>
         </div>
 
         <div class="row">
@@ -75,7 +75,7 @@
               <%= render "devise/shared/error_messages", resource: resource, field: :password %>
             <% else %>
               <% if @minimum_password_length %>
-                <span class="helper-text"><%= @minimum_password_length %> characters minimum</span>
+                <span class="helper-text"><%= t('form.new_registration.minimum_character_message', minimum_char_count: @minimum_password_length) %></span>
               <% end %>
             <% end %>
           </div>
@@ -92,7 +92,7 @@
         </div>
 
         <div class="row">
-          <h4 class="form-section-title">Confirm changes</h4>
+          <h4 class="form-section-title"><%= t('form.edit_registration.confirm_changes') %></h4>
         </div>
 
         <div class="row">
@@ -102,7 +102,7 @@
             <% if resource.errors[:current_password].any? %>
               <%= render "devise/shared/error_messages", resource: resource, field: :current_password %>
             <% end %>
-            <span class="helper-text">we need your current password to confirm your changes</span>
+            <span class="helper-text"><%= t('form.edit_registration.we_need_your_current_password') %></span>
           </div>
         </div>
 
@@ -111,7 +111,7 @@
       <div class="row">
         <div class="actions">
           <%= f.button class:"btn waves-effect waves-light", type:"submit" do %>
-          Update
+          <%= t('buttons.update') %>
           <i class="material-icons right">send</i>
           <% end %>
         </div>
@@ -121,30 +121,32 @@
 
   <div class="form">
     <div class="row">
-      <h3 class="form-title">Cancel my account</h3>
+      <h3 class="form-title"><%= t('form.edit_registration.cancel_account') %></h3>
     </div>
 
     <div class="row">
-      <p>Unhappy or you simply don't want to have your account anymore?</p>
-      <p>We're always looking to improve our platform so please don't hesitate to <a class="inline-link">let us know</a> why you're leaving.</p>
+      <p><%= t('form.edit_registration.cancel_account_unhappy') %></p>
+      <p>
+        <%= t('form.edit_registration.cancel_account_feedback_1' ) %>&nbsp;<%= link_to contact_home_path(@support), class:"inline-link" do %><%= t('form.edit_registration.cancel_account_feedback_let_us_know') %><% end %>&nbsp;<%= t('form.edit_registration.cancel_account_feedback_2' ) %>
+      </p>
       <a class="btn waves-effect waves-light btn-delete-large modal-trigger" href="#modal-delete">
-        Cancel my account
+        <%= t('form.edit_registration.cancel_account') %>
         <i class="material-icons">delete_forever</i>
       </a>
     </div>
 
     <div id="modal-delete" class="modal modal-confirmation">
       <div class="modal-content">
-        <h4>Cancel my account</h4>
-        <p>Are you sure?</p>
-        <p>This action is permanent!</p>
+        <h4><%= t('form.edit_registration.cancel_account') %></h4>
+        <p><%= t('modal.are_you_sure') %>?</p>
+        <p><%= t('modal.this_action_is_permanent') %>!</p>
       </div>
       <div class="modal-footer">
         <a class="btn waves-effect waves-light modal-close btn-cancel">
-          Cancel
+          <%= t('words.cancel') %>
         </a>
         <%= link_to registration_path(resource_name), method: :delete, class:"btn waves-effect waves-light btn-confirm" do %>
-          I'm sure
+          <%= t('words.im_sure') %>
         <% end %>
       </div>
     </div>

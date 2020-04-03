@@ -19,27 +19,27 @@
           <div class="info-block">
             <div class="row">
               <div class="col s4">
-                <span class="info-title">Breed:</span>
+                <span class="info-title"><%= t('breed', count: 1) %>:</span>
               </div>
               <div class="col s8">
-                <span class="info-text"><%= cat_breed(cat) %></span>
+                <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></span>
               </div>
             </div>
           </div>
           <div class="info-block">
             <div class="row">
               <div class="col s4">
-                <span class="info-title">Gender:</span>
+                <span class="info-title"><%= t('cat_info.gender') %>:</span>
               </div>
               <div class="col s8">
-                <span class="info-text"><%= cat_gender(cat) %></span>
+                <span class="info-text"><%= cat_gender(cat).capitalize %></span>
               </div>
             </div>
           </div>
           <div class="info-block">
             <div class="row">
               <div class="col s4">
-                <span class="info-title">Birth date:</span>
+                <span class="info-title"><%= t('cat_info.birth_date') %>:</span>
               </div>
               <div class="col s8">
                 <span class="info-text"><%= format_birth_date(cat) %></span>
@@ -49,7 +49,7 @@
           <div class="info-block">
             <div class="row">
               <div class="col s4">
-                <span class="info-title">Parents:</span>
+                <span class="info-title"><%= t('cat_info.parents') %>:</span>
               </div>
               <div class="col s8">
                 <span class="info-text">
@@ -67,10 +67,10 @@
                 <div class="info-available">
                   <% if cat.is_available %>
                     <i class="material-icons check">check</i>
-                    <span class="available-text">available</span>
+                    <span class="available-text"><%= t('cat_info.available') %></span>
                   <% else %>
                     <i class="material-icons close">close</i>
-                    <span class="unavailable-text">Unavailable</span>
+                    <span class="unavailable-text"><%= t('cat_info.unavailable') %></span>
                   <% end %>
                 </div>
               </div>

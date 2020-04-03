@@ -2,7 +2,7 @@
 #kitten-view, #cattery-view, #contact {
   img {
     border-radius: 5px;
-    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
+    box-shadow: $z-depth-2;
   }
 
   // Kitten main content
@@ -43,6 +43,26 @@
       font-weight: bold;
       text-transform: uppercase;
       padding-left: 15px;
+    }
+    
+    .available-message {
+      font-size: 1em;
+      color: $secondaryColor;
+      text-align: center;
+      border-top: 4px dashed $secondaryColor;
+      margin: 25px auto;
+
+      @include small-and-down {
+        font-size: 0.8em;
+        border-top: 2px dashed $secondaryColor;
+        margin-top: 20px;
+      }
+
+      .check {
+        position: relative;
+        top: 7px;
+        font-size: 1.3em;
+      }
     }
 
     .info-text {
@@ -361,7 +381,7 @@
       border-radius: 50%;
       margin: 0px 5px;
       display: inline-block;
-      box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);;
+      box-shadow: $z-depth-2;
     }
     
     i.active {

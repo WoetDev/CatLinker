@@ -86,19 +86,19 @@ function ReplaceKittensWithParentsFilter(kittens) {
 <% if @pairs.any? %>
 ReplacePairsWithParentsFilter("<%= j(render 'cattery_pairs')%>");
 <% else %>
-ReplacePairsWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No pairs found!</span></div>");
+ReplacePairsWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'><%= t('index.no_pairs_found') %>!</span></div>");
 <% end %>
 
 <% if @litters.any? %>
 ReplaceLittersWithParentsFilter("<%= j(render 'cattery_litters')%>");
 <% else %>
-ReplaceLittersWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No litters found!</span></div>");
+ReplaceLittersWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'><%= t('index.no_litters_found') %>!</span></div>");
 <% end %>
 
 <% if @kittens.any? %>
 ReplaceKittensWithParentsFilter("<%= j(render 'cattery_kittens')%>");
 <% else %>
-ReplaceKittensWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'>No kittens found!</span></div>");
+ReplaceKittensWithParentsFilter("<div class='col s12 center-align'><span class='empty-message'><%= t('index.no_kittens_found') %>!</span></div>");
 <% end %>
   
 // Switch tabs when clicking on pair card image

@@ -7,13 +7,13 @@
             <%= image_tag(breed.thumbnail, :alt => 'breed-image', class:"activator") if breed.picture.attached? %>
           </div>
           <div class="card-content activator">
-            <%= breed.name %>
+            <%= t("breeds.#{breed.breed_code.upcase}.name") %>
             <i class="material-icons right circle">keyboard_arrow_up</i>
           </div>
           <div class="card-reveal">
-            <span class="card-title"><%= breed.name %><i class="material-icons right circle">close</i></span>
+            <span class="card-title"><%= t("breeds.#{breed.breed_code.upcase}.name") %><i class="material-icons right circle">close</i></span>
             <p><%= breed.short_description %></p>
-            <%= link_to "Read more", breed_path(breed) %>
+            <%= link_to t('buttons.read_more'), breed_path(breed) %>
           </div>
         </div>
       </div>

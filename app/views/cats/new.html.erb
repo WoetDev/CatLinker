@@ -2,7 +2,7 @@
   <div class="form">
   
     <div class="row">
-      <h2 class="form-title">Add <%= @form %></h2>
+      <h2 class="form-title"><%= t('words.add', kind: (I18n.t "#{@form}", count:1).downcase ) %></h2>
     </div>
     
     <%= render 'form', :locals => {:controller => 'cats', :action => 'create'}  %>

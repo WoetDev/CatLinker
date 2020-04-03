@@ -5,7 +5,7 @@
         <button class="reset-dropdown circle">
           <i class="material-icons">restore</i>
         </button>
-        <%= f.select(:breeds_filter, options_for_select(@all_available_breeds_array), {disabled: "", prompt: 'Which breed(s) are you looking for?'}, {:multiple => true, class:"form-filter icons"}) %>
+        <%= f.select(:breeds_filter, options_for_select(@all_available_breeds_array), {disabled: "", prompt: t('select.which_breeds_are_you_looking_for')}, {:multiple => true, class:"form-filter icons"}) %>
       </div>
     </div>
   </div>
