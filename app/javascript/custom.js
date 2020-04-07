@@ -161,6 +161,8 @@ $(document).on('turbolinks:load', function() {
 
   // GLOBAL FUNCTIONS
 
+  // Recaptcha execute
+
   // Remove MaterializeCSS select for iOS13
   // Helper function to detect which OS is running
   function getOS() {

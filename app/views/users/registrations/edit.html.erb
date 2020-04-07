@@ -127,7 +127,7 @@
     <div class="row">
       <p><%= t('form.edit_registration.cancel_account_unhappy') %></p>
       <p>
-        <%= t('form.edit_registration.cancel_account_feedback_1' ) %>&nbsp;<%= link_to contact_home_path(@support), class:"inline-link" do %><%= t('form.edit_registration.cancel_account_feedback_let_us_know') %><% end %>&nbsp;<%= t('form.edit_registration.cancel_account_feedback_2' ) %>
+        <%= t('form.edit_registration.cancel_account_feedback_1' ) %>&nbsp;<%= link_to contact_path(@support), class:"inline-link" do %><%= t('form.edit_registration.cancel_account_feedback_let_us_know') %><% end %>&nbsp;<%= t('form.edit_registration.cancel_account_feedback_2' ) %>
       </p>
       <a class="btn waves-effect waves-light btn-delete-large modal-trigger" href="#modal-delete">
         <%= t('form.edit_registration.cancel_account') %>

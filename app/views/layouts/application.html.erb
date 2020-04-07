@@ -150,15 +150,15 @@
             <h5 class="footer-title white-text"><%= t('footer.support') %></h5>
             <ul>
               <li><a class="grey-text text-lighten-3" href="#!"><%= t('footer.help') %></a></li>
-              <li><%= link_to t('footer.contact'), contact_home_path(@support), class:"grey-text text-lighten-3" %></li>
+              <li><%= link_to t('footer.contact'), contact_path(@support), class:"grey-text text-lighten-3" %></li>
             </ul>
           </div>
           <div class="col l6 s12">
             <h5 class="footer-title white-text"><%= t('footer.information') %></h5>
             <ul>
-              <li><a class="grey-text text-lighten-3" href="#!"><%= t('footer.terms_of_service') %></a></li>
-              <li><a class="grey-text text-lighten-3" href="#!"><%= t('footer.privacy_policy') %></a></li>
-              <li><a class="grey-text text-lighten-3" href="#!"><%= t('footer.cookies_policy') %></a></li>
+              <li><%= link_to terms_of_service_path, class:"grey-text text-lighten-3" do %><%= t('footer.terms_of_service') %><% end %></li>
+              <li><%= link_to privacy_policy_path, class:"grey-text text-lighten-3" do %><%= t('footer.privacy_policy') %><% end %></li>
+              <li><%= link_to cookies_policy_path, class:"grey-text text-lighten-3" do %><%= t('footer.cookies_policy') %><% end %></li>
               <li><a target="_blank" href="https://icons8.com/icons/set/cat--v3"><a target="_blank" class="grey-text text-lighten-3" href="https://icons8.com">Icons8</a></li>
             </ul>
           </div>

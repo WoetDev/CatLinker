@@ -71,6 +71,10 @@ en:
   modal:
     are_you_sure: "Are you sure"
     this_action_is_permanent: "This action is permanent"
+  recaptcha:
+    errors:
+      verification_failed: "Our systems think you might be a robot, please try again if you're human"
+      recaptcha_unreachable: 'reCAPTCHA verification server error, please try again.'
 
   # cats and cattery related info
   cat_info:

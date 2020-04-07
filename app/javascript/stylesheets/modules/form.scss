@@ -829,3 +829,23 @@ select.browser-default {
     box-shadow: 0 1px 0 0 #26a69a;
   }
 }
+
+// Recaptcha disclaimer
+.grecaptcha-badge { 
+  visibility: hidden; 
+}
+
+.grecaptcha-disclaimer {
+  font-size: 0.8em;
+  text-align: left;
+  margin-top: 20px;
+
+  a {
+    display: inline-block;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+

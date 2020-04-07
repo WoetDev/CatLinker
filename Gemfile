@@ -19,8 +19,9 @@ gem 'hirb'
 gem 'i18n', '~> 1.8', '>= 1.8.2'
 gem 'rails-i18n'
 gem 'http_accept_language'
-# User mail_form gem for custom email forms
+# Use mail_form gem for custom email forms
 gem 'mail_form'
+# Use omniauth for external logins
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
@@ -32,6 +33,8 @@ gem 'pg_search'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
+# Use ReCaptcha v3 for bot detection
+gem 'recaptcha', '~> 5.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker

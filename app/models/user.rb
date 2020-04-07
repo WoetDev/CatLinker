@@ -49,7 +49,7 @@ class User < ApplicationRecord
 
   def self.from_google_oauth2_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data['email']).first
+    user = User.where(provider: access_token.provider, uid: access_token.uid).first
 
     # Uncomment the section below if you want users to be created if they don't exist
     unless user
@@ -74,5 +74,9 @@ class User < ApplicationRecord
 
   # custom validations
   validates :given_consent, presence: true, on: :create
-  validates :cattery_name, :profile_picture, :postal_code, :city, :country_id, presence: true, allow_blank: false, if: :is_cattery?, on: :required_cattery_information
+  validates :cattery_name, 
+            :profile_picture, 
+            :postal_code, 
+            :city, 
+            :country_id, presence: true, allow_blank: false, if: :is_cattery?, on: :required_cattery_information
 end

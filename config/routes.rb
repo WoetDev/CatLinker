@@ -1,23 +1,36 @@
 Rails.application.routes.draw do
   devise_for :users, only: :omniauth_callbacks, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  
+
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     root 'home#index'
     # We define here a route inside the locale that just saves the current locale in the session
     get 'omniauth/:provider' => 'omniauth#localized', as: :localized_omniauth
 
-    devise_for :users, :controllers => { confirmations: 'users/confirmations', 
-                                        registrations: 'users/registrations',
-                                        omniauth_callbacks: 'users/omniauth_callbacks' }, skip: :omniauth_callbacks
-    # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+    devise_for :users, controllers: { confirmations: 'users/confirmations', 
+                                         registrations: 'users/registrations',
+                                         omniauth_callbacks: 'users/omniauth_callbacks' },
+                       skip: [:omniauth_callbacks, :registrations, :confirmations]
 
-    get 'home/search' => 'home#search'
-
-    resources :home, only: [:index] do
-      member do
-        get 'contact' => 'home#contact'
-      end
+    # override routes so it refers to correct action on validation fails
+    devise_scope :user do
+      get "users/sign_up" => "users/registrations#new", as: :new_user_registration
+      post "users/sign_up" => "users/registrations#create", as: :user_registration
+      patch "users/sign_up" => "users/registrations#update"
+      put "users/sign_up" => "users/registrations#update"
+      delete "users/sign_up" => "users/registrations#destroy"
+      get "users/edit" => "users/registrations#edit", as: :edit_user_registration
+      get "users/cancel" => "users/registrations#cancel", as: :cancel_user_registration
+      get "users/confirmation/new" => "users/confirmations#new", as: :new_user_confirmation
+      get "users/confirmation" => "users/confirmations#show", as: :user_confirmation
+      post "users/confirmation" => "users/confirmations#create"
     end
+
+    resources :home, only: [:index]
+    get 'home/search' => 'home#search'
+    get 'contact/:id' => 'home#contact', as: :contact
+    get 'terms-of-service' => 'home#terms_of_service'
+    get 'privacy-policy' => 'home#privacy_policy'
+    get 'cookies-policy' => 'home#cookies_policy'
 
     resources :users, path: 'catteries', as: 'catteries', only: [:index, :show ] do
       member do 

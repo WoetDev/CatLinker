@@ -14,16 +14,22 @@ class MessagesController < ApplicationController
       @cat = Cat.find(params[:message][:cat_id])
     end
 
-    respond_to do |format|
-      if @message.deliver
-        # re-initialize Home object for cleared form
-        @message = Message.new
-        # format.html { render 'cats/show'}
-        format.js {  flash.now[:notice] = @flash_message = (I18n.t "form.contact.sent_success") }
-      else
-        # format.html { render 'cats/show' }
-        format.js { flash.now[:alert] = @flash_message = (I18n.t "form.contact.sent_fail") }
+    recaptcha_valid = verify_recaptcha(model: @message, action: 'contact', minimum_score: 0.5)
+
+    if recaptcha_valid
+      respond_to do |format|
+        if @message.deliver
+          # re-initialize Home object for cleared form
+          @message = Message.new
+          # format.html { render 'cats/show'}
+          format.js {  flash.now[:notice] = @flash_message = (I18n.t "form.contact.sent_success") }
+        else
+          # format.html { render 'cats/show' }
+          format.js { flash.now[:alert] = @flash_message = (I18n.t "form.contact.sent_fail") }
+        end
       end
+    else
+      flash[:alert] = I18n.t "recaptcha.errors.verification_failed"
     end
   end
 end

@@ -71,6 +71,10 @@ nl:
   modal:
     are_you_sure: "Ben je zeker"
     this_action_is_permanent: "Deze actie is definitief"
+  recaptcha:
+    errors:
+      verification_failed: 'We denken dat je misschien een robot bent, gelieve opnieuw te proberen als je een mens bent.'
+      recaptcha_unreachable: 'reCAPTCHA verification server error, please try again.'
 
   # cats and cattery related info
   cat_info:

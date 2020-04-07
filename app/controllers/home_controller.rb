@@ -19,6 +19,15 @@ class HomeController < ApplicationController
     @message = Message.new(params[:message])
   end
 
+  def terms_of_service
+  end
+
+  def privacy_policy
+  end
+
+  def cookies_policy
+  end
+
   private
 
   def set_user
