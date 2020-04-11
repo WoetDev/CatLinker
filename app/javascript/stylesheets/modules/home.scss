@@ -9,7 +9,7 @@
 }
 
 .home-landing {
-  @include small-and-down {
+    @include small-and-down {
     display: flex;
     align-items: center;
     min-height: 60vh;

@@ -147,17 +147,6 @@
     }
   }
 
-  .inline-link {
-    display: inline-block;
-    text-decoration: underline;
-    transition: cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
-
-    &:hover, &:focus {
-      color: $primaryColor;
-      font-weight: bold;
-    }
-  }
-
   .file-field {
     .material-icons-outlined {
       font-size: 2em;
@@ -294,6 +283,19 @@
   }
 }
 
+// Links in paragraphs
+.inline-link {
+  display: inline-block !important;
+  color: $primaryColor;
+  text-decoration: underline;
+  transition: cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
+
+  &:hover, &:focus {
+    color: $primaryColor;
+    font-weight: bold;
+  }
+}
+
 // Form tooltips
 .material-tooltip {  
   background: $secondaryShade5;
@@ -342,6 +344,7 @@
 // Alert messages
 #toast-container {
   @include small-and-up {
+    
     min-width: 10%;
     bottom: 85%;
     right: 50%;

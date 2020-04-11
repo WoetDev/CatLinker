@@ -14,6 +14,10 @@ class Cat < ApplicationRecord
     breed.name
   end
 
+  def should_generate_new_friendly_id?
+    breed_id_changed? || super
+  end
+
   # image processing
   def thumbnail
     card_picture.variant(resize: '500x500').processed

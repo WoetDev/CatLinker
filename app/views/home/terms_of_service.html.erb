@@ -1,1 +1,191 @@
-<h1>Terms of service</h1>
+
+<div class="container legal-document">
+  <div class="row">
+    <h1>Terms of service</h1>
+    <h4 class="timestamp">Last updated 8 April 2020</h4>
+  </div>
+
+  <div class="section">
+    <div class="row">
+      <h4>Welcome to Cat Linker!</h4>
+      <div>
+        Thanks for using our services (“Services”).
+        By using our Services, you are agreeing to these terms. Please read them carefully.
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Using our Services</h4>
+      <p>
+        You must follow any policies made available to you within the Services.
+        Do not misuse our Services, for example, do not interfere with our Services or try to access them using a method other than the interface and the instructions that we provide.
+        You may use our Services only as permitted by law.
+        We may suspend or stop providing our Services to you if you do not comply with our terms or policies or if we are investigating suspected misconduct.
+      </p>
+      <p>
+        Using our Services does not give you ownership of any intellectual property rights in our Services or the content that you access.
+        You may not use content from our Services unless you obtain permission from its owner or are otherwise permitted by law. These terms do not grant you the right to use any branding or logos used in our Services. Do not remove, obscure or alter any legal notices displayed in or along with our Services.
+      </p>
+      <p>
+        Our Services display content that is not Cat Linker's.
+        This content is the sole responsibility of the entity that makes it available. We may review content to determine whether it is illegal or violates our policies, and we may remove or refuse to display content that we reasonably believe violates our policies or the law.
+        But that does not necessarily mean that we review content, so please do not assume that we do.
+      </p>
+      <p>
+        In connection with your use of the Services, we may send you service announcements, administrative messages and other information.
+      </p>
+      <p>
+        Our Services are available on mobile devices. Do not use our Services in a way that distracts you and prevents you from obeying traffic or safety laws.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Your Cat Linker Account</h4>
+        <p>
+          You may need a Cat Linker Account in order to use some of our Services. You may create your own Cat Linker Account, or your Cat Linker Account may be assigned to you by an administrator.
+          If you are using a Cat Linker Account assigned to you by an administrator your administrator may be able to access or disable your account.
+          We may suspend or disable your account if you do not comply with our terms or policies or if we are investigating suspected misconduct.
+        </p>
+        <p>
+          To protect your Cat Linker Account, keep your password confidential.
+          You are responsible for the activity that happens on or through your Cat Linker Account.
+          Try not to reuse your Cat Linker Account password on third-party applications.
+          If you learn of any unauthorised use of your password or Cat Linker Account, please
+          <% if user_signed_in? %>
+            <%= link_to "reset your password", edit_user_registration_path, class:"inline-link" %>
+          <% else %>
+            <%= link_to "reset your password", new_user_password_path, class:"inline-link" %>
+          <% end %>
+          &nbsp;through your profile or external login service.
+        </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Privacy and Copyright Protection</h4>
+        <p>
+            Cat Linker’s <%= link_to "Privacy Policy", privacy_policy_path, class:"inline-link" %> explains how we treat your personal data and protect your privacy when you use our Services.
+        </p>
+        <p>
+            We respond to notices of alleged copyright infringement and terminate accounts of repeat infringers according to the process set out in the Belgian Copyright Act.
+        </p>
+        <p>
+            If you think that somebody is violating your copyright and want to notify us, please
+            <%= link_to "contact support", contact_path(@support), class:"inline-link" %>
+        </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Your Content in our Services</h4>
+      <p>
+        Our Services allow you to upload, submit, store, send or receive content.
+        You retain ownership of any intellectual property rights that you hold in that content.
+        In short, what belongs to you stays yours.
+      </p>
+      <p>
+        When you upload, submit, store, send or receive content to or through our Services, you give Cat Linker a worldwide licence to use, host, store, reproduce, modify, create derivative works (such as those resulting from translations, adaptations or other changes that we make so that your content works better with our Services), communicate, publish, publicly perform, publicly display and distribute such content.
+        The rights that you grant in this licence are for the limited purpose of operating, promoting and improving our Services, and to develop new ones.
+        This licence continues even if you stop using our Services.
+        Our Services offer you ways to access and remove content that has been provided.
+        Make sure that you have the necessary rights to grant us this licence for any content that you submit to our Services.
+      </p>
+      <p>
+        You can find more information about how Cat Linker uses and stores content in the <%= link_to "Privacy Policy", privacy_policy_path, class:"inline-link" %>.
+        If you submit feedback or suggestions about our Services, we may use your feedback or suggestions without obligation to you.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>About Software in our Services</h4>
+      <p>
+        We are constantly changing and improving our Services.
+        We may add or remove functionalities or features and we may suspend or stop a Service altogether.
+      </p>
+      <p>
+        You can stop using our Services at any time, although we would be sorry to see you go.
+        Cat Linker may also stop providing Services to you or add or create new limits to our Services at any time.
+      </p>
+      <p>
+        We believe that you own your data, and preserving your access to such data is important.
+        If we discontinue a Service, where reasonably possible, we will give you reasonable advance notice and a chance to remove information from that Service.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Our Warranties and Disclaimers</h4>
+      <p>
+        We provide our Services using a commercially reasonable level of skill and care and we hope that you will enjoy using them.
+        But there are certain things that we do not promise about our Services.
+      </p>
+      <p>
+        Other than as expressly set out in these terms or additional terms, neither Cat Linker nor its suppliers or distributors makes any specific promises about the Services.
+        For example, we do not make any commitments about the content within the Services, the specific functions of the Services or their reliability, availability or ability to meet your needs. We provide the Services “as is”.
+      </p>
+      <p>
+        Some jurisdictions provide for certain warranties, like the implied warranty of merchantability, fitness for a particular purpose and non-infringement.
+        To the extent permitted by law, we exclude all warranties.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Liability for our Services</h4>
+      <p>
+          When permitted by law, Cat Linker and Cat Linker’s suppliers and distributors will not be responsible for lost profits, revenues or data, financial losses or indirect, special, consequential, exemplary or punitive damages.
+      </p>
+      <p>
+          To the extent permitted by law, the total liability of Cat Linker and its suppliers and distributors for any claims under these terms, including for any implied warranties, is limited to the amount that you paid us to use the Services (or, if we choose, to supplying you with the Services again).
+      </p>
+      <p>
+          In all cases, Cat Linker and its suppliers and distributors will not be liable for any loss or damage that is not reasonably foreseeable.
+      </p>
+      <p>
+          We recognise that in some countries, you might have legal rights as a consumer.
+          If you are using the Services for a personal purpose, then nothing in these terms or any additional terms limits any consumers’ legal rights which may not be waived by contract.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Business uses of our Services</h4>
+      <p>
+        If you are using our Services on behalf of a business, that business accepts these terms. It will hold harmless and indemnify Cat Linker and its affiliates from any claim, action or proceedings arising from or related to the use of the Services or violation of these terms, including any liability or expense arising from claims, losses, damages, judgements, litigation costs and legal fees.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>About these Terms</h4>
+      <p>
+        We may modify these terms or any additional terms that apply to a Service to, for example, reflect changes to the law or changes to our Services.
+        You should look at the terms regularly.
+        We’ll post notice of modifications to these terms on this page.
+        Changes will not apply retrospectively and will become effective no earlier than fourteen days after they are posted.
+        However, changes addressing new functions for a Service or changes made for legal reasons will be effective immediately.
+        If you do not agree to the modified terms for a Service, you should discontinue your use of that Service.
+      </p>
+      <p>
+        These terms govern the relationship between Cat Linker and you. They do not create any third party beneficiary rights.
+      </p>
+      <p>
+        If it turns out that a particular term is not enforceable, this will not affect any other terms.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <h4>Governing Law and Courts</h4>
+      <p>
+        The laws and courts of Belgium will apply to any dispute arising out of or relating to these terms.
+        Disputes may be submitted for online resolution to the
+        <%= link_to "European Commission Online Dispute Resolution platform", "https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home2.show", target:"_blank", class:"inline-link" %>, but Cat Linker does not commit to and is not required to settle disputes before any alternative dispute resolution entity.
+      </p>
+    </div>
+  </div>
+</div>   
+  

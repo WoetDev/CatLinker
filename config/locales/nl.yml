@@ -75,6 +75,10 @@ nl:
     errors:
       verification_failed: 'We denken dat je misschien een robot bent, gelieve opnieuw te proberen als je een mens bent.'
       recaptcha_unreachable: 'reCAPTCHA verification server error, please try again.'
+  cookies:
+    disclaimer: "We gebruiken cookies om je ervaring tijdens het gebruik van onze website te verbeteren"
+    learn_more: "Lees meer in ons"
+    agree: "Akkoord"
 
   # cats and cattery related info
   cat_info:
@@ -236,7 +240,7 @@ nl:
     city: "Stad"
     country: "Land"
     contact_and_social_media: "Contact & sociale media"
-    required_information_message: "Je moet nog een %{missing_info} in te vulllen voordat je katten kan toevoegen"
+    required_information_message: "Je moet nog een %{missing_info} invullen voordat je katten kan toevoegen"
     tooltip:
       profile: "Ga naar de 'Profiel' pagina om dit te wijzigen" 
       provider: "Ga naar je %{provider} account om dit te wijzigen"

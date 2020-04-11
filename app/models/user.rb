@@ -2,6 +2,10 @@ class User < ApplicationRecord
   extend FriendlyId
   friendly_id :cattery_name, use: :slugged
 
+  def should_generate_new_friendly_id?
+    cattery_name_changed? || super
+  end
+
   belongs_to :country, optional: true
   has_many :cats
   has_many :pairs
@@ -43,7 +47,7 @@ class User < ApplicationRecord
       user.uid = auth.uid
 
       # If you are using confirmable and the provider(s) you use validate emails, uncomment the line below to skip the confirmation emails.
-      user.skip_confirmation!
+      # user.skip_confirmation!
     end
   end
 
@@ -54,7 +58,7 @@ class User < ApplicationRecord
     # Uncomment the section below if you want users to be created if they don't exist
     unless user
       user = User.create( email: data['email'], password: Devise.friendly_token[0,20], provider: access_token.provider, uid: access_token.uid, given_consent: true )
-      user.skip_confirmation!
+      # user.skip_confirmation!
     end
     user
   end

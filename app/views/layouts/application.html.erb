@@ -143,6 +143,7 @@
       </div>
     <% end %>
 
+
     <footer class="page-footer">
       <div class="container">
         <div class="row">
@@ -159,7 +160,7 @@
               <li><%= link_to terms_of_service_path, class:"grey-text text-lighten-3" do %><%= t('footer.terms_of_service') %><% end %></li>
               <li><%= link_to privacy_policy_path, class:"grey-text text-lighten-3" do %><%= t('footer.privacy_policy') %><% end %></li>
               <li><%= link_to cookies_policy_path, class:"grey-text text-lighten-3" do %><%= t('footer.cookies_policy') %><% end %></li>
-              <li><a target="_blank" href="https://icons8.com/icons/set/cat--v3"><a target="_blank" class="grey-text text-lighten-3" href="https://icons8.com">Icons8</a></li>
+              <li><a target="_blank" class="grey-text text-lighten-3" href="https://icons8.com">Icons8</a></li>
             </ul>
           </div>
         </div>
@@ -170,6 +171,17 @@
         </div>
       </div>
     </footer>
+
+    <div class="cookies-disclaimer valign-wrapper">
+      <span>
+        <%= t('cookies.disclaimer') %>. 
+        <%= t('cookies.learn_more') %>
+        <%= link_to cookies_policy_path, class:"inline-link" do %><%= t('footer.cookies_policy') %><% end %>.
+      </span>
+      <button class="waves-effect waves-light btn">
+        <%= t('cookies.agree') %>
+      </button>
+    </div>
   </body>
 </html>
 

@@ -1,9 +1,29 @@
 // IMPORTS
 import {strftime} from './lib/strftime.js';
+import Cookies from 'js.cookie';
+window.Cookies = Cookies;
 
 Turbolinks.setProgressBarDelay(250)
 
 $(document).on('turbolinks:load', function() {
+  // Cookies disclaimer
+  // Hide cookie disclaimer on agreement
+  $('.cookies-disclaimer button').on('click', function() {
+    $('.cookies-disclaimer').hide();
+    Cookies.set('_cookie_consent', 'true', { expires: 365, sameSite: 'strict' });
+  });
+
+    // Check if the cookie disclaimer has already been accepted
+    function hideAlreadyAcceptedCookieDisclaimer() {
+      var consent = Cookies.get('_cookie_consent');
+      console.log(consent);
+      if (!consent) {
+        $('.cookies-disclaimer').show();
+      }
+    }
+    hideAlreadyAcceptedCookieDisclaimer();
+  
+
   document.body.style.visibility = 'visible'
   // GLOBAL VARIABLES 
   var host = window.location.host;

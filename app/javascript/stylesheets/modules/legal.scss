@@ -1,0 +1,79 @@
+.legal-document {
+  text-align: center;
+
+  .timestamp {
+    font-size: 1.2em;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    font-weight: bold;
+  }
+
+  h5 {
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  li {
+    text-align: left;
+  }
+
+  ul {
+    li {
+      list-style: initial;
+      margin-bottom: 10px;
+    }
+  }
+  
+  p, div, li {
+    font-size: 1.1em;
+  }
+
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
+
+.cookies-disclaimer {
+  display: none;
+  z-index: 10000;
+  position: fixed;
+  bottom: 0;
+  font-size: 1.2em;
+  background-color: $white;
+  box-shadow: $z-depth-2;
+  padding: 15px;
+
+  span {
+    position: relative;
+    top: 3px;
+  }
+
+  @include small-and-up {
+    width: 80%;
+    bottom: 2%;
+    left: 50%;
+    margin-left: -40%;
+    transform-origin: 0% 0 !important;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+
+  button {
+    float: right;
+
+    &:hover {
+      background-color: darken($color: $secondaryColor, $amount: 10%);
+    }
+
+    @include small-and-down {
+      display: block;
+      float: none;
+      text-align: center;
+      margin: 10px auto;
+    }
+  }
+}

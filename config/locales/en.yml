@@ -75,6 +75,10 @@ en:
     errors:
       verification_failed: "Our systems think you might be a robot, please try again if you're human"
       recaptcha_unreachable: 'reCAPTCHA verification server error, please try again.'
+  cookies:
+    disclaimer: "We use cookies to increase your experience while using our website"
+    learn_more: "Learn more in our"
+    agree: "Agree"
 
   # cats and cattery related info
   cat_info:
