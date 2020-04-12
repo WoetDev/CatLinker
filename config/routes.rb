@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, only: :omniauth_callbacks, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
+  # error pages from root
+  match '/404' => "errors#not_found", via: :all
+  match '/422' => "errors#unacceptable", via: :all
+  match '/500' => "errors#internal_error", via: :all
+
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     root 'home#index'
     # We define here a route inside the locale that just saves the current locale in the session

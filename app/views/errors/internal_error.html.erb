@@ -1,0 +1,8 @@
+<div class="container error">
+  <h1>500 - Internal server error</h1>
+  <p>Oops! Your request couldn't be processed because an error occured.</p>
+  <%= render 'error_links' %>
+  <div class="image-container">
+    <%= image_tag("internal_error.svg", :alt => "inernal error", class:"error-image") %>
+  </div>
+</div>

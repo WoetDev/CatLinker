@@ -1,0 +1,36 @@
+.error {
+  text-align: center;
+
+  h1 {
+    @include small-and-down {
+      font-size: 2.5em;
+    }
+  }
+
+  p {
+    font-size: 1.5em;
+
+    @include small-and-down {
+      font-size: 1.2em;
+    }
+  }
+
+  .image-container {
+    width: 100%;
+  }
+
+  .btn-large, .btn {
+    &:hover {
+      background-color: darken($color: $secondaryColor, $amount: 10%);
+    }
+  }
+
+  img {
+    width: 40%;
+    margin: 75px auto;
+
+    @include small-and-down {
+      width: 75%;
+    }
+  }
+}

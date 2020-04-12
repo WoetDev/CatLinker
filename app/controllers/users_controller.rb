@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
-  before_action :set_user
+  before_action :set_user, only: [:show, :update_cattery, :cattery_overview, :update_filters, :show_filters]
   skip_before_action :authenticate_user!, only: [:index, :show, :update_filters, :show_filters]
 
   def index
+    @user = current_user
+
     all_available_breeds
     all_available_locations
 
@@ -28,7 +30,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.friendly.find(params[:id])
     @message = Message.new(params[:message])
 
     all_cattery_parents(@user)
@@ -41,6 +42,7 @@ class UsersController < ApplicationController
 
   def my_cattery
     @user = current_user
+
     if @user.provider.present?
       @change_email_path = "javascript:void(0)"
       @change_email_tooltip = I18n.t "my_cattery.tooltip.provider", provider: @user.provider[/[^_]+/].capitalize
@@ -128,7 +130,7 @@ class UsersController < ApplicationController
   end
 
   def show_filters
-    user = User.find(params[:id])
+    @user = User.friendly.find(params[:id])
 
     if params[:parents_filter].present?
       parents_filter = params[:parents_filter].flatten.reject(&:blank?)
@@ -146,7 +148,8 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = current_user
+    
+    @user = User.friendly.find(params[:id]) or not_found
   end
 
   def cattery_params

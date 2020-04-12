@@ -27,10 +27,18 @@
     <meta name="twitter:image:src" content="<%= meta_twitter_image %>">
     <meta name="twitter:image:alt" content="<%= meta_image_alt %>">
 
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
-
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163427368-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-163427368-1');
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -41,7 +49,7 @@
         <nav>
           <div class="nav-wrapper">
             <%= link_to root_path, class:"logo" do %>
-              <%= image_tag("logo_2.svg", :alt => "logo") %>
+              <%= image_tag("logo.svg", :alt => "logo") %>
               Cat Linker
             <% end %>
 
@@ -96,7 +104,7 @@
       <div class="row">
         <ul class="sidenav" id="mobile-menu">
         <%= link_to root_path, class:"logo" do %>
-                <%= image_tag("logo_2.svg", :alt => "logo") %>
+                <%= image_tag("logo.svg", :alt => "logo") %>
                 <div>Cat Linker</div>
           <% end %>
           <li><%= link_to t('header.breeds'), breeds_path %></li>

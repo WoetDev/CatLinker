@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+
   include Pagy::Backend
   protect_from_forgery prepend: true
   before_action :authenticate_user!, :set_locale, :default_url_options, :set_support, :set_user, :twitter_url_options
@@ -28,5 +30,14 @@ class ApplicationController < ActionController::Base
     }
 
     @tweet_url = "https://twitter.com/intent/tweet?#{params.to_query}"
+  end
+
+  # error methods
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  rescue
+    respond_to do |format|
+      format.html { render status: 404 }
+    end
   end
 end
