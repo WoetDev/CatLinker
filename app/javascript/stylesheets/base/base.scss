@@ -1,12 +1,19 @@
 // Base
 @font-face {
-  font-family: "Source Sans Pro", sans-serif;
-  src: url('/javascript/stylesheets/base/fonts/my-SourceSansPro-Regular.ttf');
+  font-family: "Source Sans Pro";
+  src: url('/fonts/SourceSansPro-Regular.ttf') format('truetype');
+  font-display: optional;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  font-display: optional;
 }
 
 body {
   background-color: $canvasColor;
-  font-family: "Source Sans Pro", sans-serif !important;
+  font-family: "Source Sans Pro", Roboto, sans-serif;
   width: 100%;
 }
 

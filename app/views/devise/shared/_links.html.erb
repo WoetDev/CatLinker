@@ -18,4 +18,10 @@
   <%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
     <%= link_to t('form.links.no_unlock_instructions'), new_unlock_path(resource_name) %><br />
   <% end %>
+
+  <div class="grecaptcha-disclaimer">
+    This site is protected by reCAPTCHA and the Google
+    <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+    <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+  </div>
 <% end %>
