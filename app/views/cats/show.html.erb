@@ -56,10 +56,10 @@
         </div>
         <div class="row">
           <div class="col s6 m5 info-title">
-            <%= t('cat_info.color') %>:
+            <%= t('cat_info.coat') %>:
           </div>
           <div class="col s6 m7 info-text">
-            <%= @cat.color.capitalize %>
+            <%= cat_coat(@cat) %>
           </div>
         </div>
         <div class="row">
@@ -139,8 +139,30 @@
           </div>
           <div class="parent-info">
             <h3><%= cat_father(@cat).name %></h3>
+            <h4><span><%= t('cat_info.coat') %>:</span>&nbsp;<%= cat_coat(cat_father(@cat)) %><h4>
             <% if cat_father(@cat).origin.present? %>
-              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= cat_father(@cat).origin %><h4>
+              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= t("countries.#{cat_father(@cat).origin}") %><h4>
+            <% end %>
+            <% if cat_father(@cat).tests.any? %>
+              <a href="#modalFather" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
+              <div id="modalFather" class="modal">
+                <div class="modal-content">
+                  <h4><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle modal-close">close</i></h4>
+                  <% if cat_father(@cat).tests.any? %>
+                    <p><%= cat_father(@cat).name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                    <% cat_father(@cat).tests.each do |test| %>
+                      <% if test[1] == '1' %>
+                        <div class="test-block">
+                          <span class="test-result"><i class="material-icons check">check_circle_outline</i></span>
+                          <span class="test-name"><%= t("cat_info.tests.#{test[0]}") %></span>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= cat_father(@cat).name %>.</p>
+                  <% end %>
+                </div>
+              </div>
             <% end %>
           </div>
         </div>
@@ -150,8 +172,30 @@
           </div>
           <div class="parent-info">
             <h3><%= cat_mother(@cat).name %></h3>
+            <h4><span><%= t('cat_info.coat') %>:</span>&nbsp;<%= cat_coat(cat_mother(@cat)) %><h4>
             <% if cat_mother(@cat).origin.present? %>
-              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= cat_mother(@cat).origin %><h4>
+              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= t("countries.#{cat_mother(@cat).origin}") %><h4>
+            <% end %>
+            <% if cat_mother(@cat).tests.any? %>
+              <a href="#modalMother" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
+              <div id="modalMother" class="modal">
+                <div class="modal-content">
+                  <h4><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle modal-close">close</i></h4>
+                  <% if cat_mother(@cat).tests.any? %>
+                    <p><%= cat_mother(@cat).name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                    <% cat_mother(@cat).tests.each do |test| %>
+                      <% if test[1] == '1' %>
+                        <div class="test-block">
+                          <span class="test-result"><i class="material-icons check">check_circle_outline</i></span>
+                          <span class="test-name"><%= t("cat_info.tests.#{test[0]}") %></span>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= cat_mother(@cat).name %>.</p>
+                  <% end %>
+                </div>
+              </div>
             <% end %>
           </div>
         </div>

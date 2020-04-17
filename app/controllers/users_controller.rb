@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update_cattery, :cattery_overview, :update_filters, :show_filters]
+  before_action :set_user, only: [:show, :update_cattery, :cattery_overview, :show_filters]
   skip_before_action :authenticate_user!, only: [:index, :show, :update_filters, :show_filters]
 
   def index
@@ -56,7 +56,6 @@ class UsersController < ApplicationController
   end
 
   def update_cattery
-    @user = User.friendly.find(params[:id])
     all_countries
 
     if @user.valid?(:required_cattery_information) and @user.update(cattery_params)
@@ -76,7 +75,6 @@ class UsersController < ApplicationController
   end
 
   def cattery_overview
-    @user = User.friendly.find(params[:id])
     @parents = Cat.user_id(@user.id).is_parent(true)
     @pairs = Pair.user_id(@user.id)
     @kittens = Cat.user_id(@user.id).is_parent(false)
@@ -130,15 +128,13 @@ class UsersController < ApplicationController
   end
 
   def show_filters
-    @user = User.friendly.find(params[:id])
-
     if params[:parents_filter].present?
       parents_filter = params[:parents_filter].flatten.reject(&:blank?)
-      pair_ids = Pair.user_id(user.id).where(male_id: parents_filter).or(Pair.user_id(user.id).where(female_id: parents_filter)).pluck(:id)
-      litter_number_information = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids).group(:litter_number).select('litter_number, array_agg(pair_id) as pair_ids, array_agg(birth_date) as birth_dates, array_agg(id) as ids').sort_by { |litter| litter.litter_number }.reverse
+      pair_ids = Pair.user_id(@user.id).where(male_id: parents_filter).or(Pair.user_id(@user.id).where(female_id: parents_filter)).pluck(:id)
+      litter_number_information = Cat.user_id(@user.id).is_parent(false).where(pair_id: pair_ids).group(:litter_number).select('litter_number, array_agg(pair_id) as pair_ids, array_agg(birth_date) as birth_dates, array_agg(id) as ids').sort_by { |litter| litter.litter_number }.reverse
       @all_litters = litter_number_information.pluck(:litter_number, :pair_ids, :birth_dates).reverse.map { |l| ["#{l[2][0].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1][0]).male.name} & #{Pair.find_by(id: l[1][0]).female.name}", l[0]] }
     else
-      litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
+      litter_number_information = Cat.user_id(@user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
       @all_litters = litter_number_information.reverse.map { |l| ["#{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1]).male.name} & #{Pair.find_by(id: l[1]).female.name}", l[0]] }
     end
 
@@ -148,7 +144,6 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    
     @user = User.friendly.find(params[:id]) or not_found
   end
 

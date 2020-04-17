@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_112300) do
+ActiveRecord::Schema.define(version: 2020_04_15_180601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 2020_03_29_112300) do
     t.string "name"
     t.string "gender"
     t.integer "age"
-    t.string "color"
     t.string "origin"
     t.boolean "is_parent"
     t.boolean "is_vaccinated"
@@ -82,9 +81,22 @@ ActiveRecord::Schema.define(version: 2020_03_29_112300) do
     t.datetime "birth_date"
     t.integer "breed_id"
     t.string "slug"
+    t.text "tests"
+    t.bigint "color_id", null: false
+    t.bigint "coat_pattern_id", null: false
+    t.index ["coat_pattern_id"], name: "index_cats_on_coat_pattern_id"
+    t.index ["color_id"], name: "index_cats_on_color_id"
     t.index ["pair_id"], name: "index_cats_on_pair_id"
     t.index ["slug"], name: "index_cats_on_slug", unique: true
     t.index ["user_id"], name: "index_cats_on_user_id"
+  end
+
+  create_table "coat_patterns", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "colors", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -185,6 +197,8 @@ ActiveRecord::Schema.define(version: 2020_03_29_112300) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "breeds", "cats"
+  add_foreign_key "cats", "coat_patterns"
+  add_foreign_key "cats", "colors"
   add_foreign_key "cats", "pairs"
   add_foreign_key "cats", "users"
   add_foreign_key "pairs", "users"

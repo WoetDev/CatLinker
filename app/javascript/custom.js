@@ -1,7 +1,5 @@
 // IMPORTS
 import {strftime} from './lib/strftime.js';
-import Cookies from 'js.cookie';
-window.Cookies = Cookies;
 
 Turbolinks.setProgressBarDelay(250)
 
@@ -10,13 +8,12 @@ $(document).on('turbolinks:load', function() {
   // Hide cookie disclaimer on agreement
   $('.cookies-disclaimer button').on('click', function() {
     $('.cookies-disclaimer').hide();
-    Cookies.set('_cookie_consent', 'true', { expires: 365, sameSite: 'strict' });
+    Cookies.set('_cookie_consent', true, { expires: 365, sameSite: 'strict' });
   });
 
     // Check if the cookie disclaimer has already been accepted
     function hideAlreadyAcceptedCookieDisclaimer() {
       var consent = Cookies.get('_cookie_consent');
-      console.log(consent);
       if (!consent) {
         $('.cookies-disclaimer').show();
       }
@@ -421,7 +418,7 @@ $(document).on('turbolinks:load', function() {
 
       var reader = new FileReader();
       reader.onload = function(){
-        image = reader.result;
+        var image = reader.result;
         cardPicturePreview.innerHTML = '<img src="'+ image +'" />';
       };
       // Produce a data URL (base64 encoded string of the data in the file)
@@ -475,7 +472,7 @@ $(document).on('turbolinks:load', function() {
 
       var reader = new FileReader();
       reader.onload = function(){
-        image = reader.result;
+        var image = reader.result;
         cardPicturePreview.innerHTML = '<img src="'+ image +'" />';
       };
       // Produce a data URL (base64 encoded string of the data in the file)
@@ -847,24 +844,32 @@ $(document).on('turbolinks:load', function() {
         $(card).find('.check-circle').hide();
         $(card).find('.add-circle').show();
       }
+
+      // Prevent event bubbling when pressing on card reveal
+      $('.activator').on('click', function(e) {
+        // document.querySelector('.card').removeEventListener('click', cardFilteringIcon);
+        // $('body').off('click', '.card', cardFilteringIcon)
+        console.log('clicked activator'); 
+      });
       
       // Cards filtering event
       function cardFilteringIcon() {
         var animationTime = 100; 
-        $('.card').on({
+        $('.card-image, .info-block').on({
           mouseenter: function() {
             $(this).find('.filter-icon-container').fadeIn(animationTime);
           },
           mouseleave: function() {
             $(this).find('.filter-icon-container:not(.active)').fadeOut(animationTime*2);
           },
-          click: function() {
+          click: function(e) {
             var currentSection = $(this).closest('.section');
+            var card = $(this).closest('.card');
             var selectForm = $(currentSection).find('select');
-            var catId = $(this).find('.cat-id').text();
+            var catId = $(card).find('.cat-id').text();
   
-            if ($(this).find('.filter-icon-container').hasClass('active')) {
-              hideActiveFilterIcon(this);
+            if ($(card).find('.filter-icon-container').hasClass('active')) {
+              hideActiveFilterIcon(card);
   
               // Remove selected options from dropdown
               $(selectForm).find("option[value='" + catId + "']").prop('selected', false)
@@ -874,14 +879,14 @@ $(document).on('turbolinks:load', function() {
             }
   
             else {
-              showActiveFilterIcon(this);
+              showActiveFilterIcon(card);
   
               // Add selected options to dropdown
               $(selectForm).find("option[value='" + catId + "']").prop('selected', true);
               $(selectForm).formSelect();
               $('.disabled').on('click', closeSelectOnDisabledOption);
               $(currentSection).find('.form-filter').trigger('change');
-            }
+            }           
           }
         });
       }

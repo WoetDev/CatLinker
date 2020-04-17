@@ -30,9 +30,12 @@ class CatsController < ApplicationController
     @form = params[:form]
     @cat = Cat.new
     user = current_user
+    all_colors
+    all_coat_patterns
 
     if @form == 'parent'
       all_breeds
+      all_countries
     elsif @form == 'kitten'
       parents(user)
       parent_breeds(user)
@@ -43,9 +46,12 @@ class CatsController < ApplicationController
   def create
     @form = params[:form]
     user = current_user
+    all_colors
+    all_coat_patterns
 
     if @form == 'parent'
       all_breeds
+      all_countries
       @cat = Cat.new(parent_params)
       @cat.user_id = user.id
       @cat.is_parent = true
@@ -105,9 +111,12 @@ class CatsController < ApplicationController
     @cat = Cat.friendly.find(params[:id])
     @form = params[:form]
     user = @cat.user
+    all_colors
+    all_coat_patterns
 
     if @form == 'parent'
       all_breeds
+      all_countries
     elsif @form == 'kitten'
       parent_breeds(user)
       parents(user)
@@ -120,13 +129,16 @@ class CatsController < ApplicationController
     @cat = Cat.friendly.find(params[:id])
     @form = params[:form]
     user = @cat.user
+    all_colors
+    all_coat_patterns
 
     @cat.breed_tag_list = "#{Breed.find(params[:cat][:breed_id]).name}"
     @cat.location_tag_list = "#{Country.find(user.country_id).name}-#{user.city.capitalize}"
 
     if @form == 'parent'
       all_breeds
-
+      all_countries
+      
       if @cat.update(parent_params)
         flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
                           kind: (I18n.t 'parent', count: 1), 
@@ -237,11 +249,17 @@ class CatsController < ApplicationController
   end
 
   def parent_params
-    params.require(:cat).permit(:name, :gender, :color, :origin, :card_picture, :is_parent, :breed_id, :user_id, :breed_tag_list, :location_tag_list)
+    params.require(:cat).permit(:name, :gender, :color, :origin, :card_picture, 
+                                :hcm_dna, :hcm_echo, :pkd_dna, :pkd_echo, :fiv,
+                                :felv, :is_parent, :breed_id, :coat_pattern_id, 
+                                :color_id, :user_id, :breed_tag_list, :location_tag_list)
   end
 
   def kitten_params
-    params.require(:cat).permit(:name, :gender, :color, :is_available, :is_vaccinated, :is_castrated, :card_picture, :breed_id, :user_id, :pair_id, :litter_number, :birth_date, :breed_tag_list, :location_tag_list, pictures: [])
+    params.require(:cat).permit(:name, :gender, :color, :is_available, :is_vaccinated, 
+                                :is_castrated, :card_picture, :breed_id, :coat_pattern_id, 
+                                :color_id, :user_id, :pair_id, :litter_number, :birth_date, 
+                                :breed_tag_list, :location_tag_list, pictures: [])
   end
 
   def all_available_breeds
@@ -256,12 +274,22 @@ class CatsController < ApplicationController
 
   def all_countries
     countries = Country.all
-    @all_countries = countries.map { |c| [(I18n.t "countries.#{c.country_code}"), c.id] }.sort_by{|c| c[0]}
+    @all_countries = countries.map { |c| [(I18n.t "countries.#{c.country_code}"), c.country_code] }.sort_by{|c| c[0]}
   end
 
   def all_breeds
-    breeds = Breed.order(:name)
+    breeds = Breed.all
     @breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{breed.breed_code}.name")}", breed.id] }.sort_by { |b| b[0] }
+  end
+  
+  def all_colors
+    colors = Color.all
+    @colors_array = colors.map { |color| ["#{(I18n.t "colors.#{color.name}")}".capitalize, color.id] }.sort_by { |c| c[0] }
+  end
+
+  def all_coat_patterns
+    coats = CoatPattern.all
+    @coat_patterns_array = coats.map { |coat| ["#{(I18n.t "coats.#{coat.name}")}".capitalize, coat.id] }.sort_by { |c| c[0] }
   end
 
   def parent_breeds(user)

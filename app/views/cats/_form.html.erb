@@ -27,7 +27,7 @@
     </div>
   <% if @form == "kitten" %>
     </div>
-    <div class="row">
+  <div class="row">
     <div class="col s12 m6 l4">
   <% elsif @form == "parent" %>
     <div class="col s12 m6">
@@ -39,9 +39,8 @@
     </div>
   <% if @form == "parent" %>
   </div>
-  <div class="row">
   <% end %>
-
+  <div class="row">
     <div class="col s12 m6 l4">
       <div class="input-field">
         <%= f.select(:gender, [["#{t('cat_info.gender')} *", "", { 'disabled' => 'disabled', 'selected' => 'selected', 'class' => 'inactive'}], ["#{t('male', count:1).capitalize}", 1], ["#{t('female', count:1).capitalize}", 2]]) %>
@@ -51,26 +50,48 @@
 
     <div class="col s12 m6 l4">
       <div class="input-field">
-        <%= f.label :color do %>
-          <%= t('cat_info.color') %> *
-        <% end %>
-        <%= f.text_field :color %>
+        <%= f.select(:color_id, options_for_select(@colors_array, selected: f.object ? f.object.color_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.color')} *"}) %>
       </div>
-      <%= render 'shared/error_messages', object: @cat, field: :color %>
+      <%= render 'shared/error_messages', object: @cat, field: :color_id %>
     </div>
+
+    <div class="col s12 m6 l4">
+      <div class="input-field">
+        <%= f.select(:coat_pattern_id, options_for_select(@coat_patterns_array, selected: f.object ? f.object.coat_pattern_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.coat')} *"}) %>
+      </div>
+      <%= render 'shared/error_messages', object: @cat, field: :coat_pattern_id %>
+    </div>
+  </div>
 
   <% if @form == "parent" %>
     <% f.hidden_field :is_parent %>
 
-    <div class="col s12 l4">
-      <div class="input-field">
-        <%= f.label :origin %>
-        <%= f.text_field :origin %>
+    <div class="row">
+      <div class="col s12 l4">
+        <div class="input-field">
+          <%= f.select(:origin, options_for_select(@all_countries, selected: f.object ? f.object.origin : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.origin')}"}) %>
+        </div>
+        <%= render 'shared/error_messages', object: @cat, field: :origin %>
       </div>
-      <%= render 'shared/error_messages', object: @cat, field: :origin %>
     </div>
+
+    <div class="row">
+      <h4 class="form-section-title"><%= t('words.tests') %></h4>
+    </div>
+
+    <div class="row">
+      <% Cat.stored_attributes[:tests].each do |test| %>
+        <div class="col s6">
+          <div class="input-field">
+            <label class="checkbox-label">
+              <%= f.check_box :"#{test}" %>
+              <span><%= t("cat_info.tests.#{test}") %></span>  
+            </label>
+          </div>
+        </div>
+      <% end %>
+    <div>
   <% end %>
-  </div>
 
   <% if @form == "kitten" %>
     <div class="row">

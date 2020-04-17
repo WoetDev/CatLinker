@@ -180,6 +180,27 @@
                       </div>
                     </div>
                   </div>
+                  <div class="card-reveal-link activator">
+                    <%= t('show.see_health_tests') %>
+                    <span class="material-icons activator">keyboard_arrow_up</span>
+                  </div>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title"><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle">close</i></span>
+                  <% if cat.tests.any? %>
+                    <p><%= cat.name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                    <% cat.tests.each do |test| %>
+                      <% if test[1] == '1' %>
+                        <div class="test-block">
+                          <span class="test-result"><i class="material-icons check">check_circle_outline</i></span>
+                          &nbsp;
+                          <span class="test-name"><%= t("cat_info.tests.#{test[0]}") %></span>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= cat.name %>.</p>
+                  <% end %>
                 </div>
               </div>
             </div>

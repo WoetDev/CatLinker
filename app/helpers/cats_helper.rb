@@ -11,6 +11,10 @@ module CatsHelper
     Cat.find(Pair.find(cat.pair_id).female_id)
   end
 
+  def cat_coat(cat)
+    "#{I18n.t "coats.#{CoatPattern.find(cat.coat_pattern.id).name}"} #{I18n.t "colors.#{Color.find(cat.color.id).name}"}".capitalize
+  end
+
   def other_kittens_from_same_litter(cat)
     Cat.where.not(id: cat.id).where(user_id: cat.user_id, litter_number: cat.litter_number)
   end

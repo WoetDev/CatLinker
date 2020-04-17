@@ -1,0 +1,18 @@
+en:
+  colors:
+    black: "black"
+    blue: "blue-grey"
+    brown: "brown"
+    cinnamon: "cinnamon"
+    cream: "cream"
+    fawn: "fawn"
+    grey: "grey"
+    red_ginger: "red (ginger)"
+    white: "white"
+  coats:
+    solid: "solid"
+    bi_colour: "bi-color"
+    tabby: "tabby"
+    tortoiseshell: "tortoiseshell"
+    tri_color_calico: "tri color / calico"
+    colour_point: "colourpoint"

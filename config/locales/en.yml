@@ -88,6 +88,7 @@ en:
     location: "Location"
     birth_date: "Birth date"
     color: "Color"
+    coat: "Coat"
     vaccinated: "Vaccinated"
     castrated: "Castrated"
     available: "Available"
@@ -104,6 +105,16 @@ en:
     kittens: "Kittens"
     father: "Father"
     mother: "Mother"
+    tests:
+      health_tests: "Health tests"
+      was_tested_on: "was tested on"
+      no_tests_available: "There is no health test information added for"
+      hcm_dna: "HCM with DNA-bloodtest"
+      hcm_echo: "HCM with echocardiographic test"
+      pkd_dna: "PKD with DNA-bloodtest"
+      pkd_echo: "PKD with echocardiographic test"
+      fiv: "FIV"
+      felv: "FeLV"
   breed_info:
     playfulness: "playfulness"
     activity_level: "activity level"
@@ -194,6 +205,8 @@ en:
     preview: "Preview"
     add: "Add %{kind}"
     edit: "Edit %{kind}"
+    required: "required"
+    tests: "Tests"
 
   # pluralization
   breed:
@@ -228,6 +241,8 @@ en:
     no_litters_found: "No litters found"
     no_kittens_found: "No kittens found"
     no_catteries_found: "No catteries found"
+  show:
+    see_health_tests: "See health tests"
   my_cattery:
     general: "General"
     cattery_name: "Cattery name"

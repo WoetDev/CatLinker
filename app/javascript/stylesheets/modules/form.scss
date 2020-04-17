@@ -26,6 +26,20 @@
     }
   }
 
+  .info-required {
+    position: relative;
+    bottom: 5px;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    word-spacing: 0.3em;
+
+    i {
+      position: relative;
+      top: 2px;
+      font-size: 1.5em;
+    }
+  }
+
   .form-section-title {
     display: inline-block;
     font-size: 1.4em;
@@ -288,7 +302,7 @@
   display: inline-block !important;
   color: $primaryColor;
   text-decoration: underline;
-  transition: cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
+  transition: none !important;
 
   &:hover, &:focus {
     color: $primaryColor;

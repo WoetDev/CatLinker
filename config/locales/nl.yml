@@ -88,6 +88,7 @@ nl:
     location: "Locatie"
     birth_date: "Geboren"
     color: "Kleur"
+    coat: "Vacht"
     vaccinated: "Gevaccineerd"
     castrated: "Gecastreerd"
     available: "Beschikbaar"
@@ -103,6 +104,16 @@ nl:
     pairs: "Koppels"
     father: "Vader"
     mother: "Moeder"
+    tests:
+      health_tests: "Gezondheidstesten"
+      was_tested_on: "is getest op"
+      no_tests_available: "Er werd geen informatie toegevoegd over de gezondheidstesten van"
+      hcm_dna: "HCM met DNA-bloedtest"
+      hcm_echo: "HCM met echografische test"
+      pkd_dna: "PKD met DNA-bloedtest"
+      pkd_echo: "PKD met echografische test"
+      fiv: "FIV"
+      felv: "FeLV"
   breed_info:
     playfulness: "speelsheid"
     activity_level: "activiteitsniveau"
@@ -119,7 +130,7 @@ nl:
     personality: "persoonlijkheid"
     history: "geschiedenis"
     disclaimer: "disclaimer"
-    disclaimer_text: "Terwijl de kenmerken die hier worden vermeld vaak voorkomen bij dit specifiek ras, blijven katten individuen waarbij persoonlijkheden en fysieke uitstralingen zullen verschillen. Gelieve de adoptie organisatie na te vragen over gedetailleerde informatie over een specifiek huisdier."
+    disclaimer_text: "Terwijl de kenmerken die hier worden vermeld vaak voorkomen bij dit specifiek ras, blijven katten individuen waarbij persoonlijkheden en fysieke uitstralingen zullen verschillen. Gelieve de adoptie organisatie na te vragen over gedetailleerde informatie van een specifiek huisdier."
                       
 
   # forms
@@ -195,6 +206,8 @@ nl:
     preview: "Voorbeeld"
     add: "Voeg %{kind} toe"
     edit: "Bewerk %{kind}"
+    required: "verplicht"
+    tests: "Testen"
 
   # pluralization
   breed:
@@ -229,6 +242,8 @@ nl:
     no_litters_found: "Geen nestjes gevonden"
     no_kittens_found: "Geen kittens gevonden"
     no_catteries_found: "Geen catteries gevonden"
+  show:
+    see_health_tests: "Bekijk gezondheidstesten"
   my_cattery:
     general: "Algemeen"
     cattery_name: "Cattery naam"

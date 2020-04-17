@@ -158,10 +158,15 @@
 
   .parents {
     .picture-parent-container {
+      overflow: hidden;
+
+      @include small-and-down {
+        margin-top: 15px;
+      }
+      
       @include small-and-up {
         padding: 0.5em 0.75em 0.5em 0;
       }
-      overflow: hidden;
       
       img {
         width: 100%;
@@ -183,6 +188,47 @@
         span {
           font-weight: bold;
           text-transform: uppercase;
+        }
+      }
+    }
+
+    .btn {
+      &:hover {
+        background-color: darken($color: $secondaryColor, $amount: 10%);
+      }
+    }
+
+    .modal {
+      h4, p {
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .circle {
+        position: relative;
+        bottom: 5px;
+        transition: 0.2s ease-in-out;
+        padding: 5px;
+
+        &:hover {
+          color: $white;
+          background-color: $primaryColor;
+        }
+      }
+
+      .test-block {
+        text-align: left;
+        font-size: 1em;
+        font-weight: normal;
+
+        .test-name {
+          position: relative;
+          bottom: 7px;
+        }
+
+        .material-icons {
+          font-size: 1.5em;
+          color: $secondaryColor;
         }
       }
     }

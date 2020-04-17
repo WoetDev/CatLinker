@@ -1,9 +1,12 @@
 class Cat < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged
+  store :tests, accessors: [:hcm_dna, :hcm_echo, :pkd_dna, :pkd_echo, :fiv, :felv]
 
   belongs_to :user, counter_cache: true
   belongs_to :breed, counter_cache: true
+  belongs_to :color
+  belongs_to :coat_pattern
   has_many :pairs
   has_many :countries
   has_one_attached :card_picture
@@ -64,8 +67,9 @@ class Cat < ApplicationRecord
   validates :name, presence: true, unless: :is_kitten?
   validates :name, length: { maximum: 15 }
   validates :breed_id, presence: true
+  validates :color_id, presence: true
+  validates :coat_pattern_id, presence: true
   validates :gender, presence: true
-  validates :color, presence: true
   validates :card_picture, presence: true
   validates :litter_number, presence: true, if: :is_kitten?
   validates :birth_date, presence: true, if: :is_kitten?

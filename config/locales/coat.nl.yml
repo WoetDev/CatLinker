@@ -1,0 +1,18 @@
+nl:
+  colors:
+    black: "zwart"
+    blue: "blauw-grijs"
+    brown: "bruin"
+    cinnamon: "cinnamon"
+    cream: "crème"
+    fawn: "fawn (beige / zandkleur)"
+    grey: "grijs"
+    red_ginger: "rood"
+    white: "wit"
+  coats:
+    solid: "effen"
+    bi_colour: "bi-colour"
+    tabby: "tabby"
+    tortoiseshell: "tortoiseshell"
+    tri_color_calico: "tri-colour / calico"
+    colour_point: "colourpoint"

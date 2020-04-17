@@ -85,6 +85,57 @@
   .indicators {
     display: none;
   }
+
+  // Health tests text on card
+  .card-reveal-link {
+    text-align: center;
+    color: $primaryColor;
+    font-weight: bold;
+    margin-top: 10px;
+
+    .material-icons {
+      position: relative;
+      top: 7px;
+    }
+  }
+
+  .card-reveal {
+    border-top: 3px solid $secondaryColor;
+
+    .card-title {
+      text-align: left;
+      background-color: transparent;
+
+      .material-icons {
+        position: absolute;
+        right: 15px;
+        transition: 0.2s ease-in-out;
+        padding: 5px;
+
+        &:hover {
+          color: $white;
+          background-color: $primaryColor;
+        }
+      }
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+
+    .test-block {
+      font-size: 1em;
+
+      .test-name {
+        position: relative;
+        bottom: 6px;
+      }
+  
+      .test-result {
+        color: $secondaryColor;
+      }
+    }
+  }
 }
 
 #materialbox-overlay {

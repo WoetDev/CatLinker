@@ -2,13 +2,13 @@
 @font-face {
   font-family: "Source Sans Pro";
   src: url('/fonts/SourceSansPro-Regular.ttf') format('truetype');
-  font-display: optional;
+  font-display: block;
 }
 
 @font-face {
   font-family: Roboto;
   src: url('/fonts/Roboto-Regular.ttf') format('truetype');
-  font-display: optional;
+  font-display: block;
 }
 
 body {

@@ -35,9 +35,5 @@ class ApplicationController < ActionController::Base
   # error methods
   def not_found
     raise ActionController::RoutingError.new('Not Found')
-  rescue
-    respond_to do |format|
-      format.html { render status: 404 }
-    end
   end
 end

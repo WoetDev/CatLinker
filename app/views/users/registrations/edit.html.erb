@@ -97,7 +97,9 @@
 
         <div class="row">
           <div class="input-field">
-            <%= f.label :current_password %>
+            <%= f.label :current_password do %>
+              <%= t('activerecord.attributes.user.current_password') %> *
+            <% end %>
             <%= f.password_field :current_password, autocomplete: "current-password" %>
             <% if resource.errors[:current_password].any? %>
               <%= render "devise/shared/error_messages", resource: resource, field: :current_password %>
