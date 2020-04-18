@@ -181,15 +181,25 @@
       h3 {
         font-weight: bold;
       }
-  
-      h4 {
-        font-size: 1.3em;
 
-        span {
+      .info-block {
+        margin: 10px auto;
+
+        h4, span {
+          font-size: 1.2em;
+        }
+        h4 {
+          display: inline-block;
           font-weight: bold;
           text-transform: uppercase;
+          margin: 0;
+        }
+
+        span {
         }
       }
+  
+      
     }
 
     .btn {
@@ -199,14 +209,21 @@
     }
 
     .modal {
+      font-size: 1.2em;
+
+      @include small-and-up {
+        padding: 25px;
+      }
+
       h4, p {
         font-weight: bold;
         text-align: left;
       }
 
       .circle {
-        position: relative;
-        bottom: 5px;
+        position: absolute;
+        right: 15px;
+        top: 25px;
         transition: 0.2s ease-in-out;
         padding: 5px;
 
@@ -214,16 +231,26 @@
           color: $white;
           background-color: $primaryColor;
         }
+
+        @include small-and-up {
+          right: 20px;
+          top: 20px;
+        }
       }
 
       .test-block {
         text-align: left;
         font-size: 1em;
         font-weight: normal;
+        padding: 5px 0;
 
         .test-name {
           position: relative;
           bottom: 7px;
+        }
+
+        .test-result {
+          padding-right: 5px;
         }
 
         .material-icons {
@@ -232,20 +259,9 @@
         }
       }
     }
-  }  
-  // Other kittens from same litter
-  .other-kittens {
-    $height: 400px;
-    
-    .card-image {
-      max-height: $height;
-    }
-    
-    img {
-      height: $height !important;
-    }
-  }
+  } 
 
+  // Other kittens from same litter
   .other-kittens, #litters, #kittens {
     .available-text, .check, .unavailable-text, .close  {
       font-size: 1.2em;

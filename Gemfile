@@ -7,6 +7,8 @@ ruby '2.6.5'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 # Use 'acts-as-taggable-on' to add tags to objects for filtering
 gem 'acts-as-taggable-on'
+# Use activeadmin for admin portal
+gem 'activeadmin', '~> 2.7'
 # Use Devise for user authentication
 gem 'devise', '~> 4.7', '>= 4.7.1'
 # Use figaro for setting environment variables

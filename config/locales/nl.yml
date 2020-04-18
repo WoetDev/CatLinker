@@ -255,7 +255,7 @@ nl:
     city: "Stad"
     country: "Land"
     contact_and_social_media: "Contact & sociale media"
-    required_information_message: "Je moet nog een %{missing_info} invullen voordat je katten kan toevoegen"
+    required_information_message: "Je moet nog een %{missing_info} toevoegen voordat je katten kan toevoegen"
     tooltip:
       profile: "Ga naar de 'Profiel' pagina om dit te wijzigen" 
       provider: "Ga naar je %{provider} account om dit te wijzigen"

@@ -139,16 +139,24 @@
           </div>
           <div class="parent-info">
             <h3><%= cat_father(@cat).name %></h3>
-            <h4><span><%= t('cat_info.coat') %>:</span>&nbsp;<%= cat_coat(cat_father(@cat)) %><h4>
+            <div class="info-block">
+              <h4><%= t('cat_info.coat') %>:</h4>
+              &nbsp;
+              <span><%= cat_coat(cat_father(@cat)) %></span>
+            </div>
             <% if cat_father(@cat).origin.present? %>
-              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= t("countries.#{cat_father(@cat).origin}") %><h4>
+              <div class="info-block">
+                <h4><%= t('cat_info.origin') %>:</h4>
+                &nbsp;
+                <span><%= t("countries.#{cat_father(@cat).origin}") %></span>
+              </div>
             <% end %>
-            <% if cat_father(@cat).tests.any? %>
+            <% if cat_father(@cat).tests.any? { |test| test[1] == '1' } %>
               <a href="#modalFather" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
               <div id="modalFather" class="modal">
                 <div class="modal-content">
                   <h4><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle modal-close">close</i></h4>
-                  <% if cat_father(@cat).tests.any? %>
+                  <% if cat_father(@cat).tests.any? { |test| test[1] == '1' } %>
                     <p><%= cat_father(@cat).name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
                     <% cat_father(@cat).tests.each do |test| %>
                       <% if test[1] == '1' %>
@@ -172,16 +180,24 @@
           </div>
           <div class="parent-info">
             <h3><%= cat_mother(@cat).name %></h3>
-            <h4><span><%= t('cat_info.coat') %>:</span>&nbsp;<%= cat_coat(cat_mother(@cat)) %><h4>
+            <div class="info-block">
+              <h4><%= t('cat_info.coat') %>:</h4>
+              &nbsp;
+              <span><%= cat_coat(cat_mother(@cat)) %></span>
+            </div>
             <% if cat_mother(@cat).origin.present? %>
-              <h4><span><%= t('cat_info.origin') %>:</span>&nbsp;<%= t("countries.#{cat_mother(@cat).origin}") %><h4>
+              <div class="info-block">
+                <h4><%= t('cat_info.origin') %>:</h4>
+                &nbsp;
+                <span><%= t("countries.#{cat_mother(@cat).origin}") %></span>
+              </div>
             <% end %>
-            <% if cat_mother(@cat).tests.any? %>
+            <% if cat_mother(@cat).tests.any? { |test| test[1] == '1' } %>
               <a href="#modalMother" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
               <div id="modalMother" class="modal">
                 <div class="modal-content">
                   <h4><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle modal-close">close</i></h4>
-                  <% if cat_mother(@cat).tests.any? %>
+                  <% if cat_mother(@cat).tests.any? { |test| test[1] == '1' } %>
                     <p><%= cat_mother(@cat).name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
                     <% cat_mother(@cat).tests.each do |test| %>
                       <% if test[1] == '1' %>
@@ -209,7 +225,7 @@
       </div>
       <div class="row">
         <% other_kittens_from_same_litter(@cat).each do |cat| %>
-          <div class="col s10 offset-s1 m6 l4">
+          <div class="col s10 offset-s1 m6 l3">
             <%= link_to cat_path(cat) do %>
               <div class="card">
                 <div class="card-image">

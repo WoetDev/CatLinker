@@ -59,4 +59,7 @@
 # countries.each do |country_hash|
 #   country = Country.find(country_hash[:id])
 #   country.update(name: country_hash[:name], country_code: country_hash[:country_code])
+
 # end
+
+AdminUser.create!(email: 'support@catlinker.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

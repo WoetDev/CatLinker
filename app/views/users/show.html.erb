@@ -187,7 +187,7 @@
                 </div>
                 <div class="card-reveal">
                   <span class="card-title"><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle">close</i></span>
-                  <% if cat.tests.any? %>
+                  <% if cat.tests.any? { |test| test[1] == '1' } %>
                     <p><%= cat.name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
                     <% cat.tests.each do |test| %>
                       <% if test[1] == '1' %>

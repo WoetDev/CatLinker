@@ -145,9 +145,9 @@
     
     <% if current_user && current_user.is_admin? %>
       <div class="fixed-action-btn">
-        <a class="btn-floating btn-large">
+        <%= link_to admin_user_session_path, class: "btn-floating btn-large" do %>
           <i class="large material-icons">group</i>
-        </a>
+        <% end %>
       </div>
     <% end %>
 
