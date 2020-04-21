@@ -232,6 +232,25 @@ nl:
     one: "Koppel"
     other: "Koppels"
 
+  # mailer
+  mailer:
+    hi_there: "Hey"
+    confirmation:
+      confirm_your_email_with_link_below: "Je kan je email bevestigen door op de onderstaande knop te drukken"
+      confirm_my_account: "Bevestig mijn email"
+      notify_email_being_changed: "We contacteren je om je te laten weten dat je email zal veranderen naar"
+      notify_email_has_been_changed: "We contacteren je om je te laten weten dat je email is veranderd naar"
+    unlock:
+      account_locked: "Je account is geblokkeerd door een te groot aantal gefaalde login pogingen"
+      unlock_account_with_link_below: "Druk op de onderstaande knop om je account te ontgrendelen"
+      unlock_my_account: "Ontgrendel mijn account"
+    password:
+      notify_password_change: "We contacteren je om je te laten weten dat je wachtwoord is gewijzigd"
+      someone_requested_password_change: "Iemand heeft een link aangevraagd om je wachtwoord te wijzigen. Je kan dit doen door op de onderstaande knop te drukken"
+      not_your_request: "Indien je dit niet hebt aangevraagd, dan mag je deze mail negeren"
+      password_wont_change_until_action: "Je wachtwoord zal pas wijzigen wanneer je op de knop hebt gedrukt en een nieuw wachtwoord hebt ingegeven"
+      change_my_password: "Wijzig wachtwoord"
+
   # page specific
   home:
     find_your_cat: "Zoek je kat"

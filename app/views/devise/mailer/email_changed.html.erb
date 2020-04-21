@@ -1,7 +1,16 @@
-<p>Hello <%= @email %>!</p>
+<div style="margin: 0 auto;width: 80%;background-color:#FFF;">
+  <div style="color: #FFF;font-size: 2em;font-weight: bold;background-color: #a05793;padding: 10px 10px 0px 20px;text-align:center;">
+    <%= image_tag(attachments['logo.png'].url) %>
+    &nbsp;
+    <div style="padding-bottom:5px;">Cat Linker</div>
+  </div>
+  <div style="padding:10px;border:3px solid #a05793;text-align:center;font-size:1.5em;">
+    <p><%= t('mailer.hi_there') %> <b><%= @email %></b>!</p>
 
-<% if @resource.try(:unconfirmed_email?) %>
-  <p>We're contacting you to notify you that your email is being changed to <%= @resource.unconfirmed_email %>.</p>
-<% else %>
-  <p>We're contacting you to notify you that your email has been changed to <%= @resource.email %>.</p>
-<% end %>
+    <% if @resource.try(:unconfirmed_email?) %>
+      <p><%= t('mailer.confirmation.notify_email_being_changed') %>&nbsp;<span style="text-decoration:underline;"><%= @resource.unconfirmed_email %></span>.</p>
+    <% else %>
+      <p><%= t('mailer.confirmation.notify_email_has_been_changed') %>&nbsp;<span style="text-decoration:underline;"><%= @resource.email %></span>.</p>
+    <% end %>
+  </div>
+</div>

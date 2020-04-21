@@ -231,6 +231,25 @@ en:
     one: "Pair"
     other: "Pairs"
 
+  # mailer
+  mailer:
+    hi_there: "Hi there"
+    confirmation:
+      confirm_your_email_with_link_below: "You can confirm your account email through the link below"
+      confirm_my_account: "Confirm my account"
+      notify_email_being_changed: "We're contacting you to notify you that your email is being changed to"
+      notify_email_has_been_changed: "We're contacting you to notify you that your email has been changed to"
+    unlock:
+      account_locked: "Your account has been locked due to an excessive number of unsuccessful sign in attempts"
+      unlock_account_with_link_below: "Click the link below to unlock your account"
+      unlock_my_account: "Unlock my account"
+    password:
+      notify_password_change: "We're contacting you to notify you that your password has been changed"
+      someone_requested_password_change: "Someone has requested a link to change your password. You can do this through the link below"
+      not_your_request: "If you didn't request this, please ignore this email"
+      password_wont_change_until_action: "Your password won't change until you access the link above and create a new one"
+      change_my_password: "Change my password"
+      
   # page specific    
   home:
     find_your_cat: "Find your cat"

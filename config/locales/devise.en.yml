@@ -1,5 +1,4 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
-
 en:
   devise:
     confirmations:
@@ -10,7 +9,7 @@ en:
       already_authenticated: "You are already signed in."
       inactive: "Your account is not activated yet."
       invalid: "Invalid email or password."
-      locked: "Your account is locked."
+      locked: "Your account is locked for 5 minutes, please check your email to unlock your account immediately."
       last_attempt: "You have one more attempt before your account is locked."
       not_found_in_database: "Invalid email or password."
       timeout: "Your session expired. Please sign in again to continue."
