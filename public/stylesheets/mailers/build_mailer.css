@@ -1,19 +1,24 @@
 .email-container {
-  width: 90%;
+  width:90%;
   background-color:#FFF;
-  margin: 0 auto;
+  margin:0 auto 20px auto;
 }
 
 .email-logo-container {
-  text-align: center;
-  font-size: 1.5em;
-  color: #FFF;
-  font-weight: bold;
-  background-color: #a05793;
-  padding: 10px 10px 0px 20px;
+  text-align:center;
+  font-size:1.5em;
+  color:#FFF !important;
+  font-weight:bold;
+  background-color:#a05793;
+  padding:10px 10px 0px 20px;
+}
+
+.email-logo {
+  height:55px;
 }
 
 .email-logo-text {
+  color: #FFF !important;
   padding-bottom: 5px;
 }
 
@@ -26,9 +31,13 @@
 
 .email-button {
   display:inline-block;
-  color:#FFF;
+  color:#FFF !important;
   text-decoration:none;
   background-color:#a05793;
   padding:10px;
   border-radius:5px;
+}
+
+.email-text-underline {
+  text-decoration: underline;
 }

@@ -9,8 +9,9 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'acts-as-taggable-on'
 # Use activeadmin for admin portal
 gem 'activeadmin', '~> 2.7'
-# Use actionmailer to centralize email styles
-gem 'actionmailer_inline_css'
+# Use premailer to inline email css with nokogiri dependency
+gem 'nokogiri', '~> 1.10', '>= 1.10.9'
+gem 'premailer-rails'
 # Use Devise for user authentication
 gem 'devise', '~> 4.7', '>= 4.7.1'
 # Use figaro for setting environment variables
