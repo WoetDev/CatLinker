@@ -1,15 +1,16 @@
 class User < ApplicationRecord
   extend FriendlyId
+  belongs_to :country, optional: true
+  has_many :cats, dependent: :destroy
+  has_many :pairs, dependent: :destroy
+  has_one_attached :profile_picture, dependent: :destroy
+
+  # friendly_id
   friendly_id :cattery_name, use: :slugged
 
   def should_generate_new_friendly_id?
     cattery_name_changed? || super
   end
-
-  belongs_to :country, optional: true
-  has_many :cats
-  has_many :pairs
-  has_one_attached :profile_picture
 
   # image processing
   def thumbnail
@@ -24,13 +25,14 @@ class User < ApplicationRecord
     profile_picture.variant(resize_to_fill: [ 600, 335, gravity: 'Center' ]).processed
   end
 
-  # filter
+  # filter tags
   acts_as_tagger
 
   # scopes
   scope :is_cattery, -> (is_cattery) { where is_cattery: is_cattery }
+  scope :cattery_information_present, -> { where.not(cattery_name: [nil, ""], postal_code: [nil, ""], city: [nil, ""]) }
 
-  # Include default devise modules
+  # Include devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :timeoutable,
@@ -46,7 +48,6 @@ class User < ApplicationRecord
       user.provider = auth.provider
       user.uid = auth.uid
 
-      # If you are using confirmable and the provider(s) you use validate emails, uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
   end
@@ -55,9 +56,12 @@ class User < ApplicationRecord
     data = access_token.info
     user = User.where(provider: access_token.provider, uid: access_token.uid).first
 
-    # Uncomment the section below if you want users to be created if they don't exist
     unless user
-      user = User.create( email: data['email'], password: Devise.friendly_token[0,20], provider: access_token.provider, uid: access_token.uid, given_consent: true )
+      user = User.create( email: data['email'],
+                          password: Devise.friendly_token[0,20],
+                          provider: access_token.provider,
+                          uid: access_token.uid,
+                          given_consent: true )
       # user.skip_confirmation!
     end
     user
@@ -71,16 +75,27 @@ class User < ApplicationRecord
     end
   end
 
-  # validation conditions
+  # validation methods
   def is_cattery?
-    is_cattery == true
+    is_cattery == true  
   end
 
-  # custom validations
+  # validations
   validates :given_consent, presence: true, on: :create
+
   validates :cattery_name, 
             :profile_picture, 
             :postal_code, 
             :city, 
-            :country_id, presence: true, allow_blank: false, if: :is_cattery?, on: :required_cattery_information
+            :country_id, presence: true, if: :is_cattery?, on: :required_cattery_information
+  validate  :image_type, if: :is_cattery?, on: :required_cattery_information
+
+  private
+
+  def image_type
+    if profile_picture.attached? && !profile_picture.content_type.in?(%('image/jpeg image/png'))
+      profile_picture.purge
+      errors.add(:profile_picture, (I18n.t 'form.errors.invalid_image_file_type'))
+    end
+  end
 end

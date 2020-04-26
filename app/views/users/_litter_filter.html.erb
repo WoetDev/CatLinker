@@ -4,7 +4,7 @@
         <button class="reset-dropdown circle">
           <i class="material-icons">restore</i>
         </button>
-        <%= f.select(:litters_filter, options_for_select(@all_litters), {disabled: "", prompt: t('select.select_litters_to_filter')}, {:multiple => true, class:"form-filter icons"}) %>
+        <%= f.select(:litters_filter, options_for_select(@all_litters), {disabled: "", prompt: t('select.select_litters_to_filter')}, {multiple: true, class:"form-filter icons", autocomplete:"off"}) %>
       </div>
     </div>
   </div>

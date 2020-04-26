@@ -1,12 +1,14 @@
 // Render flash message
 <% if @cat.present? %>
-$('#contact').html("<%= j render 'shared/contact_form', user: @user, cat: @cat %>");
+  $('#contact').html("<%= j render 'shared/contact_form', user: @user, cat: @cat %>");
 <% else %>
-$('#contact').html("<%= j render 'shared/contact_form', user: @user, cat: nil %>");
+  $('#contact').html("<%= j render 'shared/contact_form', user: @user, cat: nil %>");
 <% end %>
+
 <% if notice %>
   M.toast({html: '<%= notice %>', classes: 'alert alert-success'})
 <% end %>
+
 <% if alert %>
   M.toast({html: '<%= alert %>', classes: 'alert alert-danger'})
 <% end %>

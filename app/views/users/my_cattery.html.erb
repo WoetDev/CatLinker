@@ -8,7 +8,7 @@
       <div class="row">
         <br>
       </div>
-
+      
       <div class="row">
         <h4 class="form-section-title"><%= t('my_cattery.general') %></h4>
       </div>
@@ -33,7 +33,7 @@
       </div>
 
       <div class="row my-cattery-pages">
-        <% if f.object.cattery_name.present? and f.object.postal_code.present? and f.object.city.present? and f.object.country_id.present? %>
+        <% if f.object.profile_picture.present? and f.object.cattery_name.present? and f.object.postal_code.present? and f.object.city.present? and f.object.country_id.present? %>
           <div class="col">
             <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn-large btn-link" do %>
               <%= t('my_cattery.edit_cats') %>
@@ -71,12 +71,13 @@
             <div class="btn">
               <i class="material-icons-outlined">add_photo_alternate</i>
               <span><%= t('my_cattery.profile_picture') %></span>
-              <%= f.file_field :profile_picture %>
+              <%= f.file_field :profile_picture, accept: "image/jpeg, image/png" %>
             </div>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text">
             </div>
           </div>
+          <%= render 'shared/error_messages', object: @user, field: :profile_picture %>
         </div>
       </div>
 
@@ -88,7 +89,6 @@
             <% else %>
               <%= image_tag(@user.profile_picture) if @user.profile_picture.attached? %> 
             <% end %>
-            <%= render 'shared/error_messages', object: @user, field: :profile_picture %>
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@
       <div class="row">
         <div class="col s12 m5">
           <div class="input-field">
-            <%= f.select(:country_id, options_for_select(@all_countries, selected: f.object ? f.object.country_id : ""), {selected: "", disabled: "", prompt: 'Country *'}) %>
+            <%= f.select(:country_id, options_for_select(@all_countries, selected: f.object ? f.object.country_id : ""), {selected: "", disabled: "", prompt: 'Country *'}, { autocomplete:'off' }) %>
           </div>
           <%= render 'shared/error_messages', object: @user, field: :country_id %>
         </div>

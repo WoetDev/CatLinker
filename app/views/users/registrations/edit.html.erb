@@ -75,7 +75,7 @@
               <%= render "devise/shared/error_messages", resource: resource, field: :password %>
             <% else %>
               <% if @minimum_password_length %>
-                <span class="helper-text"><%= t('form.new_registration.minimum_character_message', minimum_char_count: @minimum_password_length) %></span>
+                <span class="helper-text">(<%= t('form.new_registration.minimum_character_message', minimum_char_count: @minimum_password_length) %>)</span>
               <% end %>
             <% end %>
           </div>
@@ -141,7 +141,7 @@
       <div class="modal-content">
         <h4><%= t('form.edit_registration.cancel_account') %></h4>
         <p><%= t('modal.are_you_sure') %>?</p>
-        <p><%= t('modal.this_action_is_permanent') %>!</p>
+        <p><%= t('modal.this_action_will_permanently_delete') %>!</p>
       </div>
       <div class="modal-footer">
         <a class="btn waves-effect waves-light modal-close btn-cancel">

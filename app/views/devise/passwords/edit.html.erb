@@ -18,7 +18,7 @@
             <%= render "devise/shared/error_messages", resource: resource, field: :password %>
           <% else %>
             <% if @minimum_password_length %>
-              <span class="helper-text">(<%= t('form.new_registration.minimum_character_message', minimum_char_count: @minimum_password_length) %></span>
+              <span class="helper-text">(<%= t('form.new_registration.minimum_character_message', minimum_char_count: @minimum_password_length) %>)</span>
             <% end %>
           <% end %>
         </div>

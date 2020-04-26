@@ -1,0 +1,19 @@
+<%= stylesheet_link_tag '/stylesheets/mailers/build_mailer' %> 
+
+<div class="email-container">
+  <div class="email-logo-container">
+    <div class="email-logo-text">Cat Linker</div>
+  </div>
+  <div class="email-body-container">
+    <p><%= t('mailer.hi_there') %> <b><%= message.to[0] %></b>!</p>
+    
+    <p><%= t('mailer.contact.new_message', email: message.from[0] ) %></p>
+    <p><%= t('mailer.contact.reply_to_user') %>.</p>
+    <p><%= t('mailer.contact.message_down_below') %>:</p>
+    <hr>
+    <h4 class="email-contact-subject"><%= message.subject %></h4>
+
+    <p class="email-contact-message"><%= @resource.mail_form_attributes['description'] %></p>
+  </div>
+</div>
+

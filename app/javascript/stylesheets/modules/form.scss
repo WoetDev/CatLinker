@@ -170,6 +170,10 @@
       position: relative;
       bottom: 7px;
     }
+
+    .helper-text {
+      margin-top: 5px;
+    }
   }
 
   .card-picture-preview, .pictures-preview {
@@ -576,6 +580,7 @@ button.btn-delete {
     .btn-large {
       display: block;
       margin: 0 auto;
+      min-width: 210px;
       width: 75%;
       
       &:nth-child(1) {
@@ -809,6 +814,10 @@ button.btn-delete {
         margin-top: ($contact-margin-top) + px;
       }
     }
+  }
+
+  #message_nickname, label[for*="message_nickname"] {
+    display: none;
   }
 }
 

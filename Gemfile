@@ -9,9 +9,8 @@ gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 gem 'acts-as-taggable-on'
 # Use activeadmin for admin portal
 gem 'activeadmin', '~> 2.7'
-# Use premailer to inline email css with nokogiri dependency
-gem 'nokogiri', '~> 1.10', '>= 1.10.9'
-gem 'premailer-rails'
+# Activestorage validation
+gem 'activestorage-validator'
 # Use Devise for user authentication
 gem 'devise', '~> 4.7', '>= 4.7.1'
 # Use figaro for setting environment variables
@@ -26,6 +25,9 @@ gem 'rails-i18n'
 gem 'http_accept_language'
 # Use mail_form gem for custom email forms
 gem 'mail_form'
+# Use premailer to inline email css with nokogiri dependency
+gem 'nokogiri', '~> 1.10', '>= 1.10.9'
+gem 'premailer-rails'
 # Use omniauth for external logins
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-facebook'

@@ -1,4 +1,8 @@
 class PairsController < ApplicationController
+  def index
+    redirect_to overview_cattery_path(@user)
+  end
+
   def new
     @form = params[:form]
     @pair = Pair.new

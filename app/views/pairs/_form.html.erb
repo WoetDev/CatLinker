@@ -4,17 +4,18 @@
   </div>
 
   <% if @form == "pair" %>
+    <%=  f.hidden_field :user_id %>
     <div class="row">
       <div class="col s12 m6">
         <div class="input-field">       
-          <%= f.select(:male_id, options_for_select(@male_cats_array, selected: f.object ? f.object.male_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.father')} *"}, {class:"icons"}) %>
+          <%= f.select(:male_id, options_for_select(@male_cats_array, selected: f.object ? f.object.male_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.father')} *"}, {class:"icons", autocomplete:'off' }) %>
         </div>
         <%= render 'shared/error_messages', object: @pair, field: :male_id %>
       </div>
 
       <div class="col s12 m6">
         <div class="input-field">
-          <%= f.select(:female_id, options_for_select(@female_cats_array, f.object ? f.object.female_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.mother')} *"}, {class:"icons"}) %>
+          <%= f.select(:female_id, options_for_select(@female_cats_array, selected: f.object ? f.object.female_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.mother')} *"}, {class:"icons", autocomplete:'off'}) %>
         </div>
         <%= render 'shared/error_messages', object: @pair, field: :female_id %>
       </div>
@@ -67,7 +68,7 @@
           </div>
         </div>
       <% else %>
-        <%= link_to "javascript:void(0)", class:"btn disabled-tooltip-wrapper tooltipped", data: { position:"top", tooltip: t('cattery_overview.tooltip.delete_parent_condition') } do %>
+        <%= link_to "javascript:void(0)", class:"btn disabled-tooltip-wrapper tooltipped", data: { position:"top", tooltip: t('cattery_overview.tooltip.delete_pair_condition') } do %>
           <button class="btn waves-effect waves-light btn-delete disabled tooltipped">
             <span><%= t('buttons.delete') %></span>
             <i class="material-icons right">delete</i>

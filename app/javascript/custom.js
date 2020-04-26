@@ -20,7 +20,6 @@ $(document).on('turbolinks:load', function() {
     }
     hideAlreadyAcceptedCookieDisclaimer();
   
-
   document.body.style.visibility = 'visible'
   // GLOBAL VARIABLES 
   var host = window.location.host;
@@ -844,24 +843,20 @@ $(document).on('turbolinks:load', function() {
         $(card).find('.check-circle').hide();
         $(card).find('.add-circle').show();
       }
-
-      // Prevent event bubbling when pressing on card reveal
-      $('.activator').on('click', function(e) {
-        // document.querySelector('.card').removeEventListener('click', cardFilteringIcon);
-        // $('body').off('click', '.card', cardFilteringIcon)
-        console.log('clicked activator'); 
-      });
       
       // Cards filtering event
       function cardFilteringIcon() {
         var animationTime = 100; 
-        $('.card-image, .info-block').on({
+        $('.card').on({
           mouseenter: function() {
             $(this).find('.filter-icon-container').fadeIn(animationTime);
           },
           mouseleave: function() {
             $(this).find('.filter-icon-container:not(.active)').fadeOut(animationTime*2);
-          },
+          }
+        });
+
+        $('.card-image, .info-block').on({
           click: function(e) {
             var currentSection = $(this).closest('.section');
             var card = $(this).closest('.card');

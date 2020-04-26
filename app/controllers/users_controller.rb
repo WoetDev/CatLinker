@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def index
     @user = current_user
+    users = User.is_cattery(true).distinct(:id).joins(:cats).joins(:country).cattery_information_present
 
     all_available_breeds
     all_available_locations
@@ -12,20 +13,21 @@ class UsersController < ApplicationController
       @breed_filter = params[:breeds].flatten.reject(&:blank?)
       @location_filter = params[:locations].flatten.reject(&:blank?)
 
+
       if @breed_filter.empty? && @location_filter.empty?
-        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).order(cats_count: :desc))
+        @pagy, @catteries = pagy_countless(users.order(cats_count: :desc))
       elsif @location_filter.empty?
         breed_ids = Cat.tagged_with(@breed_filter, :on => :breed_tag, :any => true).distinct.pluck(:breed_id)
-        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).where(cats: { breed_id: breed_ids }).order(cats_count: :desc))
+        @pagy, @catteries = pagy_countless(users.where(cats: { breed_id: breed_ids }).order(cats_count: :desc))
       elsif @breed_filter.empty?
         cat_ids = Cat.tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:id)
-        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).where(cats: { id: cat_ids }).order(cats_count: :desc))
+        @pagy, @catteries = pagy_countless(users.where(cats: { id: cat_ids }).order(cats_count: :desc))
       else
         cat_ids = Cat.tagged_with(@breed_filter, :on => :breed_tag, :any => true).tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:id)
-        @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).where(cats: { id: cat_ids }).order(cats_count: :desc))
+        @pagy, @catteries = pagy_countless(users.where(cats: { id: cat_ids }).order(cats_count: :desc))
       end
     else
-      @pagy, @catteries = pagy_countless(User.is_cattery(true).joins(:cats).distinct(:id).order(cats_count: :desc))
+      @pagy, @catteries = pagy_countless(users.order(cats_count: :desc))
     end
   end
 
@@ -58,29 +60,36 @@ class UsersController < ApplicationController
   def update_cattery
     all_countries
 
-    if @user.valid?(:required_cattery_information) and @user.update(cattery_params)
+    if @user.update(cattery_params) and @user.valid?(:required_cattery_information)
       update_cat_location_tags(@user)
-      check_required_cattery_information(@user)
-      flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
-                        kind: (I18n.t 'cattery_overview.cattery_information', count: 1), 
+      check_required_cattery_information(@user)  
+      flash.now[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
+                        kind: (I18n.t 'cattery_overview.cattery_information'), 
                         action: (I18n.t 'action.updated'))
       render 'my_cattery'
     else
       check_required_cattery_information(@user)
-      flash[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
-                      kind: (I18n.t 'cattery_overview.cattery_information', count: 1), 
+      flash.now[:alert] = (I18n.t "cattery_overview.toast.failed_action", 
+                      kind: (I18n.t 'cattery_overview.cattery_information'), 
                       action: (I18n.t 'action.updated'))
       render 'my_cattery'
     end
   end
 
   def cattery_overview
-    @parents = Cat.user_id(@user.id).is_parent(true)
-    @pairs = Pair.user_id(@user.id)
-    @kittens = Cat.user_id(@user.id).is_parent(false)
+    if current_user == @user
+      @parents = Cat.user_id(@user.id).is_parent(true)
+      @pairs = Pair.user_id(@user.id)
+      @kittens = Cat.user_id(@user.id).is_parent(false)
 
-    @male_parents = Cat.user_id(@user.id).is_parent(true).gender('1')
-    @female_parents = Cat.user_id(@user.id).is_parent(true).gender('2')
+      @male_parents = Cat.user_id(@user.id).is_parent(true).gender('1')
+      @female_parents = Cat.user_id(@user.id).is_parent(true).gender('2')
+    else
+      flash[:alert] = (I18n.t "cattery_overview.toast.not_allowed", 
+        kind: (I18n.t 'cattery_overview.cattery_overview_reference').downcase,
+        action: (I18n.t 'action.to_view'))
+        redirect_back(fallback_location: root_path)
+    end
   end
 
   def birth_date

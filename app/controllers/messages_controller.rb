@@ -9,7 +9,6 @@ class MessagesController < ApplicationController
     @message = Message.new(params[:message])
     @message.request = request
     @user = User.find(params[:message][:user_id])
-
     if params[:message][:cat_id].present?
       @cat = Cat.find(params[:message][:cat_id])
     end
@@ -19,7 +18,7 @@ class MessagesController < ApplicationController
     if recaptcha_valid
       respond_to do |format|
         if @message.deliver
-          # re-initialize Home object for cleared form
+          # re-initialize object for cleared form
           @message = Message.new
           # format.html { render 'cats/show'}
           format.js {  flash.now[:notice] = @flash_message = (I18n.t "form.contact.sent_success") }

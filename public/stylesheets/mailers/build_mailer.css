@@ -41,3 +41,12 @@
 .email-text-underline {
   text-decoration: underline;
 }
+
+.email-contact-subject {
+  font-size: 1.2em;
+  text-decoration: underline;
+}
+
+.email-contact-message {
+  white-space: pre-line;
+}

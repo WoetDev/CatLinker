@@ -5,6 +5,14 @@ en:
 
   # models
   activerecord:
+    errors:
+      models:
+        cat:
+          attributes:
+            card_picture:
+              content_type: "Only jpeg or png files are allowed"
+            pictures:
+              content_type: "Only jpeg or png files are allowed"
     attributes:
       user:
         email: "Email"
@@ -68,9 +76,13 @@ en:
     created: "created"
     updated: "updated"
     deleted: "deleted"
+    to_update: "update"
+    to_delete: "delete"
+    to_view: "view"
   modal:
     are_you_sure: "Are you sure"
     this_action_is_permanent: "This action is permanent"
+    this_action_will_permanently_delete: "This action will permanently delete all your user data (including cats), this action is irreversible"
   recaptcha:
     errors:
       verification_failed: "Our systems think you might be a robot, please try again if you're human"
@@ -186,7 +198,14 @@ en:
       sign_up: "Don't have an account yet? Sign up!"
       forgot_password: "Forgot your password?"
       no_confirmation_instructions: "Didn't receive confirmation instructions?"
-      no_unlock_instructions: "Didn't receive unlock instructions?"      
+      no_unlock_instructions: "Didn't receive unlock instructions?"    
+    errors:
+      invalid_image_file_type: "Only jpeg or png files are allowed"
+      parent_name_already_exists: "This name is already in use for another parent"
+      pair_already_exists: "This pair already exists"
+      pair_has_two_different_breeds: "You can't make a pair with two different breeds"
+      parent_breed_is_different_than_kitten_breed: "The kitten must have the same breed as the parents"
+      parents_dont_own_selected_litter: "The selected parents are not the parents from the selected litter"
 
   social:
     share_this_kitten: "Share this kitten"
@@ -249,6 +268,11 @@ en:
       not_your_request: "If you didn't request this, please ignore this email"
       password_wont_change_until_action: "Your password won't change until you access the link above and create a new one"
       change_my_password: "Change my password"
+    contact:
+      new_message: "You've received a new message from %{email} on Cat Linker!"
+      reply_to_user: "You can reply to this email to answer the message from the visitor"
+      message_down_below: "You can find the message down below"
+
       
   # page specific    
   home:
@@ -273,12 +297,13 @@ en:
     city: "City"
     country: "Country"
     contact_and_social_media: "Contact & social media"
-    required_information_message: "You must add a %{missing_info} before you can add cats"
+    required_information_message: "You must add a %{missing_info} before you can add cats and appear in search results"
     tooltip:
       profile: "Go to the 'Profile' page to change this" 
       provider: "Go to your %{provider} account to change this"
   cattery_overview: 
     cattery_overview_title: "Cattery overview"
+    cattery_overview_reference: "cattery overview"
     no_records_added: "No %{kind} have been added yet"
     cattery_information: "Cattery information"
     tooltip:
@@ -289,6 +314,7 @@ en:
     toast:
       successful_action: "%{kind} was successfully %{action}"
       failed_action: "%{kind} could not be %{action} yet"
+      not_allowed: "You can only %{action} your own %{kind}"
 
 
     

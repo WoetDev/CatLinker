@@ -5,6 +5,14 @@ nl:
 
   # models
   activerecord:
+    errors:
+        models:
+          cat:
+            attributes:
+              card_picture:
+                content_type: "Enkel jpeg of png bestanden zijn toegelaten"
+              pictures:
+                content_type: "Enkel jpeg of png bestanden zijn toegelaten"
     attributes:
       user:
         email: "Email"
@@ -68,9 +76,13 @@ nl:
     created: "aangemaakt"
     updated: "bijgewerkt"
     deleted: "verwijderd"
+    to_update: "wijzigen"
+    to_delete: "verwijderen"
+    to_view: "bekijken"
   modal:
     are_you_sure: "Ben je zeker"
     this_action_is_permanent: "Deze actie is definitief"
+    this_action_will_permanently_delete: "Deze actie zal al je gebruikers info (inclusief katten) verwijderen. Deze actie is onomkeerbaar"
   recaptcha:
     errors:
       verification_failed: 'We denken dat je misschien een robot bent, gelieve opnieuw te proberen als je een mens bent.'
@@ -186,7 +198,14 @@ nl:
       sign_up: "Heb je nog geen account? Registreer nu!"
       forgot_password: "Wachtwoord vergeten?"
       no_confirmation_instructions: "Geen bevestingsmail ontvangen?"
-      no_unlock_instructions: "Geen ontgrendelingsmail ontvangen?"    
+      no_unlock_instructions: "Geen ontgrendelingsmail ontvangen?"
+    errors:
+      invalid_image_file_type: "Enkel jpeg of png bestanden zijn toegelaten"
+      parent_name_already_exists: "Deze naam wordt al gebruikt voor een andere ouder"
+      pair_already_exists: "Dit koppel bestaat al"
+      pair_has_two_different_breeds: "Je kan geen koppel maken met twee verschillende rassen"
+      parent_breed_is_different_than_kitten_breed: "De kitten moet hetzelde ras hebben als de ouders"
+      parents_dont_own_selected_litter: "De geselecteerde ouders zijn geen ouders van het geselecteerde nestje"
 
   # social media
   social:
@@ -250,6 +269,10 @@ nl:
       not_your_request: "Indien je dit niet hebt aangevraagd, dan mag je deze mail negeren"
       password_wont_change_until_action: "Je wachtwoord zal pas wijzigen wanneer je op de knop hebt gedrukt en een nieuw wachtwoord hebt ingegeven"
       change_my_password: "Wijzig wachtwoord"
+    contact:
+      new_message: "Je hebt een nieuw bericht ontvangen van %{email} op Cat Linker!"
+      reply_to_user: "Je kan op deze mail antwoorden om rechtstreeks een bericht terug te sturen naar de bezoeker"
+      message_down_below: "Je kan het bericht hieronder terugvinden"
 
   # page specific
   home:
@@ -274,12 +297,13 @@ nl:
     city: "Stad"
     country: "Land"
     contact_and_social_media: "Contact & sociale media"
-    required_information_message: "Je moet nog een %{missing_info} toevoegen voordat je katten kan toevoegen"
+    required_information_message: "Je moet nog een %{missing_info} toevoegen voordat je katten kan toevoegen en getoond wordt in zoekresultaten"
     tooltip:
       profile: "Ga naar de 'Profiel' pagina om dit te wijzigen" 
       provider: "Ga naar je %{provider} account om dit te wijzigen"
   cattery_overview: 
     cattery_overview_title: "Overzicht cattery"
+    cattery_overview_reference: "cattery overzicht"
     no_records_added: "Er werden nog geen %{kind} toegevoegd"
     cattery_information: "Cattery informatie"
     tooltip:
@@ -290,4 +314,6 @@ nl:
     toast:
       successful_action: "%{kind} werd met succes %{action}"
       failed_action: "%{kind} kon nog niet worden %{action}"
+      not_allowed: "Je kan enkel je eigen %{kind} %{action}"
+      not_allowed_no_cats: "Je moet katten hebben om je cattery overzicht te bekijken"
   

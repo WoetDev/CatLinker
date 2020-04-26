@@ -33,7 +33,7 @@
     <div class="col s12 m6">
   <% end %>
       <div class="input-field">
-        <%= f.select(:breed_id, options_for_select(@breeds_array, selected: f.object ? f.object.breed_id : ""), {selected: "", disabled: "", prompt: "#{t('breed', count:1)} *"}) %>
+        <%= f.select(:breed_id, options_for_select(@breeds_array, selected: f.object ? f.object.breed_id : ""), {selected: "", disabled: "", prompt: "#{t('breed', count:1)} *"}, { autocomplete:'off' }) %>
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :breed_id %>
     </div>
@@ -43,21 +43,21 @@
   <div class="row">
     <div class="col s12 m6 l4">
       <div class="input-field">
-        <%= f.select(:gender, [["#{t('cat_info.gender')} *", "", { 'disabled' => 'disabled', 'selected' => 'selected', 'class' => 'inactive'}], ["#{t('male', count:1).capitalize}", 1], ["#{t('female', count:1).capitalize}", 2]]) %>
+        <%= f.select(:gender, [["#{t('cat_info.gender')} *", "", {'disabled' => 'disabled', 'selected' => 'selected', 'class' => 'inactive'}], ["#{t('male', count:1).capitalize}", 1], ["#{t('female', count:1).capitalize}", 2]], {}, { autocomplete:'off' }) %>
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :gender %>
     </div>
 
     <div class="col s12 m6 l4">
       <div class="input-field">
-        <%= f.select(:color_id, options_for_select(@colors_array, selected: f.object ? f.object.color_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.color')} *"}) %>
+        <%= f.select(:color_id, options_for_select(@colors_array, selected: f.object ? f.object.color_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.color')} *"}, { autocomplete:'off' }) %>
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :color_id %>
     </div>
 
     <div class="col s12 m6 l4">
       <div class="input-field">
-        <%= f.select(:coat_pattern_id, options_for_select(@coat_patterns_array, selected: f.object ? f.object.coat_pattern_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.coat')} *"}) %>
+        <%= f.select(:coat_pattern_id, options_for_select(@coat_patterns_array, selected: f.object ? f.object.coat_pattern_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.coat')} *"}, { autocomplete:'off' }) %>
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :coat_pattern_id %>
     </div>
@@ -69,7 +69,7 @@
     <div class="row">
       <div class="col s12 l4">
         <div class="input-field">
-          <%= f.select(:origin, options_for_select(@all_countries, selected: f.object ? f.object.origin : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.origin')}"}) %>
+          <%= f.select(:origin, options_for_select(@all_countries, selected: f.object ? f.object.origin : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.origin')}"}, { autocomplete:'off' }) %>
         </div>
         <%= render 'shared/error_messages', object: @cat, field: :origin %>
       </div>
@@ -107,7 +107,7 @@
       <div class="col s12 m7">
         <div class="input-field">
           <%= f.hidden_field :litter_number, id:"hidden_cat_litter_number" %>
-          <%= f.select(:litter_number, options_for_select(@litter_numbers, selected: f.object ? f.object.litter_number : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.litter_nr')} *"}) %>
+          <%= f.select(:litter_number, options_for_select(@litter_numbers, selected: f.object ? f.object.litter_number : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.litter_nr')} *"}, { autocomplete:'off' }) %>
         </div>
         <%= render 'shared/error_messages', object: @cat, field: :litter_number %>
       </div>
@@ -163,11 +163,13 @@
         <div class="btn">
           <i class="material-icons-outlined">add_photo_alternate</i>
           <span><%= t('words.image') %></span>
-          <%= f.file_field :card_picture %>
+          <%= f.hidden_field :card_picture, value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
+          <%= f.file_field :card_picture, direct_upload: true, accept: "image/jpeg, image/png" %>
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
         </div>
+        <span class="helper-text"><%= t('form.errors.invalid_image_file_type') %></span>
       </div>
     </div>
   </div>
@@ -178,7 +180,7 @@
         <% if @cat.new_record? %>
           <span><%= t('words.preview') %> *</span>
         <% else %>
-          <%= image_tag(@cat.card_picture) if @cat.card_picture.attached? %> 
+          <%= image_tag(@cat.card_picture.variant(resize_to_limit: [300, 300])) if @cat.card_picture.attached? %> 
         <% end %>
         <%= render 'shared/error_messages', object: @cat, field: :card_picture %>
       </div>
@@ -192,7 +194,10 @@
         <div class="btn">
           <i class="material-icons-outlined">add_photo_alternate</i>
           <span><%= t('buttons.other_pictures') %></span>
-          <%= f.file_field :pictures, multiple: true %>
+          <% f.object.pictures.each do |picture| %>  
+            <%= f.hidden_field :pictures, value: picture.signed_id, multiple: true %>
+          <% end %>
+          <%= f.file_field :pictures, multiple: true, direct_upload: true, accept: "image/jpeg, image/png" %>
         </div>
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text">
@@ -236,7 +241,7 @@
 
 <div class="row">
   <div class="col">
-    <%= link_to 'javascript:history.back()', class:"waves-effect waves-light btn left btn-back" do %>
+    <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn left btn-back" do %>
       <i class="material-icons left">keyboard_arrow_left</i>
       <%= t('buttons.back') %>
     <% end %>
