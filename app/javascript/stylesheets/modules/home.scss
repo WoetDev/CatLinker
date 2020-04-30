@@ -333,3 +333,35 @@
     margin-left: 15px;
   }
 }
+
+.cattery-landing {
+  margin-bottom: 50px;
+  
+  .card-panel {
+    font-size: 1.2em;
+    color: $black;
+    padding: 20px;
+    border-radius: 5px;
+    border-top: 3px solid $secondaryColor;
+
+    h2 {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .btn {
+      margin-bottom: 15px;
+
+      &:hover {
+        background-color: darken($color: $secondaryColor, $amount: 10%);
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+    position: relative;
+    top: 5px;
+  }
+}

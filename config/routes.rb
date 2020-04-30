@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, only: :omniauth_callbacks, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
+  # redirect for sitemap
+  get '/sitemap', to: 'home#sitemap'
+
   # error pages from root
   match '/404' => "errors#not_found", via: :all
   match '/422' => "errors#unacceptable", via: :all

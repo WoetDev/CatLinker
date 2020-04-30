@@ -5,7 +5,9 @@
     <%= csp_meta_tag %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
-    <meta name="turbolinks-visit-control" content="reload">
+    <% unless env_production %>
+      <meta name="turbolinks-visit-control" content="reload">
+    <% end %>
 
     <%= favicon_link_tag asset_path('favicon.png') %>
     <title><%= meta_title %></title>
@@ -27,7 +29,13 @@
     <meta name="twitter:image:src" content="<%= meta_twitter_image %>">
     <meta name="twitter:image:alt" content="<%= meta_image_alt %>">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <!-- Preload fonts -->
+    <link rel="preload" href="/fonts/Roboto-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="/fonts/Roboto-Medium.ttf" as="font" crossorigin>
+    <link rel="preload" href="/fonts/SourceSansPro-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="/fonts/SourceSansPro-SemiBold.ttf" as="font" crossorigin>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" >
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -39,8 +47,7 @@
 
       gtag('config', 'UA-163427368-1');
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: false %>
   </head>
 
   <body>

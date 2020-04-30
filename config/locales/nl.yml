@@ -72,6 +72,8 @@ nl:
     new_litter: "Nieuw nestje"
     other_pictures: "Andere foto's"
     read_more: "Lees meer"
+    discover_more: "Ontdek meer"
+    sign_up_now: "Registreer nu"
   action:
     created: "aangemaakt"
     updated: "bijgewerkt"
@@ -279,6 +281,12 @@ nl:
     find_your_cat: "Zoek je kat"
     popular_breeds: "Populaire rassen"
     new_kittens: "Nieuwe kittens"
+    own_a_cattery: "Heb je een cattery"
+    strong_online_presence: "Geef je cattery een sterke plaats online"
+    one_place: "Met Cat Linker kan je alle informatie over je katers, poezen, nestjes en kittens op één handige plaats gaan bijhouden."
+    detailed_overview: "Geef aan potentiële adopteerders meteen belangrijke informatie mee terwijl je zonder extra moeite een gedetailleerd overzicht van al je katten bijhoudt."
+    focus_on_what_is_important: "Wij zorgen ervoor dat jij je kan focussen op wat het belangrijkste is: tijd doorbrengen met je katten."
+    already_convinced: "Al overtuigd"
   index:
     no_pairs_found: "Geen koppels gevonden"
     no_litters_found: "Geen nestjes gevonden"

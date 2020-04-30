@@ -2,18 +2,36 @@
 @font-face {
   font-family: "Source Sans Pro";
   src: url('/fonts/SourceSansPro-Regular.ttf') format('truetype');
-  font-display: block;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: url('/fonts/SourceSansPro-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
   font-family: Roboto;
   src: url('/fonts/Roboto-Regular.ttf') format('truetype');
-  font-display: block;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: bold;
+  font-display: swap;
+}
+
+html, body {
+  scroll-behavior: none !important;
 }
 
 body {
   background-color: $canvasColor;
-  font-family: "Source Sans Pro", Roboto, sans-serif;
+  font-family: Roboto, "Source Sans Pro", sans-serif;
   width: 100%;
 }
 

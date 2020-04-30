@@ -107,3 +107,24 @@
     </div>
   </div>
 <% end %>
+<div class="section cattery-landing">
+    <div class="container">
+      <div class="row">
+        <h1><%= t('home.own_a_cattery') %>?</h1>
+      </div>
+      <div class="row valign-wrapper">
+        <div class="col s12 l5">
+          <div class="card-panel">
+            <h2><%= t('home.strong_online_presence')%>!</h2>
+            <p><%= t('home.one_place')%></p>
+            <p><%= t('home.detailed_overview')%></p>
+            <p><%= t('home.focus_on_what_is_important')%></p>
+            <%= link_to t('buttons.sign_up_now'), new_user_registration_path, class:"btn waves-effect waves-light" %>
+          </div>
+        </div>
+        <div class="col l6 offset-l1 hide-on-med-and-down">
+          <%= image_tag("cat_illustration_2.svg", :alt => "cattery", class:"image-m") %>
+        </div>
+      </div>
+    </div>
+  </div>

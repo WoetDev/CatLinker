@@ -98,7 +98,7 @@ class Cat < ApplicationRecord
   end
 
   def parent_breed_is_different_than_kitten_breed
-    if pair_id.present? and breed_id != Cat.find(Pair.find(pair_id).male_id).breed_id
+    if breed_id.present? and pair_id.present? and breed_id != Cat.find(Pair.find(pair_id).male_id).breed_id
       errors.add(:breed_id, (I18n.t 'form.errors.parent_breed_is_different_than_kitten_breed'))
       errors.add(:pair_id, (I18n.t 'form.errors.parent_breed_is_different_than_kitten_breed'))
     end
@@ -108,7 +108,7 @@ class Cat < ApplicationRecord
     parent_litters = Cat.user_id(user_id).is_parent(false).pair_id(pair_id).distinct.pluck(:litter_number)
     last_litter_number = Cat.user_id(user_id).is_parent(false).distinct.pluck(:litter_number).max
 
-    unless litter_number.to_i > last_litter_number.to_i or parent_litters.include?(litter_number)
+    unless litter_number.blank? or litter_number.to_i > last_litter_number.to_i or parent_litters.include?(litter_number)
       errors.add(:pair_id, (I18n.t 'form.errors.parents_dont_own_selected_litter'))
       errors.add(:litter_number, (I18n.t 'form.errors.parents_dont_own_selected_litter'))
     end

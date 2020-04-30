@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def env_production
+    return false unless Rails.env.production?
+  end
+
   def cat_gender(cat)
     if cat.gender == '1'
       I18n.t 'male', count: 1

@@ -15,6 +15,8 @@ gem 'activestorage-validator'
 gem 'devise', '~> 4.7', '>= 4.7.1'
 # Use figaro for setting environment variables
 gem 'figaro'
+# Fog for sitemap storage
+gem 'fog-aws'
 # Use friendly_id to use names in the url instead of ids
 gem 'friendly_id'
 # Use Hirb for fancier Rails Console output
@@ -44,8 +46,12 @@ gem 'puma', '~> 4.1'
 gem 'recaptcha', '~> 5.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
+# Generate XML sitemaps
+gem 'sitemap_generator'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
+# Schedule cron jobs
+gem 'whenever'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

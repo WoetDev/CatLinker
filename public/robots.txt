@@ -1,6 +1,7 @@
 # Hi there Robot!
-# If you have bad intentions then that is really not cool bro
-# documentation: https://www.robotstxt.org/robotstxt.html
+# I'm just gonna leave this here; documentation: https://www.robotstxt.org/robotstxt.html
+
+Sitemap: http://catlinker.com/sitemap
 
 User-agent: *
 Disallow:

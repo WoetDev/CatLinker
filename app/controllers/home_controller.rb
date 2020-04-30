@@ -2,6 +2,10 @@ class HomeController < ApplicationController
   before_action :set_user
   skip_before_action :authenticate_user!
 
+  def sitemap
+    redirect_to 'http://s3-eu-west-3.amazonaws.com/cat-linker/sitemaps/sitemap.xml.gz'
+  end
+
   def index
     all_available_breeds
     @all_available_locations_array = []
