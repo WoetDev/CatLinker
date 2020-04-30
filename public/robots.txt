@@ -1,7 +1,7 @@
 # Hi there Robot!
 # I'm just gonna leave this here; documentation: https://www.robotstxt.org/robotstxt.html
 
-Sitemap: http://catlinker.com/sitemap
+Sitemap: http://www.catlinker.com/sitemap
 
 User-agent: *
 Disallow:
