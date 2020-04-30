@@ -23,14 +23,14 @@ SitemapGenerator::Sitemap.create do
   {en: :english, nl: :dutch}.each_pair do |locale, name|
     group(:sitemaps_path => "sitemaps/#{locale}/", :filename => name) do
       add root_path(locale: locale), :changefreq => 'daily'
-  
+
       add cats_path, :changefreq => 'always'
-      Cat.find_each do |cat|
+      Cat.joins(:user).where(users: { is_cattery: true }).is_parent(false).is_available(true).find_each do |cat|
         add cat_path(cat), :priority => '1.0', :changefreq => 'always', :lastmod => cat.updated_at
       end
 
       add catteries_path, :changefreq => 'always'
-      User.find_each do |cattery|
+      User.is_cattery(true).distinct(:id).joins(:cats).joins(:country).cattery_information_present.find_each do |cattery|
         add cattery_path(cattery), :priority => '1.0', :changefreq => 'always', :lastmod => cattery.updated_at
       end
 
