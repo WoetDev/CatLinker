@@ -2,6 +2,7 @@
 require 'fog/aws'
 
 SitemapGenerator::Sitemap.default_host = "http://www.catlinker.com"
+SitemapGenerator::Sitemap.compress = false
 SitemapGenerator::Sitemap.create_index = true
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(fog_provider: ENV['FOG_PROVIDER'],
                                                                     aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
