@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!
 
   def sitemap
+    headers['Content-Type'] = 'application/xml'
     redirect_to 'http://s3-eu-west-3.amazonaws.com/cat-linker/sitemaps/sitemap.xml.gz'
   end
 
