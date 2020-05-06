@@ -108,7 +108,7 @@ class Cat < ApplicationRecord
     parent_litters = Cat.user_id(user_id).is_parent(false).pair_id(pair_id).distinct.pluck(:litter_number)
     last_litter_number = Cat.user_id(user_id).is_parent(false).distinct.pluck(:litter_number).max
 
-    unless litter_number.blank? or litter_number.to_i > last_litter_number.to_i or parent_litters.include?(litter_number)
+    unless litter_number.blank? or pair_id.blank? or litter_number.to_i > last_litter_number.to_i or parent_litters.include?(litter_number)
       errors.add(:pair_id, (I18n.t 'form.errors.parents_dont_own_selected_litter'))
       errors.add(:litter_number, (I18n.t 'form.errors.parents_dont_own_selected_litter'))
     end

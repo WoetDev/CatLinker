@@ -73,6 +73,7 @@
 
       @include small-and-down {
         font-size: 0.75em;
+        bottom: 0px;
       }
     }
 
@@ -194,12 +195,7 @@
           text-transform: uppercase;
           margin: 0;
         }
-
-        span {
-        }
       }
-  
-      
     }
 
     .btn {
@@ -220,10 +216,16 @@
         text-align: left;
       }
 
+      @include small-and-down {
+        h4 {
+          font-size: 1.5em;
+        }
+      }
+
       .circle {
         position: absolute;
         right: 15px;
-        top: 25px;
+        top: 15px;
         transition: 0.2s ease-in-out;
         padding: 5px;
 
@@ -275,10 +277,10 @@
     .info-available {
       position: relative;
       right: 15px;
+      text-align: center;
       text-transform: uppercase;
       padding-top: 10px;
       margin-bottom: -10px;
-
 
       span {
         position: relative;

@@ -1,7 +1,7 @@
 <div class="section home-landing">
   <div class="row">
     <div class="col l5 hide-on-med-and-down">
-      <%= image_tag("cat_illustration_1.svg", :alt => "cat", class:"image-m") %>
+      <%= image_tag("cat_illustration_1.svg", :alt => "cat behind plant illustration", class:"image-m") %>
     </div>
     <div class="col l6 m12 offset-l1 search-landing">
         <h1><%= t('home.find_your_cat') %>!</h1>
@@ -27,7 +27,7 @@
         <div class="carousel-item">
             <div class="card">
               <div class="card-image">
-                <%= image_tag(breed.thumbnail, :alt => 'breed-image', class:"activator") %>
+                <%= image_tag(breed.thumbnail, alt:"#{breed.name} breed", class:"activator") %>
               </div>
               <div class="card-content activator">
                 <%= t("breeds.#{breed.breed_code.upcase}.name") %>
@@ -56,7 +56,7 @@
             <%= link_to cat_path(cat) do %>
               <div class="card">
                 <div class="card-image">
-                  <%= image_tag(cat.card_picture, :alt => "card picture") %>
+                  <%= image_tag(cat.card_picture, alt:"#{Breed.find(cat.breed_id).name} kitten") %>
                   <% if !cat.name.blank? %>
                     <span class="card-title"><%= cat.name %></span>
                   <% end %>
@@ -123,7 +123,7 @@
           </div>
         </div>
         <div class="col l6 offset-l1 hide-on-med-and-down">
-          <%= image_tag("cat_illustration_2.svg", :alt => "cattery", class:"image-m") %>
+          <%= image_tag("cat_illustration_2.svg", :alt => "relaxing with cat illustration", class:"image-m") %>
         </div>
       </div>
     </div>

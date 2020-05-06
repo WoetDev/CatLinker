@@ -70,6 +70,7 @@ nl:
     add_pair: "Nieuw koppel"
     add_kitten: "Nieuwe kitten"
     new_litter: "Nieuw nestje"
+    existing_litter: "Bestaand nestje"
     other_pictures: "Andere foto's"
     read_more: "Lees meer"
     discover_more: "Ontdek meer"
@@ -128,6 +129,8 @@ nl:
       pkd_echo: "PKD met echografische test"
       fiv: "FIV"
       felv: "FeLV"
+  cattery_info:
+    certification_number: "Erkenningsnr"
   breed_info:
     playfulness: "speelsheid"
     activity_level: "activiteitsniveau"

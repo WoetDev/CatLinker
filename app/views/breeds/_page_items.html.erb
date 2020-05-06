@@ -4,7 +4,7 @@
       <div class="col s10 offset-s1 m6 l3">
         <div class="card">
           <div class="card-image">
-            <%= image_tag(breed.thumbnail, :alt => 'breed-image', class:"activator") if breed.picture.attached? %>
+            <%= image_tag(breed.thumbnail, :alt => "#{breed.name} breed", class:"activator") if breed.picture.attached? %>
           </div>
           <div class="card-content activator">
             <%= t("breeds.#{breed.breed_code.upcase}.name") %>

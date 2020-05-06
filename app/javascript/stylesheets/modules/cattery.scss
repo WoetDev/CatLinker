@@ -108,13 +108,18 @@
 
       .material-icons {
         position: absolute;
-        right: 7px;
+        right: 10px;
+        top: 20px;
         transition: 0.2s ease-in-out;
         padding: 5px;
 
         &:hover {
           color: $white;
           background-color: $primaryColor;
+        }
+
+        @include small-and-down {
+          left: -15px;
         }
       }
     }

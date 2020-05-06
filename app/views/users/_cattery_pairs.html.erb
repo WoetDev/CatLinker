@@ -8,10 +8,10 @@
         </ul>
       </div>
       <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >
-        <%= image_tag(pair.male.thumbnail, :alt => "breed") if pair.male.card_picture.attached? %>
+        <%= image_tag(pair.male.thumbnail, alt:"#{cat_breed(pair.male).name} father") if pair.male.card_picture.attached? %>
       </div>
       <div class="card-image" id="<%= pair.id %><%= pair.female.id %>" >
-        <%= image_tag(pair.female.thumbnail, :alt => "breed") if pair.female.card_picture.attached? %>
+        <%= image_tag(pair.female.thumbnail, alt:"#{cat_breed(pair.female).name} mother") if pair.female.card_picture.attached? %>
       </div>
       <div class="card-content">
         <% if user_signed_in? && current_user == @user %>

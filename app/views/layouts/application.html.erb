@@ -5,9 +5,7 @@
     <%= csp_meta_tag %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
-    <% unless env_production %>
-      <%# <meta name="turbolinks-visit-control" content="reload"> %>
-    <% end %>
+    <meta name="turbolinks-visit-control" content="reload">
 
     <%= favicon_link_tag asset_path('favicon.png') %>
     <title><%= meta_title %></title>
@@ -40,13 +38,6 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163427368-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-163427368-1');
-    </script>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: false %>
   </head>
 
@@ -175,7 +166,7 @@
               <li><%= link_to terms_of_service_path, class:"grey-text text-lighten-3" do %><%= t('footer.terms_of_service') %><% end %></li>
               <li><%= link_to privacy_policy_path, class:"grey-text text-lighten-3" do %><%= t('footer.privacy_policy') %><% end %></li>
               <li><%= link_to cookies_policy_path, class:"grey-text text-lighten-3" do %><%= t('footer.cookies_policy') %><% end %></li>
-              <li><a target="_blank" class="grey-text text-lighten-3" href="https://icons8.com">Icons8</a></li>
+              <li><a target="_blank" class="grey-text text-lighten-3" href="https://icons8.com" rel="nofollow">Icons8</a></li>
             </ul>
           </div>
         </div>

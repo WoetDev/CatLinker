@@ -12,7 +12,7 @@
 
   <div class="row">
     <div class="col s12 m6 picture-main-container"> 
-      <%= image_tag(@user.profile_picture, :alt => "profile picture", class:"picture-main z-depth-2") %>
+      <%= image_tag(@user.profile_picture, alt:"profile picture", class:"picture-main z-depth-2") %>
     </div>
     <div class="col s12 m6">
       <div class="info-main">
@@ -39,6 +39,16 @@
             <% end %>
           </div>
         </div>
+        <% if @user.certification_number.present? %>
+          <div class="row">
+            <div class="col s6 m5 info-title">
+              <%= t('cattery_info.certification_number') %>:
+            </div>
+            <div class="col s6 m7 info-text">
+              <%= @user.certification_number %>
+            </div>
+          </div>
+        <% end %>
         <div class="row">
           <div class="col s6 m5 info-title">
             <%= t('cat_info.parents') %>:
@@ -119,7 +129,7 @@
                   <span class="cat-id"><%= cat.id %></span>
                 </span>
                 <div class="card-image">
-                  <%= image_tag(cat.thumbnail, :alt => "card picture") %>
+                  <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} parent") %>
                   <% if !cat.name.blank? %>
                     <span class="card-title"><%= cat.name %></span>
                   <% end %>
@@ -186,7 +196,7 @@
                   </div>
                 </div>
                 <div class="card-reveal">
-                  <span class="card-title"><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle">close</i></span>
+                  <span class="card-title"><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle">keyboard_arrow_down</i></span>
                   <% if cat.tests.any? { |test| test[1] == '1' } %>
                     <p><%= cat.name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
                     <% cat.tests.each do |test| %>

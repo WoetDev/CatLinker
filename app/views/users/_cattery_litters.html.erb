@@ -11,7 +11,7 @@
         <% cattery_kittens_per_litter(litter.ids).each do |cat| %>
           <div class="card-image">
             <a class="carousel-item">
-              <%= image_tag(cat.thumbnail, :alt => "card picture") if cat.card_picture.attached? %>
+              <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} litter") if cat.card_picture.attached? %>
             </a>
           </div>
         <% end %>

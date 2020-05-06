@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-image">
         <%= link_to cat_path(cat) do %>
-          <%= image_tag(cat.thumbnail, :alt => "card picture") %>
+          <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} kitten") %>
           <% if !cat.name.blank? %>
             <span class="card-title"><%= cat.name %></span>
           <% end %>
@@ -53,10 +53,7 @@
               </div>
               <div class="col s8">
                 <span class="info-text">
-                <% parents = Pair.find(cat.pair_id) %>
-                <%= parents.male.name %> 
-                &amp;   
-                <%= parents.female.name %> 
+                  <%= kitten_parents(cat) %>
                 </span>
               </div>
             </div>

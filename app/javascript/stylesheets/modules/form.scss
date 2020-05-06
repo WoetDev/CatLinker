@@ -138,8 +138,12 @@
   }
 
   .inner-form-btn {
-    min-width: 160px;
+    min-width: 200px;
     width: 30%;
+  }
+
+  #showExistingLitters {
+    display: none;
   }
 
   .btn-link, .btn-delete {
@@ -421,7 +425,7 @@
 // Delete button
 .btn-delete-large, .btn-delete  {
   background-color: $accent3Shade3 !important;
-  max-width: 200px;
+  max-width: 220px;
 
   &:hover {
     background-color: $accent3Shade4 !important;

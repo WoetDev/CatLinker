@@ -70,6 +70,7 @@ en:
     add_pair: "Add pair"
     add_kitten: "Add kitten"
     new_litter: "New litter"
+    existing_litter: "Existing litter"
     other_pictures: "Other pictures"
     read_more: "Read more"
   action:
@@ -127,6 +128,8 @@ en:
       pkd_echo: "PKD with echocardiographic test"
       fiv: "FIV"
       felv: "FeLV"
+  cattery_info:
+    certification_number: "Certification number"
   breed_info:
     playfulness: "playfulness"
     activity_level: "activity level"

@@ -5,7 +5,7 @@
         <%= link_to cattery_path(cattery), target:"_blank" do %>
           <div class="card">
             <div class="card-image">
-              <%= image_tag(cattery_user(cattery).thumbnail, :alt => "card picture") %>
+              <%= image_tag(cattery_user(cattery).thumbnail, alt:"#{cattery.cattery_name} cattery") %>
             </div>
             <div class="card-content">
             <div class="info-block">

@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   # scopes
   scope :is_cattery, -> (is_cattery) { where is_cattery: is_cattery }
-  scope :cattery_information_present, -> { where.not(cattery_name: [nil, ""], postal_code: [nil, ""], city: [nil, ""]) }
+  scope :cattery_information_present, -> { where.not(cattery_name: [nil, ""]).where.not(postal_code: [nil, ""]).where.not(city: [nil, ""]) }
 
   # Include devise modules
   devise :database_authenticatable, :registerable,

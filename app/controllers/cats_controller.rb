@@ -81,6 +81,7 @@ class CatsController < ApplicationController
       if @cat.save
         update_cat_breed_tags(@cat)
         update_cat_location_tags(@cat)
+        update_litter_birth_date(@cat)
 
         flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
                           kind: (I18n.t 'kitten', count: 1), 
@@ -141,14 +142,14 @@ class CatsController < ApplicationController
       all_colors
       all_coat_patterns
 
-      update_cat_breed_tags(@cat)
-      update_cat_location_tags(@cat)
-
       if @form == 'parent'
         all_breeds
         all_countries
 
         if @cat.update(parent_params)
+          update_cat_breed_tags(@cat)
+          update_cat_location_tags(@cat)
+
           flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
                             kind: (I18n.t 'parent', count: 1), 
                             action: (I18n.t 'action.updated'))
@@ -165,6 +166,10 @@ class CatsController < ApplicationController
         litters(user)
 
         if @cat.update(kitten_params)
+          update_cat_breed_tags(@cat)
+          update_cat_location_tags(@cat)
+          update_litter_birth_date(@cat)
+
           flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
                             kind: (I18n.t 'kitten', count: 1), 
                             action: (I18n.t 'action.updated'))
@@ -237,18 +242,20 @@ class CatsController < ApplicationController
   def update_filters
     @breed_filter = params[:breeds]
     @location_filter = params[:locations]
+    cats = Cat.joins(:user).where(users: { is_cattery: true }).is_parent(false).is_available(true)
+    users = User.is_cattery(true).distinct(:id).joins(:cats).joins(:country).cattery_information_present.where(cats: { is_parent: false, is_available: true })
 
     if params[:breeds].present?
-      breed_ids = Cat.is_parent(false).tagged_with(@breed_filter, :on => :breed_tag, :any => true).distinct.pluck(:breed_id)   
-      locations = User.is_cattery(true).joins(:cats).where(cats: { is_parent: false, breed_id: breed_ids }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+      breed_ids = cats.tagged_with(@breed_filter, :on => :breed_tag, :any => true).distinct.pluck(:breed_id)   
+      locations = users.where(cats: { is_parent: false, breed_id: breed_ids }).distinct.pluck(:city, :country_id)
     else
-      locations = User.is_cattery(true).joins(:cats).where(cats: { is_parent: false }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+      locations = users.distinct.pluck(:city, :country_id)
     end
 
     if params[:locations].present?
-      breeds = Cat.is_parent(false).tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:breed_id)
+      breeds = cats.tagged_with(@location_filter, :on => :location_tag, :any => true).distinct.pluck(:breed_id)
     else
-      breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
+      breeds = cats.distinct.pluck(:breed_id)
     end
 
     @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
@@ -282,12 +289,14 @@ class CatsController < ApplicationController
   end
 
   def all_available_breeds
-    breeds = Cat.is_parent(false).distinct.pluck(:breed_id)
+    cats = Cat.joins(:user).where(users: { is_cattery: true }).is_parent(false).is_available(true)
+    breeds = cats.distinct.pluck(:breed_id)
     @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort_by { |b| b[0] }
   end
 
   def all_available_locations
-    locations = User.is_cattery(true).joins(:cats).where(cats: { is_parent: false }).where.not(city: nil).where.not(country_id: nil).distinct.pluck(:city, :country_id)
+    users = User.is_cattery(true).distinct(:id).joins(:cats).joins(:country).cattery_information_present.where(cats: { is_parent: false, is_available: true })
+    locations = users.distinct.pluck(:city, :country_id)
     @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort_by { |l| l[0] }
   end
 
@@ -332,5 +341,13 @@ class CatsController < ApplicationController
 
   def update_cat_breed_tags(cat)
     cat.update_attributes(:breed_tag_list => ["#{Breed.find(params[:cat][:breed_id]).name}"])
+  end
+
+  def update_litter_birth_date(cat)
+    user = User.find(cat.user_id)
+    kittens = Cat.user_id(user.id).is_parent(false).where(litter_number: cat.litter_number)
+    kittens.each do |kitten| 
+      kitten.update_attributes(birth_date: cat.birth_date)
+    end
   end
 end

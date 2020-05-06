@@ -264,10 +264,7 @@
                         </div>
                         <div class="col s8">
                           <span class="info-text">
-                          <% parents = @pairs.find(cat.pair_id) %>
-                            <%= parents.male.name.capitalize %> 
-                            &amp; 
-                            <%= parents.female.name.capitalize %> 
+                          <%= kitten_parents(cat) %>
                           </span>
                         </div>
                       </div>

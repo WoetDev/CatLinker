@@ -1,11 +1,12 @@
 class ApplicationController < ActionController::Base
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
-
   include Pagy::Backend
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
   protect_from_forgery prepend: true
-  before_action :authenticate_user!, :set_locale, :default_url_options, :set_support, :set_user, :twitter_url_options
+  before_action :authenticate_user!, :set_locale, :default_url_options,
+                :set_support, :set_user, :twitter_url_options
 
   private
+
   def set_locale
     I18n.locale = params[:locale] || http_accept_language.compatible_language_from(I18n.available_locales) || I18n.default_locale
   end
