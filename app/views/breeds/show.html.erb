@@ -11,13 +11,13 @@
   </div>
 
   <div class="row">
-    <div class="col s12 l6">
+    <div class="col s12 ml12 l6">
       <div class="breed-image">
         <%= image_tag(@breed.vertical_rectangle, alt:"#{@breed.name} breed", class:"z-depth-2") %>
       </div>
     </div>
 
-    <div class="col s12 l6">
+    <div class="col s12 ml12 l6">
       <% @properties_array.each do |prop| %>
         <div class="col s12 l6 breed-property">
           <div class="col s12 m5 l12">

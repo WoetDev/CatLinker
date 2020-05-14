@@ -16,65 +16,43 @@
     </div>
     <div class="col s12 m6">
       <div class="info-main">
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.location') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= cattery_location(@user) %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('breed', count: cattery_breeds(@user).size ) %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <% cattery_breeds(@user).each_with_index do |breed, index| %>
-              <%= link_to breed_path(breed.friendly_id), class:"info-link" do %>
-                <%= t("breeds.#{breed.breed_code.upcase}.name") %>
-              <% end %>
-              <% unless index == cattery_breeds(@user).length - 1 %>
-                ,&nbsp;
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        <% if @user.certification_number.present? %>
-          <div class="row">
-            <div class="col s6 m5 info-title">
-              <%= t('cattery_info.certification_number') %>:
-            </div>
-            <div class="col s6 m7 info-text">
-              <%= @user.certification_number %>
-            </div>
-          </div>
-        <% end %>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.parents') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= cattery_parent_count(@user)[:parents] %> 
-            (<%= cattery_parent_count(@user)[:males] %>&nbsp;<%= t('male', count: cattery_parent_count(@user)[:males] ) %>, 
-            <%= cattery_parent_count(@user)[:females] %>&nbsp;<%= t('female', count: cattery_parent_count(@user)[:females] ) %>)
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.litters') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= cattery_litter_count(@user) %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('header.kittens') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= cattery_kitten_count(@user) %>
-          </div>
-        </div>
+        <table>
+          <tbody>
+          <tr class="info-block">
+            <td class="info-title"><%= t('cat_info.location') %>:</td>
+            <td class="info-text"><%= cattery_location(@user) %></td>
+          </tr>
+          <tr class="info-block">
+            <td class="info-title"><%= t('breed', count: cattery_breeds(@user).size ) %>:</td>
+            <td class="info-text">
+              <% cattery_breeds(@user).each_with_index do |breed, index| %>
+                <%= link_to breed_path(breed.friendly_id), class:"info-link" do %><%= t("breeds.#{breed.breed_code.upcase}.name") %><% end %><% unless index == cattery_breeds(@user).length - 1 %>,&nbsp;<% end %><% end %>
+            </td>
+          </tr>
+          <% if @user.certification_number.present? %>
+            <tr class="info-block">
+              <td class="info-title"><%= t('cattery_info.certification_number') %>:</td>
+              <td class="info-text"><%= @user.certification_number %></td>
+            </tr>
+          <% end %>
+          <tr class="info-block">
+            <td class="info-title"><%= t('cat_info.parents') %>:</td>
+            <td class="info-text">
+              <%= cattery_parent_count(@user)[:parents] %> 
+              (<%= cattery_parent_count(@user)[:males] %>&nbsp;<%= t('male', count: cattery_parent_count(@user)[:males] ) %>, 
+              <%= cattery_parent_count(@user)[:females] %>&nbsp;<%= t('female', count: cattery_parent_count(@user)[:females] ) %>)
+            </td>
+          </tr>
+          <tr class="info-block">
+            <td class="info-title"><%= t('cat_info.litters') %>:</td>
+            <td class="info-text"><%= cattery_litter_count(@user) %></td>
+          </tr>
+          <tr class="info-block">
+            <td class="info-title"><%= t('header.kittens') %>:</td>
+            <td class="info-text"><%= cattery_kitten_count(@user) %></td>
+          </tr>
+          </tbody>
+        </table>
         <% if @user.facebook_link.present? or @user.instagram_link.present? or @user.twitter_link.present? %>
           <div class="row social">
             <div class="col s12">
@@ -98,8 +76,8 @@
         <% end %>
         <% if @kittens.any? && cattery_kittens_available(@user).is_available %>
         <div class="row">
-          <div class="col s12 info-title available-message">
-            <i class="material-icons check">check_circle_outline</i>
+          <div class="col s12 available-message success">
+            <i class="material-icons check">check_circle</i>
             <%= t('cat_info.kittens_available') %>!
           </div>
         </div>
@@ -109,7 +87,7 @@
   </div>
   <%= form_with(url: {:controller => 'users', :action => 'show', :id => @user.id}, :html => {:class => "filter"}, method: "GET") do |f| %>
     <% if cattery_parents(@user).any? %>
-      <div class="section">
+      <div class="section parents">
         <div class="row">
           <h1><%= t('cat_info.parents')%></h1>
         </div>
@@ -119,105 +97,87 @@
           </div>
         </div>
         <div class="row">
-        <% cattery_parents(@user).each do |cat| %>
-          <div class="col s10 offset-s1 m6 l3">
-              <div class="card">
-                <span class="filter-icon-container circle z-depth-4">
-                  <i class="material-icons filter-list">filter_list</i>
-                  <i class="material-icons add-circle">add_circle</i>
-                  <i class="material-icons check-circle">check_circle</i>
-                  <span class="cat-id"><%= cat.id %></span>
-                </span>
-                <div class="card-image">
-                  <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} parent") %>
-                  <% if !cat.name.blank? %>
-                    <span class="card-title"><%= cat.name %></span>
-                  <% end %>
-                  <% if user_signed_in? && current_user == @user %>
-                    <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
-                      <i class="material-icons">edit</i>
-                    <% end %>
-                  <% end %>
-                </div>
-                <div class="card-content">
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('breed', count: 1)%>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></span>
-                      </div>
+          <% cattery_parents(@user).each_slice(2) do |slice| -%>
+            <div class="index-row">
+              <% slice.each do |cat| %>
+                <div class="col s10 offset-s1 m6 ml6 l3">
+                  <div class="card">
+                    <span class="filter-icon-container circle z-depth-4">
+                      <i class="material-icons filter-list">filter_list</i>
+                      <i class="material-icons add-circle">add_circle</i>
+                      <i class="material-icons check-circle">check_circle</i>
+                      <span class="cat-id"><%= cat.id %></span>
+                    </span>
+                    <div class="card-image">
+                      <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} parent") %>
+                      <% if !cat.name.blank? %>
+                        <span class="card-title"><%= capitalized_name(cat) %></span>
+                      <% end %>
+                      <% if user_signed_in? && current_user == @user %>
+                        <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                          <i class="material-icons">edit</i>
+                        <% end %>
+                      <% end %>
                     </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('cat_info.gender')%>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= cat_gender(cat).capitalize %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('cat_info.partners')%>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= cat.pairs.size %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('cat_info.litters')%>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= parent_litters_count(cat, @user) %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('header.kittens') %>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= parent_kittens_count(cat, @user) %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-reveal-link activator">
-                    <%= t('show.see_health_tests') %>
-                    <span class="material-icons activator">keyboard_arrow_up</span>
-                  </div>
-                </div>
-                <div class="card-reveal">
-                  <span class="card-title"><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle">keyboard_arrow_down</i></span>
-                  <% if cat.tests.any? { |test| test[1] == '1' } %>
-                    <p><%= cat.name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
-                    <% cat.tests.each do |test| %>
-                      <% if test[1] == '1' %>
-                        <div class="test-block">
-                          <span class="test-result"><i class="material-icons check">check_circle_outline</i></span>
-                          &nbsp;
-                          <span class="test-name"><%= t("cat_info.tests.#{test[0]}") %></span>
+                    <div class="card-content">
+                      <table>
+                        <tbody>
+                          <tr class="info-block">
+                            <td class="info-title"><%= t('breed', count: 1)%>:</td>
+                            <td class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></td>
+                          </tr>
+                          <tr class="info-block">
+                            <td class="info-title"><%= t('cat_info.gender')%>:</td>
+                            <td class="info-text"><%= cat_gender(cat).capitalize %></td>
+                          </tr>
+                          <tr class="info-block">
+                            <td class="info-title"><%= t('cat_info.partners')%>:</td>
+                            <td class="info-text"><%= cat.pairs.size %></td>
+                          </tr>
+                          <tr class="info-block">
+                            <td class="info-title"><%= t('cat_info.litters')%>:</td>
+                            <td class="info-text"><%= parent_litters_count(cat, @user) %></td>
+                          </tr>
+                          <tr class="info-block">
+                            <td class="info-title"><%= t('header.kittens') %>:</td>
+                            <td class="info-text"><%= parent_kittens_count(cat, @user) %></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <% if cat.tests.any? { |test| test[1] == '1' } %>
+                        <div class="card-reveal-link activator">
+                          <%= t('show.see_health_tests') %>
+                          <span class="material-icons activator">keyboard_arrow_up</span>
                         </div>
                       <% end %>
-                    <% end %>
-                  <% else %>
-                    <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= cat.name %>.</p>
-                  <% end %>
+                    </div>
+                    <div class="card-reveal">
+                      <span class="card-title"><%= t('cat_info.tests.health') %><i class="material-icons circle down-icon">keyboard_arrow_down</i></span>
+                      <% if cat.tests.any? { |test| test[1] == '1' } %>
+                        <p><%= capitalized_name(cat) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                        <ul class="test-block">
+                          <% cat.tests.each do |test| %>
+                            <% if test[1] == '1' %>
+                              <div class="row">
+                                <span class="test-icon"><i class="material-icons">spa</i></span>
+                                <li class="test-name"><span><%= t("cat_info.tests.#{test[0]}") %></span></li>
+                              </div>
+                            <% end %>
+                          <% end %>
+                        </ul>
+                      <% else %>
+                        <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= capitalized_name(cat) %>.</p>
+                      <% end %>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             </div>
           <% end %>
         </div>
       </div> 
     <% end %>
+    
     <% if @pairs.any? %>
       <div class="section">
         <div class="row">

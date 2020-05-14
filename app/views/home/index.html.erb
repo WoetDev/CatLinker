@@ -62,36 +62,22 @@
                   <% end %>
                 </div>
                 <div class="card-content">
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('breed', count: 1)%>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('cat_info.gender')%>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= cat_gender(cat).capitalize %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('cat_info.cattery')%>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= cattery(cat).cattery_name %></span>
-                      </div>
-                    </div>
-                  </div>
+                  <table>
+                    <tbody>
+                      <tr class="info-block">
+                        <td class="info-title"><%= t('breed', count: 1)%>:</td>
+                        <td class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></td>
+                      </tr>
+                      <tr class="info-block">
+                        <td class="info-title"><%= t('cat_info.gender')%>:</td>
+                        <td class="info-text"><%= cat_gender(cat).capitalize %></td>
+                      </tr>
+                      <tr class="info-block">
+                          <td class="info-title"><%= t('cat_info.cattery')%>:</td>
+                          <td class="info-text"><%= cattery(cat).cattery_name %></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             <% end %>
@@ -113,7 +99,7 @@
         <h1><%= t('home.own_a_cattery') %>?</h1>
       </div>
       <div class="row valign-wrapper">
-        <div class="col s12 l5">
+        <div class="col s12 ml12 l5">
           <div class="card-panel">
             <h2><%= t('home.strong_online_presence')%>!</h2>
             <p><%= t('home.one_place')%></p>
@@ -122,7 +108,7 @@
             <%= link_to t('buttons.sign_up_now'), new_user_registration_path, class:"btn waves-effect waves-light" %>
           </div>
         </div>
-        <div class="col l6 offset-l1 hide-on-med-and-down">
+        <div class="col l6 offset-l1 hide-on-med-large-and-down">
           <%= image_tag("cat_illustration_2.svg", :alt => "relaxing with cat illustration", class:"image-m") %>
         </div>
       </div>

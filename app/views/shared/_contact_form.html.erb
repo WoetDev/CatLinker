@@ -5,7 +5,7 @@
   </div>
 
   <div class="row">
-    <div class="col s12 l7">
+    <div class="col s12 ml12 l7">
       <%= form_with(model: @message, url: messages_path, multipart: true) do |f| %>
         <%= recaptcha_v3(action: 'contact', turbolinks: true) %>
 
@@ -73,31 +73,43 @@
       <% end %>
     </div>
 
-    <div class="col s12 l5">
-      <div class="row">
-        <div class="contact-info-block">
-          <div class="col s4 m4 info-title">
-            <%= t('form.contact.email') %>:
-          </div>
-          <div class="col s8 m8 info-text">
-            <%= mail_to user.email, class:"info-link" do %>
-              <%= user.email %>
-            <% end %>
-          </div>
-        </div>
-        <% if user.phone_number.present? %>
-          <div class="contact-info-block">
-            <div class="col s4 m4 info-title">
-              <%= t('form.contact.phone') %>:
-            </div>
-            <div class="col s8 m8 info-text">
-              <%= link_to "tel:#{user.phone_number}", class:"info-link" do %>
-                <%= user.phone_number %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
+    <div class="col s12 ml12 l5">
+      <table class="contact-info-table">
+        <div class="row">
+        <br>
       </div>
+        <% unless user.email == 'support@catlinker.com' %>
+        <thead>
+          <tr>
+            <th colspan="2"><%= t('cattery_info.cattery_info') %></th>
+          </tr>
+        </thead>
+        <% end %>
+        <tbody>
+          <tr class="contact-info-block">
+            <td class="info-title">
+              <%= t('form.contact.email') %>:
+            </td>
+            <td class="info-text">
+              <%= mail_to user.email, class:"info-link" do %>
+                <%= user.email %>
+              <% end %>
+            </td>
+          </tr>
+          <% if user.phone_number.present? %>
+            <tr class="contact-info-block">
+              <td class="info-title">
+                <%= t('form.contact.phone') %>:
+              </td>
+              <td class="info-text">
+                <%= link_to "tel:#{user.phone_number}", class:"info-link" do %>
+                  <%= user.phone_number %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

@@ -1,5 +1,12 @@
 // Kitten show page
 #kitten-view, #cattery-view, #contact {
+  h1 {
+    .info-link {
+      color: $primaryColor;
+      text-decoration: underline;
+    }
+  }
+
   img {
     border-radius: 5px;
     box-shadow: $z-depth-2;
@@ -23,6 +30,13 @@
     margin: -1.5rem 0 1rem 0;
   }
 
+  .info-main {
+    .row {
+      margin-left: auto;
+      margin-right: auto;
+    } 
+  }
+
   .info-main, .contact-info-block {
     font-size: 2em;
 
@@ -30,45 +44,89 @@
       font-size: 1.8em;
     }
 
-    .row {
-      margin-bottom: 5px;
+    .info-block {
+      border: none;
     }
 
     .info-title, .info-text {
-      padding: 7px 0px;
+      padding: 10px 0px;
     }
     
     .info-title {
       font-size: 0.75em;
       font-weight: bold;
       text-transform: uppercase;
-      padding-left: 15px;
+      width: auto;
+      width: 1px;
+      padding: 10px;
+      white-space: nowrap;
+    }
+
+    .chip {
+      font-weight: bold;
+      color: $white; 
+      box-shadow: $z-depth-2;
+      padding: 0 20px;
+
+      .material-icons {
+        color: $white;
+        padding-right: 5px;
+        position: relative;
+        top: 5px;
+      }
+    }
+
+    .chip.success {
+      background-color: $secondaryColor;
+    }
+
+    .chip.fail {
+      background-color: $accent3Color;
     }
     
     .available-message {
-      font-size: 1em;
-      color: $secondaryColor;
+      font-size: 0.9em;
+      font-weight: bold;
       text-align: center;
-      border-top: 4px dashed $secondaryColor;
-      margin: 25px auto;
+      text-transform: uppercase;
+      margin: 15px auto;
 
       @include small-and-down {
         font-size: 0.8em;
-        border-top: 2px dashed $secondaryColor;
-        margin-top: 20px;
+        margin-top: 10px;
       }
 
-      .check {
+      .check, .clear {
         position: relative;
-        top: 7px;
-        font-size: 1.3em;
+        top: 5px;
+        font-size: 1em;
+
+        @include small-and-down {
+          font-size: 1.2em;
+        }
+      }
+    }
+
+    .available-message.success {
+      color: $secondaryColor;
+      border-top: 4px dashed $secondaryColor;
+
+      @include small-and-down {
+        border-top: 2px dashed $secondaryColor;
+      }
+    }
+
+    .available-message.fail {
+      color: $accent3Color;
+      border-top: 4px dashed $accent3Color;
+
+      @include small-and-down {
+        border-top: 2px dashed $accent3Color;
       }
     }
 
     .info-text {
       font-size: 0.9em;
-      position: relative;
-      bottom: 4px;
       word-wrap: break-word;
 
       @include small-and-down {
@@ -81,7 +139,7 @@
       color: $primaryColor;
       text-decoration: underline;
       transition: ease-in-out 0.2s;
-      word-wrap: break-word;
+      word-break: break-word;
 
       &:hover {
         font-weight: bold;
@@ -246,18 +304,20 @@
         font-weight: normal;
         padding: 5px 0;
 
-        .test-name {
-          position: relative;
-          bottom: 7px;
+        .row {
+          margin-left: inherit;
         }
 
-        .test-result {
-          padding-right: 5px;
-        }
-
-        .material-icons {
+        .test-icon {
+          float: left;
           font-size: 1.5em;
           color: $secondaryColor;
+        }
+
+        .test-name {
+          position: relative;
+          top: 5px;
+          left: 10px;
         }
       }
     }
@@ -403,10 +463,12 @@
   .breed-property {
     margin: 10px auto;
 
-    @include medium-and-down {
+    @include medium-large-and-down {
       text-align: center;
       margin: 25px auto;
     }
+
+
   }
 
   .range-title {

@@ -1,7 +1,7 @@
 function replaceKittens (innerHTML) {
   var kittens = $('#kittens');
   $('.preloader-wrapper').removeClass('active');
-  $(kittens).append(innerHTML);
+  $(innerHTML).appendTo(kittens).hide().fadeIn(400);
 }
 
 <% if @kittens.present? %>

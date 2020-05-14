@@ -1,5 +1,5 @@
 <% @litters.each do |litter| %>
-  <div class="col s10 offset-s1 m6 l3">
+  <div class="col s10 offset-s1 m6 ml6 l3">
     <div class="card">
       <span class="filter-icon-container circle z-depth-4">
         <i class="material-icons filter-list">filter_list</i>
@@ -16,46 +16,26 @@
           </div>
         <% end %>
       </div>
-      <% cattery_kittens_per_litter(litter.ids).each do |cat| %>
         <div class="card-content">
-          <div class="info-block">
-            <div class="row">
-              <div class="col s4">
-                <span class="info-title"><%= t('breed', count:1) %>:</span>
-              </div>
-              <div class="col s8">
-                <span class="info-text">
-                  <%= t("breeds.#{cat_breed(cat).breed_code}.name") %>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="info-block">
-            <div class="row">
-              <div class="col s4">
-                <span class="info-title"><%= t('cat_info.birth_date') %>:</span>
-              </div>
-              <div class="col s8">
-                <span class="info-text">
-                  <%= format_birth_date(cat) %>
-                </span>
-              </div>
-            </div>
-          </div>
-          <% break %>
-        <% end %>
-          <div class="info-block">
-            <div class="row">
-              <div class="col s4">
-                <span class="info-title"><%= t('header.kittens') %>:</span>
-              </div>
-              <div class="col s8">
-                <span class="info-text">
-                  <%= Cat.user_id(@user.id).where(litter_number: litter.litter_number).size %>
-                </span>
-              </div>
-            </div>
-          </div>
+          <table>
+            <tbody>
+              <% cattery_kittens_per_litter(litter.ids).each do |cat| %>
+              <tr class="info-block">
+                <td class="info-title"><%= t('breed', count:1) %>:</td>
+                <td class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></td>
+              </tr>
+              <tr class="info-block">
+                <td class="info-title"><%= t('cat_info.birth_date') %>:</td>
+                <td class="info-text"><%= format_birth_date(cat) %></td>
+              </tr>
+              <% break %>
+              <% end %>
+              <tr class="info-block">
+                <td class="info-title"><%= t('header.kittens') %>:</td>
+                <td class="info-text"><%= Cat.user_id(@user.id).where(litter_number: litter.litter_number).size %></td>
+              </tr>
+            </tbody>
+          </table>
           <div class="info-block">
             <div class="row">
               <div class="col s12">

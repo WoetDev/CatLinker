@@ -23,9 +23,8 @@ class BreedsController < ApplicationController
                         'friendliness_to_children','grooming_requirements','vocality',
                         'need_for_attention','affection_toward_its_owners','docility', 
                         'intelligence', 'independence', 'hardiness']
-    users = User.joins(:cats).where(cats: { breed_id: @breed.id }).distinct.pluck(:id)
-    @catteries = User.find(users)
-    @kittens = Cat.is_parent(false).where(breed_id: @breed.id)
+    @catteries = User.is_cattery(true).distinct(:id).joins(:cats).joins(:country).cattery_information_present.where(cats: { breed_id: @breed.id })
+    @kittens = Cat.joins(:user).where(users: { is_cattery: true }).is_parent(false).is_available(true).where(breed_id: @breed.id)
   end
 
   private

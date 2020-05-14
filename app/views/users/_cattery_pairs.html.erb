@@ -1,10 +1,10 @@
 <% @pairs.each do |pair| %>
-  <div class="col s10 offset-s1 m6 l3">
+  <div class="col s10 offset-s1 m6 ml6 l3">
     <div class="card">
       <div class="card-tabs">
         <ul class="tabs tabs-fixed-width">
-          <li class="tab"><a class="active" href="#<%= pair.id %><%= pair.male.id %>"><%= pair.male.name %></a></li>
-          <li class="tab"><a  href="#<%= pair.id %><%= pair.female.id %>"><%= pair.female.name %></a></li>
+          <li class="tab"><a class="active" href="#<%= pair.id %><%= pair.male.id %>"><%= capitalized_name(pair.male) %></a></li>
+          <li class="tab"><a  href="#<%= pair.id %><%= pair.female.id %>"><%= capitalized_name(pair.female) %></a></li>
         </ul>
       </div>
       <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >
@@ -19,36 +19,22 @@
             <i class="material-icons">edit</i>
           <% end %>
         <% end %>
-        <div class="info-block">
-          <div class="row">
-            <div class="col s4">
-              <span class="info-title"><%= t('breed', count:1) %>:</span>
-            </div>
-            <div class="col s8">
-              <span class="info-text"><%= t("breeds.#{cat_breed(pair.male).breed_code}.name") %></span>
-            </div>
-          </div>
-        </div>
-        <div class="info-block">
-          <div class="row">
-            <div class="col s4">
-              <span class="info-title"><%= t('cat_info.litters') %>:</span>
-            </div>
-            <div class="col s8">
-              <span class="info-text"><%= pair_litters_count(pair, @user) %></span>
-            </div>
-          </div>
-        </div>
-        <div class="info-block">
-          <div class="row">
-            <div class="col s4">
-              <span class="info-title"><%= t('header.kittens') %>:</span>
-            </div>
-            <div class="col s8">
-              <span class="info-text"><%= pair_kittens_count(pair, @user) %></span>
-            </div>
-          </div>
-        </div>
+        <table>
+          <tbody>
+            <tr class="info-block">
+              <td class="info-title"><%= t('breed', count:1) %>:</td>
+              <td class="info-text"><%= t("breeds.#{cat_breed(pair.male).breed_code}.name") %></td>
+            </tr>
+            <tr class="info-block">
+              <td class="info-title"><%= t('cat_info.litters') %>:</td>
+              <td class="info-text"><%= pair_litters_count(pair, @user) %></td>
+            </tr>
+            <tr class="info-block">
+              <td class="info-title"><%= t('header.kittens') %>:</td>
+              <td class="info-text"><%= pair_kittens_count(pair, @user) %></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
-<% @breeds.each_slice(4) do |slice| -%>
-  <div class="row">
+<% @breeds.each_slice(2) do |slice| -%>
+  <div class="index-row">
     <% slice.each do |breed| %>
-      <div class="col s10 offset-s1 m6 l3">
+      <div class="col s10 offset-s1 m6 ml6 l3">
         <div class="card">
           <div class="card-image">
             <%= image_tag(breed.thumbnail, :alt => "#{breed.name} breed", class:"activator") if breed.picture.attached? %>

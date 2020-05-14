@@ -1,7 +1,7 @@
 function ReplacePairsWithParentsFilter(pairs) {
   var pairsContainer = $('#pairs');
   if ($('#litters_filter').val() == "" || $('#litters_filter').val() == null) {
-    $(pairsContainer).html(pairs);
+    $(pairsContainer).html(pairs).hide().fadeIn(400);
     $('.tabs').tabs({swipeable: true});
   }
 }
@@ -9,7 +9,7 @@ function ReplacePairsWithParentsFilter(pairs) {
 function ReplaceLittersWithParentsFilter(litters) {
   if ($('#litters_filter').val() == "" || $('#litters_filter').val() == null) {
     var littersContainer = $('#litters');
-    $(littersContainer).html(litters);
+    $(littersContainer).html(litters).hide().fadeIn(400);
 
     // Close select when clicking or tapping on the first disabled option
     function closeSelectOnDisabledOption(e) {
@@ -80,7 +80,7 @@ function ReplaceLittersWithParentsFilter(litters) {
 
 function ReplaceKittensWithParentsFilter(kittens) {
   var kittensContainer = $('#kittens');
-  $(kittensContainer).html(kittens);
+  $(kittensContainer).html(kittens).hide().fadeIn(400);
 }
 
 <% if @pairs.any? %>

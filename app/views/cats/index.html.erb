@@ -23,9 +23,11 @@
       </div>
     </div>
     <% if @kittens.present? %>
-      <div id="kittens">
-        <%= render partial: 'page_items' %>
-      </div>
+      <div class="row">
+        <div id="kittens">
+            <%= render partial: 'page_items' %>
+          </div>
+        </div>
     <% else %>
       <div id="kittens" class="row">
         <div class="col s12 center-align">

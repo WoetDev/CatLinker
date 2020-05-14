@@ -397,8 +397,7 @@ $(document).on('turbolinks:load', function(e) {
   var selectInForm = $('.form select');
 
   function addActiveIfDropdownIsFilled() {
-    if($(this).val() != "" && $(this).val() != null) {
-      
+    if ($(this).val() != "" && $(this).val() != null) {
       $($(this).parent().parent().find('.select-dropdown')).removeClass('inactive-select');
     }
     else {
@@ -407,7 +406,7 @@ $(document).on('turbolinks:load', function(e) {
   }
 
   $(selectInForm).each(function() {
-    if($(this).val() != ""  && $(this).val() != null) {
+    if ($(this).val() != ""  && $(this).val() != null) {
       $($(this).parent().parent().find('.select-dropdown')).removeClass('inactive-select');
     }
     else {
@@ -678,24 +677,23 @@ $(document).on('turbolinks:load', function(e) {
     }
   }
 
-
   // KITTEN & CATTERIES INDEX
   if (pathname == catsPath) {   
     // Helper function to get the query params from the URL
     function getUrlParams()
     {
-        var decodedUri = decodeURIComponent(window.location.href);
-        var params = [], hash;
-        var hashes = decodedUri.slice(decodedUri.indexOf('?') + 1).split('&');
+      var decodedUri = decodeURIComponent(window.location.href);
+      var params = [], hash;
+      var hashes = decodedUri.slice(decodedUri.indexOf('?') + 1).split('&');
 
-        for(var i = 0; i < hashes.length; i++)
-        {
-            hash = hashes[i].split('=');
-            if (hash[1]) {
-              params.push(hash[1].replace('+', ' '));
-            }
+      for(var i = 0; i < hashes.length; i++)
+      {
+        hash = hashes[i].split('=');
+        if (hash[1]) {
+          params.push(hash[1].replace('+', ' '));
         }
-        return params;
+      }
+      return params;
     }
     
     // If a search is made from the homepage, add selected breeds in filter and update location filter on page load
@@ -825,7 +823,6 @@ $(document).on('turbolinks:load', function(e) {
           M.toast({html: errorRefreshFilters, classes: "alert-error"})
         }
       });
-
       $(cards_container_id).html('');
       $('#preloader').addClass('active');
     });
@@ -904,15 +901,18 @@ $(document).on('turbolinks:load', function(e) {
         return
       }  
       if ($('#next_link')[0]) {
+        $('footer').hide();
         var elBottom = $(cards_container_id).offset().top + $(cards_container_id).height();
         var wBottom  = $(window).scrollTop() + $(window).height();
       }
 
-
       // Check if we're at the bottom of the page and a next link exists before we click it
-      if (wBottom > elBottom && $('#next_link')[0]) {
+      if (wBottom > elBottom-150 && $('#next_link')[0]) {
         $('#next_link')[0].click();
         $('#next_link').data("loading", true);
+      }
+      else {
+        $('footer').show();
       }
     };
     
@@ -921,7 +921,7 @@ $(document).on('turbolinks:load', function(e) {
     window.addEventListener('load',   loadNextPage);
   }
 
-  // Show page masonry layout
+  // Kitten show page masonry layout
   $('.grid').imagesLoaded()
     .progress(function(instance, image) {
       $('.preloader-wrapper').addClass('active');
@@ -938,6 +938,23 @@ $(document).on('turbolinks:load', function(e) {
     .fail(function() {
       console.log('Extra images failed to load');
     });
+
+    // Color kitten show page chips and availability message
+    function checkDataSuccess(chip) {
+      if ($(chip).find('.material-icons').hasClass('check')) {
+        $(chip).addClass('success');
+      }
+      else {
+        $(chip).addClass('fail');
+      }
+    }
+    
+    $('.chip').each(function() {
+      checkDataSuccess($(this))
+    });
+
+    checkDataSuccess($('.available-message'));
+    
 
     if (pathname.includes(catteriesPath.concat('/')) && !pathname.endsWith('my_cattery')) {
       function showActiveFilterIcon(card) {
@@ -996,6 +1013,14 @@ $(document).on('turbolinks:load', function(e) {
         });
       }
       cardFilteringIcon();
+
+      // Capitalization helper for name
+      const captilizeAllWords = (sentence) => {
+        if (typeof sentence !== "string") return sentence;
+        return sentence.split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      }
 
       // Cattery show page filtering
       $('.form-filter').on('change', function() {
@@ -1059,10 +1084,10 @@ $(document).on('turbolinks:load', function(e) {
                  var selectedOptionsString = selectedOptionsString + ', ';
                }
              }
-             
+
              // Only add a message if the filter is used
              if (filterSection.find('.form-filter').val() != "" && filterSection.find('.form-filter').val() != null) {
-               $(this).append('<i class="material-icons filter-list">filter_list</i><span>' + showing + ' ' + $(messageSection).find('h1').first().text().toLowerCase() +' ' + fromThe + ' ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + selectedOptionsString + '</b>');
+               $(this).append('<i class="material-icons filter-list">filter_list</i><span>' + showing + ' ' + $(messageSection).find('h1').first().text().toLowerCase() +' ' + fromThe + ' ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + captilizeAllWords(selectedOptionsString) + '</b>');
              }
  
              // Add a line break if more than one filter is active

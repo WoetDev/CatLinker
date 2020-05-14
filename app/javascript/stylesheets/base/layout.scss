@@ -1,0 +1,39 @@
+@include medium-large-only {
+  .ml5 {
+    width: 41.67% !important;
+  }
+
+  .ml6 {
+    width: 50% !important;
+  }
+  
+  .ml7 {
+    width: 58.33% !important;
+  }
+
+  .ml8 {
+    width: 66.67% !important;
+  }
+
+  .ml12 {
+    width: 100% !important;
+  }
+
+  .offset-ml0 {
+    margin-left: 0% !important;
+  }
+
+  .offset-ml1 {
+    margin-left: 8.33% !important;
+  }
+
+  .offset-ml2 {
+    margin-left: 16.67% !important;
+  }
+}
+
+@include medium-large-and-down {
+  .hide-on-med-large-and-down {
+    display: none;
+  }
+}

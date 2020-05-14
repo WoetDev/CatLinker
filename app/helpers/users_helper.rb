@@ -65,6 +65,6 @@ module UsersHelper
 
   def kitten_parents(kitten)
     parents = Pair.find(kitten.pair_id)
-    "#{parents.male.name.capitalize} & #{parents.female.name.capitalize}"
+    "#{parents.male.name.titlecase} & #{parents.female.name.titlecase}"
   end
 end

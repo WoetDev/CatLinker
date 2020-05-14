@@ -1,6 +1,6 @@
 <%= form_with(url: {:controller => locals[:controller], :action => locals[:action]}, method: "GET") do |f| %>
   <div class="row">
-    <div class="col s10 offset-s1 m4 offset-m1">
+    <div class="col s10 offset-s1 ml5 l4 offset-l1">
       <div class="input-field">
         <button class="reset-dropdown circle">
           <i class="material-icons">restore</i>
@@ -8,7 +8,7 @@
         <%= f.select(:breeds, options_for_select(@all_available_breeds_array), {disabled: "", prompt: t('select.which_breeds_are_you_looking_for')}, {multiple: true, class:"form-filter", autocomplete:"off"}) %>
       </div>
     </div>
-    <div class="col s10 offset-s1 m4 offset-m2">
+    <div class="col s10 offset-s1 ml5 offset-ml1 l4 offset-l2">
       <div class="input-field">
         <button class="reset-dropdown circle">
           <i class="material-icons">restore</i>

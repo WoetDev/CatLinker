@@ -1,4 +1,8 @@
 module CatsHelper
+  def capitalized_name(cat)
+    cat.name.titlecase
+  end
+
   def cat_location(cat)
     "#{User.find(cat.user_id).city.capitalize} - #{(I18n.t "countries.#{Country.find(User.find(cat.user_id).country_id).country_code}")}"
   end

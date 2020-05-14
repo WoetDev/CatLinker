@@ -73,6 +73,7 @@ en:
     existing_litter: "Existing litter"
     other_pictures: "Other pictures"
     read_more: "Read more"
+    sign_up_now: "Sign up now"
   action:
     created: "created"
     updated: "updated"
@@ -101,11 +102,14 @@ en:
     location: "Location"
     birth_date: "Birth date"
     color: "Color"
+    dominant_color: "(Dominant) color"
     coat: "Coat"
     vaccinated: "Vaccinated"
     castrated: "Castrated"
     available: "Available"
     unavailable: "Unavailable"
+    kitten_available: "This kitten is available"
+    kitten_unavailable: "This kitten is not available"
     kittens_available: "There are kittens available"
     no_kittens_available: "No kittens available"
     parents: "Parents"
@@ -119,6 +123,7 @@ en:
     father: "Father"
     mother: "Mother"
     tests:
+      health: "Health"
       health_tests: "Health tests"
       was_tested_on: "was tested on"
       no_tests_available: "There is no health test information added for"
@@ -129,7 +134,8 @@ en:
       fiv: "FIV"
       felv: "FeLV"
   cattery_info:
-    certification_number: "Certification number"
+    cattery_info: "Cattery info"
+    certification_number: "Cert. nr"
   breed_info:
     playfulness: "playfulness"
     activity_level: "activity level"
@@ -289,7 +295,6 @@ en:
     focus_on_what_is_important: "Thanks to this you can focus on what is the most important: spending time with your cats."
     discover_more: "Discover more"
     already_convinced: "Already convinced"
-    sign_up_now: "Sign up now"
   index:
     no_pairs_found: "No pairs found"
     no_litters_found: "No litters found"

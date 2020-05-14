@@ -34,7 +34,7 @@
 
   .card-content {
     .btn-floating {
-      bottom: 67px;
+      bottom: 90px;
     }
   }
 
@@ -107,19 +107,13 @@
       background-color: transparent;
 
       .material-icons {
-        position: absolute;
-        right: 10px;
-        top: 20px;
+        position: relative;
+        top: 4px;
         transition: 0.2s ease-in-out;
         padding: 5px;
 
-        &:hover {
-          color: $white;
-          background-color: $primaryColor;
-        }
-
         @include small-and-down {
-          left: -15px;
+          left: 0px;
         }
       }
     }
@@ -131,13 +125,19 @@
     .test-block {
       font-size: 1em;
 
+      .row {
+        margin-left: inherit;
+      }
+
       .test-name {
         position: relative;
-        bottom: 6px;
+        top: 2px;
+        left: 10px;
       }
-  
-      .test-result {
+
+      .test-icon {
         color: $secondaryColor;
+        float: left;
       }
     }
   }

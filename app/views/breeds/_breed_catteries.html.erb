@@ -1,44 +1,29 @@
 <% @catteries.each_slice(4) do |slice| -%>
   <div class="row">
     <% slice.each do |cattery| %>
-      <div class="col s10 offset-s1 m6 l3">
+      <div class="col s10 offset-s1 m6 ml6 l3">
         <%= link_to cattery_path(cattery) do %>
           <div class="card">
             <div class="card-image">
               <%= image_tag(cattery_user(cattery).thumbnail, alt:"#{cattery.cattery_name} cattery") %>
             </div>
             <div class="card-content">
-            <div class="info-block">
-                <div class="row">
-                  <div class="col s4">
-                    <span class="info-title"><%= t('cat_info.cattery') %>:</span>
-                  </div>
-                  <div class="col s8">
-                    <span class="info-text"><%= cattery_user(cattery).cattery_name %></span>
-                  </div>
-                </div>
-              </div>
-              <div class="info-block">
-                <div class="row">
-                  <div class="col s4">
-                    <span class="info-title"><%= t('breed', count: cattery_breeds(cattery).size) %>:</span>
-                  </div>
-                  <div class="col s8">
-                    <span class="info-text"><%= cattery_breed_names(cattery) %></span>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="info-block">
-                <div class="row">
-                  <div class="col s4">
-                    <span class="info-title"><%= t('cat_info.location') %>:</span>
-                  </div>
-                  <div class="col s8">
-                    <span class="info-text"><%= cattery_location(cattery) %></span>
-                  </div>
-                </div>
-              </div>
+              <table>
+                <tbody>
+                  <tr class="info-block">                
+                    <td class="info-title"><%= t('cat_info.cattery') %>:</td>
+                    <td class="info-text"><%= cattery_user(cattery).cattery_name %></td>
+                  </tr>
+                  <tr class="info-block">
+                    <td class="info-title"><%= t('breed', count: cattery_breeds(cattery).size) %>:</td>
+                    <td class="info-text"><%= cattery_breed_names(cattery) %></td>
+                  </tr>
+                  <tr class="info-block">
+                    <td class="info-title"><%= t('cat_info.location') %>:</td>
+                    <td class="info-text"><%= cattery_location(cattery) %></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         <% end %>

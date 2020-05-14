@@ -1,7 +1,7 @@
 function replaceCatteries (innerHTML) {
   var catteries = $('#catteries');
   $('.preloader-wrapper').removeClass('active');
-  $(catteries).append(innerHTML);
+  $(innerHTML).appendTo(catteries).hide().fadeIn(400);
 }
 
 <% if @catteries.present? %>

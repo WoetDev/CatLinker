@@ -8,7 +8,7 @@
 <div id="kitten-view" class="container">
   <div class="row">
     <div class="col s12">
-        <h1><%= t("breeds.#{cat_breed(@cat).breed_code}.name") %><h1>
+        <h1><%= t("breeds.#{cat_breed(@cat).breed_code}.name") %>&nbsp;<%= t('kitten', count:1).downcase %><h1>
         <% if @cat.name.present? %>
           <h1 class="cat-name"><%= @cat.name %><h1>
         <% end %>
@@ -20,84 +20,63 @@
     </div>
     <div class="col s12 m6">
       <div class="info-main">
+        <table>
+          <tbody>
+            <tr class="info-block">
+              <td class="info-title"><%= t('cat_info.cattery') %>:</td>
+              <td class="info-text">
+                <%= link_to cattery_path(@user), class:"info-link" do %>
+                  <%= cattery(@cat).cattery_name %>
+                <% end %>
+              </td>
+            </tr>
+            <tr class="info-block">
+              <td class="info-title"><%= t('cat_info.location') %>:</td>
+              <td class="info-text"><%= cat_location(@cat) %></td>
+            </tr>
+            <tr class="info-block">
+              <td class="info-title"><%= t('cat_info.gender') %>:</td>
+              <td class="info-text"><%= cat_gender(@cat).capitalize %></td>
+            </tr>
+            <tr class="info-block">
+              <td class="info-title"><%= t('cat_info.birth_date') %>:</td>
+              <td class="info-text"><%= format_birth_date(@cat) %></td>
+            </tr>
+            <tr class="info-block">
+              <td class="info-title"><%= t('cat_info.coat') %>:</td>
+              <td class="info-text"><%= cat_coat(@cat) %></td>
+            </tr>
+          </tbody>
+        </table>
         <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.cattery') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= link_to cattery_path(@user), class:"info-link" do %>
-              <%= cattery(@cat).cattery_name %>
-            <% end %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.location') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= cat_location(@cat) %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.gender') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= cat_gender(@cat).capitalize %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.birth_date') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= format_birth_date(@cat) %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.coat') %>:
-          </div>
-          <div class="col s6 m7 info-text">
-            <%= cat_coat(@cat) %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.vaccinated') %>:
-          </div>
-          <div class="col s6 m7 info-text">
+          <div class="chip">
             <% if @cat.is_vaccinated %>
-              <i class="material-icons check">check</i>
+              <span class="material-icons check">check</span>
             <% else %>
-              <i class="material-icons close">close</i>
+              <span class="material-icons clear">clear</span>
             <% end %>
+            <%= t('cat_info.vaccinated') %>
           </div>
-        </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.castrated') %>:
-          </div>
-          <div class="col s6 m7 info-text">
+          <div class="chip">
             <% if @cat.is_castrated %>
-              <i class="material-icons check">check</i>
+              <span class="material-icons check">check</span>
             <% else %>
-              <i class="material-icons close">close</i>
+              <span class="material-icons clear">clear</span>
             <% end %>
+            <%= t('cat_info.castrated') %>
           </div>
         </div>
-        <div class="row">
-          <div class="col s6 m5 info-title">
-            <%= t('cat_info.available') %>:
+          <div class="row">
+            <div class="col s12 available-message success">
+              <% if @cat.is_available %>
+                <span class="material-icons check">check_circle</span>
+                <%= t('cat_info.kitten_available') %>!
+              <% else %>
+                <span class="material-icons clear">cancel</span>
+                <%= t('cat_info.kitten_unavailable') %>
+              <% end %>
+            </div>
           </div>
-          <div class="col s6 m7 info-text">
-            <% if @cat.is_available %>
-              <i class="material-icons check">check</i>
-            <% else %>
-              <i class="material-icons close">close</i>
-            <% end %>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -138,7 +117,7 @@
             <%= image_tag(cat_father(@cat).square, :alt => "father") %>
           </div>
           <div class="parent-info">
-            <h3><%= cat_father(@cat).name %></h3>
+            <h3><%= capitalized_name(cat_father(@cat)) %></h3>
             <div class="info-block">
               <h4><%= t('cat_info.coat') %>:</h4>
               &nbsp;
@@ -155,17 +134,19 @@
               <a href="#modalFather" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
               <div id="modalFather" class="modal">
                 <div class="modal-content">
-                  <h4><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle modal-close">close</i></h4>
+                  <h4><%= t('cat_info.tests.health') %><i class="material-icons right circle modal-close">close</i></h4>
                   <% if cat_father(@cat).tests.any? { |test| test[1] == '1' } %>
-                    <p><%= cat_father(@cat).name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
-                    <% cat_father(@cat).tests.each do |test| %>
-                      <% if test[1] == '1' %>
-                        <div class="test-block">
-                          <span class="test-result"><i class="material-icons check">check_circle_outline</i></span>
-                          <span class="test-name"><%= t("cat_info.tests.#{test[0]}") %></span>
-                        </div>
+                    <p><%= capitalized_name(cat_father(@cat)) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                    <ul class="test-block">
+                      <% cat_father(@cat).tests.each do |test| %>
+                        <% if test[1] == '1' %>
+                          <div class="row">
+                            <span class="test-icon"><i class="material-icons">spa</i></span>
+                            <li class="test-name"><span><%= t("cat_info.tests.#{test[0]}") %></span></li>
+                          </div>
+                        <% end %>
                       <% end %>
-                    <% end %>
+                    </ul>
                   <% else %>
                     <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= cat_father(@cat).name %>.</p>
                   <% end %>
@@ -179,7 +160,7 @@
             <%= image_tag(cat_mother(@cat).square, :alt => "mother") %>
           </div>
           <div class="parent-info">
-            <h3><%= cat_mother(@cat).name %></h3>
+            <h3><%= capitalized_name(cat_mother(@cat)) %></h3>
             <div class="info-block">
               <h4><%= t('cat_info.coat') %>:</h4>
               &nbsp;
@@ -196,20 +177,22 @@
               <a href="#modalMother" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
               <div id="modalMother" class="modal">
                 <div class="modal-content">
-                  <h4><%= t('cat_info.tests.health_tests') %><i class="material-icons right circle modal-close">close</i></h4>
+                  <h4><%= t('cat_info.tests.health') %><i class="material-icons right circle modal-close">close</i></h4>
                   <% if cat_mother(@cat).tests.any? { |test| test[1] == '1' } %>
-                    <p><%= cat_mother(@cat).name %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
-                    <% cat_mother(@cat).tests.each do |test| %>
-                      <% if test[1] == '1' %>
-                        <div class="test-block">
-                          <span class="test-result"><i class="material-icons check">check_circle_outline</i></span>
-                          <span class="test-name"><%= t("cat_info.tests.#{test[0]}") %></span>
-                        </div>
+                    <p><%= capitalized_name(cat_mother(@cat)) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                    <ul class="test-block">
+                      <% cat_mother(@cat).tests.each do |test| %>
+                        <% if test[1] == '1' %>
+                          <div class="row">
+                            <span class="test-icon"><i class="material-icons">spa</i></span>
+                            <li class="test-name"><span><%= t("cat_info.tests.#{test[0]}") %></span></li>
+                          </div>
+                        <% end %>
                       <% end %>
+                    <% else %>
+                      <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= cat_mother(@cat).name %>.</p>
                     <% end %>
-                  <% else %>
-                    <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= cat_mother(@cat).name %>.</p>
-                  <% end %>
+                  </ul>
                 </div>
               </div>
             <% end %>
@@ -225,36 +208,28 @@
       </div>
       <div class="row">
         <% other_kittens_from_same_litter(@cat).each do |cat| %>
-          <div class="col s10 offset-s1 m6 l3">
+          <div class="col s10 offset-s1 m6 ml6 l3">
             <%= link_to cat_path(cat) do %>
               <div class="card">
                 <div class="card-image">
                   <%= image_tag(cat.thumbnail, :alt => "sibling #{Breed.find(cat.breed_id).name}") %>
                   <% if !cat.name.blank? %>
-                    <span class="card-title"><%= cat.name %></span>
+                    <span class="card-title"><%= capitalized_name(cat) %></span>
                   <% end %>
                 </div>
                 <div class="card-content">
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('breed', count: 1) %>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('cat_info.gender') %>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= cat_gender(cat).capitalize %></span>
-                      </div>
-                    </div>
-                  </div>
+                  <table>
+                    <tbody>
+                      <tr class="info-block">
+                        <td class="info-title"><%= t('breed', count: 1) %>:</td>
+                        <td class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code}.name") %></td>
+                      </tr>
+                      <tr class="info-block">
+                        <td class="info-title"><%= t('cat_info.gender') %>:</td>
+                        <td class="info-text"><%= cat_gender(cat).capitalize %></td>
+                      </tr>
+                    </tbody>
+                  </table>
                   <div class="info-block">
                     <div class="row">
                       <div class="col s12">

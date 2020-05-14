@@ -174,12 +174,12 @@ class UsersController < ApplicationController
 
   def all_cattery_parents(user)
     cats = Cat.user_id(user.id).is_parent(true).sort_by { |cat| [(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name"), cat.gender, cat.name] }
-    @all_parents = cats.map { |cat| ["#{cat.name}", cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
+    @all_parents = cats.map { |cat| ["#{cat.name.titlecase}", cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
   end
 
   def all_cattery_litters(user)
     litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-    @all_litters = litter_number_information.reverse.map { |l| ["#{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1]).male.name} & #{Pair.find_by(id: l[1]).female.name}", l[0]] }
+    @all_litters = litter_number_information.reverse.map { |l| ["#{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }
   end
 
   def cattery_pairs(user)

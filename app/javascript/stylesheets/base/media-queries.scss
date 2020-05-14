@@ -1,5 +1,6 @@
 $small: 600px;
 $medium: 992px;
+$medium-large: 1025px;
 $large: 1200px;
 
 // Media queries
@@ -37,6 +38,24 @@ $large: 1200px;
 }
 
 // Desktop Devices
+@mixin medium-large-only {
+  @media only screen and (min-width : $medium + 1) and (max-width : $medium-large) {
+      @content;
+  }
+}
+
+@mixin medium-large-and-up {
+  @media only screen and (min-width : $medium-large + 1) {
+      @content;
+  }
+}
+
+@mixin medium-large-and-down {
+  @media only screen and (max-width : $medium-large) {
+      @content;
+  }
+}
+
 @mixin large-and-down {
   @media only screen and (max-width : $large) {
       @content;

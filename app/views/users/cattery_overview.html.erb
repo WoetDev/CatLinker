@@ -20,12 +20,12 @@
       <div class="row">
         <% if @parents.any? %>
           <% @parents.each do |cat|%>
-            <div class="col s10 offset-s1 m6 l3">
+            <div class="col s10 offset-s1 m6 ml6 l3">
               <div class="card">
                 <div class="card-image">
                   <%= link_to  edit_cat_path(cat, form: "parent") do %>
                     <%= image_tag(cat.thumbnail) if cat.card_picture.attached? %> 
-                    <span class="card-title"><%= cat.name %></span>
+                    <span class="card-title"><%= capitalized_name(cat) %></span>
                   <% end %>
                   <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
                     <i class="material-icons">edit</i>
@@ -33,58 +33,30 @@
                 </div>
                 <%= link_to  edit_cat_path(cat, form: "parent") do %>
                   <div class="card-content">
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('breed', count: 1) %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code.upcase}.name") %></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('cat_info.gender') %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text">
-                            <%= cat_gender(cat).capitalize %>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('cat_info.partners') %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= cat.pairs.size %></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('cat_info.litters') %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= parent_litters_count(cat, @user) %></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('header.kittens') %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= parent_kittens_count(cat, @user) %></span>
-                        </div>
-                      </div>
-                    </div>
+                    <table>
+                      <tbody>
+                        <tr class="info-block">
+                          <td class="info-title"><%= t('breed', count: 1) %>:</td>
+                          <td class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code.upcase}.name") %></td>
+                        </tr>
+                        <tr class="info-block">
+                          <td class="info-title"><%= t('cat_info.gender') %>:</td>
+                          <td class="info-text"><%= cat_gender(cat).capitalize %></td>
+                        </tr>
+                        <tr class="info-block">
+                          <td class="info-title"><%= t('cat_info.partners') %>:</td>
+                          <td class="info-text"><%= cat.pairs.size %></td>
+                        </tr>
+                        <tr class="info-block">
+                          <td class="info-title"><%= t('cat_info.litters') %>:</td>
+                          <td class="info-text"><%= parent_litters_count(cat, @user) %></td>
+                        </tr>
+                        <tr class="info-block">
+                          <td class="info-title"><%= t('header.kittens') %>:</td>
+                          <td class="info-text"><%= parent_kittens_count(cat, @user) %></td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 <% end %>
               </div>
@@ -123,12 +95,12 @@
       <div class="row">
         <% if @pairs.any? %>
           <% @pairs.each do |pair|%>
-            <div class="col s10 offset-s1 m6 l3">
+            <div class="col s10 offset-s1 m6 ml6 l3">
               <div class="card">
                 <div class="card-tabs">
                   <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a class="active" href="#<%= pair.id %><%= pair.male.id %>"><%= pair.male.name %></a></li>
-                    <li class="tab"><a  href="#<%= pair.id %><%= pair.female.id %>"><%= pair.female.name %></a></li>
+                    <li class="tab"><a class="active" href="#<%= pair.id %><%= pair.male.id %>"><%= capitalized_name(pair.male) %></a></li>
+                    <li class="tab"><a  href="#<%= pair.id %><%= pair.female.id %>"><%= capitalized_name(pair.female) %></a></li>
                   </ul>
                 </div>
                 <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >
@@ -141,36 +113,22 @@
                   <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
                     <i class="material-icons">edit</i>
                   <% end %>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('breed', count:1) %>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= t("breeds.#{cat_breed(pair.male).breed_code.upcase}.name") %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('cat_info.litters') %>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= pair_litters_count(pair, @user) %></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="info-block">
-                    <div class="row">
-                      <div class="col s4">
-                        <span class="info-title"><%= t('header.kittens') %>:</span>
-                      </div>
-                      <div class="col s8">
-                        <span class="info-text"><%= pair_kittens_count(pair, @user) %></span>
-                      </div>
-                    </div>
-                  </div>
+                  <table>
+                    <tbody>
+                      <tr class="info-block">
+                        <td class="info-title"><%= t('breed', count:1) %>:</td>
+                        <td class="info-text"><%= t("breeds.#{cat_breed(pair.male).breed_code.upcase}.name") %></td>
+                      </tr>
+                      <tr class="info-block">
+                        <td class="info-title"><%= t('cat_info.litters') %>:</td>
+                        <td class="info-text"><%= pair_litters_count(pair, @user) %></td>
+                      </tr>
+                      <tr class="info-block">
+                        <td class="info-title"><%= t('header.kittens') %>:</td>
+                        <td class="info-text"><%= pair_kittens_count(pair, @user) %></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
@@ -207,85 +165,55 @@
 
       <div class="row">
         <% if @kittens.any? %>
-          <% @kittens.each do |cat|%>
-            <div class="col s10 offset-s1 m6 l3">
-              <div class="card">
-                <div class="card-image">
-                  <%= link_to cat_path(cat), target:"_blank" do %>
-                    <%= image_tag(cat.thumbnail, :alt => "card picture") if cat.card_picture.attached? %>
-                    <% if !cat.name.blank? %>
-                      <span class="card-title"><%= cat.name %></span>
+          <% @kittens.each_slice(2) do |slice| -%>
+            <div class="index-row">
+              <% slice.each do |cat|%>
+                <div class="col s10 offset-s1 m6 ml6 l3">
+                  <div class="card">
+                    <div class="card-image">
+                      <%= link_to cat_path(cat), target:"_blank" do %>
+                        <%= image_tag(cat.thumbnail, :alt => "card picture") if cat.card_picture.attached? %>
+                        <% if !cat.name.blank? %>
+                          <span class="card-title"><%= capitalized_name(cat) %></span>
+                        <% end %>
+                      <% end %>
+                      <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                        <i class="material-icons">edit</i>
+                      <% end %>
+                    </div>
+                    <%= link_to cat_path(cat), target:"_blank" do %>
+                      <div class="card-content">
+                        <table>
+                          <tbody>
+                            <tr class="info-block">
+                              <td class="info-title"><%= t('breed', count:1) %>:</td>
+                              <td class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code.upcase}.name") %></td>
+                            </tr>
+                            <tr class="info-block">
+                              <td class="info-title"><%= t('cat_info.gender') %>:</td>
+                              <td class="info-text"><%= cat_gender(cat).capitalize %></td>
+                            </tr>
+                            <tr class="info-block">
+                              <td class="info-title"><%= t('cat_info.birth_date') %>:</td>
+                              <td class="info-text"><%= format_birth_date(cat) %></td>
+                            </tr>
+                            <tr class="info-block">
+                              <td class="info-title"><%= t('cat_info.parents').downcase %>:</td>
+                              <td class="info-text"><%= kitten_parents(cat) %></td>
+                            </tr>
+                            <tr class="info-block">
+                              <td class="info-title"><%= t('cat_info.litter_nr') %>:</td>
+                              <td class="info-text"><%= cat.litter_number %></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     <% end %>
-                  <% end %>
-                  <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
-                    <i class="material-icons">edit</i>
-                  <% end %>
+                  </div>               
                 </div>
-                <%= link_to cat_path(cat), target:"_blank" do %>
-                  <div class="card-content">
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('breed', count:1) %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text"><%= t("breeds.#{cat_breed(cat).breed_code.upcase}.name") %></span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('cat_info.gender') %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text">
-                            <%= cat_gender(cat).capitalize %>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('cat_info.birth_date') %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text">
-                            <%= format_birth_date(cat) %>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('cat_info.parents').downcase %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text">
-                          <%= kitten_parents(cat) %>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info-block">
-                      <div class="row">
-                        <div class="col s4">
-                          <span class="info-title"><%= t('cat_info.litter_nr') %>:</span>
-                        </div>
-                        <div class="col s8">
-                          <span class="info-text">
-                            <%= cat.litter_number %>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>               
+              <% end %>
             </div>
-          <% end%>
+          <% end %>
         <% else %>
           <div class="col s12 center-align">
             <span class="empty-message"><%= t('cattery_overview.no_records_added', kind: (I18n.t "header.kittens").downcase) %></span>

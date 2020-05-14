@@ -103,11 +103,14 @@ nl:
     location: "Locatie"
     birth_date: "Geboren"
     color: "Kleur"
+    dominant_color: "(Dominante) kleur"
     coat: "Vacht"
     vaccinated: "Gevaccineerd"
     castrated: "Gecastreerd"
     available: "Beschikbaar"
     unavailable: "Onbeschikbaar"
+    kitten_available: "Deze kitten is beschikbaar"
+    kitten_unavailable: "Deze kitten is niet beschikbaar"
     kittens_available: "Er zijn kittens beschikbaar"
     no_kittens_available: "Geen kittens beschikbaar"
     parents: "Ouders"
@@ -120,6 +123,7 @@ nl:
     father: "Vader"
     mother: "Moeder"
     tests:
+      health: "Gezondheid"
       health_tests: "Gezondheidstesten"
       was_tested_on: "is getest op"
       no_tests_available: "Er werd geen informatie toegevoegd over de gezondheidstesten van"
@@ -130,6 +134,7 @@ nl:
       fiv: "FIV"
       felv: "FeLV"
   cattery_info:
+    cattery_info: "Cattery info"
     certification_number: "Erkenningsnr"
   breed_info:
     playfulness: "speelsheid"
@@ -147,7 +152,7 @@ nl:
     personality: "persoonlijkheid"
     history: "geschiedenis"
     disclaimer: "disclaimer"
-    disclaimer_text: "Terwijl de kenmerken die hier worden vermeld vaak voorkomen bij dit specifiek ras, blijven katten individuen waarbij persoonlijkheden en fysieke uitstralingen zullen verschillen. Gelieve de adoptie organisatie na te vragen over gedetailleerde informatie van een specifiek huisdier."
+    disclaimer_text: "Terwijl de kenmerken die hier worden vermeld vaak voorkomen bij dit specifiek ras, blijven katten individuen waarbij persoonlijkheden en fysieke uitstralingen zullen verschillen. Gelieve de organisatie waarvan je de kat adopteert na te vragen over gedetailleerde informatie van een specifiek huisdier."
                       
 
   # forms

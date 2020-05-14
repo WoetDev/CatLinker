@@ -782,40 +782,33 @@ button.btn-delete {
 // Contact form
 .contact {
   .form {
-    .contact-info-block {
-      font-size: 1.6em !important;
-      $contact-margin-top: 10;
-      $contact-margin-top-first: (55-$contact-margin-top) + px;
-
-      @include small-and-up {
-        padding-left: 15px;
-      }
+    .contact-info-table {
+      width: auto;
+      margin: 0 auto;
 
       @include small-and-down {
-        font-size: 1.8em !important;
+        .row {
+          display: none;
+        }      
       }
       
-      &:first-child {
-        margin-top: $contact-margin-top-first;
-
-        @include small-and-down {
-          margin-top: 10px;
-        }
+      th {
+        font-size: 1.5em;
+        text-align: center;
+        padding: 13px 5px;  
       }
+    }
+    .contact-info-block {
+      font-size: 1.6em !important;
+      border: none;
 
       .info-title {
         text-align: right;
-        position: relative;
-        right: 15px;
-        word-wrap: break-word;
+        padding: 0 10px !important;
 
         @include small-and-down {
           text-align: left;
         }
-      }
-
-      .info-title, .info-text {
-        margin-top: ($contact-margin-top) + px;
       }
     }
   }
