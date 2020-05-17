@@ -1,4 +1,4 @@
-<%= form_for(@cat, url: {:controller => locals[:controller], :action => locals[:action], :form => @form}) do |f| %>
+<%= form_for(@cat, url: {:controller => locals[:controller], :action => locals[:action], :form => @form}, html: {autocomplete: "off"}) do |f| %>
   <div class="row">
     <br>
   </div>
@@ -21,7 +21,7 @@
         <%= f.label :name do %>
         <%= t('cat_info.name') %> <% if @form == "parent"%>*<% end %>
         <% end %>
-        <%= f.text_field :name, autofocus: true %>
+        <%= f.text_field :name, class:"titlecase-input" %>
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :name %>
     </div>

@@ -6,7 +6,7 @@
 
   <div class="row">
     <div class="col s12 ml12 l7">
-      <%= form_with(model: @message, url: messages_path, multipart: true) do |f| %>
+      <%= form_with(model: @message, url: messages_path, multipart: true, html: { autocomplete: "off" }) do |f| %>
         <%= recaptcha_v3(action: 'contact', turbolinks: true) %>
 
         <div class="row">

@@ -4,7 +4,7 @@
       <h2 class="form-title">My Cattery</h2>
     </div>
 
-    <%= form_for(@user, url: my_cattery_cattery_path(@user), html: { method: :post }) do |f| %>
+    <%= form_for(@user, url: my_cattery_cattery_path(@user), html: { method: :post, autocomplete: "off" }) do |f| %>
       <div class="row">
         <br>
       </div>
@@ -131,7 +131,7 @@
             <%= f.label :city do %>
               <%= t('my_cattery.city') %> *
             <% end %>
-            <%= f.text_field :city %>
+            <%= f.text_field :city, class:"capitalize-input" %>
           </div>
           <%= render 'shared/error_messages', object: @user, field: :city %>
         </div>
@@ -140,7 +140,7 @@
       <div class="row">
         <div class="col s12 m5">
           <div class="input-field">
-            <%= f.select(:country_id, options_for_select(@all_countries, selected: f.object ? f.object.country_id : ""), {selected: "", disabled: "", prompt: 'Country *'}, { autocomplete:'off' }) %>
+            <%= f.select(:country_id, options_for_select(@all_countries, selected: f.object ? f.object.country_id : ""), {selected: "", disabled: "", prompt: "#{t('my_cattery.country')} *"}, { autocomplete:'off' }) %>
           </div>
           <%= render 'shared/error_messages', object: @user, field: :country_id %>
         </div>

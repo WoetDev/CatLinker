@@ -139,10 +139,10 @@ class UsersController < ApplicationController
       parents_filter = params[:parents_filter].flatten.reject(&:blank?)
       pair_ids = Pair.user_id(@user.id).where(male_id: parents_filter).or(Pair.user_id(@user.id).where(female_id: parents_filter)).pluck(:id)
       litter_number_information = Cat.user_id(@user.id).is_parent(false).where(pair_id: pair_ids).group(:litter_number).select('litter_number, array_agg(pair_id) as pair_ids, array_agg(birth_date) as birth_dates, array_agg(id) as ids').sort_by { |litter| litter.litter_number }.reverse
-      @all_litters = litter_number_information.pluck(:litter_number, :pair_ids, :birth_dates).reverse.map { |l| ["#{l[2][0].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1][0]).male.name} & #{Pair.find_by(id: l[1][0]).female.name}", l[0]] }
+      @all_litters = litter_number_information.pluck(:litter_number, :pair_ids, :birth_dates).reverse.map { |l| ["#{I18n.l(l[2][0].to_date, format: :default)} - #{Pair.find_by(id: l[1][0]).male.name.titlecase} & #{Pair.find_by(id: l[1][0]).female.name.titlecase}", l[0]] }
     else
       litter_number_information = Cat.user_id(@user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-      @all_litters = litter_number_information.reverse.map { |l| ["#{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1]).male.name} & #{Pair.find_by(id: l[1]).female.name}", l[0]] }
+      @all_litters = litter_number_information.reverse.map { |l| ["#{I18n.l(l[2].to_date, format: :default)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }
     end
 
     render json: { litters_filter: @all_litters }
@@ -179,7 +179,7 @@ class UsersController < ApplicationController
 
   def all_cattery_litters(user)
     litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-    @all_litters = litter_number_information.reverse.map { |l| ["#{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }
+    @all_litters = litter_number_information.reverse.map { |l| ["#{I18n.l(l[2].to_date, format: :default)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }
   end
 
   def cattery_pairs(user)

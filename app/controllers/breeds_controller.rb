@@ -10,7 +10,7 @@ class BreedsController < ApplicationController
       if breed_filter.empty?
         @breeds = Breed.all.sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}"  }
       else
-        @breeds = Breed.where(id: breed_filter).sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}" }
+        @breeds = Breed.where(id: breed_filter).distinct(:id).sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}" }
       end
     else
       @breeds = Breed.all.sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}"  }

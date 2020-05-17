@@ -13,7 +13,25 @@
 
 #kittens, #catteries, #breeds, #cattery-view, .kittens-landing, .cattery-overview {
   .index-row {
-    margin-bottom: 0px;
+    margin-bottom: 0px; 
+  }
+
+  .info-block {
+    font-size: 0.9em;
+  }
+}
+
+#kittens, #catteries, #breeds, #cattery-view, .cattery-overview {
+  .index-row {
+    @include medium-large-and-up {
+      &:nth-child(even) {
+        &:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+      }
+    }
 
     @include medium-large-and-down {
       &:after {
@@ -22,23 +40,20 @@
         clear: both;
       } 
     }
+  }
+}
 
-  @include medium-and-up {
-    &:nth-child(even) {
+.kittens-landing {
+  .index-row {
+    @include medium-large-and-down {
       &:after {
         content: "";
         display: table;
         clear: both;
-      }
+      } 
     }
-  }
-}    
-
-  .info-block {
-    font-size: 0.9em;
-  }
+  }    
 }
-
 
 
 // Breeds index

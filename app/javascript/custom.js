@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function(e) {
   // Hide cookie disclaimer on agreement
   $('.cookies-disclaimer button').on('click', function() {
     $('.cookies-disclaimer').hide();
-    Cookies.set('_cookie_consent', true, { expires: 365, sameSite: 'strict' });
+    Cookies.set('_cookie_consent', true, { expires: 365 });
   });
 
   // Check if the cookie disclaimer has already been accepted
@@ -382,6 +382,30 @@ $(document).on('turbolinks:load', function(e) {
     }
   });
 
+  // GLOBAL FUNCTIONS FOR FORMS
+
+   // Capitalize the first letter
+   $('.capitalize-input').on('change', function() {
+    $(this).val(function( i, val ) {
+      return val.charAt(0).toUpperCase() + val.slice(1);;
+    });
+  })
+
+  // Titlecase helper
+  const captilizeAllWords = (sentence) => {
+    if (typeof sentence !== "string") return sentence;
+    return sentence.split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
+  // Capitalize the first letter in every word for titlecase inputs
+  $('.titlecase-input').on('change', function() {
+    $(this).val(function( i, val ) {
+      return captilizeAllWords(val);
+    });
+  })
+
   // Close select when clicking or tapping on the first disabled option
   function closeSelectOnDisabledOption(e) {
     $(':focus').blur();    
@@ -416,6 +440,23 @@ $(document).on('turbolinks:load', function(e) {
 
   $(selectInForm).on('change', addActiveIfDropdownIsFilled);
 
+  // Add active class to labels if its input is filled
+  // Attach event to body so event handler is re-attached when form is being submitted through ajax
+  $('body').on('submit','form', function() {
+
+    // Run event until we're sure all fields have been checked
+    var timer = setInterval(checkActiveFields, 250);
+
+    function checkActiveFields() {
+      $('.input-field').each(function() {
+        if ($(this).find('input textarea').filter(':input').val() != ""  && $(this).find(':input').val() != null) {
+          $(this).find('label').addClass('active');
+        }
+      }); 
+      clearInterval(timer);
+    }
+  });
+  
   // Add truncation to select dropdown text inputs
   $('.dropdown-trigger').addClass('truncate');
 
@@ -538,11 +579,8 @@ $(document).on('turbolinks:load', function(e) {
 
   // NEW / EDIT KITTEN FORM
   // AJAX - Get a new litter number
-  // $(document).on('ajax:before', '[data-remote]', () => {
-  //   Turbolinks.clearCache();
-  // });
-
   if (querystring.includes('?form=kitten')) {
+
     // Multiple images previews
     var picturesPreview = document.querySelector('.pictures-preview');
 
@@ -773,6 +811,8 @@ $(document).on('turbolinks:load', function(e) {
     
     // Trigger AJAX dropdown filters
     $('.form-filter').on('change', function() {
+      // Always set the value of the hidden input for the select to blank, otherwise Firefox sometimes adds a string inside of it incorrectly
+
       Rails.fire(document.querySelector('form'), 'submit');
 
       // Show reset button if options are selected
@@ -857,7 +897,6 @@ $(document).on('turbolinks:load', function(e) {
           // Reinitiliaze select
           $(thisSelectForm).formSelect();
           $('.disabled').on('click', closeSelectOnDisabledOption);
-
           
           // Reset the other dropdowns
           $('.form-filter').not($(this).parent().find('select')).each(function() {
@@ -1013,14 +1052,6 @@ $(document).on('turbolinks:load', function(e) {
         });
       }
       cardFilteringIcon();
-
-      // Capitalization helper for name
-      const captilizeAllWords = (sentence) => {
-        if (typeof sentence !== "string") return sentence;
-        return sentence.split(' ')
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ');
-      }
 
       // Cattery show page filtering
       $('.form-filter').on('change', function() {
@@ -1315,6 +1346,7 @@ $(document).on('turbolinks:load', function(e) {
         var card = $(this).closest('.card');
         var elem = $(card).find('.tabs');
         var instance = M.Tabs.getInstance(elem);
+
         var tabs = $(card).find('.tab');
         var tabIndex = instance.index;
         var totalTabs = elem.length;

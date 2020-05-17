@@ -85,7 +85,7 @@
       </div>
     </div>
   </div>
-  <%= form_with(url: {:controller => 'users', :action => 'show', :id => @user.id}, :html => {:class => "filter"}, method: "GET") do |f| %>
+  <%= form_with(url: {:controller => 'users', :action => 'show', :id => @user.id}, :html => {:class => "filter"}, method: "GET", html: {autocomplete: "off"}) do |f| %>
     <% if cattery_parents(@user).any? %>
       <div class="section parents">
         <div class="row">

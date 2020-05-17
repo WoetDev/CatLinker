@@ -213,7 +213,7 @@ nl:
       invalid_image_file_type: "Enkel jpeg of png bestanden zijn toegelaten"
       parent_name_already_exists: "Deze naam wordt al gebruikt voor een andere ouder"
       pair_already_exists: "Dit koppel bestaat al"
-      pair_has_two_different_breeds: "Je kan geen koppel maken met twee verschillende rassen"
+      pair_has_two_different_breeds: "Je kan geen koppel maken van twee verschillende rassen"
       parent_breed_is_different_than_kitten_breed: "De kitten moet hetzelde ras hebben als de ouders"
       parents_dont_own_selected_litter: "De geselecteerde ouders zijn geen ouders van het geselecteerde nestje"
 
