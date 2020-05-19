@@ -139,7 +139,7 @@
       color: $primaryColor;
       text-decoration: underline;
       transition: ease-in-out 0.2s;
-      word-break: break-word;
+      word-break: break-all;
 
       &:hover {
         font-weight: bold;

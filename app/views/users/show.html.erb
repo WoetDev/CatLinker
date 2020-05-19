@@ -109,17 +109,17 @@
                       <span class="cat-id"><%= cat.id %></span>
                     </span>
                     <div class="card-image">
-                      <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} parent") %>
+                      <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} parent", data: { 'object-fit': 'cover' }) %>
                       <% if !cat.name.blank? %>
                         <span class="card-title"><%= capitalized_name(cat) %></span>
                       <% end %>
+                    </div>
+                    <div class="card-content">
                       <% if user_signed_in? && current_user == @user %>
                         <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
                           <i class="material-icons">edit</i>
                         <% end %>
                       <% end %>
-                    </div>
-                    <div class="card-content">
                       <table>
                         <tbody>
                           <tr class="info-block">
@@ -145,9 +145,11 @@
                         </tbody>
                       </table>
                       <% if cat.tests.any? { |test| test[1] == '1' } %>
-                        <div class="card-reveal-link activator">
-                          <%= t('show.see_health_tests') %>
-                          <span class="material-icons activator">keyboard_arrow_up</span>
+                        <div class="card-action">
+                          <div class="card-reveal-link activator">
+                            <%= t('show.see_health_tests') %>
+                            <span class="material-icons activator">keyboard_arrow_up</span>
+                          </div>
                         </div>
                       <% end %>
                     </div>

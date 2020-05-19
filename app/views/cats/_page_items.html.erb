@@ -5,7 +5,7 @@
         <%= link_to cat_path(cat), target:"_blank" do %>
           <div class="card">
             <div class="card-image">
-              <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} kitten") %>
+              <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} kitten", data: { 'object-fit': 'cover' }) %>
               <% if !cat.name.blank? %>
                 <span class="card-title"><%= capitalized_name(cat) %></span>
               <% end %>

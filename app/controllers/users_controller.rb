@@ -45,20 +45,14 @@ class UsersController < ApplicationController
   def my_cattery
     @user = current_user
 
-    if @user.provider.present?
-      @change_email_path = "javascript:void(0)"
-      @change_email_tooltip = I18n.t "my_cattery.tooltip.provider", provider: @user.provider[/[^_]+/].capitalize
-    else
-      @change_email_path = edit_user_registration_path
-      @change_email_tooltip = I18n.t "my_cattery.tooltip.profile"
-    end
-
     all_countries
     check_required_cattery_information(@user)
+    tooltip_change_email(@user)
   end
 
   def update_cattery
     all_countries
+    tooltip_change_email(@user)
 
     if @user.update(cattery_params) and @user.valid?(:required_cattery_information)
       update_cat_location_tags(@user)
@@ -263,6 +257,16 @@ class UsersController < ApplicationController
       end
 
       @required_info_message = (I18n.t "my_cattery.required_information_message", missing_info: blank_required_info_string)
+    end
+  end
+
+  def tooltip_change_email(user)
+    if user.provider.present?
+      @change_email_path = "javascript:void(0)"
+      @change_email_tooltip = I18n.t "my_cattery.tooltip.provider", provider: user.provider[/[^_]+/].capitalize
+    else
+      @change_email_path = edit_user_registration_path
+      @change_email_tooltip = I18n.t "my_cattery.tooltip.profile"
     end
   end
 

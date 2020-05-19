@@ -34,7 +34,11 @@
 
   .card-content {
     .btn-floating {
-      bottom: 90px;
+      top: 275px;
+    }
+
+    .btn-floating.tabs-header {
+      top: 325px;
     }
   }
 
@@ -72,10 +76,11 @@
 
   .tabs.tabs-fixed-width {
     overflow: hidden;
+    max-height: 100%;
   }
 
   .tabs-content.carousel {
-    height: $imgHeight;
+    max-height: $imgHeight;
     
     .carousel-item {
       min-height: 0px;
@@ -87,6 +92,11 @@
   }
 
   // Health tests text on card
+  .card-action {
+    padding: 0px;
+    margin-top: 5px;
+  }
+
   .card-reveal-link {
     text-align: center;
     color: $primaryColor;

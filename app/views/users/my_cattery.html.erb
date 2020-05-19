@@ -47,6 +47,10 @@
                 <i class="material-icons right">remove_red_eye</i>
               <% end %>
             </div>
+          <% else %>
+            <div class="col">
+              <div class="blocking-helper-text"><%= t('my_cattery.required_cats') %></div>
+            </div>
           <% end %>
         <% else %>
           <div class="col">
@@ -87,7 +91,7 @@
             <% if @user.profile_picture.blank? %>
               <span><%= t('words.preview') %> *</span>
             <% else %>
-              <%= image_tag(@user.profile_picture) if @user.profile_picture.attached? %> 
+              <%= image_tag(@user.profile_picture, data: { 'object-fit': 'cover' }) if @user.profile_picture.attached? %> 
             <% end %>
           </div>
         </div>

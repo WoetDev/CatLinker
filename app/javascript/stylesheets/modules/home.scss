@@ -275,9 +275,14 @@
 
   .card-image {
     max-height: $imgHeight;
+    width: 300px;
+    height: 300px;
+    
      img {
       height: $imgHeight;
+      width: 100%;
       object-fit: cover;
+      box-shadow: none !important;
      }
   }
 
@@ -296,10 +301,6 @@
   }
 
   .card-image {
-    img {
-      box-shadow: none !important;
-    }
-
     .card-title {
       padding: 8px;
     }
@@ -309,7 +310,7 @@
     color: $black;
     padding: 10px 15px 20px 15px;
     border-top: 5px solid $secondaryColor;
-
+    
     .info-block {
       .row {
         margin: 0;

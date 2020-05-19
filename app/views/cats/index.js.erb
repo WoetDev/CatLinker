@@ -2,6 +2,7 @@ function replaceKittens (innerHTML) {
   var kittens = $('#kittens');
   $('.preloader-wrapper').removeClass('active');
   $(innerHTML).appendTo(kittens).hide().fadeIn(400);
+  objectFitPolyfill();
 }
 
 <% if @kittens.present? %>

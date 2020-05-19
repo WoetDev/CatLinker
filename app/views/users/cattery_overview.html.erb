@@ -24,15 +24,15 @@
               <div class="card">
                 <div class="card-image">
                   <%= link_to  edit_cat_path(cat, form: "parent") do %>
-                    <%= image_tag(cat.thumbnail) if cat.card_picture.attached? %> 
+                    <%= image_tag(cat.thumbnail, data: { 'object-fit': 'cover' }) if cat.card_picture.attached? %> 
                     <span class="card-title"><%= capitalized_name(cat) %></span>
-                  <% end %>
-                  <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
-                    <i class="material-icons">edit</i>
                   <% end %>
                 </div>
                 <%= link_to  edit_cat_path(cat, form: "parent") do %>
                   <div class="card-content">
+                  <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                    <i class="material-icons">edit</i>
+                  <% end %>
                     <table>
                       <tbody>
                         <tr class="info-block">
@@ -82,7 +82,7 @@
               <i class="material-icons left">add</i>
             <% end %>
           <% else %>
-            <%= link_to "javascript:void(0)", class:"disabled-tooltip-wrapper tooltipped right", data: { position:"top", tooltip: (I18n.t "cattery_overview.tooltip.create_pairs_condition") } do %>
+            <%= link_to "javascript:void(0)", class:"disabled-tooltip-wrapper tooltipped right", data: { position:"left", tooltip: (I18n.t "cattery_overview.tooltip.create_pairs_condition") } do %>
               <button class="btn disabled right">
                 <span><%= t('buttons.add_pair') %></span>
                 <i class="material-icons left">add</i>
@@ -104,13 +104,13 @@
                   </ul>
                 </div>
                 <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >
-                  <%= image_tag(pair.male.thumbnail, :alt => "breed") if pair.male.card_picture.attached? %>
+                  <%= image_tag(pair.male.thumbnail, :alt => "breed", data: { 'object-fit': 'cover' }) if pair.male.card_picture.attached? %>
                 </div>
                 <div class="card-image" id="<%= pair.id %><%= pair.female.id %>" >
-                  <%= image_tag(pair.female.thumbnail, :alt => "breed") if pair.female.card_picture.attached? %>
+                  <%= image_tag(pair.female.thumbnail, :alt => "breed", data: { 'object-fit': 'cover' }) if pair.female.card_picture.attached? %>
                 </div>
                 <div class="card-content">
-                  <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                  <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect waves-light btn-large tabs-header" do %>
                     <i class="material-icons">edit</i>
                   <% end %>
                   <table>
@@ -153,7 +153,7 @@
               <i class="material-icons left">add</i>
             <% end %>
           <% else %>
-            <%= link_to "javascript:void(0)", class:"disabled-tooltip-wrapper tooltipped right", data: { position: "top", tooltip: (I18n.t "cattery_overview.tooltip.create_kittens_condition") } do %>
+            <%= link_to "javascript:void(0)", class:"disabled-tooltip-wrapper tooltipped right", data: { position: "left", tooltip: (I18n.t "cattery_overview.tooltip.create_kittens_condition") } do %>
               <button class="btn disabled right">
                 <span><%= t('buttons.add_kitten') %></span>
                 <i class="material-icons left">add</i>
@@ -172,17 +172,17 @@
                   <div class="card">
                     <div class="card-image">
                       <%= link_to cat_path(cat), target:"_blank" do %>
-                        <%= image_tag(cat.thumbnail, :alt => "card picture") if cat.card_picture.attached? %>
+                        <%= image_tag(cat.thumbnail, :alt => "card picture", data: { 'object-fit': 'cover' }) if cat.card_picture.attached? %>
                         <% if !cat.name.blank? %>
                           <span class="card-title"><%= capitalized_name(cat) %></span>
                         <% end %>
                       <% end %>
-                      <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
-                        <i class="material-icons">edit</i>
-                      <% end %>
                     </div>
                     <%= link_to cat_path(cat), target:"_blank" do %>
                       <div class="card-content">
+                        <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                          <i class="material-icons">edit</i>
+                        <% end %>
                         <table>
                           <tbody>
                             <tr class="info-block">

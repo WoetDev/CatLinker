@@ -35,6 +35,7 @@ function ReplacePairsWithParentsFilter(pairs) {
     });
      }, 400);
   }
+  objectFitPolyfill();
 }
 
 function ReplaceLittersWithParentsFilter(litters) {
@@ -107,11 +108,13 @@ function ReplaceLittersWithParentsFilter(litters) {
       indicators: true
     });
   }
+  objectFitPolyfill();
 }
 
 function ReplaceKittensWithParentsFilter(kittens) {
   var kittensContainer = $('#kittens');
   $(kittensContainer).html(kittens).hide().fadeIn(400);
+  objectFitPolyfill();
 }
 
 <% if @pairs.any? %>

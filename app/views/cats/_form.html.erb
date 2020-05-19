@@ -2,20 +2,17 @@
   <div class="row">
     <br>
   </div>
-
-  <% if @form == "kitten" %>
-    <div class="row">
-      <div class="col s12 m6">
-        <div class="input-field">
-          <%= f.select(:pair_id, options_for_select(@parents_array, selected: f.object ? f.object.pair_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.parents')} *"}) %>
-        </div>
-        <%= render 'shared/error_messages', object: @cat, field: :pair_id %>
+  
+  <div class="row">
+    <% if @form == "kitten" %>
+    <div class="col s12 m6">
+      <div class="input-field">
+        <%= f.select(:pair_id, options_for_select(@parents_array, selected: f.object ? f.object.pair_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.parents')} *"}) %>
       </div>
-  <% end %>
+      <%= render 'shared/error_messages', object: @cat, field: :pair_id %>
+    </div>
+    <% end %>
 
-  <% if @form == "parent" %>
-    <div class="row">
-  <% end %>
     <div class="col s12 m6">
       <div class="input-field">
         <%= f.label :name do %>
@@ -25,17 +22,17 @@
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :name %>
     </div>
-  <% if @form == "kitten" %>
+    <% if @form == "kitten" %>
     </div>
-  <div class="row">
-    <div class="col s12 m6 l4">
-  <% elsif @form == "parent" %>
-    <div class="col s12 m6">
-  <% end %>
-      <div class="input-field">
-        <%= f.select(:breed_id, options_for_select(@breeds_array, selected: f.object ? f.object.breed_id : ""), {selected: "", disabled: "", prompt: "#{t('breed', count:1)} *"}, { autocomplete:'off' }) %>
-      </div>
-      <%= render 'shared/error_messages', object: @cat, field: :breed_id %>
+    <div class="row">
+      <div class="col s12 m6 l4">
+      <% elsif @form == "parent" %>
+      <div class="col s12 m6">
+    <% end %>
+    <div class="input-field">
+      <%= f.select(:breed_id, options_for_select(@breeds_array, selected: f.object ? f.object.breed_id : ""), {selected: "", disabled: "", prompt: "#{t('breed', count:1)} *"}, { autocomplete:'off' }) %>
+    </div>
+    <%= render 'shared/error_messages', object: @cat, field: :breed_id %>
     </div>
   <% if @form == "parent" %>
   </div>
@@ -184,9 +181,9 @@
         <% if @cat.new_record? and !@cat.card_picture.attached? %>
           <span><%= t('words.preview') %> *</span>
         <% elsif @cat.card_picture.attached? %>
-          <%= image_tag(url_for(ActiveStorage::Blob.find_signed(f.object.card_picture.signed_id))) %>
+          <%= image_tag(url_for(ActiveStorage::Blob.find_signed(f.object.card_picture.signed_id)), data: { 'object-fit': 'cover' }) %>
         <% else %>
-          <%= image_tag(@cat.card_picture.variant(resize_to_limit: [300, 300])) if @cat.card_picture.attached? %> 
+          <%= image_tag(@cat.card_picture.variant(resize_to_limit: [300, 300]), data: { 'object-fit': 'cover' }) if @cat.card_picture.attached? %> 
         <% end %>
         <%= render 'shared/error_messages', object: @cat, field: :card_picture %>
       </div>
@@ -194,7 +191,7 @@
   </div>
 
   <% if @form == "kitten" %>
-    <div class="row">
+  <div class="row">
     <div class="col s12">
       <div class="file-field input-field">
         <div class="btn">
@@ -259,38 +256,38 @@
     <% end %>
   </div>
   <% if !@cat.new_record? %>
-      <% if parent_litters_count(@cat, @user) == 0 and parent_kittens_count(@cat, @user) == 0 and @cat.pairs.size == 0 %>
-        <div class="col right">
-          <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal-delete">
-            <span><%= t('buttons.delete') %></span>
-            <i class="material-icons right">delete</i>
+    <% if parent_litters_count(@cat, @user) == 0 and parent_kittens_count(@cat, @user) == 0 and @cat.pairs.size == 0 %>
+      <div class="col right">
+        <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal-delete">
+          <span><%= t('buttons.delete') %></span>
+          <i class="material-icons right">delete</i>
+        </a>
+      </div>
+      <div id="modal-delete" class="modal modal-confirmation">
+        <div class="modal-content">
+          <h4><%= t('buttons.delete') %>&nbsp;<%= (I18n.t "#{@form}", count:1).downcase %></h4>
+          <p><%= t('modal.are_you_sure') %>?</p>
+          <p><%= t('modal.this_action_is_permanent') %>!</p>
+        </div>
+        <div class="modal-footer">
+          <a class="btn waves-effect waves-light modal-close btn-cancel">
+            <%= t('words.cancel') %>
           </a>
-        </div>
-        <div id="modal-delete" class="modal modal-confirmation">
-          <div class="modal-content">
-            <h4><%= t('buttons.delete') %>&nbsp;<%= (I18n.t "#{@form}", count:1).downcase %></h4>
-            <p><%= t('modal.are_you_sure') %>?</p>
-            <p><%= t('modal.this_action_is_permanent') %>!</p>
-          </div>
-          <div class="modal-footer">
-            <a class="btn waves-effect waves-light modal-close btn-cancel">
-             <%= t('words.cancel') %>
-            </a>
-            <%= link_to cat_path(@cat, form: @form), class:"btn waves-effect waves-light btn-confirm", method: :delete do %>
-              <%= t('words.im_sure') %>
-            <% end %>
-          </div>
-        </div>
-      <% else %>
-        <div class="col right">
-          <%= link_to "javascript:void(0)", class:"btn disabled-tooltip-wrapper tooltipped", data: { position:"top", tooltip: t('cattery_overview.tooltip.delete_parent_condition') } do %>
-            <button class="btn waves-effect waves-light btn-delete disabled tooltipped">
-              <span><%= t('buttons.delete') %></span>
-              <i class="material-icons right">delete</i>
-            </button>
+          <%= link_to cat_path(@cat, form: @form), class:"btn waves-effect waves-light btn-confirm", method: :delete do %>
+            <%= t('words.im_sure') %>
           <% end %>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% else %>
+      <div class="col right">
+        <%= link_to "javascript:void(0)", class:"btn disabled-tooltip-wrapper tooltipped", data: { position:"bottom", tooltip: t('cattery_overview.tooltip.delete_parent_condition') } do %>
+          <button class="btn waves-effect waves-light btn-delete disabled tooltipped">
+            <span><%= t('buttons.delete') %></span>
+            <i class="material-icons right">delete</i>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
   <% end %>
 </div>

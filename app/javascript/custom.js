@@ -4,6 +4,8 @@ import {strftime} from './lib/strftime.js';
 Turbolinks.setProgressBarDelay(250)
 
 $(document).on('turbolinks:load', function(e) {
+  objectFitPolyfill();
+
   // Cookies disclaimer
   // Hide cookie disclaimer on agreement
   $('.cookies-disclaimer button').on('click', function() {
@@ -30,54 +32,9 @@ $(document).on('turbolinks:load', function(e) {
   gtag('config', 'UA-163427368-1');
 
   // Force scroll position to reset at top of the page  
-  ;(function () {
-    // Tell the browser not to handle scrolling when restoring via the history or when reloading
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
-  
-    var SCROLL_POSITION = 'scroll-position'
-    var PAGE_INVALIDATED = 'page-invalidated'
-  
-    // Patch the reload method to flag that the following page load originated from the page being invalidated
-    Turbolinks.BrowserAdapter.prototype.reload = function () {
-      sessionStorage.setItem(PAGE_INVALIDATED, 'true')
-      location.reload()
-    }
-  
-    // Persist the scroll position when leaving a page
-    addEventListener('beforeunload', function () {
-      sessionStorage.setItem(
-        SCROLL_POSITION,
-        JSON.stringify({
-          scrollX: scrollX,
-          scrollY: scrollY,
-          location: location.href
-        })
-      )
-    })
-  
-    // When a page is fully loaded:
-    // 1. Get the persisted scroll position
-    // 2. If the locations match and the load did not originate from a page invalidation, scroll to the persisted position
-    // 3. Remove the persisted information
-    addEventListener('DOMContentLoaded', function (event) {
-      var scrollPosition = JSON.parse(sessionStorage.getItem(SCROLL_POSITION))
-  
-      if (shouldScroll(scrollPosition)) {
-        scrollTo(scrollPosition.scrollX, scrollPosition.scrollY)
-      }
-  
-      sessionStorage.removeItem(SCROLL_POSITION)
-      sessionStorage.removeItem(PAGE_INVALIDATED)
-    })
-  
-    function shouldScroll (scrollPosition) {
-      return (
-        scrollPosition &&
-        scrollPosition.location === location.href &&
-        !JSON.parse(sessionStorage.getItem(PAGE_INVALIDATED))
-      )
-    }
-  })()
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual';
+  }
 
   // GLOBAL VARIABLES 
   var host = window.location.host;
@@ -235,7 +192,6 @@ $(document).on('turbolinks:load', function(e) {
 
   // GLOBAL FUNCTIONS
 
-  // Remove MaterializeCSS select for iOS13
   // Helper function to detect which OS is running
   function getOS() {
     var userAgent = window.navigator.userAgent,
@@ -258,7 +214,36 @@ $(document).on('turbolinks:load', function(e) {
     }
     return os;
   }
-  
+
+  // Helper function to detect which browser is running
+  function getBrowser() { 
+    var browser = null;
+
+    if((navigator.userAgent.indexOf('OPR')) != -1 ){
+      browser = "Opera";
+    }
+    else if(navigator.userAgent.indexOf("Edge") != -1 ){
+      browser = "Edge";
+    }
+    else if(navigator.userAgent.indexOf("Chrome") != -1 ){
+      browser = "Chrome";
+    }
+    else if(navigator.userAgent.indexOf("Safari") != -1){
+      browser = "Safari";
+    }
+    else if(navigator.userAgent.indexOf("Firefox") != -1 ){
+      browser = "Firefox";
+    }
+    else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )){
+      browser = "IE";
+    }  
+    else {
+      browser = "Unknown";
+    }
+    return browser;
+  }
+
+  // iOS13: set MaterializeCSS select to browser default
   if (getOS() == 'iOS') {
     $('select:not([multiple])').addClass('browser-default');
 
@@ -279,6 +264,50 @@ $(document).on('turbolinks:load', function(e) {
       }
       else {
         $(this).addClass('inactive-select');
+      }
+    }
+  }
+
+  // Internet Explorer: move hidden input for checkboxes and switches
+  if (getBrowser() == 'IE') {
+    var hiddenInputs = $('input[type=checkbox]').closest('.input-field').find('input[type=hidden');
+    $(hiddenInputs).each(function() {
+      var inputField = $(this).closest('.input-field');
+      $(inputField).prepend(this);
+    });
+
+    $('.tabs-content').css('height', '300px');
+  }
+  
+  // Internet Explorer: polyfills
+
+  // polyfill object-fit css
+
+  if (getBrowser() == 'IE') {
+    // polyfill endswith
+    if (!String.prototype.endsWith) {
+      String.prototype.endsWith = function(suffix) {
+        return this.indexOf(suffix, this.length - suffix.length) !== -1;
+      };
+    }
+
+    // polyfill includes
+    if (!String.prototype.includes) {
+      String.prototype.includes = function(search, start) {
+        'use strict';
+    
+        if (search instanceof RegExp) {
+          throw TypeError('first argument must not be a RegExp');
+        } 
+        if (start === undefined) { start = 0; }
+        return this.indexOf(search, start) !== -1;
+      };
+    }
+
+    // polyfill replace to work with SVGs
+    if (!Object.getOwnPropertyDescriptor(Element.prototype,'classList')){
+      if (HTMLElement&&Object.getOwnPropertyDescriptor(HTMLElement.prototype,'classList')){
+          Object.defineProperty(Element.prototype,'classList',Object.getOwnPropertyDescriptor(HTMLElement.prototype,'classList'));
       }
     }
   }
@@ -449,7 +478,7 @@ $(document).on('turbolinks:load', function(e) {
 
     function checkActiveFields() {
       $('.input-field').each(function() {
-        if ($(this).find('input textarea').filter(':input').val() != ""  && $(this).find(':input').val() != null) {
+        if ($(this).find(':input').val() != ""  && $(this).find(':input').val() != null) {
           $(this).find('label').addClass('active');
         }
       }); 
@@ -501,7 +530,7 @@ $(document).on('turbolinks:load', function(e) {
   }
 
   // UPDATE CATTERY INFORMATION FORM 
-  if (pathname.endsWith('my_cattery')) {  
+  if (pathname.endsWith('my-cattery')) {  
     // Single card image preview
     var cardPicturePreview = document.querySelector('.card-picture-preview');
 
@@ -511,11 +540,15 @@ $(document).on('turbolinks:load', function(e) {
       var reader = new FileReader();
       reader.onload = function(){
         var image = reader.result;
-        cardPicturePreview.innerHTML = '<img src="'+ image +'" />';
+        cardPicturePreview.innerHTML = '<img src="'+ image +'" data-object-fit="cover" />';
       };
       // Produce a data URL (base64 encoded string of the data in the file)
       // Retrieve the first file from the FileList object
       reader.readAsDataURL(input.files[0]);
+
+      reader.onloadend = function () {
+        objectFitPolyfill();
+      };
     }
 
     $('#user_profile_picture').on('change', showCardPicturePreview);
@@ -537,9 +570,10 @@ $(document).on('turbolinks:load', function(e) {
         return;
       }
     }
+    
 
     function checkIfSocialMediaLinkIsEmpty(link) {
-      if ($.trim($(link).val()) != '' && $.trim($(link).val()) != null) {
+      if ($(link).val() != '' && $(link).val() != null) {
         $(link).closest('.input-field').find("[class*='fa-']").addClass('active-social');
       }
       else {
@@ -566,11 +600,15 @@ $(document).on('turbolinks:load', function(e) {
     var reader = new FileReader();
     reader.onload = function(){
       var image = reader.result;
-      cardPicturePreview.innerHTML = '<img src="'+ image +'" />';
+      cardPicturePreview.innerHTML = '<img src="'+ image +'" data-object-fit="cover" />';
     };
     // Produce a data URL (base64 encoded string of the data in the file)
     // We are retrieving the first file from the FileList object
     reader.readAsDataURL(input.files[0]);
+    
+    reader.onloadend = function () {
+      objectFitPolyfill();
+    };
   }
 
   if (querystring.includes('?form=kitten') || querystring.includes('?form=parent')) {
@@ -620,6 +658,7 @@ $(document).on('turbolinks:load', function(e) {
 
             reader.onloadend = function () {
               $('.materialboxed').materialbox();
+              objectFitPolyfill();
             };
           }
         
@@ -1340,29 +1379,31 @@ $(document).on('turbolinks:load', function(e) {
       });
 
       // Switch tabs when clicking on pair card image
-      $('.card .tabs-content').on('click', function(e) {
+      if ($('.tabs').length > 0) {
+        $('.card .tabs-content').on('click', function(e) {
 
-        // Get the properties and instance of the tabs
-        var card = $(this).closest('.card');
-        var elem = $(card).find('.tabs');
-        var instance = M.Tabs.getInstance(elem);
-
-        var tabs = $(card).find('.tab');
-        var tabIndex = instance.index;
-        var totalTabs = elem.length;
-
-        if (tabIndex == totalTabs) {
-          var tabId = $(tabs[0]).find('a').attr('href');
-        }
-
-        else {
-          var tabId = $(tabs[tabIndex+1]).find('a').attr('href');
-        }
-
-        // Trigger a click on one of the tabs when clicking on the image
-        var selector = "a[href|='" + tabId + "']";
-        $(selector)[0].click();
-      });
+          // Get the properties and instance of the tabs
+          var card = $(this).closest('.card');
+          var elem = $(card).find('.tabs');
+          var instance = M.Tabs.getInstance(elem);
+  
+          var tabs = $(card).find('.tab');
+          var tabIndex = instance.index;
+          var totalTabs = elem.length;
+  
+          if (tabIndex == totalTabs) {
+            var tabId = $(tabs[0]).find('a').attr('href');
+          }
+  
+          else {
+            var tabId = $(tabs[tabIndex+1]).find('a').attr('href');
+          }
+  
+          // Trigger a click on one of the tabs when clicking on the image
+          var selector = "a[href|='" + tabId + "']";
+          $(selector)[0].click();
+        });
+      }
 
       // Add image carousel for litters
       $('.carousel').carousel({ 

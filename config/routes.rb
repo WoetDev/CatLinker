@@ -44,8 +44,8 @@ Rails.application.routes.draw do
 
     resources :users, path: 'catteries', as: 'catteries', only: [:index, :show ] do
       member do 
-        get 'my_cattery' => 'users#my_cattery', as: 'my_cattery'
-        post 'my_cattery' => 'users#update_cattery'
+        get 'my-cattery' => 'users#my_cattery', as: 'my-cattery'
+        post 'my-cattery' => 'users#update_cattery'
         get 'cattery/overview' => 'users#cattery_overview', as: 'overview'
         get 'show_filters' => 'users#show_filters'
       end
@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
     resources :breeds, only: [:index, :show]
     resources :cats
-    resources :pairs
+    resources :pairs, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :messages, only: [:index, :new, :create]
   end
 end

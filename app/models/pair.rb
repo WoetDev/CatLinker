@@ -11,7 +11,8 @@ class Pair < ApplicationRecord
   # validations
   validates :male_id, :female_id, presence: true
 
-  validate :pair_already_exists, :pair_has_two_different_breeds
+  validate :pair_has_two_different_breeds
+  validate :pair_already_exists, on: :create
 
   # validation methods with error messages
   def pair_already_exists

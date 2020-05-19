@@ -314,6 +314,7 @@ en:
     country: "Country"
     contact_and_social_media: "Contact & social media"
     required_information_message: "You must add a %{missing_info} before you can add cats and appear in search results"
+    required_cats: "You must add at least one parent cat in order to create a page for your cattery"
     tooltip:
       profile: "Go to the 'Profile' page to change this" 
       provider: "Go to your %{provider} account to change this"

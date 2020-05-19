@@ -8,14 +8,14 @@
         </ul>
       </div>
       <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >
-        <%= image_tag(pair.male.thumbnail, alt:"#{cat_breed(pair.male).name} father") if pair.male.card_picture.attached? %>
+        <%= image_tag(pair.male.thumbnail, alt:"#{cat_breed(pair.male).name} father", data: { 'object-fit': 'cover' }) if pair.male.card_picture.attached? %>
       </div>
       <div class="card-image" id="<%= pair.id %><%= pair.female.id %>" >
-        <%= image_tag(pair.female.thumbnail, alt:"#{cat_breed(pair.female).name} mother") if pair.female.card_picture.attached? %>
+        <%= image_tag(pair.female.thumbnail, alt:"#{cat_breed(pair.female).name} mother", data: { 'object-fit': 'cover' }) if pair.female.card_picture.attached? %>
       </div>
       <div class="card-content">
         <% if user_signed_in? && current_user == @user %>
-          <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+          <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect waves-light btn-large tabs-header" do %>
             <i class="material-icons">edit</i>
           <% end %>
         <% end %>

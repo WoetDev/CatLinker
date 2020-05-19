@@ -19,7 +19,7 @@ nl:
         password: "Wachtwoord"
         password_confirmation: "Herhaal wachtwoord"
         current_password: "Huidig wachtwoord"
-        certification_number: "Certificaat nummer"
+        certification_number: "Erkenningsnummer"
         street: "Straat"
         number: "Nummer"
         phone_number: "Telefoon nummer"
@@ -314,6 +314,7 @@ nl:
     country: "Land"
     contact_and_social_media: "Contact & sociale media"
     required_information_message: "Je moet nog een %{missing_info} toevoegen voordat je katten kan toevoegen en getoond wordt in zoekresultaten"
+    required_cats: "Je moet minimum één ouder toevoegen om een pagina voor je cattery aan te maken"
     tooltip:
       profile: "Ga naar de 'Profiel' pagina om dit te wijzigen" 
       provider: "Ga naar je %{provider} account om dit te wijzigen"
