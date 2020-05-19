@@ -45,7 +45,7 @@
     </div>
 
     <div class="row text-box">
-      <p><span><%== @breed.personality %></span></p>
+      <p><span><%== t("breeds.#{@breed.breed_code.upcase}.personality") %></span></p>
     </div>
   </div>
 
@@ -75,7 +75,7 @@
     </div>
     
     <div class="row text-box">
-      <p><%== @breed.history %></p>
+      <p><%== t("breeds.#{@breed.breed_code.upcase}.history") %></p>
     </div>
   </div>
 
