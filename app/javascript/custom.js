@@ -4,6 +4,7 @@ import {strftime} from './lib/strftime.js';
 Turbolinks.setProgressBarDelay(250)
 
 $(document).on('turbolinks:load', function(e) {
+  // IE object-fit polyfill
   objectFitPolyfill();
 
   // Cookies disclaimer
@@ -28,7 +29,6 @@ $(document).on('turbolinks:load', function(e) {
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'UA-163427368-1');
 
   // Force scroll position to reset at top of the page  
@@ -62,57 +62,11 @@ $(document).on('turbolinks:load', function(e) {
     var done =	'Ok';
     var previousMonth =	'‹';
     var nextMonth =	'›';
-    var months =
-      [
-        'Januari',
-        'Februari',
-        'Maart',
-        'April',
-        'Mei',
-        'Juni',
-        'Juli',
-        'Augustus',
-        'September',
-        'Oktober',
-        'November',
-        'December'
-      ];     
-      var monthsShort = 
-      [
-        'Jan',
-        'Feb',
-        'Mrt',
-        'Apr',
-        'Mei',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Okt',
-        'Nov',
-        'Dec'
-      ];        
-      var weekdays =
-      [
-        'Zondag',
-        'Maandag',
-        'Dinsdag',
-        'Woensdag',
-        'Donderdag',
-        'Vrijdag',
-        'Zaterdag'
-      ];       
-      var weekdaysShort = 
-      [
-        'Zo',
-        'Ma',
-        'Di',
-        'Wo',
-        'Do',
-        'Vr',
-        'Za'
-      ];           
-      var weekdaysAbbrev = ['ZO','MA','DI','WO','DO','VR','ZA'];
+    var months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];     
+    var monthsShort = ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug','Sep', 'Okt', 'Nov','Dec'];        
+    var weekdays = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'];       
+    var weekdaysShort = ['Zo', 'Ma', 'Di','Wo','Do','Vr','Za'];           
+    var weekdaysAbbrev = ['ZO','MA','DI','WO','DO','VR','ZA'];
   }
 
   else {
@@ -129,57 +83,11 @@ $(document).on('turbolinks:load', function(e) {
     var done =	'Ok';
     var previousMonth =	'‹';
     var nextMonth =	'›';
-    var months =
-      [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ];     
-      var monthsShort = 
-      [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-      ];        
-      var weekdays =
-      [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ];       
-      var weekdaysShort = 
-      [
-        'Sun',
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat'
-      ];           
-      var weekdaysAbbrev = ['S','M','T','W','T','F','S'];
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];     
+    var monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];        
+    var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];       
+    var weekdaysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];           
+    var weekdaysAbbrev = ['S','M','T','W','T','F','S'];
   }
 
   // PATHS
@@ -191,7 +99,6 @@ $(document).on('turbolinks:load', function(e) {
   var breedsPath = rootPath.concat(locale, '/breeds');
 
   // GLOBAL FUNCTIONS
-
   // Helper function to detect which OS is running
   function getOS() {
     var userAgent = window.navigator.userAgent,
@@ -280,9 +187,6 @@ $(document).on('turbolinks:load', function(e) {
   }
   
   // Internet Explorer: polyfills
-
-  // polyfill object-fit css
-
   if (getBrowser() == 'IE') {
     // polyfill endswith
     if (!String.prototype.endsWith) {
@@ -383,7 +287,7 @@ $(document).on('turbolinks:load', function(e) {
     return t;
   }(document, "script", "twitter-wjs"));
 
-  // MaterializeCSS initialization without custom code
+  // MaterializeCSS initialization
   $('select').formSelect();
   $('.nav-dropdown-trigger').dropdown({coverTrigger: false, alignment: 'right'});
   $('.sidenav').sidenav({edge: 'right'});
@@ -413,8 +317,8 @@ $(document).on('turbolinks:load', function(e) {
 
   // GLOBAL FUNCTIONS FOR FORMS
 
-   // Capitalize the first letter
-   $('.capitalize-input').on('change', function() {
+  // Capitalize the first letter
+  $('.capitalize-input').on('change', function() {
     $(this).val(function( i, val ) {
       return val.charAt(0).toUpperCase() + val.slice(1);;
     });
@@ -1034,7 +938,7 @@ $(document).on('turbolinks:load', function(e) {
     checkDataSuccess($('.available-message'));
     
 
-    if (pathname.includes(catteriesPath.concat('/')) && !pathname.endsWith('my_cattery')) {
+    if (pathname.includes(catteriesPath.concat('/')) && !pathname.endsWith('my-cattery')) {
       function showActiveFilterIcon(card) {
         $(card).find('.filter-icon-container').show();
         $(card).find('.filter-icon-container').addClass('active');
@@ -1157,12 +1061,7 @@ $(document).on('turbolinks:load', function(e) {
 
              // Only add a message if the filter is used
              if (filterSection.find('.form-filter').val() != "" && filterSection.find('.form-filter').val() != null) {
-               $(this).append('<i class="material-icons filter-list">filter_list</i><span>' + showing + ' ' + $(messageSection).find('h1').first().text().toLowerCase() +' ' + fromThe + ' ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + captilizeAllWords(selectedOptionsString) + '</b>');
-             }
- 
-             // Add a line break if more than one filter is active
-             if ($(this).html != '') {
-               $(this).append('<br>');
+               $(this).append('<i class="material-icons filter-list">filter_list</i><span>' + showing + ' ' + $(messageSection).find('h1').first().text().toLowerCase() +' ' + fromThe + ' ' + $(filterSection).find('h1').first().text().toLowerCase() + ': </span><b>' + captilizeAllWords(selectedOptionsString) + '</b>').append('<br>');
              }
            });
          });

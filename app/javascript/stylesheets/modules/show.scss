@@ -440,6 +440,17 @@
   }
 }
 
+// Litters card carousel indicators
+#litters {
+  .carousel {
+    .indicators {
+      .indicator-item {
+        box-shadow: $z-depth-1;
+      }
+    }
+  }
+}
+
 // Breed show page
 .breed-show {
   img, .paragraph-block {
@@ -463,12 +474,14 @@
   .breed-property {
     margin: 10px auto;
 
+    .col {
+      padding: 0 0.25rem;
+    }
+
     @include medium-large-and-down {
       text-align: center;
       margin: 25px auto;
     }
-
-
   }
 
   .range-title {
@@ -476,6 +489,7 @@
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 15px;
+    overflow: visible;
 
     @include medium-only {
       text-align: right;

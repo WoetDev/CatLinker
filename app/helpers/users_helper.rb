@@ -62,9 +62,4 @@ module UsersHelper
   def cattery_kittens_per_litter(ids)
     Cat.where(id: ids)
   end
-
-  def kitten_parents(kitten)
-    parents = Pair.find(kitten.pair_id)
-    "#{parents.male.name.titlecase} & #{parents.female.name.titlecase}"
-  end
 end

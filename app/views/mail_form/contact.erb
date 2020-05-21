@@ -5,9 +5,22 @@
     <div class="email-logo-text">Cat Linker</div>
   </div>
   <div class="email-body-container">
-    <p><%= t('mailer.hi_there') %> <b><%= message.to[0] %></b>!</p>
-    
-    <p><%= t('mailer.contact.new_message', email: message.from[0] ) %></p>
+    <p><%= t('mailer.hi_there') %> <b><%= message.to[0][/[^@]+/].gsub('_', '.').split('.').map {|n| n.capitalize }.join(" ") %></b>!</p>
+    <p><%= t('mailer.contact.new_message', email: message.reply_to[0] ) %></p>
+
+    <p>
+      <%= t('mailer.contact.from_this_page') %>
+      <% if @resource.mail_form_attributes['cat_id'].nil? %>
+        <%= link_to cattery_url(id: @resource.mail_form_attributes['user_id'], locale: locale), class:"email-link" do %>
+          <%= "#{t('cattery', count:1).downcase}" %>.
+        <% end %>
+      <% else %>
+        <%= link_to cat_url(id: @resource.mail_form_attributes['cat_id'], locale: locale), class:"email-link" do %>
+          <%= "#{t('kitten', count:1).downcase} #{t('words.from')} #{I18n.l(Cat.find(@resource.mail_form_attributes['cat_id']).birth_date.to_date, format: :default)}" %>.
+        <% end %>
+      <% end %>
+    </p>
+
     <p><%= t('mailer.contact.reply_to_user') %>.</p>
     <p><%= t('mailer.contact.message_down_below') %>:</p>
     <hr>

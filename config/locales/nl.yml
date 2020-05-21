@@ -228,6 +228,7 @@ nl:
   words:
     or: "of"
     and: "en"
+    from: "van"
     go_to: "ga naar"
     cancel: "annuleer"
     im_sure: "ik ben zeker"
@@ -239,6 +240,9 @@ nl:
     tests: "Testen"
 
   # pluralization
+  cattery:
+    one: "Cattery"
+    other: "Catteries"
   breed:
     one: "Ras"
     other: "Rassen"
@@ -281,6 +285,7 @@ nl:
       change_my_password: "Wijzig wachtwoord"
     contact:
       new_message: "Je hebt een nieuw bericht ontvangen van %{email} op Cat Linker!"
+      from_this_page: "Dit bericht werd verzonden van de pagina voor je"
       reply_to_user: "Je kan op deze mail antwoorden om rechtstreeks een bericht terug te sturen naar de bezoeker"
       message_down_below: "Je kan het bericht hieronder terugvinden"
 

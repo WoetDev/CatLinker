@@ -9,11 +9,11 @@
       </span>
       <div class="carousel carousel-slider">
         <% cattery_kittens_per_litter(litter.ids).each do |cat| %>
-          <div class="card-image">
-            <a class="carousel-item">
-              <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} litter", data: { 'object-fit': 'cover' }) if cat.card_picture.attached? %>
-            </a>
-          </div>
+          <a class="carousel-item">
+            <div class="card-image">
+                <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} litter", data: { 'object-fit': 'cover' }) if cat.card_picture.attached? %>
+            </div>
+          </a>
         <% end %>
       </div>
         <div class="card-content">

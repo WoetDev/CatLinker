@@ -21,6 +21,11 @@ module ApplicationHelper
     I18n.l(cat.birth_date.to_date, format: :default)
   end
 
+  def kitten_parents(kitten)
+    parents = Pair.find(kitten.pair_id)
+    "#{parents.male.name.titlecase} & #{parents.female.name.titlecase}"
+  end
+
   def cattery(cat)
     User.find(cat.user_id)
   end
@@ -28,7 +33,7 @@ module ApplicationHelper
   def cattery_user(user)
     User.find(user.id)
   end
-  
+
   def parent_litters_count(cat, user)
     if cat.gender == '1'
       pairs = Pair.user_id(user.id).male_id(cat.id)

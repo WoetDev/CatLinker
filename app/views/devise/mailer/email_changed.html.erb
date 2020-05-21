@@ -7,7 +7,7 @@
     <div class="email-logo-text">Cat Linker</div>
   </div>
   <div class="email-body-container">
-    <p><%= t('mailer.hi_there') %> <b><%= @email %></b>!</p>
+    <p><%= t('mailer.hi_there') %> <b><%= @email[/[^@]+/].gsub('_', '.').split('.').map {|n| n.capitalize }.join(" ") %></b>!</p>
 
     <% if @resource.try(:unconfirmed_email?) %>
       <p><%= t('mailer.confirmation.notify_email_being_changed') %>&nbsp;<span class="email-text-underline"><%= @resource.unconfirmed_email %></span>.</p>

@@ -226,6 +226,7 @@ en:
   words:
     or: "or"
     and: "and"
+    from: "from"
     go_to: "go to"
     cancel: "cancel"
     im_sure: "I'm sure"
@@ -237,6 +238,9 @@ en:
     tests: "Tests"
 
   # pluralization
+  cattery:
+    one: "Cattery"
+    other: "Catteries"
   breed:
     one: "Breed"
     other: "Breeds"
@@ -279,6 +283,7 @@ en:
       change_my_password: "Change my password"
     contact:
       new_message: "You've received a new message from %{email} on Cat Linker!"
+      from_this_page: "This message was sent from the page for your"
       reply_to_user: "You can reply to this email to answer the message from the visitor"
       message_down_below: "You can find the message down below"
 

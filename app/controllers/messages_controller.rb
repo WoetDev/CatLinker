@@ -28,6 +28,8 @@ class MessagesController < ApplicationController
         end
       end
     else
+      score = recaptcha_reply['score']
+      Rails.logger.warn("Mail not sent because of a recaptcha score of #{score}")
       flash[:alert] = I18n.t "recaptcha.errors.verification_failed"
     end
   end

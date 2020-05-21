@@ -38,6 +38,12 @@
   border-radius:5px;
 }
 
+.email-link {
+  display: inline-block;
+  color: #15c;
+  text-decoration: underline;
+}
+
 .email-text-underline {
   text-decoration: underline;
 }

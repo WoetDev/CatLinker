@@ -7,7 +7,7 @@
     <div class="email-logo-text">Cat Linker</div>
   </div>
   <div class="email-body-container">
-    <p><%= t('mailer.hi_there') %> <b><%= @email %></b>!</p>
+    <p><%= t('mailer.hi_there') %> <b><%= @email[/[^@]+/].gsub('_', '.').split('.').map {|n| n.capitalize }.join(" ") %></b>!</p>
     
     <p><%= t('mailer.confirmation.confirm_your_email_with_link_below') %>:</p>
 
