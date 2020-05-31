@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
     @user = current_user
   end
 
+  # Twitter intent options
   def twitter_url_options
     params = {
       text: 'Cat Linker:',

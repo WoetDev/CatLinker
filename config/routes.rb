@@ -44,9 +44,9 @@ Rails.application.routes.draw do
 
     resources :users, path: 'catteries', as: 'catteries', only: [:index, :show ] do
       member do 
-        get 'my-cattery' => 'users#my_cattery', as: 'my-cattery'
+        get 'my-cattery' => 'users#my_cattery', as: 'my'
         post 'my-cattery' => 'users#update_cattery'
-        get 'cattery/overview' => 'users#cattery_overview', as: 'overview'
+        get 'cattery-overview' => 'users#cattery_overview', as: 'overview'
         get 'show_filters' => 'users#show_filters'
       end
     end

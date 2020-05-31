@@ -6,7 +6,7 @@ class BreedsController < ApplicationController
 
     if params[:breeds_filter].present?
       breed_filter = params[:breeds_filter].flatten.reject(&:blank?)
-
+      
       if breed_filter.empty?
         @breeds = Breed.all.sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}"  }
       else

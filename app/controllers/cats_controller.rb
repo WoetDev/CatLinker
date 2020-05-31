@@ -54,6 +54,7 @@ class CatsController < ApplicationController
       @cat = Cat.new(parent_params)
       @cat.user_id = user.id
       @cat.is_parent = true
+      Cat.sanitize_filename(@cat.card_picture) if @cat.card_picture.attached?
 
       if @cat.save
         update_cat_breed_tags(@cat)
@@ -77,6 +78,13 @@ class CatsController < ApplicationController
       @cat = Cat.new(kitten_params)
       @cat.user_id = user.id
       @cat.is_parent = false
+
+      Cat.sanitize_filename(@cat.card_picture) if @cat.card_picture.attached?
+      if @cat.pictures.attached?
+        @cat.pictures.each do |picture|
+          Cat.sanitize_filename(picture)
+        end
+      end
 
       if @cat.save
         update_cat_breed_tags(@cat)
@@ -108,9 +116,9 @@ class CatsController < ApplicationController
   end
 
   def edit
-    @cat = Cat.friendly.find(params[:id])
+    user = current_user
+    @cat = user.cats.friendly.find(params[:id])
     @form = params[:form]
-    user = @cat.user
 
     if current_user == user
       all_colors
@@ -134,9 +142,17 @@ class CatsController < ApplicationController
   end
 
   def update
-    @cat = Cat.friendly.find(params[:id])
+    user = current_user
+    @cat = user.cats.friendly.find(params[:id])
+
+    Cat.sanitize_filename(@cat.card_picture) if @cat.card_picture.attached?
+    if @cat.pictures.attached?
+      @cat.pictures.each do |picture|
+        Cat.sanitize_filename(picture)
+      end
+    end
+
     @form = params[:form]
-    user = @cat.user
 
     if current_user == user
       all_colors
@@ -197,8 +213,8 @@ class CatsController < ApplicationController
 
   def destroy
     @form = params[:form]
-    @cat = Cat.friendly.find(params[:id])
-    user = @cat.user
+    user = current_user
+    @cat = user.cats.friendly.find(params[:id])
 
     if current_user == user
       if @form == 'parent'
@@ -268,10 +284,6 @@ class CatsController < ApplicationController
 
   def set_user
     @user = current_user
-  end
-
-  def kittens_params
-    params.require(:cat).permit(:breeds, :locations)
   end
 
   def parent_params

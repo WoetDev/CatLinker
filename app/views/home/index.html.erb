@@ -27,7 +27,7 @@
         <div class="carousel-item">
             <div class="card">
               <div class="card-image">
-                <%= image_tag(breed.thumbnail, alt:"#{breed.name} breed", class:"activator") %>
+                <%= image_tag(breed.thumbnail, alt:"#{breed.name} breed", class:"activator") if breed.picture.attached? %>
               </div>
               <div class="card-content activator">
                 <%= t("breeds.#{breed.breed_code.upcase}.name") %>

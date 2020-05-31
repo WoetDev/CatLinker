@@ -36,12 +36,10 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 # Use Pagy for pagination
 gem 'pagy', '~> 3.7', '>= 3.7.3'
-# Use pg_search for filtering
-gem 'pg_search'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.3', '>= 4.3.5'
 # Use ReCaptcha v3 for bot detection
 gem 'recaptcha', '~> 5.5'
 # Use SCSS for stylesheets
@@ -93,6 +91,11 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+end
+
+group :production do
+  # GCS for production file storage
+  gem 'google-cloud-storage', '~> 1.26', '>= 1.26.2'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

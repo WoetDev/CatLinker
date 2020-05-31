@@ -62,6 +62,12 @@
       white-space: nowrap;
     }
 
+    .chips-container {
+      @include small-and-down {
+        text-align: center;
+      }
+    }
+
     .chip {
       font-weight: bold;
       color: $white; 
@@ -565,15 +571,14 @@
       font-size: 1.1em;
       font-weight: bold;
       color: $primaryColor;
-      transition: 0.2s ease-in-out ;
+      transition: 0.2s ease-in-out;
 
       position: absolute; 
       bottom: 0; 
       left: 0;
       width: 100%; 
       margin: 0;
-      
-      
+
       /* "transparent" only works here because == rgba(0,0,0,0) */
       background-image: linear-gradient(to bottom, transparent, $white);
 
@@ -625,7 +630,7 @@
   }
 }
 
-// Share
+// Share buttons
 .social-media {
   text-align: center;
 

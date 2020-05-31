@@ -1,6 +1,7 @@
 function replaceBreeds (innerHTML) {
   var breeds = $('#breeds');
   $('.preloader-wrapper').removeClass('active');
+  $(breeds).html('');
   $(innerHTML).appendTo(breeds).hide().fadeIn(400);
 }
 

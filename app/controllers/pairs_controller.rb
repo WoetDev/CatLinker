@@ -36,17 +36,17 @@ class PairsController < ApplicationController
 
   def edit
     @form = params[:form]
-    @pair = Pair.find(params[:id])
-    @user = @pair.user
+    user = current_user
+    @pair = user.pairs.find(params[:id])
 
-    male_cats(@user)
-    female_cats(@user)
+    male_cats(user)
+    female_cats(user)
   end
 
   def update
     @form = params[:form]
-    @pair = Pair.find(params[:id])
-    user = @pair.user
+    user = current_user
+    @pair = user.pairs.find(params[:id])
 
     male_cats(user)
     female_cats(user)
@@ -66,8 +66,8 @@ class PairsController < ApplicationController
 
   def destroy
     @form = params[:form]
-    @pair = Pair.find(params[:id])
-    user = @pair.user
+    user = current_user
+    @pair = user.pairs.find(params[:id])
 
     if @pair.destroy
       flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 

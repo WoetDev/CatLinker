@@ -47,6 +47,11 @@ class Cat < ApplicationRecord
     pictures[input]
   end
 
+  # filename sanitization
+  def self.sanitize_filename(file)
+    file.filename.sanitized
+  end
+
   # filter tags
   acts_as_taggable_on :breed_tag
   acts_as_taggable_on :location_tag
@@ -58,7 +63,7 @@ class Cat < ApplicationRecord
   scope :is_available, -> (is_available) { where is_available: is_available }
   scope :gender, -> (gender) { where gender: gender }
 
-  # validation methodsµ
+  # validation methods
   def is_kitten?
     is_parent == false
   end
