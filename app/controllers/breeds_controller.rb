@@ -6,14 +6,14 @@ class BreedsController < ApplicationController
 
     if params[:breeds_filter].present?
       breed_filter = params[:breeds_filter].flatten.reject(&:blank?)
-      
+
       if breed_filter.empty?
-        @breeds = Breed.all.sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}"  }
+        @pagy, @breeds = pagy_countless(Breed.all.order("name_#{I18n.locale} ASC"))
       else
-        @breeds = Breed.where(id: breed_filter).distinct(:id).sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}" }
+        @pagy, @breeds = pagy_countless(Breed.where(id: breed_filter).distinct(:id).order("name_#{I18n.locale} ASC"))
       end
     else
-      @breeds = Breed.all.sort_by{ |breed| "#{(I18n.t "breeds.#{breed.breed_code}.name")}"  }
+      @pagy, @breeds = pagy_countless(Breed.all.order("name_#{I18n.locale} ASC"))
     end
   end
 

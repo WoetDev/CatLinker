@@ -7,7 +7,7 @@ class Breed < ApplicationRecord
 
   # image processing
   def thumbnail
-    picture.variant(resize: '500x500').processed
+    picture.variant(resize: '350x350').processed
   end
 
   def facebook_thumbnail

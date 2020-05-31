@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   # image processing
   def thumbnail
-    profile_picture.variant(resize_to_fill: [ 500, 500, gravity: 'Center' ]).processed
+    profile_picture.variant(resize_to_fill: [ 350, 350, gravity: 'Center' ]).processed
   end
 
   def facebook_thumbnail

@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     if params[:breeds].present? or params[:locations].present?
       @breed_filter = params[:breeds].flatten.reject(&:blank?)
       @location_filter = params[:locations].flatten.reject(&:blank?)
-      
+
       if @breed_filter.empty? && @location_filter.empty?
         @pagy, @catteries = pagy_countless(users.order(cats_count: :desc))
       elsif @location_filter.empty?

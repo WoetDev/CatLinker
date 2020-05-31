@@ -1339,6 +1339,33 @@ $(document).on('turbolinks:load', function(e) {
         $('#breeds').html('');
         $('#preloader').addClass('active');
       });
+
+      var cards_container_id = '#breeds';
+
+      var loadNextPage = function(){
+        // prevent multiple loading
+        if ($('#next_link').data("loading")) {
+          return
+        }  
+        if ($('#next_link')[0]) {
+          $('footer').hide();
+          var elBottom = $(cards_container_id).offset().top + $(cards_container_id).height();
+          var wBottom  = $(window).scrollTop() + $(window).height();
+        }
+  
+        // Check if we're at the bottom of the page and a next link exists before we click it
+        if (wBottom > elBottom-150 && $('#next_link')[0]) {
+          $('#next_link')[0].click();
+          $('#next_link').data("loading", true);
+        }
+        else {
+          $('footer').show();
+        }
+      };
+      
+      window.addEventListener('resize', loadNextPage);
+      window.addEventListener('scroll', loadNextPage);
+      window.addEventListener('load',   loadNextPage);
     }
 
     // BREEDS SHOW PAGE

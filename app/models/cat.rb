@@ -24,7 +24,7 @@ class Cat < ApplicationRecord
 
   # image processing
   def thumbnail
-    card_picture.variant(resize: '500x500').processed
+    card_picture.variant(resize: '350x350').processed
   end
 
   def icon_thumbnail
