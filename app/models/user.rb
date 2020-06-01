@@ -25,6 +25,10 @@ class User < ApplicationRecord
     profile_picture.variant(resize_to_fill: [ 600, 335, gravity: 'Center' ]).processed
   end
 
+  def vertical_rectangle
+    profile_picture.variant(resize_to_fill: [ 500, 600, gravity: 'Center' ])
+  end
+
   # filter tags
   acts_as_tagger
 

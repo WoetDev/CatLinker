@@ -111,7 +111,7 @@ require 'pagy/extras/support'
 
 # Instance variables
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
-Pagy::VARS[:items] = 12                                     # default
+Pagy::VARS[:items] = 8                                     # default
 
 
 # Other Variables

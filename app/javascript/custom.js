@@ -892,6 +892,7 @@ $(document).on('turbolinks:load', function(e) {
       if (wBottom > elBottom-150 && $('#next_link')[0]) {
         $('#next_link')[0].click();
         $('#next_link').data("loading", true);
+        $('#preloader').addClass('active');
       }
       else {
         $('footer').show();
@@ -1357,6 +1358,7 @@ $(document).on('turbolinks:load', function(e) {
         if (wBottom > elBottom-150 && $('#next_link')[0]) {
           $('#next_link')[0].click();
           $('#next_link').data("loading", true);
+          $('#preloader').addClass('active');
         }
         else {
           $('footer').show();

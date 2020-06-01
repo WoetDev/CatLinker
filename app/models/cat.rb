@@ -43,6 +43,10 @@ class Cat < ApplicationRecord
     card_picture.variant(resize_to_fill: [ 500, 500, gravity: 'Center' ])
   end
 
+  def vertical_rectangle
+    card_picture.variant(resize_to_fill: [ 500, 600, gravity: 'Center' ])
+  end
+
   def other_pictures(input)
     pictures[input]
   end

@@ -214,11 +214,11 @@
       }
   
       @include small-and-down {
-        font-size: 1em;
+        font-size: 1.3em;
         
         .material-icons {
           transform: scale(1.5);
-          bottom: 20px;
+          bottom: 25px;
           right: 15px;
         }
       }
@@ -230,7 +230,7 @@
         font-weight: bold;
   
         @include small-and-down {
-          font-size: 1.15em;
+          font-size: 1.3em;
         }
       }
   

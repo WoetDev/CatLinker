@@ -5,7 +5,7 @@ class Breed < ApplicationRecord
   has_many :cats
   has_one_attached :picture
 
-  # image processing
+  # image processingµ
   def thumbnail
     picture.variant(resize: '350x350').processed
   end
