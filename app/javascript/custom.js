@@ -1317,6 +1317,8 @@ $(document).on('turbolinks:load', function(e) {
     if (pathname == breedsPath) {
       // Trigger AJAX dropdown filters
       $('.form-filter').on('change', function() {
+        $('#breeds').html('');
+
         Rails.fire(document.querySelector('form'), 'submit');
 
         // Show reset button if options are selected
@@ -1327,7 +1329,6 @@ $(document).on('turbolinks:load', function(e) {
           $($(this).parent().parent().find('.reset-dropdown')).hide();
         }
 
-        $('#breeds').html('');
         $('#preloader').addClass('active');
       });
 
