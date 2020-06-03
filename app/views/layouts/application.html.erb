@@ -30,10 +30,8 @@
     <!-- Preload fonts -->
     <link rel="preload" href="/fonts/Roboto-Regular.ttf" as="font" crossorigin>
     <link rel="preload" href="/fonts/Roboto-Medium.ttf" as="font" crossorigin>
-    <link rel="preload" href="/fonts/SourceSansPro-Regular.ttf" as="font" crossorigin>
-    <link rel="preload" href="/fonts/SourceSansPro-SemiBold.ttf" as="font" crossorigin>
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"  media="print" onload="this.media='all'">
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
