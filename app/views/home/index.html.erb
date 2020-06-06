@@ -35,7 +35,7 @@
               </div>
               <div class="card-reveal">
                 <span class="card-title"><%= t("breeds.#{breed.breed_code.upcase}.name") %><i class="material-icons right circle">close</i></span>
-                <p><%= breed.short_description %></p>
+                <p><%= t("breeds.#{breed.breed_code.upcase}.short_description") %></p>
                 <%= link_to t('buttons.read_more'), breed_path(breed) %>
               </div>
             </div>

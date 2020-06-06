@@ -52,7 +52,7 @@ class User < ApplicationRecord
       user.provider = auth.provider
       user.uid = auth.uid
 
-      # user.skip_confirmation!
+      user.skip_confirmation!
     end
   end
 
@@ -66,7 +66,7 @@ class User < ApplicationRecord
                           provider: access_token.provider,
                           uid: access_token.uid,
                           given_consent: true )
-      # user.skip_confirmation!
+      user.skip_confirmation!
     end
     user
   end

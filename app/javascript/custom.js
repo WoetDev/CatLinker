@@ -326,7 +326,7 @@ $(document).on('turbolinks:load', function(e) {
 
   // Titlecase helper
   const captilizeAllWords = (sentence) => {
-    if (typeof sentence !== "string") return sentence;
+    if (typeof sentence !== 'string') return sentence;
     return sentence.split(' ')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');

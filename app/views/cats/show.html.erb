@@ -25,7 +25,7 @@
               <td class="info-title"><%= t('cat_info.cattery') %>:</td>
               <td class="info-text">
                 <%= link_to cattery_path(@user), class:"info-link" do %>
-                  <%= cattery(@cat).cattery_name %>
+                  <%= cattery(@cat).cattery_name.titlecase %>
                 <% end %>
               </td>
             </tr>

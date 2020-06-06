@@ -56,7 +56,9 @@
   }
 
   .col-switch {
-    padding-left: 0px;
+    @include medium-and-down {
+      padding-left: 0px;
+    }
   }
 
   .input-field {

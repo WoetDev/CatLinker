@@ -19,7 +19,7 @@
             <%= f.label :cattery_name do %>
               <%= t('my_cattery.cattery_name') %> *
             <% end %>
-            <%= f.text_field :cattery_name, autofocus: true %>
+            <%= f.text_field :cattery_name, autofocus: true, class:"titlecase-input" %>
           </div>
           <%= render 'shared/error_messages', object: @user, field: :cattery_name %>
         </div>

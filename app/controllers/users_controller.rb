@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     if current_user == @user
       @parents = Cat.user_id(@user.id).is_parent(true).sort_by { |cat| [(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name"), cat.gender, cat.name] }
       @pairs = Pair.user_id(@user.id).sort_by { |pair| [Breed.find(Cat.find(pair.male_id).breed_id).name] }
-      @kittens = Cat.user_id(@user.id).is_parent(false).sort_by{|c| [c.litter_number, c.updated_at]}.reverse
+      @kittens = Cat.user_id(@user.id).is_parent(false).order(birth_date: :desc, litter_number: :desc)
 
       @male_parents = Cat.user_id(@user.id).is_parent(true).gender('1')
       @female_parents = Cat.user_id(@user.id).is_parent(true).gender('2')
@@ -173,7 +173,7 @@ class UsersController < ApplicationController
 
   def all_cattery_litters(user)
     litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-    @all_litters = litter_number_information.reverse.map { |l| ["#{I18n.l(l[2].to_date, format: :default)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }
+    @all_litters = litter_number_information.reverse.map { |l| ["#{I18n.l(l[2].to_date, format: :default)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }.sort_by{|l| l[0]}.reverse
   end
 
   def cattery_pairs(user)
@@ -195,14 +195,15 @@ class UsersController < ApplicationController
       parents_filter = params[:parents_filter].flatten.reject(&:blank?)
 
       if parents_filter.empty?
-        @litters = Cat.user_id(user.id).is_parent(false).group(:litter_number).select('array_agg(id) as ids, litter_number').sort_by { |litter| litter.litter_number }.reverse
+        @litters = Cat.user_id(user.id).is_parent(false).group(:litter_number)
       else
         pair_ids = Pair.user_id(user.id).where(male_id: parents_filter).or(Pair.user_id(user.id).where(female_id: parents_filter)).pluck(:id)
-        @litters = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids).group(:litter_number).select('array_agg(id) as ids, litter_number').sort_by { |litter| litter.litter_number }.reverse
+        @litters = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids)
       end
     else
-      @litters = Cat.user_id(user.id).is_parent(false).group(:litter_number).select('array_agg(id) as ids, litter_number').sort_by { |litter| litter.litter_number }.reverse
+      @litters = Cat.user_id(user.id).is_parent(false)
     end
+    @litters = @litters.group(:litter_number, :birth_date).select('array_agg(id) as ids, litter_number, birth_date').order(birth_date: :desc)
   end
 
   def cattery_kittens(user)
@@ -216,16 +217,17 @@ class UsersController < ApplicationController
 
     if params[:parents_filter].present? or params[:litters_filter].present?
       if params[:litters_filter] && litters_filter.any?
-        @kittens = Cat.user_id(user.id).is_parent(false).where(litter_number: litters_filter).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
+        @kittens = Cat.user_id(user.id).is_parent(false).where(litter_number: litters_filter)
       elsif params[:parents_filter] && parents_filter.any?
         pair_ids = Pair.user_id(user.id).where(male_id: parents_filter).or(Pair.user_id(user.id).where(female_id: parents_filter)).pluck(:id)
-        @kittens = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
+        @kittens = Cat.user_id(user.id).is_parent(false).where(pair_id: pair_ids)
       else
-        @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
+        @kittens = Cat.user_id(user.id).is_parent(false)
       end
     else
-      @kittens = Cat.user_id(user.id).is_parent(false).sort_by { |cat| ["#{(I18n.t "breeds.#{Breed.find(cat.breed_id).breed_code}.name")}", cat.litter_number, cat.gender] }
+      @kittens = Cat.user_id(user.id).is_parent(false)
     end
+    @kittens = @kittens.order(birth_date: :desc, gender: :asc)
   end
 
   def all_countries
