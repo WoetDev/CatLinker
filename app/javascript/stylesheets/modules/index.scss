@@ -67,12 +67,12 @@
     }
   }
 
-  @include medium-large-only {
+  @include medium-large-and-up {
     .card-image {
-      height: 250px;
+      min-height: 200px;
 
       img {
-        height: auto !important;
+        min-height: 200px;
         object-fit: cover;
       }
     }

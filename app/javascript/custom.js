@@ -74,7 +74,7 @@ $(document).on('turbolinks:load', function(e) {
     var showLess = "Show less"
     var litterNumber = "New litter number"
     var errorRefreshFilters = "Oops! The filters couldn't be refreshed"
-    var showing = "Showing"
+    var showing = "Filtered"
     var fromThe = "from the"
 
     // Datepicker
@@ -806,6 +806,8 @@ $(document).on('turbolinks:load', function(e) {
           M.toast({html: errorRefreshFilters, classes: "alert-error"})
         }
       });
+
+      window.active_filter = true;
       $(cards_container_id).html('');
       $('#preloader').addClass('active');
     });
@@ -890,6 +892,7 @@ $(document).on('turbolinks:load', function(e) {
 
       // Check if we're at the bottom of the page and a next link exists before we click it
       if (wBottom > elBottom-150 && $('#next_link')[0]) {
+        window.active_filter = false;
         $('#next_link')[0].click();
         $('#next_link').data("loading", true);
         $('#preloader').addClass('active');
@@ -1327,11 +1330,9 @@ $(document).on('turbolinks:load', function(e) {
           $($(this).parent().parent().find('.reset-dropdown')).hide();
         }
 
-        $('#preloader').addClass('active');
-      });
-
-      document.querySelector('form').addEventListener('ajax:send', function() {
+        window.active_filter = true;
         $('#breeds').html('');
+        $('#preloader').addClass('active');
       });
 
       // Reset dropdown filters
@@ -1359,6 +1360,7 @@ $(document).on('turbolinks:load', function(e) {
   
         // Check if we're at the bottom of the page and a next link exists before we click it
         if (wBottom > elBottom-150 && $('#next_link')[0]) {
+          window.active_filter = false;
           $('#next_link')[0].click();
           $('#next_link').data("loading", true);
           $('#preloader').addClass('active');

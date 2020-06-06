@@ -1,6 +1,9 @@
 function replaceKittens (innerHTML) {
   var kittens = $('#kittens');
   $('.preloader-wrapper').removeClass('active');
+  if (window.active_filter) {
+    $(kittens).html('');
+  }
   $(innerHTML).appendTo(kittens).hide().fadeIn(400);
   objectFitPolyfill();
 }

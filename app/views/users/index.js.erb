@@ -1,6 +1,9 @@
 function replaceCatteries (innerHTML) {
   var catteries = $('#catteries');
   $('.preloader-wrapper').removeClass('active');
+  if (window.active_filter) {
+    $(catteries).html('');
+  }
   $(innerHTML).appendTo(catteries).hide().fadeIn(400);
   objectFitPolyfill();
 }
