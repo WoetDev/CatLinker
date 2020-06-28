@@ -65,6 +65,15 @@
   }
 }
 
+.select-wrapper {
+  svg {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+  }
+}
+
+
 .home-landing, .kittens-landing {
   .btn-large {
     background: $primaryColor !important;

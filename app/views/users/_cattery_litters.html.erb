@@ -7,15 +7,9 @@
         <i class="material-icons check-circle">check_circle</i>
         <span class="cat-id"><%= litter.litter_number %></span>
       </span>
-      <div class="carousel carousel-slider">
-        <% cattery_kittens_per_litter(litter.ids).each do |cat| %>
-          <a class="carousel-item">
-            <div class="card-image">
-                <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} litter", data: { 'object-fit': 'cover' }) if cat.card_picture.attached? %>
-            </div>
-          </a>
-        <% end %>
-      </div>
+        <div class="card-image">
+          <%= image_tag(cattery_kittens_per_litter(litter.ids).sample.thumbnail, alt:"#{Breed.find(cattery_kittens_per_litter(litter.ids).sample.breed_id).name} litter", data: { 'object-fit': 'cover' }) if cattery_kittens_per_litter(litter.ids).sample.card_picture.attached? %>
+        </div>
         <div class="card-content">
           <table>
             <tbody>

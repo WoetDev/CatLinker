@@ -1,7 +1,7 @@
 en:
   colors:
     black: "black"
-    blue: "blue-grey"
+    blue: "blue"
     brown: "brown"
     cinnamon: "cinnamon"
     cream: "cream"
@@ -9,6 +9,7 @@ en:
     grey: "grey"
     red_ginger: "red (ginger)"
     white: "white"
+    silver: "silver"
   coats:
     solid: "solid"
     bi_colour: "bi-color"
@@ -17,3 +18,4 @@ en:
     tri_color_calico: "tri color / calico"
     colour_point: "colourpoint"
     smoke: "smoke"
+    spotted: "rosetted / spotted"

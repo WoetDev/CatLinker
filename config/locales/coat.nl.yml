@@ -1,7 +1,7 @@
 nl:
   colors:
     black: "zwart"
-    blue: "blauw-grijs"
+    blue: "blauw"
     brown: "bruin"
     cinnamon: "cinnamon"
     cream: "crème"
@@ -9,6 +9,7 @@ nl:
     grey: "grijs"
     red_ginger: "rood"
     white: "wit"
+    silver: "zilver"
   coats:
     solid: "effen"
     bi_colour: "bi-colour"
@@ -17,3 +18,4 @@ nl:
     tri_color_calico: "tri-colour / calico"
     colour_point: "colourpoint"
     smoke: "smoke"
+    spotted: "rosetted / spotted"

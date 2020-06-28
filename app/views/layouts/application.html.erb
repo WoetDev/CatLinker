@@ -31,14 +31,18 @@
     <link rel="preload" href="/fonts/Roboto-Regular.ttf" as="font" crossorigin>
     <link rel="preload" href="/fonts/Roboto-Medium.ttf" as="font" crossorigin>
     
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"  media="print" onload="this.media='all'">
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+    <!-- Preload icons -->
+    <link rel="preload" as="style" onload="this.rel = 'stylesheet'" href='https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"  media="print" onload="this.media='all'" async>
+    
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163427368-1"></script>
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163427368-1"></script>    
+    
     <!-- Scripts -->
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: false %>
+    
+    <%= stylesheet_packs_with_chunks_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_packs_with_chunks_tag 'critical', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_packs_with_chunks_tag 'application', 'home', 'general_index', 'cats_index', 'my_cattery', 'cats_form', 'social', 'cattery_show', 'kitten_show', 'breed_show', 'data-turbolinks-track': 'reload', async: true %>
   </head>
 
   <body>
@@ -131,10 +135,16 @@
     </header>
           
     <% if notice %>
-    <script>M.toast({html: '<%= notice %>', classes: 'alert alert-success'})</script>
+    <script>
+      window.toastText = '<%= notice %>';
+      M.toast({html: window.toastText, classes: 'alert alert-success'})
+    </script>
     <% end %>
     <% if alert %>
-      <script>M.toast({html: '<%= alert %>', classes: 'alert alert-danger'})</script>
+      <script>
+        window.toastText = '<%= alert %>';
+        M.toast({html: window.toastText, classes: 'alert alert-danger'})
+      </script>
     <% end %>
     
     <main>
@@ -157,6 +167,7 @@
             <h5 class="footer-title white-text"><%= t('footer.support') %></h5>
             <ul>
               <li><a class="grey-text text-lighten-3" href="#!"><%= t('footer.help') %></a></li>
+              <li><a class="grey-text text-lighten-3" href="https://www.instagram.com/catfactday/" target="_blank">Instagram</a></li>
               <li><%= link_to t('footer.contact'), contact_path(@support), class:"grey-text text-lighten-3" %></li>
             </ul>
           </div>

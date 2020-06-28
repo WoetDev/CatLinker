@@ -3,11 +3,10 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-require('jquery')
+// require("@rails/ujs").start()
+// require("turbolinks").start()
+// require("@rails/activestorage").start()
+// require('jquery')
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -16,15 +15,4 @@ require('jquery')
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 require('@fortawesome/fontawesome-free/js/all.min')
-require('materialize-css/dist/js/materialize')
 window.Cookies = require('js-cookie/src/js.cookie')
-require('imagesloaded/imagesloaded.pkgd.min')
-require('objectFitPolyfill/dist/objectFitPolyfill.min')
-require('colcade/colcade')
-require('truncatise/index')
-require('../stylesheets/application')
-require('custom')
-
-
-
-

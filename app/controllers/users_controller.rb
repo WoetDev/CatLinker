@@ -79,7 +79,7 @@ class UsersController < ApplicationController
       @male_parents = Cat.user_id(@user.id).is_parent(true).gender('1')
       @female_parents = Cat.user_id(@user.id).is_parent(true).gender('2')
     else
-      flash[:alert] = (I18n.t "cattery_overview.toast.not_allowed", 
+      flash.now[:alert] = (I18n.t "cattery_overview.toast.not_allowed", 
                       kind: (I18n.t 'cattery_overview.cattery_overview_reference').downcase,
                       action: (I18n.t 'action.to_view'))
       redirect_back(fallback_location: root_path)

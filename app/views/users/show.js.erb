@@ -3,8 +3,8 @@ function ReplacePairsWithParentsFilter(pairs) {
   if ($('#litters_filter').val() == "" || $('#litters_filter').val() == null) {
     $(pairsContainer).html(pairs).hide().fadeIn(400);
 
-    // Immediately initialize tabs to prevent all pictures being shown on top of each other
-    $('.tabs').tabs({swipeable: true})
+      // Immediately initialize tabs to prevent all pictures being shown on top of each other
+      $('.tabs').tabs({swipeable: true})
 
      // Set the tab intializer and event in a timeout so we're sure the cards are already faded in 
      setTimeout(function() {
@@ -42,71 +42,6 @@ function ReplaceLittersWithParentsFilter(litters) {
   if ($('#litters_filter').val() == "" || $('#litters_filter').val() == null) {
     var littersContainer = $('#litters');
     $(littersContainer).html(litters);
-
-    // Close select when clicking or tapping on the first disabled option
-    function closeSelectOnDisabledOption(e) {
-      $(':focus').blur();    
-      $('header').trigger('click');
-    }
-
-    function showActiveFilterIcon(card) {
-      $(card).find('.filter-icon-container').show();
-      $(card).find('.filter-icon-container').addClass('active');
-      $(card).find('.add-circle').hide();
-      $(card).find('.check-circle').show();
-    }
-
-    function hideActiveFilterIcon(card) {
-      $(card).find('.filter-icon-container').hide();
-      $(card).find('.filter-icon-container').removeClass('active');
-      $(card).find('.check-circle').hide();
-      $(card).find('.add-circle').show();
-    }
-      
-    // Cards filtering event
-    function cardFilteringIcon() {
-      var animationTime = 100; 
-      $('#litters .card').on({
-        mouseenter: function() {
-          $(this).find('.filter-icon-container').fadeIn(animationTime);
-        },
-        mouseleave: function() {
-          $(this).find('.filter-icon-container:not(.active)').fadeOut(animationTime*2);
-        },
-        click: function() {
-          var currentSection = $(this).closest('.section');
-          var selectForm = $(currentSection).find('select');
-          var catId = $(this).find('.cat-id').text();
-
-          if ($(this).find('.filter-icon-container').hasClass('active')) {
-            hideActiveFilterIcon(this);
-
-            // Remove selected options from dropdown
-            $(selectForm).find("option[value='" + catId + "']").prop('selected', false)
-            $(selectForm).formSelect();
-            $('.disabled').on('click', closeSelectOnDisabledOption);
-            $(currentSection).find('.form-filter').trigger('change');
-          }
-
-          else {
-            showActiveFilterIcon(this);
-
-            // Add selected options to dropdown
-            $(selectForm).find("option[value='" + catId + "']").prop('selected', true);
-            $(selectForm).formSelect();
-            $('.disabled').on('click', closeSelectOnDisabledOption);
-            $(currentSection).find('.form-filter').trigger('change');
-          }
-        }
-      });
-    }
-    cardFilteringIcon();
-    
-    // Add image carousel for litters
-    $('#litters .carousel').carousel({ 
-      fullWidth: true,
-      indicators: true
-    });
   }
   objectFitPolyfill();
 }
