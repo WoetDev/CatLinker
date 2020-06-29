@@ -41,6 +41,7 @@ class HomeController < ApplicationController
   def all_available_breeds
     cats = Cat.joins(:user).where(users: { is_cattery: true }).is_parent(false).is_available(true)
     breeds = cats.distinct.pluck(:breed_id)
+
     @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort_by { |b| b[0] }
   end
 end

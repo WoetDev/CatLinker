@@ -291,6 +291,7 @@ en:
   # page specific    
   home:
     find_your_cat: "Find your cat"
+    no_available_kittens: "There are currently no kittens available"
     popular_breeds: "Popular breeds"
     new_kittens: "New kittens"
     own_a_cattery: "Own a cattery"

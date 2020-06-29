@@ -7,7 +7,11 @@
         <h1><%= t('home.find_your_cat') %>!</h1>
         <div class="input-field">
           <%= form_with(url: {:controller => 'home', :action => 'search'}, method: "GET", local: true) do |f| %>
-            <%= f.select(:breeds, options_for_select(@all_available_breeds_array), {disabled: "", prompt: t("select.which_breeds_are_you_looking_for")}, {:multiple => true, class:"form-filter"}) %>
+            <% if @all_available_breeds_array.any? %>
+              <%= f.select(:breeds, options_for_select(@all_available_breeds_array), {disabled: "", prompt: t("select.which_breeds_are_you_looking_for")}, {:multiple => true, class:"form-filter"}) %>
+            <% else %>
+              <%= f.select(:breeds, options_for_select([["#{t('home.no_available_kittens')}", 1]], disabled: 1), {disabled: "", prompt: t("select.which_breeds_are_you_looking_for")}, {:multiple => true, class:"form-filter"}) %>
+            <% end %>
             <%= f.hidden_field(:locations, :multiple => true, :value => @all_available_locations_array) %>
             <%= f.button class:"waves-effect waves-light btn-large", type:"submit" do %>
               <%= t('buttons.search') %>

@@ -292,6 +292,7 @@ nl:
   # page specific
   home:
     find_your_cat: "Zoek je kat"
+    no_available_kittens: "Er zijn momenteel geen kittens beschikbaar"
     popular_breeds: "Populaire rassen"
     new_kittens: "Nieuwe kittens"
     own_a_cattery: "Heb je een cattery"
