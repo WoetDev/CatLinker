@@ -4,7 +4,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="turbolinks-visit-control" content="reload">
 
     <%= favicon_link_tag asset_path('favicon.png') %>
@@ -127,7 +127,7 @@
           <li><a class="subheader"><%= t('header.change_language') %></a></li>
           <% I18n.available_locales.each do |lang| %>
             <% unless lang == I18n.locale %>
-              <li><%= link_to t("languages.#{lang}"), url_for(locale: lang), class:"subitem" %></li>
+              <li><%= link_to t("languages.#{lang}"), url_for(locale: lang, form: @form), class:"subitem" %></li>
             <% end %>
           <% end %>
         </ul>

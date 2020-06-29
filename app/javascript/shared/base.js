@@ -232,7 +232,7 @@ async function materializeInit() {
   // Set the datepicker with i18n options
   $('.datepicker').datepicker({ 
     maxDate: new Date(Date.now()), 
-    format: 'dd mmm yyyy',
+    format: 'yyyy-mm-dd ',
     i18n: {
       cancel:	cancel,
       clear:	clear,
@@ -338,7 +338,9 @@ $('body').on('submit','form', function() {
     $('.input-field').each(function() {
       if ($(this).find(':input').val() != ""  && $(this).find(':input').val() != null) {
         $(this).find('label').addClass('active');
-        M.textareaAutoResize($(this).find('textarea'));
+        if ($('textarea').length > 0) {
+          M.textareaAutoResize($(this).find('textarea'));
+        }
       }
     }); 
     clearInterval(timer);
@@ -346,6 +348,8 @@ $('body').on('submit','form', function() {
 });
 
 // Re-attach resize event to textareas on validation fail with a form that submitted through ajax
-$('body').on('change','textarea', function() {
-  M.textareaAutoResize($(this));
-});
+if ($('textarea')) {
+  $('body').on('change','textarea', function() {
+    M.textareaAutoResize($(this));
+  });
+}

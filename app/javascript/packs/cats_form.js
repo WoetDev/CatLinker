@@ -111,15 +111,21 @@ if ($(newLitterNumberBtn).length) {
 
   // AJAX - Get birth date of selected litter
   var catBirthdateInput = $("#cat_birth_date");
+
+  // Capture the birth date on validation fail
+  if ($(catBirthdateInput).val()) {
+    window.rawBirthdate = strftime('%Y-%m-%dT%H:%M:%S.000Z', new Date($(catBirthdateInput).val())); 
+    catBirthdateInput.val(strftime('%d %b %Y', new Date(window.rawBirthdate)));
+  }
   
-  document.querySelector('#cat_litter_number').addEventListener('change', function(event) {
-    // Build different ajax url based in case validation failed
-    if (base.pathname.includes('new')) {
-      var birth_date_url = 'birth_date';
-    }
-    else {
-      var birth_date_url = 'cats/birth_date';
-    }
+  // Set the birth date to a global variable if manually chosen
+  $(catBirthdateInput).on('change', function() {
+    window.rawBirthdate = strftime('%Y-%m-%dT%H:%M:%S.000Z', new Date($(this).val())); 
+    catBirthdateInput.val(strftime('%d %b %Y', new Date(window.rawBirthdate)));
+  });
+  
+  $('#cat_litter_number').on('change', function(event) {
+    let birth_date_url = base.rootPath +  'cats/birth_date';
 
     $.ajax({
       type: "GET",
@@ -127,10 +133,17 @@ if ($(newLitterNumberBtn).length) {
       data: 'litter_number=' + $(this).val(),
       success: function(data) {
         catBirthdateInput.parent().find('label').addClass('active');          
-        catBirthdateInput.val('');          
-        // catBirthdateInput.val(new Date(data).toDateString().split(' ').slice(1).join(' '));          
+        catBirthdateInput.val('');   
+        // Capture the raw birth date       
+        window.rawBirthdate = data;
         catBirthdateInput.val(strftime('%d %b %Y', new Date(data)));
       }
     });
   });
+
+  // Submit the raw birth date
+  $('body').on('submit','form', function() {
+    $(catBirthdateInput).val(window.rawBirthdate);
+  }); 
 }
+

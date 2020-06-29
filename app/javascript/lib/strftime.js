@@ -6,6 +6,9 @@
  * Week number (%V) code based on Taco van den Broek's prototype:
  * http://techblog.procurios.nl/k/news/view/33796/14863/calculate-iso-8601-week-and-year-in-javascript.html
  */
+
+import * as base from '../shared/base.js'
+
 export function strftime(sFormat, date) {
   if (!(date instanceof Date)) date = new Date();
   var nDay = date.getDay(),
@@ -13,8 +16,8 @@ export function strftime(sFormat, date) {
     nMonth = date.getMonth(),
     nYear = date.getFullYear(),
     nHour = date.getHours(),
-    aDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    aMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    aDays = base.weekdays,
+    aMonths = base.months,
     aDayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
     isLeapYear = function() {
       return (nYear%4===0 && nYear%100!==0) || nYear%400===0;

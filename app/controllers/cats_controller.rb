@@ -344,8 +344,10 @@ class CatsController < ApplicationController
 
   def litters(user)
     litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-    @litter_numbers = litter_number_information.reverse.map { |l| ["#{l[0]} - #{l[2].to_date.to_formatted_s(:rfc822)} - #{Pair.find(l[1]).male.name.titlecase} & #{Pair.find(l[1]).female.name.titlecase}", l[0]] }.sort_by { |p| p[0] }.reverse
+    @litter_numbers = litter_number_information.reverse.map { |l| ["#{l[0]} - #{I18n.l(l[2].to_date, format: :default)} - #{Pair.find(l[1]).male.name.titlecase} & #{Pair.find(l[1]).female.name.titlecase}", l[0]] }.sort_by { |p| p[0] }.reverse
   end
+
+  
 
   def update_cat_location_tags(cat)
     cat.update_attributes(:location_tag_list => ["#{Country.find(@user.country_id).name}-#{@user.city.capitalize}"])

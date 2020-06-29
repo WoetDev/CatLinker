@@ -132,7 +132,7 @@
               </div>
             <% end %>
             <% if cat_father(@cat).tests.any? { |test| test[1] == '1' } %>
-              <a href="#modalFather" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
+              <a href="#modalFather" class="waves-effect btn modal-trigger"><%= t('show.see_health_tests') %></a>
               <div id="modalFather" class="modal">
                 <div class="modal-content">
                   <h4><%= t('cat_info.tests.health') %><i class="material-icons right circle modal-close">close</i></h4>
@@ -175,7 +175,7 @@
               </div>
             <% end %>
             <% if cat_mother(@cat).tests.any? { |test| test[1] == '1' } %>
-              <a href="#modalMother" class="waves-effect waves-light btn modal-trigger"><%= t('show.see_health_tests') %></a>
+              <a href="#modalMother" class="waves-effect btn modal-trigger"><%= t('show.see_health_tests') %></a>
               <div id="modalMother" class="modal">
                 <div class="modal-content">
                   <h4><%= t('cat_info.tests.health') %><i class="material-icons right circle modal-close">close</i></h4>
