@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nis_code: MyString
+  postal_code: MyString
+  name: MyString
+
+two:
+  nis_code: MyString
+  postal_code: MyString
+  name: MyString

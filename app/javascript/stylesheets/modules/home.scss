@@ -73,8 +73,11 @@
   }
 }
 
+.large-btn-row {
+  text-align: center;
+}
 
-.home-landing, .kittens-landing {
+.home-landing, .kittens-landing, .large-btn-row {
   .btn-large {
     background: $primaryColor !important;
     margin-top: 10px;
@@ -384,14 +387,34 @@
   }
 }
 
-.kittens-landing {
+.kittens-landing, .large-btn-row {
   .btn-wrapper {
     text-align: center;
   }
 
-  .fa-cat {
+  [class*='fa-'] {
     transform: scale(1.6);
+  }
+
+  .fa-cat {
     margin-left: 15px;
+  }
+
+  .fa-paw {
+    margin-right: 15px;
+  }
+
+  .small-and-down-text {
+    display: none;
+  } 
+
+  @include small-and-down {
+    .small-and-up-text {
+      display: none;
+    }
+    .small-and-down-text {
+      display: inline-block;
+    }
   }
 }
 

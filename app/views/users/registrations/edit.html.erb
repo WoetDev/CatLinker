@@ -27,7 +27,7 @@
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <div class="row">        
           <div class="awaiting-confirmation"><%= t('form.edit_registration.currently_awaiting_confirmation_for') %>: <%= resource.unconfirmed_email %></div>
-          <%= link_to new_user_confirmation_path, class:"btn waves-effect waves-light resend-confirmation-btn btn-link" do %>
+          <%= link_to new_user_confirmation_path, class:"btn waves-effect resend-confirmation-btn btn-link" do %>
             <%= t('form.edit_registration.send_confirmation_instructions_again') %>
             <i class="material-icons right">redo</i>
           <% end %>
@@ -54,7 +54,7 @@
 
       <div class="row">
         <% if @user.is_cattery %>
-          <%= link_to my_cattery_cattery_path(@user), class:"waves-effect waves-light btn btn-link" do %>
+          <%= link_to my_cattery_cattery_path(@user), class:"waves-effect btn btn-link" do %>
             <%= t('words.go_to') %> 'my cattery'
             <i class="material-icons right">navigate_next</i>
           <% end %>
@@ -131,7 +131,7 @@
       <p>
         <%= t('form.edit_registration.cancel_account_feedback_1' ) %>&nbsp;<%= link_to contact_path(@support), class:"inline-link" do %><%= t('form.edit_registration.cancel_account_feedback_let_us_know') %><% end %>&nbsp;<%= t('form.edit_registration.cancel_account_feedback_2' ) %>
       </p>
-      <a class="btn waves-effect waves-light btn-delete-large modal-trigger" href="#modal-delete">
+      <a class="btn waves-effect btn-delete-large modal-trigger" href="#modal-delete">
         <%= t('form.edit_registration.cancel_account') %>
         <i class="material-icons">delete_forever</i>
       </a>
@@ -144,10 +144,10 @@
         <p><%= t('modal.this_action_will_permanently_delete') %>!</p>
       </div>
       <div class="modal-footer">
-        <a class="btn waves-effect waves-light modal-close btn-cancel">
+        <a class="btn waves-effect modal-close btn-cancel">
           <%= t('words.cancel') %>
         </a>
-        <%= link_to registration_path(resource_name), method: :delete, class:"btn waves-effect waves-light btn-confirm" do %>
+        <%= link_to registration_path(resource_name), method: :delete, class:"btn waves-effect btn-confirm" do %>
           <%= t('words.im_sure') %>
         <% end %>
       </div>

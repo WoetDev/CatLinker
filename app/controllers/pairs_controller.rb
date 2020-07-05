@@ -21,7 +21,7 @@ class PairsController < ApplicationController
     male_cats(user)
     female_cats(user)
 
-    if @pair.save
+    if params[:pair][:male_id].present? and params[:pair][:female_id].present? and @pair.save
       flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
                         kind: (I18n.t 'pair', count: 1), 
                         action: (I18n.t 'action.created'))

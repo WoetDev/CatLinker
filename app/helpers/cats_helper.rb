@@ -4,7 +4,16 @@ module CatsHelper
   end
 
   def cat_location(cat)
-    "#{User.find(cat.user_id).city.capitalize} - #{(I18n.t "countries.#{Country.find(User.find(cat.user_id).country_id).country_code}")}"
+    user = User.find(cat.user_id)
+    country = Country.find(user.country_id)
+    location = "#{user.city.capitalize} - #{I18n.t "countries.#{country.country_code}"}"
+
+    if user.region_nis_code.present? and find_region(user).present?
+      region = " (#{(I18n.t "cat_info.region").downcase} #{I18n.t "regions.#{find_region(user)}"})"
+      location = location.concat(region)
+    else
+      location = location
+    end
   end
 
   def cat_father(cat)

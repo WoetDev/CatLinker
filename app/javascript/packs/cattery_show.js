@@ -41,7 +41,6 @@ if (base.pathname.includes(base.catteriesPath.concat('/')) && !base.pathname.end
   })
   
   $('body').on('click','.card-image, .info-block', function() {
-    console.log('click event fired');
     var currentSection = $(this).closest('.section');
     var card = $(this).closest('.card');
     var selectForm = $(currentSection).find('select');
@@ -70,7 +69,6 @@ if (base.pathname.includes(base.catteriesPath.concat('/')) && !base.pathname.end
 
   // Cattery show page filtering
   $('.form-filter').on('change', function() {
-    console.log('filter event fired');
     var currentSection = $(this).closest('.section');
 
     // Reset the next filters

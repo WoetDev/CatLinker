@@ -10,7 +10,7 @@
           <h3><%= t('cat_info.parents') %></h3>
         </div>
         <div class="col s4">
-          <%= link_to new_cat_path(form: "parent"), class:"waves-effect waves-light btn right" do %>
+          <%= link_to new_cat_path(form: "parent"), class:"waves-effect btn right" do %>
             <span><%= t('buttons.add_parent') %></span>
             <i class="material-icons left">add</i>
           <% end %>
@@ -30,7 +30,7 @@
                 </div>
                 <%= link_to  edit_cat_path(cat, form: "parent") do %>
                   <div class="card-content">
-                  <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                  <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect btn-large" do %>
                     <i class="material-icons">edit</i>
                   <% end %>
                     <table>
@@ -77,7 +77,7 @@
         </div>
         <div class="col s4">
           <% if @male_parents.any? and @female_parents.any? %>
-            <%= link_to new_pair_path(form: "pair"), class:"waves-effect waves-light btn right" do %>
+            <%= link_to new_pair_path(form: "pair"), class:"waves-effect btn right" do %>
               <span><%= t('buttons.add_pair') %></span>
               <i class="material-icons left">add</i>
             <% end %>
@@ -110,7 +110,7 @@
                   <%= image_tag(pair.female.thumbnail, :alt => "breed", data: { 'object-fit': 'cover' }) if pair.female.card_picture.attached? %>
                 </div>
                 <div class="card-content">
-                  <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect waves-light btn-large tabs-header" do %>
+                  <%= link_to edit_pair_path(pair, form: "pair"), class:"btn-floating halfway-fab waves-effect btn-large tabs-header" do %>
                     <i class="material-icons">edit</i>
                   <% end %>
                   <table>
@@ -148,7 +148,7 @@
         </div>
         <div class="col s4">
           <% if @pairs.any? %>
-            <%= link_to new_cat_path(form: "kitten"), class:"waves-effect waves-light btn right" do %>
+            <%= link_to new_cat_path(form: "kitten"), class:"waves-effect btn right" do %>
               <span><%= t('buttons.add_kitten') %></span>
               <i class="material-icons left">add</i>
             <% end %>
@@ -180,7 +180,7 @@
                     </div>
                     <%= link_to cat_path(cat), target:"_blank" do %>
                       <div class="card-content">
-                        <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                        <%= link_to edit_cat_path(cat, form: "kitten"), class:"btn-floating halfway-fab waves-effect btn-large" do %>
                           <i class="material-icons">edit</i>
                         <% end %>
                         <table>

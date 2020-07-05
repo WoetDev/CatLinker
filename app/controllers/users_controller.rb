@@ -57,6 +57,7 @@ class UsersController < ApplicationController
     if @user.update(cattery_params) and @user.valid?(:required_cattery_information)
       update_cat_location_tags(@user)
       check_required_cattery_information(@user)  
+      update_region(@user)
       flash.now[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
                         kind: (I18n.t 'cattery_overview.cattery_information'), 
                         action: (I18n.t 'action.updated'))
@@ -274,5 +275,21 @@ class UsersController < ApplicationController
 
   def update_cat_location_tags(user)
     user.cats.each {|cat| cat.update_attributes(:location_tag_list => ["#{Country.find(@user.country_id).name}-#{@user.city.capitalize}"])}
+  end
+
+  def nis_code(user)
+    if user.country_id == 1
+      postal_code = user.postal_code
+      @city = City.where(postal_code: postal_code).first
+    end
+  end
+
+  def update_region(user)
+    if nis_code(user).present?
+      nis_code = nis_code(user).nis_code
+    else
+      nis_code = nil
+    end
+    user.update(region_nis_code: nis_code)
   end
 end

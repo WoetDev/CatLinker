@@ -1,6 +1,6 @@
 class Cat < ApplicationRecord
   extend FriendlyId
-  store :tests, accessors: [:hcm_dna, :hcm_echo, :pkd_dna, :pkd_echo, :fiv, :felv]
+  store :tests, accessors: [:hcm_dna, :hcm_echo, :pkd_dna, :pkd_echo, :felv, :fiv, :pl, :sma]
 
   belongs_to :user, counter_cache: true
   belongs_to :breed, counter_cache: true

@@ -93,12 +93,12 @@
   <% if @form == "kitten" %>
     <div class="row">
       <div class="col s8 l4">
-        <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect waves-light inner-form-btn", id:"getNewLitterNumber" do %>
+        <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect inner-form-btn", id:"getNewLitterNumber" do %>
           <span><%= t('buttons.new_litter') %></span>
           <i class="material-icons right">add</i>
         <% end %>
 
-        <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect waves-light inner-form-btn", id:"showExistingLitters" do %>
+        <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect inner-form-btn", id:"showExistingLitters" do %>
           <span><%= t('buttons.existing_litter') %></span>
           <i class="material-icons right">restore</i>
         <% end %>
@@ -235,7 +235,7 @@
   <div class="row">
     <div class="actions">
       <div class="col">
-        <%= f.button class:"btn-large waves-effect waves-light", type:"submit", name:"form", value: @form do %>
+        <%= f.button class:"btn-large waves-effect", type:"submit", name:"form", value: @form do %>
           <% if @cat.new_record? %>
             <%= t('buttons.create') %>
           <% else %>
@@ -250,7 +250,7 @@
 
 <div class="row">
   <div class="col">
-    <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn left btn-back" do %>
+    <%= link_to overview_cattery_path(@user), class:"waves-effect btn left btn-back" do %>
       <i class="material-icons left">keyboard_arrow_left</i>
       <%= t('buttons.back') %>
     <% end %>
@@ -258,7 +258,7 @@
   <% if !@cat.new_record? %>
     <% if parent_litters_count(@cat, @user) == 0 and parent_kittens_count(@cat, @user) == 0 and @cat.pairs.size == 0 %>
       <div class="col right">
-        <a class="btn waves-effect waves-light btn-delete modal-trigger" href="#modal-delete">
+        <a class="btn waves-effect btn-delete modal-trigger" href="#modal-delete">
           <span><%= t('buttons.delete') %></span>
           <i class="material-icons right">delete</i>
         </a>
@@ -270,10 +270,10 @@
           <p><%= t('modal.this_action_is_permanent') %>!</p>
         </div>
         <div class="modal-footer">
-          <a class="btn waves-effect waves-light modal-close btn-cancel">
+          <a class="btn waves-effect modal-close btn-cancel">
             <%= t('words.cancel') %>
           </a>
-          <%= link_to cat_path(@cat, form: @form), class:"btn waves-effect waves-light btn-confirm", method: :delete do %>
+          <%= link_to cat_path(@cat, form: @form), class:"btn waves-effect btn-confirm", method: :delete do %>
             <%= t('words.im_sure') %>
           <% end %>
         </div>
@@ -281,7 +281,7 @@
     <% else %>
       <div class="col right">
         <%= link_to "javascript:void(0)", class:"btn disabled-tooltip-wrapper tooltipped", data: { position:"bottom", tooltip: t('cattery_overview.tooltip.delete_parent_condition') } do %>
-          <button class="btn waves-effect waves-light btn-delete disabled tooltipped">
+          <button class="btn waves-effect btn-delete disabled tooltipped">
             <span><%= t('buttons.delete') %></span>
             <i class="material-icons right">delete</i>
           </button>

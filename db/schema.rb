@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_31_175811) do
+ActiveRecord::Schema.define(version: 2020_07_04_232726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,6 +126,14 @@ ActiveRecord::Schema.define(version: 2020_05_31_175811) do
     t.index ["user_id"], name: "index_cats_on_user_id"
   end
 
+  create_table "cities", force: :cascade do |t|
+    t.string "nis_code"
+    t.string "postal_code"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "coat_patterns", force: :cascade do |t|
     t.string "name"
   end
@@ -155,6 +163,14 @@ ActiveRecord::Schema.define(version: 2020_05_31_175811) do
     t.integer "male_id", null: false
     t.integer "female_id", null: false
     t.index ["user_id"], name: "index_pairs_on_user_id"
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "nis_code"
+    t.string "name_en"
+    t.string "name_nl"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -223,6 +239,7 @@ ActiveRecord::Schema.define(version: 2020_05_31_175811) do
     t.string "slug"
     t.string "provider"
     t.string "uid"
+    t.string "region_nis_code"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

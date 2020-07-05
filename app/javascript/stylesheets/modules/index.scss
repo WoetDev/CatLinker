@@ -69,8 +69,8 @@
 
   @include medium-large-and-up {
     .card-image {
-      min-height: 200px;
-
+      min-height: 250px;
+      
       img {
         min-height: 200px;
         object-fit: cover;

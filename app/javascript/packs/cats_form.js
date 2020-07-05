@@ -80,7 +80,7 @@ function showNewLitterNumber(data) {
   $(hiddenNewLitterNumber).val(data);
 
   // Create text to show new litter number
-  var newLitterNumberMessage = "<span class='fixed-text-ajax'><b>" + base.litterNumber + ":&nbsp;</b> " + data + "</span>"
+  var newLitterNumberMessage = "<span class='fixed-text-label'><b>" + base.litterNumber + ":&nbsp;</b> " + data + "</span>"
 
   $(hiddenNewLitterNumber).insertAfter($('.select-wrapper'));
   $(catLitterNumberInput).parent().append(newLitterNumberMessage);      

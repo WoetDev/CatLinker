@@ -7,10 +7,12 @@
 <div id="kitten-view" class="container">
   <div class="row">
     <div class="col s12">
-        <h1><%= t("breeds.#{cat_breed(@cat).breed_code}.name") %> <%= t('kitten', count:1).downcase %><h1>
+      <h1>
         <% if @cat.name.present? %>
-          <h1 class="cat-name"><%= @cat.name %><h1>
+          <%= @cat.name %>, 
         <% end %>
+        <%= t("breeds.#{cat_breed(@cat).breed_code}.name") %> <%= t('kitten', count:1).downcase %>
+      </h1>
     </div>
   </div>
   <div class="row">
@@ -259,7 +261,17 @@
       <h1><%= t('social.share_this_kitten') %></h1>
     </div>
     <%= render 'shared/social_media_share_buttons' %>
+    <div class="row large-btn-row">
+    <%= link_to cattery_path(@user), class:"waves-effect btn-large" do %>
+        <i class="fas fa-paw"></i>
+        <span class="small-and-up-text"><%= t('buttons.see_more_from_this_cattery') %></span>
+        <span class="small-and-down-text"><%= t('buttons.see_more') %></span>
+    <% end %>
   </div>
+  </div>
+  
+  
+  
   <div id="contact" class="section contact">
     <%= render 'shared/contact_form', user: @user, cat: @cat %>
   </div>

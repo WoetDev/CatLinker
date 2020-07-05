@@ -24,7 +24,15 @@ module UsersHelper
   end
 
   def cattery_location(user)
-    "#{user.city.capitalize} - #{I18n.t "countries.#{Country.find(user.country_id).country_code}"}"
+    country = Country.find(user.country_id)
+    location = "#{user.city.capitalize} - #{I18n.t "countries.#{country.country_code}"}"
+
+    if user.region_nis_code.present? and find_region(user).present?
+      region = " (#{(I18n.t "cat_info.region").downcase} #{I18n.t "regions.#{find_region(user)}"})"
+      location = location.concat(region)
+    else
+      location = location
+    end
   end
 
   def cattery_parent_count(user)
@@ -61,5 +69,14 @@ module UsersHelper
 
   def cattery_kittens_per_litter(ids)
     Cat.where(id: ids)
+  end
+
+  def find_region(user)
+    if user.region_nis_code.present?
+      arrondissement = user.region_nis_code[0,2]
+      region = Region.where(nis_code: arrondissement).first
+
+      region.nis_code unless region.name_nl.downcase == user.city.downcase
+    end
   end
 end

@@ -13,7 +13,7 @@
               <%= f.select(:breeds, options_for_select([["#{t('home.no_available_kittens')}", 1]], disabled: 1), {disabled: "", prompt: t("select.which_breeds_are_you_looking_for")}, {:multiple => true, class:"form-filter"}) %>
             <% end %>
             <%= f.hidden_field(:locations, :multiple => true, :value => @all_available_locations_array) %>
-            <%= f.button class:"waves-effect waves-light btn-large", type:"submit" do %>
+            <%= f.button class:"waves-effect btn-large", type:"submit" do %>
               <%= t('buttons.search') %>
               <i class="material-icons right">send</i>
             <% end %>
@@ -93,7 +93,7 @@
         <% end %>
       </div>
       <div class="row btn-wrapper">
-      <%= link_to cats_path, class:"waves-effect waves-light btn-large" do %>
+      <%= link_to cats_path, class:"waves-effect btn-large" do %>
         <%= t('buttons.see_all_kittens') %>
         <i class="fas fa-cat"></i>
       <% end %>
@@ -113,7 +113,7 @@
             <p><%= t('home.one_place')%></p>
             <p><%= t('home.detailed_overview')%></p>
             <p><%= t('home.focus_on_what_is_important')%></p>
-            <%= link_to t('buttons.sign_up_now'), new_user_registration_path, class:"btn waves-effect waves-light" %>
+            <%= link_to t('buttons.sign_up_now'), new_user_registration_path, class:"btn waves-effect" %>
           </div>
         </div>
         <div class="col l6 offset-l1 hide-on-med-large-and-down">

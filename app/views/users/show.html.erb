@@ -8,6 +8,7 @@
 <div id="cattery-view" class="container">
   <div class="row">
     <h1><%= cattery_user(@user).cattery_name.titlecase %></h1>
+    <h1 class="subtitle"><%= cattery_breed_names(@user) %> <%= t('cattery', count: 1).downcase %></h1>
   </div>
 
   <div class="row">
@@ -57,17 +58,17 @@
           <div class="row social">
             <div class="col s12">
               <% if @user.facebook_link.present? %>
-                <%= link_to "http://#{cattery_social_links(@user)[:facebook]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large facebook" do %>
+                <%= link_to "http://#{cattery_social_links(@user)[:facebook]}", target:"_blank", class:"waves-effect btn-floating btn-large facebook" do %>
                   <i class="fab fa-facebook-f"></i>
                 <% end %>
               <% end %>
               <% if @user.instagram_link.present? %>
-                  <%= link_to "http://#{cattery_social_links(@user)[:instagram]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large instagram" do %>
+                  <%= link_to "http://#{cattery_social_links(@user)[:instagram]}", target:"_blank", class:"waves-effect btn-floating btn-large instagram" do %>
                     <i class="fab fa-instagram"></i>
                   <% end %>
               <% end %>
               <% if @user.twitter_link.present? %>
-                  <%= link_to "http://#{cattery_social_links(@user)[:twitter]}", target:"_blank", class:"waves-effect waves-light btn-floating btn-large twitter" do %>
+                  <%= link_to "http://#{cattery_social_links(@user)[:twitter]}", target:"_blank", class:"waves-effect btn-floating btn-large twitter" do %>
                     <i class="fab fa-twitter"></i>
                   <% end %>
               <% end %>
@@ -116,7 +117,7 @@
                     </div>
                     <div class="card-content">
                       <% if user_signed_in? && current_user == @user %>
-                        <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect waves-light btn-large" do %>
+                        <%= link_to edit_cat_path(cat, form: "parent"), class:"btn-floating halfway-fab waves-effect btn-large" do %>
                           <i class="material-icons">edit</i>
                         <% end %>
                       <% end %>

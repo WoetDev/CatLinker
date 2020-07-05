@@ -35,14 +35,14 @@
       <div class="row my-cattery-pages">
         <% if f.object.profile_picture.present? and f.object.cattery_name.present? and f.object.postal_code.present? and f.object.city.present? and f.object.country_id.present? %>
           <div class="col">
-            <%= link_to overview_cattery_path(@user), class:"waves-effect waves-light btn-large btn-link" do %>
+            <%= link_to overview_cattery_path(@user), class:"waves-effect btn-large btn-link" do %>
               <%= t('my_cattery.edit_cats') %>
               <i class="material-icons right">create</i>
             <% end %>
           </div>
           <% if @user.cats.any? %>
             <div class="col">
-              <%= link_to cattery_path(@user), class:"waves-effect waves-light btn-large btn-link" do %>
+              <%= link_to cattery_path(@user), class:"waves-effect btn-large btn-link" do %>
                 <%= t('my_cattery.view_page') %>
                 <i class="material-icons right">remove_red_eye</i>
               <% end %>
@@ -148,6 +148,14 @@
           </div>
           <%= render 'shared/error_messages', object: @user, field: :country_id %>
         </div>
+
+        <% if find_region(@user).present? %>
+          <div class="col s12 m5">
+            <div class="input-field">
+              <span class='fixed-text-label'><b><%= t('cat_info.region') %>:</b> <%= t("regions.#{find_region(@user)}") %></span>
+            </div>
+          </div>
+        <% end %>
       </div>
 
       <div class="row">
@@ -204,7 +212,7 @@
 
       <div class="row">
         <div class="actions">
-          <%= f.button class:"btn waves-effect waves-light", type:"submit" do %>
+          <%= f.button class:"btn waves-effect", type:"submit" do %>
           <%= t('buttons.update') %>
           <i class="material-icons right">send</i>
           <% end %>

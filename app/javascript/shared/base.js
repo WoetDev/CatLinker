@@ -1,4 +1,5 @@
 require("turbolinks").start()
+window.Cookies = require('js-cookie/src/js.cookie')
 
 Turbolinks.setProgressBarDelay(250)
 
@@ -13,6 +14,7 @@ objectFitPolyfillLoad();
 // Hide cookie disclaimer on agreement
 async function setCookieDisclaimerCookie() {
   await import('js-cookie/src/js.cookie')
+
   Cookies.set('_cookie_consent', true, { expires: 365, sameSite: 'strict' });
 }
 

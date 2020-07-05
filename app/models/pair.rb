@@ -9,8 +9,8 @@ class Pair < ApplicationRecord
   scope :female_id, -> (female_id) { where female_id: female_id }  
 
   # validations
-  validates :male_id, :female_id, presence: true
-
+  validates_presence_of :male_id
+  validates_presence_of :female_id
   validate :pair_has_two_different_breeds
   validate :pair_already_exists, on: :create
 
