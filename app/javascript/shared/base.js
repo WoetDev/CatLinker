@@ -349,6 +349,17 @@ $('body').on('submit','form', function() {
   }
 });
 
+// Replace the submit form button with a loading icon on click
+$('body').on('submit', '.form', function() {
+  let submitBtn = $(this).find(':submit');
+  let preloader = '<div class="preloader-wrapper small active" id="preloader"><div class="spinner-layer spinner-teal-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
+
+  $(submitBtn).hide();
+  if($('.form .preloader-wrapper').length < 1) {
+    $(preloader).insertAfter(submitBtn);
+  }
+});
+
 // Re-attach resize event to textareas on validation fail with a form that submitted through ajax
 if ($('textarea')) {
   $('body').on('change','textarea', function() {

@@ -21,7 +21,7 @@
   }
 }
 
-#kittens, #catteries, #breeds, #cattery-view, .cattery-overview {
+#kittens, #catteries, #breeds, #cattery-view, #kitten-view, .cattery-overview {
   .index-row {
     @include medium-large-and-up {
       &:nth-child(even) {
@@ -42,6 +42,21 @@
     }
   }
 }
+
+.kittens-index, .catteries-index, .breeds-index, .cattery-overview {
+  // Preloader
+  .preloader-wrapper {
+    // display: none;
+    text-align: center;
+  }
+
+  .preloader-wrapper.active {
+    display: block;
+    margin: 10px auto;
+  }
+}
+
+
 
 .kittens-landing {
   .index-row {

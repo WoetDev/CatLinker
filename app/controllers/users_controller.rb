@@ -278,7 +278,8 @@ class UsersController < ApplicationController
   end
 
   def nis_code(user)
-    if user.country_id == 1
+    belgium_id = Country.where(country_code: "BE").first.id
+    if user.country_id == belgium_id
       postal_code = user.postal_code
       @city = City.where(postal_code: postal_code).first
     end
