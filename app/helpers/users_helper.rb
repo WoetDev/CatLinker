@@ -76,7 +76,7 @@ module UsersHelper
       arrondissement = user.region_nis_code[0,2]
       region = Region.where(nis_code: arrondissement).first
 
-      region.nis_code unless region.name_nl.downcase == user.city.downcase
+      region.nis_code unless region.name_nl.downcase == user.city.downcase or region.blank?
     end
   end
 end

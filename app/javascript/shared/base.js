@@ -351,7 +351,7 @@ $('body').on('submit','form', function() {
 
 // Replace the submit form button with a loading icon on click
 $('body').on('submit', '.form', function() {
-  let submitBtn = $(this).find(':submit');
+  let submitBtn = $(this).find(':submit').not('.disabled');
   let preloader = '<div class="preloader-wrapper small active" id="preloader"><div class="spinner-layer spinner-teal-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
 
   $(submitBtn).hide();

@@ -1,7 +1,6 @@
 import {strftime} from '../lib/strftime.js';
 import * as base from '../shared/base.js'
 
-
 // Multiple images previews
 var picturesPreview = document.querySelector('.pictures-preview');
 
@@ -86,7 +85,7 @@ function showNewLitterNumber(data) {
   $(catLitterNumberInput).parent().append(newLitterNumberMessage);      
 }
 
-if ($(newLitterNumberBtn).length) {
+if ($(newLitterNumberBtn).length > 0) {
   newLitterNumberBtn.addEventListener('ajax:success', function(event) {
     var detail = event.detail;
     var data = detail[0], status = detail[1], xhr = detail[2];
@@ -96,6 +95,7 @@ if ($(newLitterNumberBtn).length) {
 
   // Show existing litters
   $(showExistingLittersBtn).on('click', function() {
+
     $('#getNewLitterNumber').css('display', 'inline-block');
     var existingLittersSelect = $(catLitterNumberInput).parent().find('select');
     $(existingLittersSelect).formSelect();
