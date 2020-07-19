@@ -77,7 +77,7 @@
   text-align: center;
 }
 
-.home-landing, .kittens-landing, .large-btn-row {
+.home-landing, .breeds-landing, .kittens-landing, .large-btn-row {
   .btn-large {
     background: $primaryColor !important;
     margin-top: 10px;
@@ -387,7 +387,7 @@
   }
 }
 
-.kittens-landing, .large-btn-row {
+.breeds-landing, .kittens-landing, .large-btn-row {
   .btn-wrapper {
     text-align: center;
   }
@@ -396,7 +396,7 @@
     transform: scale(1.6);
   }
 
-  .fa-cat {
+  .fa-cat, .fa-stream {
     margin-left: 15px;
   }
 

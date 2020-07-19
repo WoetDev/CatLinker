@@ -1,5 +1,5 @@
 <!-- Page specific meta data -->
-<% content_for :meta_title, "#{DEFAULT_META["meta_title"]} | #{cattery_user(@user).cattery_name} | #{cattery_location(@user)}" %>
+<% content_for :meta_title, "#{cattery_user(@user).cattery_name} | #{cattery_location(@user)} | #{DEFAULT_META["meta_title"]}" %>
 <% content_for :meta_description, t('meta.show_cattery', cattery_name: cattery_user(@user).cattery_name, cattery_location: cattery_location(@user), cattery_breeds: cattery_breed_names(@user)) %>
 <% content_for :meta_facebook_image, "#{url_for(@user.facebook_thumbnail)}" %>
 <% content_for :meta_twitter_image, "#{url_for(@user.twitter_thumbnail)}" %>
@@ -181,17 +181,7 @@
       </div> 
     <% end %>
     
-    <% if @pairs.any? %>
-      <div class="section">
-        <div class="row">
-          <h1><%= t('cat_info.pairs') %></h1>
-        </div>
-        <div class="selected-filters-message"></div>
-        <div id="pairs" class="row">
-          <%= render partial: 'cattery_pairs' %>
-        </div>
-      </div>
-    <% end %>
+    
     <% if @litters.any? %>
       <div class="section">
         <div class="row">
