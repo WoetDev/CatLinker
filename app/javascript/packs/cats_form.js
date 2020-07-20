@@ -64,33 +64,30 @@ $('#getNewLitterNumber').on('click', function() {
   $(this).hide();
 });
 
-// Get new litter number
-function showNewLitterNumber(data) {
-  // Hide litter number dropdown
-  $(catLitterNumberInput).parent().find('.select-dropdown').hide();
-  $(catLitterNumberInput).parent().find('svg').hide();
-  $(catLitterNumberInput).closest('.col').find('.helper-text-error').remove();
-
-  // Create new litter number input
-  var hiddenNewLitterNumber = document.createElement('input');
-  hiddenNewLitterNumber.setAttribute('id', 'hidden_cat_litter_number');
-  hiddenNewLitterNumber.setAttribute('name', 'cat[litter_number]');
-  hiddenNewLitterNumber.setAttribute('type', 'hidden');
-  $(hiddenNewLitterNumber).val(data);
-
-  // Create text to show new litter number
-  var newLitterNumberMessage = "<span class='fixed-text-label'><b>" + base.litterNumber + ":&nbsp;</b> " + data + "</span>"
-
-  $(hiddenNewLitterNumber).insertAfter($('.select-wrapper'));
-  $(catLitterNumberInput).parent().append(newLitterNumberMessage);      
-}
-
 if ($(newLitterNumberBtn).length > 0) {
+  // Get new litter number
   newLitterNumberBtn.addEventListener('ajax:success', function(event) {
     var detail = event.detail;
     var data = detail[0], status = detail[1], xhr = detail[2];
     
-    showNewLitterNumber(data);
+    // Hide litter number dropdown
+    let litterNumberSection =  $(catLitterNumberInput).closest('.input-field');
+    $(litterNumberSection).find('.select-dropdown').hide();
+    $(litterNumberSection).find('svg').hide();
+    $(litterNumberSection).closest('.col').find('.helper-text-error').remove();
+
+    // Create new litter number input
+    var hiddenNewLitterNumber = document.createElement('input');
+    hiddenNewLitterNumber.setAttribute('id', 'hidden_cat_litter_number');
+    hiddenNewLitterNumber.setAttribute('name', 'cat[litter_number]');
+    hiddenNewLitterNumber.setAttribute('type', 'hidden');
+    $(hiddenNewLitterNumber).val(data);
+
+    // Create text to show new litter number
+    var newLitterNumberMessage = "<span class='fixed-text-label'><b>" + base.litterNumber + ": </b> " + data + "</span>"
+
+    $(hiddenNewLitterNumber).appendTo($('.select-wrapper'));
+    $(catLitterNumberInput).parent().append(newLitterNumberMessage);
   });
 
   // Show existing litters
