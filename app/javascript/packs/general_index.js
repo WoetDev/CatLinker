@@ -30,7 +30,7 @@ $('.form-filter').on('change', function() {
     $($(this).parent().parent().find('.reset-dropdown')).hide();
   }
 
-  if (base.pathname != base.breedsPath) {
+  if (base.pathname == base.catsPath || base.pathname == base.catteriesPath) {
     $.ajax({
       type: 'GET',
       dataType: 'json',

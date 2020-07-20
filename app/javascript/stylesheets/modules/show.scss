@@ -470,7 +470,7 @@
 
 // Breed show page
 .breed-show {
-  img, .paragraph-block {
+  img, .paragraph-block, .disclaimer-block {
     border-radius: 10px;
   }
 
@@ -546,7 +546,7 @@
     }
   }
 
-  .paragraph-block {
+  .paragraph-block, .disclaimer-block {
     font-size: 1.2em;
     background-color: $white;
     padding: 30px;
@@ -608,6 +608,13 @@
 
     .less {
       bottom: -5px;
+    }
+  }
+
+  .disclaimer-block {
+    p {
+      padding: 0;
+      margin: 0;
     }
   }
 }
