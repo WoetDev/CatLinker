@@ -418,7 +418,7 @@
   }
 }
 
-.cattery-landing {
+.cattery-landing, .help-show {
   margin-bottom: 50px;
   
   .card-panel {
@@ -442,7 +442,9 @@
       }
     }
   }
+}
 
+.cattery-landing {
   img {
     width: 100%;
     position: relative;

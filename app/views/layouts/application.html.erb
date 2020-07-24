@@ -166,7 +166,7 @@
           <div class="col l6 s12">
             <h5 class="footer-title white-text"><%= t('footer.support') %></h5>
             <ul>
-              <li><a class="grey-text text-lighten-3" href="#!"><%= t('footer.help') %></a></li>
+              <li><%= link_to help_path, class:"grey-text text-lighten-3" do %><%= t('footer.help') %><% end %></li>
               <li><a class="grey-text text-lighten-3" href="https://www.instagram.com/catfactday/" target="_blank">Instagram</a></li>
               <li><%= link_to t('footer.contact'), contact_path(@support), class:"grey-text text-lighten-3" %></li>
             </ul>

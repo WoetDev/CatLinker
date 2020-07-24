@@ -22,6 +22,10 @@
                 <td class="info-title"><%= t('cat_info.birth_date') %>:</td>
                 <td class="info-text"><%= format_birth_date(cat) %></td>
               </tr>
+              <tr class="info-block">
+                <td class="info-title"><%= t('cat_info.parents') %>:</td>
+                <td class="info-text"><%= kitten_parents(cat) %></td>
+              </tr>
               <% break %>
               <% end %>
               <tr class="info-block">

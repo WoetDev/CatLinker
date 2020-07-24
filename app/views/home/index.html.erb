@@ -119,6 +119,10 @@
             <p><%= t('home.one_place')%></p>
             <p><%= t('home.detailed_overview')%></p>
             <p><%= t('home.focus_on_what_is_important')%></p>
+
+            <%= link_to t('buttons.discover_more'), what_is_catlinker_path, class:"btn waves-effect" %>
+
+            <h2><%= t('home.already_convinced') %>?</h2>
             <%= link_to t('buttons.sign_up_now'), new_user_registration_path, class:"btn waves-effect" %>
           </div>
         </div>

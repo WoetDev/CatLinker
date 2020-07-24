@@ -1,0 +1,19 @@
+<div class="help-index">
+  <div class="container">
+    <h1><%= t('help.guides') %></h1>
+
+    <div class="row">
+      <% @guides.each_with_index do |guide, index| %>
+        <% gradient = @gradients[index % @gradients.size] %>
+        <div class="col s12 ml12 l6">
+          <%= link_to eval("#{guide[:title]}_path") do %>
+          <div class="card-panel gradient <%= "#{gradient}-gradient" %>">
+            <h2><%= t("help.#{guide[:title]}")%>?</h2>
+            <p><%= t("help.#{guide[:description]}") %></p>
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,208 @@
+// Help index
+.help-index {
+  .card-panel {
+    cursor: pointer;
+    text-align: center;
+    border-radius: 20px;
+    position: relative;
+    z-index: 1;
+
+    h2 {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+
+    h2, p {
+      color: $white;
+    }
+  }
+}
+
+.gradient {
+  position: relative;
+  z-index: 1;
+}
+
+.gradient::before {
+  position: absolute;
+  border-radius: 20px;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  transition: opacity 0.5s linear;
+  opacity: 0;
+}
+
+.gradient:hover::before {
+  opacity: 1;
+}
+
+.purple-gradient {
+  background-image: linear-gradient(to top left, $accent3Shade2 0%, $primaryColor 100%);
+}
+
+.purple-gradient::before {
+  background-image: linear-gradient(to bottom right, $accent3Shade2 0%, $primaryColor 100%);
+}
+
+.green-gradient {
+  background-image: linear-gradient(to top left, $secondaryShade2 0%, $accent2Shade4 100%);
+}
+
+.green-gradient::before {
+  background-image: linear-gradient(to bottom right, $secondaryShade2 0%, $accent2Shade4 100%);
+}
+
+.green-variant-gradient {
+  background-image: linear-gradient(to top left, $accentShade2 0%, $accentColor 100%);
+}
+
+.green-variant-gradient::before {
+  background-image: linear-gradient(to bottom right, $accentShade2 0%, $accentColor 100%);
+}
+
+.red-gradient {
+  background-image: linear-gradient(to top left, $accent3Shade2 0%, $accent3Color 100%);
+}
+
+.red-gradient::before {
+  background-image: linear-gradient(to bottom right, $accent3Shade2 0%, $accent3Color 100%);
+}
+
+// Help show
+.help-show {
+  // What is Cat Linker
+  .hero-container {
+    width: 100%;
+    background-image: linear-gradient(to bottom, $canvasColor 0%, $canvasColor 50%, $primaryColor 100%);
+    padding: 25px 5% 0 5%;
+
+    .row {
+      margin: 0;
+    }
+
+    h1, p {
+      text-align: center;
+      color: $black;
+      font-weight: bold;
+      word-wrap: break-word;
+    }
+
+    h1 {
+      font-weight: bold;
+      margin: 0 1.68rem 4rem 1.6rem;
+
+      @include small-and-down {
+        font-size: 2.5em;
+      }
+    }
+
+    p {
+      font-size: 1.8em;
+
+      @include small-and-down {
+        font-size: 1.3em;
+      }
+    }
+
+    .waves {
+      position: relative;
+      bottom: 3px;
+    }
+
+    // Video
+
+    // Overlay play button
+    .video-wrapper, video {
+      border-radius: 20px;
+    }
+
+    .video-wrapper {
+      cursor: pointer;
+      display: table;
+      width: auto;
+      position: relative;
+      width: 100%;
+    }
+
+    .play-btn {
+      font-size: 7em;
+      color: $secondaryColor;
+      filter: drop-shadow(0px 0px 3px $black);
+      width:15%;
+      height:35%;
+      position:absolute;
+      left: 0%;
+      right: 0%;
+      top: 0%;
+      bottom: 0%;
+      margin: auto;
+    }
+      
+    video {
+      width: 100%;
+      height: auto;
+
+      &:hover, &:focus {
+        outline: none !important;
+      }
+    }
+
+    // Thumbnail
+    video[poster] {
+      object-fit: cover;
+    }
+  }
+
+  .card-panel {
+    text-align: center;
+
+    svg {
+      font-size: 2.5em;
+      color: $secondaryColor;
+      transition: 0.3s ease-in-out;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      font-weight: bold;
+      word-wrap: break-word;
+    }
+
+    p {
+      text-align: left;
+    }
+  }
+
+  h3 {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .btn-wrapper {
+    text-align: center;
+    transform: scale(1.2);
+
+    .btn-large {
+      &:hover {
+        background-color: darken($secondaryColor, 10%);
+      }
+    }
+
+    .material-icons {
+      position: relative;
+      top: 6px;
+      left: 5px;
+    }
+  }
+}
+
+.wave-container {
+  background: $primaryColor;
+}
+.wave-container > svg {
+  display: block;
+}

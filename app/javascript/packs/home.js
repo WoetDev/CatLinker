@@ -39,3 +39,29 @@ async function checkCarouselSize(){
 checkCarouselSize();
 $(window).resize(checkCarouselSize);
 }
+
+// Help pages
+$('.video-wrapper').on('click', function () {
+  let video =  $(this).find('.video')[0];
+  let paused = video.paused;
+
+  if (paused){
+    video.controls = true;   
+    video.play();   
+    $(this).find('.play-btn').fadeOut();
+  }
+
+  else {
+    video.controls = false;   
+    video.pause();
+    $(this).find(".play-btn").fadeIn();
+  }
+
+  return false;
+});
+
+// Show play button again when video has ended
+$('.video').on('ended', function() {
+  $(this)[0].controls = false;   
+  $(this).parent().find(".play-btn").fadeIn();
+});

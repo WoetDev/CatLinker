@@ -1,0 +1,56 @@
+<div class="help-show">
+  <div class="hero-container">
+    <div class="row">
+      <h1><%= t('help.what_is_catlinker_page.platform') %></h1>
+      <p><%== t('help.what_is_catlinker_page.summary') %></p>
+      <div class="col s12 m6 offset-m3">
+        <div class="video-wrapper">
+          <%= video_tag "video.mp4", class:"video", poster: "poster_en.png" %>
+          <i class="far fa-play-circle play-btn"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= image_tag("wave.svg", alt: "waves", class: "waves") %>
+
+  <div class="container">
+    <div class="row">
+      <h1><%= t('help.what_is_catlinker_page.advantages') %></h1>
+    </div>
+    <div class="row">
+      <div class="col s12 l4">
+        <div class="card-panel">
+          <i class="far fa-lightbulb"></i>
+          <h2><%= t('help.what_is_catlinker_page.user_friendly') %></h2>
+          <p><%= t('help.what_is_catlinker_page.user_friendly_text') %></p>
+        </div>
+      </div>
+      <div class="col s12 l4">
+        <div class="card-panel">
+          <i class="fab fa-searchengin"></i>
+          <h2><%= t('help.what_is_catlinker_page.easy_to_find')%></h2>
+          <p><%= t('help.what_is_catlinker_page.easy_to_find_text')%></p>
+        </div>
+      </div>
+      <div class="col s12 l4">
+        <div class="card-panel">
+          <i class="fas fa-globe-europe"></i>
+          <h2><%= t('help.what_is_catlinker_page.multi_lingual')%></h2>
+          <p><%= t('help.what_is_catlinker_page.multi_lingual_text')%></p>
+        </div>
+      </div>
+    </div> 
+    <div class="row">
+      <h3>...<%= t('help.what_is_catlinker_page.completely_free') %></h3>
+    </div>
+    <div class="row">
+      <h1><%= t('help.what_is_catlinker_page.ready_to_join') %>?</h1>
+    </div>
+    <div class="row btn-wrapper">
+      <%= link_to new_user_registration_path, class:"btn-large waves-effect" do %>
+        <%= t('buttons.sign_up_now') %>
+        <span class="material-icons">send</span>
+      <% end %>
+    </div>
+  </div>
+</div>

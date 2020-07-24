@@ -42,6 +42,9 @@ Rails.application.routes.draw do
     get 'privacy-policy' => 'home#privacy_policy'
     get 'cookies-policy' => 'home#cookies_policy'
 
+    get 'help' => 'help#index'
+    get 'what-is-catlinker' => 'help#what_is_catlinker'
+
     resources :users, path: 'catteries', as: 'catteries', only: [:index, :show ] do
       member do 
         get 'my-cattery' => 'users#my_cattery', as: 'my'
