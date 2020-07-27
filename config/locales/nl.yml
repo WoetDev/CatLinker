@@ -78,6 +78,7 @@ nl:
     read_more: "Lees meer"
     discover_more: "Ontdek meer"
     sign_up_now: "Registreer nu"
+    buy_me_a_coffee: "Doneer een koffie"
   action:
     created: "aangemaakt"
     updated: "bijgewerkt"
@@ -307,6 +308,8 @@ nl:
     detailed_overview: "Geef aan geïnteresseerde kattenliefhebbers meteen belangrijke informatie mee terwijl je zonder extra moeite een gedetailleerd overzicht van al je katten bijhoudt."
     focus_on_what_is_important: "Wij zorgen ervoor dat jij je kan focussen op wat het belangrijkste is: tijd doorbrengen met je katten."
     already_convinced: "Al overtuigd"
+    want_to_support: "Steunen"
+    coffee_helps: "Alles op Cat Linker is volledig gratis,<br> maar als je graag het platform wilt steunen is een kopje koffie altijd welkom"
   index:
     available_kittens: "Beschikbare kittens"
     no_pairs_found: "Geen koppels gevonden"

@@ -111,6 +111,7 @@
     .waves {
       position: relative;
       bottom: 3px;
+      border-radius: 0px !important;
     }
 
     // Video
@@ -157,36 +158,74 @@
     }
   }
 
-  .card-panel {
+  .features-wrapper {
+    text-align: center;
+    font-size: 1.7em;
+    background-color: $white;
+    border-radius: 10px;
+    padding: 25px;
+
+    tr {
+      border: none;
+    }
+
+    .material-icons {
+      position: relative;
+      top: 5px;
+      font-size: 1.3em;
+      color: $secondaryColor;
+      margin-right: 15px;
+    }
+  }
+
+  .extra-wrapper {
     text-align: center;
 
-    svg {
-      font-size: 2.5em;
-      color: $secondaryColor;
-      transition: 0.3s ease-in-out;
+    .extra-icon {
+      display: inline-block;
+      background-color: $secondaryColor;
+      text-align: center;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      padding-top: 27px;
+      margin: 0 auto;
+      box-shadow: $z-depth-2;
+  
+      svg {
+        font-size: 3em;
+        color: $white;
+      }
     }
 
     h2 {
-      font-size: 1.8em;
+      font-size: 2.5em;
       font-weight: bold;
       word-wrap: break-word;
     }
 
     p {
       text-align: left;
+      font-size: 1.3em;
+      margin: 0 15px 30px 15px;
     }
   }
 
   h3 {
     text-align: center;
     font-weight: bold;
+    font-size: 2.28rem;
+    margin-bottom: 40px;
   }
 
   .btn-wrapper {
     text-align: center;
-    transform: scale(1.2);
 
     .btn-large {
+      font-size: 18px;
+      height: 65px;
+      line-height: 65px;
+
       &:hover {
         background-color: darken($secondaryColor, 10%);
       }

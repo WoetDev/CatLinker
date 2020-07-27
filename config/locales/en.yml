@@ -77,6 +77,7 @@ en:
     other_pictures: "Other pictures"
     read_more: "Read more"
     sign_up_now: "Sign up now"
+    buy_me_a_coffee: "Buy me a coffee"
   action:
     created: "created"
     updated: "updated"
@@ -307,6 +308,8 @@ en:
     focus_on_what_is_important: "Thanks to this you can focus on what is the most important: spending time with your cats."
     discover_more: "Discover more"
     already_convinced: "Already convinced"
+    want_to_support: "Want to support"
+    coffee_helps: "Everything on Cat Linker is completely free,<br> but if you'd like to support the platform, coffee always helps"
   index:
     available_kittens: "Available kittens"
     no_pairs_found: "No pairs found"

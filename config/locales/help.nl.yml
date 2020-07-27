@@ -6,7 +6,15 @@ nl:
     what_is_catlinker_page:
       platform: "Het platform voor jouw cattery"
       summary: "Hou efficiënt een overzicht bij van al je katten en kittens.<br>Informeer eenvoudig geïnteresseerde kattenliefhebbers." 
-      advantages: "Voordelen"
+      features: "Functionaliteit"
+      feature:
+        personal_page: "Persoonlijke pagina voor je cattery"
+        add_parents: "Voeg al je katers en poezen toe"
+        add_kittens: "Voeg al je nestjes en kittens toe"
+        easy_tracking: "Volg gemakkelijk alle nestjes en kittens op per ouder (kater/poes)"
+        social_media: "Delen op sociale media van je cattery en kitten pagina's"
+        responsive: "De pagina's zijn geoptimaliseerd voor alle schermgroottes (smartphone, tablet, desktop)"
+      extras: "Enkele extra's"
       user_friendly: "Gebruiksvriendelijk"
       user_friendly_text: "Het volledig platform is gebouwd met gebruiksvriendelijkheid als topprioriteit. Krijg alle voordelen van een eigen website, maar krijg sneller resultaat zonder je zorgen te hoeven maken over de technische zaken."
       easy_to_find: "Gemakkelijk vindbaar"
