@@ -1,4 +1,4 @@
-import {strftime} from '../lib/strftime.js';
+var strftime = require('strftime/strftime-min')
 import * as base from '../shared/base.js'
 
 // Multiple images previews
@@ -25,7 +25,7 @@ async function showPicturesPreview(event) {
     for (var i = 0; i < files.length; i++) {
         var file = files[i];
         //Only pics
-        if (/\.(jpe?g|png)$/i.test(file.name)) {;
+        if (/\.(jfif|jpe?g|png)$/i.test(file.name)) {;
 
         var reader = new FileReader();
         reader.addEventListener("load", function (event) {

@@ -15,6 +15,7 @@
     "js.cookie": "^0.0.4",
     "materialize-css": "^1.0.0",
     "objectFitPolyfill": "^2.3.0",
+    "strftime": "^0.10.0",
     "truncatise": "^0.0.8",
     "turbolinks": "^5.2.0"
   },
