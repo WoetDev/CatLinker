@@ -7,7 +7,7 @@
             <div class="card-image">
               <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} kitten", data: { 'object-fit': 'cover' }) %>
               <% if !cat.name.blank? %>
-                <span class="card-title"><%= capitalized_name(cat) %></span>
+                <span class="card-title"><%= capitalized_name(cat.name) %></span>
               <% end %>
             </div>
             <div class="card-content">

@@ -1,8 +1,4 @@
 module CatsHelper
-  def capitalized_name(cat)
-    cat.name.titlecase
-  end
-
   def cat_location(cat)
     user = User.find(cat.user_id)
     country = Country.find(user.country_id)
@@ -14,6 +10,7 @@ module CatsHelper
     else
       location = location
     end
+    location = capitalized_name(location)
   end
 
   def cat_father(cat)

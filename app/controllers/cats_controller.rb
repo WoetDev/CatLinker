@@ -47,12 +47,14 @@ class CatsController < ApplicationController
     user = current_user
     all_colors
     all_coat_patterns
+    
 
     if @form == 'parent'
       all_breeds
       all_countries
       @cat = Cat.new(parent_params)
       @cat.user_id = user.id
+      @cat.name = custom_titleize(params[:cat][:name]) if params[:cat][:name].present?
       @cat.is_parent = true
       Cat.sanitize_filename(@cat.card_picture) if @cat.card_picture.attached?
 
@@ -77,6 +79,7 @@ class CatsController < ApplicationController
 
       @cat = Cat.new(kitten_params)
       @cat.user_id = user.id
+      @cat.name = custom_titleize(params[:cat][:name]) if params[:cat][:name].present?
       @cat.is_parent = false
 
       Cat.sanitize_filename(@cat.card_picture) if @cat.card_picture.attached?
@@ -157,6 +160,7 @@ class CatsController < ApplicationController
     if current_user == user
       all_colors
       all_coat_patterns
+      @cat.name = custom_titleize(params[:cat][:name]) if params[:cat][:name].present?
 
       if @form == 'parent'
         all_breeds
@@ -275,7 +279,7 @@ class CatsController < ApplicationController
     end
 
     @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+    @all_available_locations_array = locations.map { |location| ["#{custom_titleize(location[0])} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
 
     render json: { breeds: @all_available_breeds_array, locations: @all_available_locations_array }
   end
@@ -289,7 +293,7 @@ class CatsController < ApplicationController
   def parent_params
     params.require(:cat).permit(:name, :gender, :color, :origin, :card_picture, 
                                 :hcm_dna, :hcm_echo, :pkd_dna, :pkd_echo, :fiv,
-                                :felv, :is_parent, :breed_id, :coat_pattern_id, 
+                                :felv, :pl, :sma, :is_parent, :breed_id, :coat_pattern_id, 
                                 :color_id, :user_id, :breed_tag_list, :location_tag_list)
   end
 
@@ -309,7 +313,7 @@ class CatsController < ApplicationController
   def all_available_locations
     users = User.is_cattery(true).distinct(:id).joins(:cats).joins(:country).cattery_information_present.where(cats: { is_parent: false, is_available: true })
     locations = users.distinct.pluck(:city, :country_id)
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort_by { |l| l[0] }
+    @all_available_locations_array = locations.map { |location| ["#{custom_titleize(location[0])} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort_by { |l| l[0] }
   end
 
   def all_countries
@@ -359,7 +363,7 @@ class CatsController < ApplicationController
     user = User.find(cat.user_id)
     kittens = Cat.user_id(user.id).is_parent(false).where(litter_number: cat.litter_number)
     kittens.each do |kitten| 
-      kitten.update_attributes(birth_date: cat.birth_date)
+      kitten.update(birth_date: cat.birth_date.strftime('%Y-%m-%dT%H:%M:%S.000Z'))
     end
   end
 end

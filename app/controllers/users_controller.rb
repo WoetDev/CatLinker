@@ -56,6 +56,7 @@ class UsersController < ApplicationController
 
     if @user.update(cattery_params) and @user.valid?(:required_cattery_information)
       update_cat_location_tags(@user)
+      @user.city = custom_titleize(params[:user][:city])
       check_required_cattery_information(@user)  
       update_region(@user)
       flash.now[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
@@ -124,7 +125,7 @@ class UsersController < ApplicationController
     end
 
     @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{Breed.find(breed).breed_code}.name")}", Breed.find(breed).name] }.sort
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+    @all_available_locations_array = locations.map { |location| ["#{custom_titleize(location[0])} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
 
     render json: { breeds: @all_available_breeds_array, locations: @all_available_locations_array }
   end
@@ -164,7 +165,7 @@ class UsersController < ApplicationController
   def all_available_locations
     users = User.is_cattery(true).distinct(:id).joins(:cats).joins(:country).cattery_information_present
     locations = users.distinct.pluck(:city, :country_id)
-    @all_available_locations_array = locations.map { |location| ["#{location[0].capitalize} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
+    @all_available_locations_array = locations.map { |location| ["#{custom_titleize(location[0])} - #{(I18n.t "countries.#{Country.find(location[1]).country_code}")}", "#{Country.find(location[1]).name}-#{location[0].capitalize}"] }.uniq.sort
   end
 
   def all_cattery_parents(user)
@@ -274,7 +275,7 @@ class UsersController < ApplicationController
   end
 
   def update_cat_location_tags(user)
-    user.cats.each {|cat| cat.update_attributes(:location_tag_list => ["#{Country.find(@user.country_id).name}-#{@user.city.capitalize}"])}
+    user.cats.each {|cat| cat.update(location_tag_list: "#{Country.find(@user.country_id).name}-#{@user.city.capitalize}")}
   end
 
   def nis_code(user)

@@ -4,6 +4,8 @@
 <% content_for :meta_twitter_image, "#{url_for(@cat.twitter_thumbnail)}" %>
 <% content_for :meta_image_alt, "Kitten card picture" %>
 
+<%= @end_str %>
+
 <div id="kitten-view" class="container">
   <div class="row">
     <div class="col s12">
@@ -120,7 +122,7 @@
             <%= image_tag(cat_father(@cat).square, alt: "father", class:"materialboxed") %>
           </div>
           <div class="parent-info">
-            <h3><%= capitalized_name(cat_father(@cat)) %></h3>
+            <h3><%= capitalized_name(cat_father(@cat).name) %></h3>
             <div class="info-block">
               <h4><%= t('cat_info.coat') %>:</h4>
               &nbsp;
@@ -139,7 +141,7 @@
                 <div class="modal-content">
                   <h4><%= t('cat_info.tests.health') %><i class="material-icons right circle modal-close">close</i></h4>
                   <% if cat_father(@cat).tests.any? { |test| test[1] == '1' } %>
-                    <p><%= capitalized_name(cat_father(@cat)) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                    <p><%= capitalized_name(cat_father(@cat).name) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
                     <ul class="test-block">
                       <% cat_father(@cat).tests.each do |test| %>
                         <% if test[1] == '1' %>
@@ -163,7 +165,7 @@
             <%= image_tag(cat_mother(@cat).square, alt: "mother", class:"materialboxed") %>
           </div>
           <div class="parent-info">
-            <h3><%= capitalized_name(cat_mother(@cat)) %></h3>
+            <h3><%= capitalized_name(cat_mother(@cat).name) %></h3>
             <div class="info-block">
               <h4><%= t('cat_info.coat') %>:</h4>
               &nbsp;
@@ -182,7 +184,7 @@
                 <div class="modal-content">
                   <h4><%= t('cat_info.tests.health') %><i class="material-icons right circle modal-close">close</i></h4>
                   <% if cat_mother(@cat).tests.any? { |test| test[1] == '1' } %>
-                    <p><%= capitalized_name(cat_mother(@cat)) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                    <p><%= capitalized_name(cat_mother(@cat).name) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
                     <ul class="test-block">
                       <% cat_mother(@cat).tests.each do |test| %>
                         <% if test[1] == '1' %>
@@ -217,7 +219,7 @@
                 <div class="card-image">
                   <%= image_tag(cat.thumbnail, :alt => "sibling #{Breed.find(cat.breed_id).name}", data: { 'object-fit': 'cover' }) %>
                   <% if !cat.name.blank? %>
-                    <span class="card-title"><%= capitalized_name(cat) %></span>
+                    <span class="card-title"><%= capitalized_name(cat.name) %></span>
                   <% end %>
                 </div>
                 <div class="card-content">

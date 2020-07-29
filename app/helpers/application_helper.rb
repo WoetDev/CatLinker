@@ -5,6 +5,23 @@ module ApplicationHelper
     return false unless Rails.env.production?
   end
 
+  def capitalized_name(string)
+    str = string
+    original_str = str.split('')
+    titleized_str = str.titleize.split('')
+    compared_str = ""
+
+    titleized_str.each_with_index do |char, index|
+      if char.match(/[a-zA-Z0-9]/)
+        compared_str += titleized_str[index]
+      else
+        compared_str += titleized_str[index].gsub(char, original_str[index])
+      end
+    end
+
+    return compared_str
+  end
+
   def cat_gender(cat)
     if cat.gender == '1'
       I18n.t 'male', count: 1
@@ -23,7 +40,7 @@ module ApplicationHelper
 
   def kitten_parents(kitten)
     parents = Pair.find(kitten.pair_id)
-    "#{parents.male.name.titlecase} & #{parents.female.name.titlecase}"
+    "#{capitalized_name(parents.male.name)} & #{capitalized_name(parents.female.name)}"
   end
 
   def cattery(cat)

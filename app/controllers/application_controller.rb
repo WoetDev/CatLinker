@@ -33,6 +33,23 @@ class ApplicationController < ActionController::Base
     @tweet_url = "https://twitter.com/intent/tweet?#{params.to_query}"
   end
 
+  # global methods
+  def custom_titleize(string)
+    original_str = string.split('')
+    titleized_str = string.titleize.split('')
+    compared_str = ""
+
+    titleized_str.each_with_index do |char, index|
+      if char.match(/[a-zA-Z0-9]/)
+        compared_str += titleized_str[index]
+      else
+        compared_str += titleized_str[index].gsub(char, original_str[index])
+      end
+    end
+    
+    return compared_str
+  end
+
   # error methods
   def not_found
     raise ActionController::RoutingError.new('Not Found')

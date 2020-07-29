@@ -3,8 +3,8 @@
     <div class="card">
       <div class="card-tabs">
         <ul class="tabs tabs-fixed-width">
-          <li class="tab"><a class="active" href="#<%= pair.id %><%= pair.male.id %>"><%= capitalized_name(pair.male) %></a></li>
-          <li class="tab"><a  href="#<%= pair.id %><%= pair.female.id %>"><%= capitalized_name(pair.female) %></a></li>
+          <li class="tab"><a class="active" href="#<%= pair.id %><%= pair.male.id %>"><%= capitalized_name(pair.male.name) %></a></li>
+          <li class="tab"><a  href="#<%= pair.id %><%= pair.female.id %>"><%= capitalized_name(pair.female.name) %></a></li>
         </ul>
       </div>
       <div class="card-image" id="<%= pair.id %><%= pair.male.id %>" >

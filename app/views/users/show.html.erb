@@ -112,7 +112,7 @@
                     <div class="card-image">
                       <%= image_tag(cat.thumbnail, alt:"#{Breed.find(cat.breed_id).name} parent", data: { 'object-fit': 'cover' }) %>
                       <% if !cat.name.blank? %>
-                        <span class="card-title"><%= capitalized_name(cat) %></span>
+                        <span class="card-title"><%= capitalized_name(cat.name) %></span>
                       <% end %>
                     </div>
                     <div class="card-content">
@@ -157,7 +157,7 @@
                     <div class="card-reveal">
                       <span class="card-title"><%= t('cat_info.tests.health') %><i class="material-icons circle down-icon">keyboard_arrow_down</i></span>
                       <% if cat.tests.any? { |test| test[1] == '1' } %>
-                        <p><%= capitalized_name(cat) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
+                        <p><%= capitalized_name(cat.name) %>&nbsp;<%= t('cat_info.tests.was_tested_on') %>:</p>
                         <ul class="test-block">
                           <% cat.tests.each do |test| %>
                             <% if test[1] == '1' %>
@@ -169,7 +169,7 @@
                           <% end %>
                         </ul>
                       <% else %>
-                        <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= capitalized_name(cat) %>.</p>
+                        <p><%= t('cat_info.tests.no_tests_available') %>&nbsp;<%= capitalized_name(cat.name) %>.</p>
                       <% end %>
                     </div>
                   </div>
