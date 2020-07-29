@@ -234,7 +234,7 @@ async function materializeInit() {
   // Set the datepicker with i18n options
   $('.datepicker').datepicker({ 
     maxDate: new Date(Date.now()), 
-    format: 'yyyy-mm-dd ',
+    format: 'dd mmm yyyy ',
     i18n: {
       cancel:	cancel,
       clear:	clear,

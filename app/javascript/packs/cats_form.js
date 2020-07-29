@@ -55,45 +55,49 @@ async function showPicturesPreview(event) {
 $('#cat_pictures').on('change', showPicturesPreview);
 
 var catLitterNumberInput = $("#cat_litter_number");
-var newLitterNumberBtn = document.querySelector('#getNewLitterNumber');
+var newLitterNumberBtn = $('#getNewLitterNumber');
 var showExistingLittersBtn = $('#showExistingLitters');
 
-// Create a new litter
-$('#getNewLitterNumber').on('click', function() {
-  $(showExistingLittersBtn).css('display', 'inline-block');
-  $(this).hide();
-});
-
 if ($(newLitterNumberBtn).length > 0) {
-  // Get new litter number
-  newLitterNumberBtn.addEventListener('ajax:success', function(event) {    
-    // Hide litter number dropdown
-    let litterNumberSection =  $(catLitterNumberInput).closest('.input-field');
-    $(litterNumberSection).find('.select-dropdown').css('display', 'none');
-    $(litterNumberSection).find('svg').css('display', 'none');
-    $(litterNumberSection).closest('.col').find('.helper-text-error').remove();
 
-    // Create new litter number input
-    let hiddenNewLitterNumber = document.createElement('input');
-    hiddenNewLitterNumber.setAttribute('id', 'hidden_cat_litter_number');
-    hiddenNewLitterNumber.setAttribute('name', 'cat[litter_number]');
-    hiddenNewLitterNumber.setAttribute('type', 'hidden');
+  // Create a new litter
+  $(newLitterNumberBtn).on('click', function() {
+    $(showExistingLittersBtn).css('display', 'inline-block');
+    $(this).hide();
 
-    let detail = event.detail;
-    let data = detail[0], status = detail[1], xhr = detail[2];
-    $(hiddenNewLitterNumber).val(data);
+    let new_litter_number_url = base.rootPath +  'cats/new_litter';
 
-    // Create text to show new litter number
-    let newLitterNumberMessage = "<span class='fixed-text-label'><b>" + base.litterNumber + ": </b> " + data + "</span>"
+    $.ajax({
+      type: "GET",
+      url: new_litter_number_url,
+      success: function(data) {
+        // Hide litter number dropdown
+        let litterNumberSection =  $(catLitterNumberInput).closest('.input-field');
+        $(litterNumberSection).find('.select-dropdown').hide();
+        $(litterNumberSection).find('svg').hide();
+        $(litterNumberSection).closest('.col').find('.helper-text-error').remove();
 
-    $(hiddenNewLitterNumber).appendTo($('.select-wrapper'));
-    $(catLitterNumberInput).parent().append(newLitterNumberMessage);
+        // Create new litter number input
+        let hiddenNewLitterNumber = document.createElement('input');
+        hiddenNewLitterNumber.setAttribute('id', 'hidden_cat_litter_number');
+        hiddenNewLitterNumber.setAttribute('name', 'cat[litter_number]');
+        hiddenNewLitterNumber.setAttribute('type', 'hidden');
+
+        $(hiddenNewLitterNumber).val(data);
+
+        // Create text to show new litter number
+        let newLitterNumberMessage = "<span class='fixed-text-label'><b>" + base.litterNumber + ": </b> " + data + "</span>"
+
+        $(hiddenNewLitterNumber).appendTo($('.select-wrapper'));
+        $(catLitterNumberInput).parent().append(newLitterNumberMessage);
+      }
+    });
   });
 
   // Show existing litters
   $(showExistingLittersBtn).on('click', function() {
 
-    $('#getNewLitterNumber').css('display', 'inline-block');
+    $('#getNewLitterNumber').show();
     var existingLittersSelect = $(catLitterNumberInput).parent().find('select');
     $(existingLittersSelect).formSelect();
     if ($(existingLittersSelect).val() == ""  || $(existingLittersSelect).val() == null) {
@@ -111,8 +115,8 @@ if ($(newLitterNumberBtn).length > 0) {
   
   // Set the birth date to a global variable if manually chosen
   $(catBirthdateInput).on('change', function() {
-    catBirthdateInput.val(strftime('%d %b %Y', new Date($(this).val())));
-  });
+    $(catBirthdateInput).val($(this).val());
+  })  ;
   
   $('#cat_litter_number').on('change', function(event) {
     let birth_date_url = base.rootPath +  'cats/birth_date';
@@ -123,9 +127,6 @@ if ($(newLitterNumberBtn).length > 0) {
       data: 'litter_number=' + $(this).val(),
       success: function(data) {
         catBirthdateInput.parent().find('label').addClass('active');          
-        catBirthdateInput.val('');   
-        // Capture the raw birth date       
-        window.rawBirthdate = data;
         catBirthdateInput.val(strftime('%d %b %Y', new Date(data)));
       }
     });
