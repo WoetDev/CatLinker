@@ -160,10 +160,14 @@
 
   .features-wrapper {
     text-align: center;
-    font-size: 1.7em;
+    font-size: 1.6em;
     background-color: $white;
     border-radius: 10px;
     padding: 25px;
+
+    @include small-and-down {
+      font-size: 1.3em;
+    }
 
     tr {
       border: none;
@@ -175,6 +179,10 @@
       font-size: 1.3em;
       color: $secondaryColor;
       margin-right: 15px;
+
+      @include small-and-down {
+        font-size: 1.7em;
+      }
     }
   }
 

@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     all_available_breeds
     @all_available_locations_array = []
     @breeds = Breed.all.order(:cats_count).reverse.take(8)
-    @kittens = Cat.is_parent(false).last(4).reverse
+    @kittens = Cat.joins(:user).where(users: { is_cattery: true }).is_parent(false).last(4).reverse
   end
 
   def search

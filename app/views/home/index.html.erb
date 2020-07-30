@@ -90,6 +90,21 @@
                           </tr>
                         </tbody>
                       </table>
+                      <div class="info-block">
+                        <div class="row">
+                          <div class="col s12">
+                            <div class="info-available">
+                              <% if cat.is_available %>
+                                <i class="material-icons check">check</i>
+                                <span class="available-text"><%= t('cat_info.available') %></span>
+                              <% else %>
+                                <i class="material-icons close">close</i>
+                                <span class="unavailable-text"><%= t('cat_info.unavailable') %></span>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 <% end %>

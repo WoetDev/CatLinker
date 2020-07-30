@@ -56,8 +56,6 @@
   }
 }
 
-
-
 .kittens-landing {
   .index-row {
     @include medium-large-and-down {
@@ -68,6 +66,16 @@
       } 
     }
   }    
+}
+
+// Subheader
+.kittens-index {
+  h4 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
 }
 
 // Breeds index
