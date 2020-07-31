@@ -74,22 +74,18 @@ if ($(newLitterNumberBtn).length > 0) {
         // Hide litter number dropdown
         let litterNumberSection =  $(catLitterNumberInput).closest('.input-field');
         $(litterNumberSection).find('.select-dropdown').hide();
+        $(litterNumberSection).find('select').hide();
         $(litterNumberSection).find('svg').hide();
         $(litterNumberSection).closest('.col').find('.helper-text-error').remove();
 
         // Create new litter number input
-        let hiddenNewLitterNumber = document.createElement('input');
-        hiddenNewLitterNumber.setAttribute('id', 'hidden_cat_litter_number');
-        hiddenNewLitterNumber.setAttribute('name', 'cat[litter_number]');
-        hiddenNewLitterNumber.setAttribute('type', 'hidden');
-
-        $(hiddenNewLitterNumber).val(data);
+        let hiddenNewLitterNumber = '<input id="hidden_cat_litter_number" name="cat[litter_number]" type="hidden" value="' + data + '"></input>';
 
         // Create text to show new litter number
         let newLitterNumberMessage = "<span class='fixed-text-label'><b>" + base.litterNumber + ": </b> " + data + "</span>"
 
-        $(hiddenNewLitterNumber).appendTo($('.select-wrapper'));
-        $(catLitterNumberInput).parent().append(newLitterNumberMessage);
+        $(hiddenNewLitterNumber).appendTo($(catLitterNumberInput).parent());
+        $(newLitterNumberMessage).appendTo($(catLitterNumberInput).parent());
       }
     });
   });
@@ -105,8 +101,8 @@ if ($(newLitterNumberBtn).length > 0) {
     }
 
     // Remove the new litter number from the DOM
-    $('input').remove('#hidden_cat_litter_number');
-    $('.fixed-text-ajax').remove();
+    $('#hidden_cat_litter_number').remove();
+    $('.fixed-text-label').remove();
     $(this).hide();
   });    
 

@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
         compared_str += titleized_str[index].gsub(char, original_str[index])
       end
     end
-    
+
     return compared_str
   end
 

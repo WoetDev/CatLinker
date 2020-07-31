@@ -343,12 +343,12 @@ class CatsController < ApplicationController
 
   def parents(user)
     pairs = Pair.user_id(user.id)
-    @parents_array = pairs.map { |pair| ["#{pair.male.name.titlecase} & #{pair.female.name.titlecase}", pair.id] }.sort_by { |b| b[0] }
+    @parents_array = pairs.map { |pair| ["#{custom_titleize(pair.male.name)} & #{custom_titleize(pair.female.name)}", pair.id] }.sort_by { |b| b[0] }
   end
 
   def litters(user)
     litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-    @litter_numbers = litter_number_information.reverse.map { |l| ["#{l[0]} - #{I18n.l(l[2].to_date, format: :default)} - #{Pair.find(l[1]).male.name.titlecase} & #{Pair.find(l[1]).female.name.titlecase}", l[0]] }.sort_by { |p| p[0] }.reverse
+    @litter_numbers = litter_number_information.reverse.map { |l| ["#{l[0]} - #{I18n.l(l[2].to_date, format: :default)} - #{custom_titleize(Pair.find(l[1]).male.name)} & #{custom_titleize(Pair.find(l[1]).female.name)}", l[0]] }.sort_by { |p| p[0] }.reverse
   end
 
   def update_cat_location_tags(cat)
