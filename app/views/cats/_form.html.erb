@@ -166,7 +166,8 @@
   <div class="row">
     <div class="col s12">
       <% if @cat.new_record? and !@cat.card_picture.attached? %>
-      <div class="dropzone dropzone-default dz-clickable single" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+      <div class="dropzone dropzone-default dz-clickable single" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="2" data-dropzone-accepted-files="image/*">
+        <%= f.hidden_field :card_picture, id:"hidden_cat_card_picture", value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
         <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
         <div class="dropzone-msg dz-message needsclick">
           <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
@@ -174,6 +175,7 @@
         </div>
       <% elsif @cat.card_picture.attached? %>
       <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+        <%= f.hidden_field :card_picture, id:"hidden_cat_card_picture", value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
         <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
         <div class="dropzone-msg dz-message needsclick helper-text">
           <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
@@ -184,6 +186,7 @@
         </div>
       <% else %>
       <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+        <%= f.hidden_field :card_picture, id:"hidden_cat_card_picture", value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
         <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
         <div class="dropzone-msg dz-message needsclick helper-text">
           <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
@@ -207,6 +210,9 @@
     <div class="col s12">
         <% if (@cat.new_record? or @cat.pictures.count == 0) and !@cat.pictures.attached? %>
           <div class="dropzone dropzone-default dz-clickable" data-controller="dropzone" data-dropzone-max-file-size="20" data-dropzone-max-files="10" data-dropzone-accepted-files="image/*">
+            <% f.object.pictures.each_with_index do |picture, index| %>  
+              <%= f.hidden_field :pictures, id:"hidden_cat_card_picture_#{index}", value: picture.signed_id, multiple: true %>
+            <% end %>
             <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
             <div class="dropzone-msg dz-message needsclick">
               <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>
@@ -214,6 +220,9 @@
             </div>
         <% elsif @cat.pictures.attached? %>
         <div class="dropzone dropzone-default dz-clickable existing-thumbnail" data-controller="dropzone"  data-dropzone-max-file-size="20" data-dropzone-max-files="10" data-dropzone-accepted-files="image/*">
+          <% f.object.pictures.each_with_index do |picture, index| %>  
+            <%= f.hidden_field :pictures, id:"hidden_cat_card_picture_#{index}", value: picture.signed_id, multiple: true %>
+          <% end %>
           <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
           <div class="dropzone-msg dz-message needsclick helper-text">
             <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>
@@ -228,6 +237,9 @@
           </div>
         <% else %>
         <div class="dropzone dropzone-default dz-clickable existing-thumbnail" data-controller="dropzone"  data-dropzone-max-file-size="20" data-dropzone-max-files="10" data-dropzone-accepted-files="image/*">
+          <% f.object.pictures.each_with_index do |picture, index| %>  
+            <%= f.hidden_field :pictures, id:"hidden_cat_card_picture_#{index}", value: picture.signed_id, multiple: true %>
+          <% end %>
           <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
           <div class="dropzone-msg dz-message needsclick helper-text">
             <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>

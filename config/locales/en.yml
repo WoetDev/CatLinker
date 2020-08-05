@@ -223,7 +223,7 @@ en:
       parent_breed_is_different_than_kitten_breed: "The kitten must have the same breed as the parents"
       parents_dont_own_selected_litter: "The selected parents are not the parents from the selected litter"
     dropzone:
-      drag_or_click_singular: "Drag or click here to upload"
+      drag_or_click_single: "Drag or click here to upload"
       drag_or_click_plural: "Drag or click here to upload"
       allowed_file_type: "Only images are allowed."
       allowed_file_size: "Maximum 2 MB per file."
