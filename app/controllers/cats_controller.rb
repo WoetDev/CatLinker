@@ -47,7 +47,6 @@ class CatsController < ApplicationController
     user = current_user
     all_colors
     all_coat_patterns
-    
 
     if @form == 'parent'
       all_breeds

@@ -1,6 +1,7 @@
 // Form
 .form {
   box-shadow: $z-depth-1;
+  background-color: $white;
   padding: 2rem;
   border-radius: 5px;
   margin: 5rem auto;
@@ -42,6 +43,7 @@
 
   .form-section-title {
     display: inline-block;
+    color: $black;
     font-size: 1.4em;
     font-weight: bold;
     margin-bottom: 15px;
@@ -49,6 +51,10 @@
 
   .form-section-title.no-margin {
     margin: 0;
+  }
+
+  .helper-text {
+    margin-top: 5px;
   }
 
   .title-info {
@@ -171,6 +177,65 @@
     }
   }
 
+  // File upload drag and drop
+  .dropzone.single {
+    max-width: 304px;
+  }
+
+  .dropzone {
+    border: 2px dashed $inactiveGrey;
+
+    .dropzone-msg-title {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .dropzone-msg-desc {
+      font-size: 1.3em;
+    }
+
+    .dz-error-message {
+      color: $white;
+    }
+
+    .dz-success-mark {
+      svg {
+        path {
+          fill: $alertSuccess;
+        }
+      }
+    }
+
+    .dz-error-mark {
+      svg > g > g {
+        fill: $errorColor;
+      }
+    }
+  }
+
+  
+  .dropzone.existing-thumbnail, .dropzone.dz-started {
+    padding: 0 !important;
+    border: none;
+  
+    .dropzone-msg {
+      margin: 0 !important;
+    }
+  
+    .dropzone-msg-title {
+      margin-top: 0;
+    }
+  
+    .card-picture-preview, .pictures-preview {
+      border: 2px dashed $inactiveGrey;
+      margin-top: 1.168rem;
+    }
+  
+    .helper-text {
+      font-size: 0.8em;
+    }
+  }
+
   .file-field {
     .material-icons-outlined {
       font-size: 2em;
@@ -180,10 +245,10 @@
       position: relative;
       bottom: 7px;
     }
+  }
 
-    .helper-text {
-      margin-top: 5px;
-    }
+  .dropzone.dz-started {
+    border: 2px dashed $inactiveGrey;
   }
 
   .card-picture-preview, .pictures-preview {
@@ -193,13 +258,12 @@
       font-size: 1.5em;
       font-weight: bold;
       color: $inactiveGrey;
-    }
+    }    
   }
 
   .card-picture-preview {
     max-width: 304px;
-    height: 304px;
-    border: 2px dashed $inactiveGrey;
+    height: 300px;
     overflow: hidden;
 
     span {

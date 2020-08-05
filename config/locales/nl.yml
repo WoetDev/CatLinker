@@ -223,6 +223,11 @@ nl:
       pair_has_two_different_breeds: "Je kan geen koppel maken van twee verschillende rassen"
       parent_breed_is_different_than_kitten_breed: "De kitten moet hetzelde ras hebben als de ouders"
       parents_dont_own_selected_litter: "De geselecteerde ouders zijn geen ouders van het geselecteerde nestje"
+    dropzone:
+      drag_or_click_single: "Sleep of klik hier om een foto te uploaden"
+      drag_or_click_plural: "Sleep of klik hier om foto's te uploaden"
+      allowed_file_type: "Enkel afbeeldingen zijn toegelaten."
+      allowed_file_size: "Maximum 2 MB per bestand."
 
   # social media
   social:
@@ -245,6 +250,8 @@ nl:
     edit: "Bewerk %{kind}"
     required: "verplicht"
     tests: "Testen"
+    main_picture: "Hoofdfoto"
+    other_pictures: "Extra foto's"
 
   # pluralization
   cattery:

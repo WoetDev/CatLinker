@@ -1,6 +1,12 @@
 var strftime = require('strftime/strftime-min')
 import * as base from '../shared/base.js'
 
+
+
+$('#cat_card_picture').on('change', function() {
+  console.log($(this).val());
+});
+
 // Multiple images previews
 var picturesPreview = document.querySelector('.pictures-preview');
 

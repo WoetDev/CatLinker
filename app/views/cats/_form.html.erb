@@ -157,75 +157,89 @@
       </div>
     </div>      
   <% end %>
+  </div>
 
   <div class="row">
-    <div class="col s12">
-      <div class="file-field input-field">
-        <div class="btn">
-          <i class="material-icons-outlined">add_photo_alternate</i>
-          <span><%= t('words.image') %></span>
-          <%= f.hidden_field :card_picture, id:"hidden_cat_card_picture", value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
-          <%= f.file_field :card_picture, direct_upload: true, accept: "image/jpeg, image/png"  %>
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
-        </div>
-        <span class="helper-text"><%= t('form.errors.invalid_image_file_type') %></span>
-      </div>
-    </div>
+    <h4 class="form-section-title"><%= t('words.main_picture') %></h4>
   </div>
   
   <div class="row">
     <div class="col s12">
-      <div class="card-picture-preview">
-        <% if @cat.new_record? and !@cat.card_picture.attached? %>
-          <span><%= t('words.preview') %> *</span>
-        <% elsif @cat.card_picture.attached? %>
-          <%= image_tag(url_for(ActiveStorage::Blob.find_signed(f.object.card_picture.signed_id)), data: { 'object-fit': 'cover' }) %>
-        <% else %>
-          <%= image_tag(@cat.card_picture.variant(resize_to_limit: [300, 300]), data: { 'object-fit': 'cover' }) if @cat.card_picture.attached? %> 
-        <% end %>
-        <%= render 'shared/error_messages', object: @cat, field: :card_picture %>
+      <% if @cat.new_record? and !@cat.card_picture.attached? %>
+      <div class="dropzone dropzone-default dz-clickable single" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+        <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
+        <div class="dropzone-msg dz-message needsclick">
+          <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
+          <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
+        </div>
+      <% elsif @cat.card_picture.attached? %>
+      <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+        <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
+        <div class="dropzone-msg dz-message needsclick helper-text">
+          <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
+          <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
+          <div class="card-picture-preview">
+            <%= image_tag(url_for(ActiveStorage::Blob.find_signed(f.object.card_picture.signed_id)), data: { 'object-fit': 'cover' }) %>
+          </div>
+        </div>
+      <% else %>
+      <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+        <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
+        <div class="dropzone-msg dz-message needsclick helper-text">
+          <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
+          <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
+          <div class="card-picture-preview">
+            <%= image_tag(@cat.card_picture.variant(resize_to_limit: [300, 300]), data: { 'object-fit': 'cover' }) if @cat.card_picture.attached? %> 
+          </div>
+        </div>        
+      <% end %>
+      <%= render 'shared/error_messages', object: @cat, field: :card_picture %>
       </div>
     </div>
   </div>
 
-  <% if @form == "kitten" %>
+  <% if @form == "kitten" %>  
   <div class="row">
-    <div class="col s12">
-      <div class="file-field input-field">
-        <div class="btn">
-          <i class="material-icons-outlined">add_photo_alternate</i>
-          <span><%= t('buttons.other_pictures') %></span>
-          <% f.object.pictures.each_with_index do |picture, index| %>  
-            <%= f.hidden_field :pictures, id:"hidden_cat_card_picture_#{index}", value: picture.signed_id, multiple: true %>
-          <% end %>
-          <%= f.file_field :pictures, multiple: true, direct_upload: true, accept: "image/jpeg, image/png" %>
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
-        </div>
-      </div>
-    </div>
+    <h4 class="form-section-title"><%= t('words.other_pictures') %></h4>
   </div>
-  
+
   <div class="row">
     <div class="col s12">
-      <div class="pictures-preview">
         <% if (@cat.new_record? or @cat.pictures.count == 0) and !@cat.pictures.attached? %>
-          <span><%= t('words.preview') %></span>
+          <div class="dropzone dropzone-default dz-clickable" data-controller="dropzone" data-dropzone-max-file-size="20" data-dropzone-max-files="10" data-dropzone-accepted-files="image/*">
+            <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
+            <div class="dropzone-msg dz-message needsclick">
+              <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>
+              <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
+            </div>
         <% elsif @cat.pictures.attached? %>
-          <% f.object.pictures.each do |picture| %>
-            <div class="image-placeholder">
-              <%= image_tag(url_for(ActiveStorage::Blob.find_signed(picture.signed_id)), class:"thumbnail materialboxed") %>
+        <div class="dropzone dropzone-default dz-clickable existing-thumbnail" data-controller="dropzone"  data-dropzone-max-file-size="20" data-dropzone-max-files="10" data-dropzone-accepted-files="image/*">
+          <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
+          <div class="dropzone-msg dz-message needsclick helper-text">
+            <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>
+            <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
+            <div class="pictures-preview">
+              <% f.object.pictures.each do |picture| %>
+              <div class="image-placeholder">
+                <%= image_tag(url_for(ActiveStorage::Blob.find_signed(picture.signed_id)), class:"thumbnail") %>
+              </div>
+            <% end %>
             </div>
-          <% end %>
+          </div>
         <% else %>
-          <% (0...@cat.pictures.count).each do |picture| %>
-            <div class="image-placeholder">
-              <%= image_tag(@cat.other_pictures(picture), class:"thumbnail materialboxed") %> 
+        <div class="dropzone dropzone-default dz-clickable existing-thumbnail" data-controller="dropzone"  data-dropzone-max-file-size="20" data-dropzone-max-files="10" data-dropzone-accepted-files="image/*">
+          <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
+          <div class="dropzone-msg dz-message needsclick helper-text">
+            <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>
+            <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
+            <div class="pictures-preview">
+              <% (0...@cat.pictures.count).each do |picture| %>
+                <div class="image-placeholder">
+                  <%= image_tag(@cat.other_pictures(picture), class:"thumbnail") %> 
+                </div>
+              <% end %>
             </div>
-          <% end %>
+          </div>          
         <% end %>
       </div>
     </div>

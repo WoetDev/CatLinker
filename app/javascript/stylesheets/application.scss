@@ -1,5 +1,7 @@
 // Base
 @import 'materialize-css/dist/css/materialize';
+@import "dropzone/dist/min/dropzone.min";
+@import "dropzone/dist/min/basic.min";
 @import 'base/variables';
 @import 'base/media-queries';
 @import 'base/layout';
