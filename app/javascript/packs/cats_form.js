@@ -65,9 +65,9 @@ var newLitterNumberBtn = $('#getNewLitterNumber');
 var showExistingLittersBtn = $('#showExistingLitters');
 
 if ($(newLitterNumberBtn).length > 0) {
-
   // Create a new litter
   $(newLitterNumberBtn).on('click', function() {
+    sessionStorage.setItem('new_litter', 'true');
     $(showExistingLittersBtn).css('display', 'inline-block');
     $(this).hide();
 
@@ -96,9 +96,16 @@ if ($(newLitterNumberBtn).length > 0) {
     });
   });
 
+  // Check if new litter is activated
+  let newLitter = sessionStorage.getItem('new_litter');
+
+  if (newLitter == 'true') {
+    $(newLitterNumberBtn).trigger('click');
+  }
+
   // Show existing litters
   $(showExistingLittersBtn).on('click', function() {
-
+    sessionStorage.setItem('new_litter', 'false');
     $('#getNewLitterNumber').show();
     var existingLittersSelect = $(catLitterNumberInput).parent().find('select');
     $(existingLittersSelect).formSelect();
@@ -113,25 +120,25 @@ if ($(newLitterNumberBtn).length > 0) {
   });    
 
   // AJAX - Get birth date of selected litter
-  var catBirthdateInput = $("#cat_birth_date");
-  
-  // Set the birth date to a global variable if manually chosen
-  $(catBirthdateInput).on('change', function() {
-    $(catBirthdateInput).val($(this).val());
-  })  ;
+  let litterInfoInputs = ['cat_birth_date', 'cat_pair_id', 'cat_breed_id']
   
   $('#cat_litter_number').on('change', function(event) {
-    let birth_date_url = base.rootPath +  'cats/birth_date';
+    let litter_info_url = base.rootPath +  'cats/litter_info';
 
     $.ajax({
       type: "GET",
-      url: birth_date_url,
+      url: litter_info_url,
       data: 'litter_number=' + $(this).val(),
       success: function(data) {
-        catBirthdateInput.parent().find('label').addClass('active');          
-        catBirthdateInput.val(strftime('%d %b %Y', new Date(data)));
+        $("#"+litterInfoInputs[0]).parent().find('label').addClass('active');
+        $("#"+litterInfoInputs[0]).val(strftime('%d %b %Y', new Date(data.cat_birth_date)));
+        $("#"+litterInfoInputs[1]).val(data.cat_pair_id).formSelect();
+        $("#"+litterInfoInputs[2]).val(data.cat_breed_id).formSelect();
       }
     });
   });
+}
+else {
+  sessionStorage.setItem('new_litter', 'false');
 }
 

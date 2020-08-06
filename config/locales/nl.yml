@@ -124,6 +124,7 @@ nl:
     siblings: "Broers/zussen"
     litters: "Nestjes"
     litter_nr: "Nestje nr"
+    kitten_specific: "Kitten specifiek"
     pairs: "Koppels"
     father: "Vader"
     mother: "Moeder"
@@ -252,6 +253,7 @@ nl:
     tests: "Testen"
     main_picture: "Hoofdfoto"
     other_pictures: "Extra foto's"
+    litter: "nestje"
 
   # pluralization
   cattery:

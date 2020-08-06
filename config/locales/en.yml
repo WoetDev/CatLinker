@@ -123,8 +123,7 @@ en:
     siblings: "Siblings"
     litters: "Litters"
     litter_nr: "Litter nr"
-    pairs: "Pairs"
-    kittens: "Kittens"
+    kitten_specific: "Kitten specific"
     father: "Father"
     mother: "Mother"
     tests:
@@ -227,7 +226,6 @@ en:
       drag_or_click_plural: "Drag or click here to upload"
       allowed_file_type: "Only images are allowed."
       allowed_file_size: "Maximum 2 MB per file."
-  
 
   social:
     share_this_kitten: "Share this kitten"
@@ -251,6 +249,7 @@ en:
     tests: "Tests"
     main_picture: "Main picture"
     other_pictures: "Additional pictures"
+    litter: "nestje"
 
   # pluralization
   cattery:

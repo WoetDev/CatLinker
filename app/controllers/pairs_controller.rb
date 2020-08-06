@@ -90,11 +90,11 @@ class PairsController < ApplicationController
 
   def male_cats(user)
     males = Cat.user_id(user.id).is_parent(true).gender('1')
-    @male_cats_array = males.map { |cat| [cat.name.titlecase, cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
+    @male_cats_array = males.map { |cat| [custom_titleize(cat.name), cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
   end
 
   def female_cats(user)
     females = Cat.user_id(user.id).is_parent(true).gender('2')
-    @female_cats_array = females.map { |cat| [cat.name.titlecase, cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
+    @female_cats_array = females.map { |cat| [custom_titleize(cat.name), cat.id, data: {"icon": url_for(cat.icon_thumbnail)}] }
   end
 end

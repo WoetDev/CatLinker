@@ -146,6 +146,7 @@ function createDirectUpload(file, url, controller) {
 if (locale == "nl") {
   var dictRemoveFile = "Verwijder";
   var dictFileTooBig = "Maximum 2MB per bestand is toegelaten";
+  var dictInvalidFileType = "Enkel afbeeldingen zijn toegelaten"
   var dictMaxFilesExceeded = "Maximaal aantal bestanden overschreven";
   var dictCancelUpload =  "Annuleer upload";
   var dictUploadCanceled = "Upload gestopt"
@@ -153,6 +154,7 @@ if (locale == "nl") {
 else {
   var dictRemoveFile = "Remove";
   var dictFileTooBig = "Maximum 2MB per file is allowed";
+  var dictInvalidFileType = "Only images are allowed"
   var dictMaxFilesExceeded = "You can't upload this many files";
   var dictCancelUpload = "Cancel upload";
   var dictUploadCanceled = "Upload cancelled"
@@ -169,6 +171,7 @@ function createDropZone(controller) {
     autoQueue: false,
     dictRemoveFile: dictRemoveFile,
     dictFileTooBig: dictFileTooBig,
+    dictInvalidFileType: dictInvalidFileType,
     dictMaxFilesExceeded: dictMaxFilesExceeded,
     dictCancelUpload: dictCancelUpload,
     dictUploadCanceled: dictUploadCanceled

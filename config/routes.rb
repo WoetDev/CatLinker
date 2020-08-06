@@ -55,7 +55,7 @@ Rails.application.routes.draw do
     end
 
     get 'cats/new_litter' => 'users#new_litter'
-    get 'cats/birth_date' => 'users#birth_date'
+    get 'cats/litter_info' => 'users#litter_info'
     get 'cats/update_filters' => 'cats#update_filters'
     get 'users/update_filters' => 'users#update_filters'
 

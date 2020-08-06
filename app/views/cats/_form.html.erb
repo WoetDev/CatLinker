@@ -3,16 +3,61 @@
     <br>
   </div>
   
+  <% if @form == "kitten" %>
   <div class="row">
-    <% if @form == "kitten" %>
+    <h4 class="form-section-title"><%= t('words.litter').capitalize %></h4>
+        
+    <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect inner-form-btn", id:"getNewLitterNumber" do %>
+      <span><%= t('buttons.new_litter') %></span>
+      <i class="material-icons right">add</i>
+    <% end %>
+
+    <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect inner-form-btn", id:"showExistingLitters" do %>
+      <span><%= t('buttons.existing_litter') %></span>
+      <i class="material-icons right">restore</i>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m7">
+      <div class="input-field">
+        <%= f.select(:litter_number, options_for_select(@litter_numbers, selected: f.object ? f.object.litter_number : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.litter_nr')} *"}, { autocomplete:'off' }) %>
+      </div>
+      <%= render 'shared/error_messages', object: @cat, field: :litter_number %>
+    </div>
+    
+    <div class="col s12 m5">
+      <div class="input-field">
+        <%= f.label :birth_date do %>
+          <%= t('cat_info.birth_date') %> *
+        <% end %>
+        <%= f.text_field :birth_date, class:"datepicker" %>
+      </div>
+      <%= render 'shared/error_messages', object: @cat, field: :birth_date %>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col s12 m6">
       <div class="input-field">
         <%= f.select(:pair_id, options_for_select(@parents_array, selected: f.object ? f.object.pair_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.parents')} *"}) %>
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :pair_id %>
     </div>
-    <% end %>
 
+    <div class="col s12 m6">
+      <div class="input-field">
+        <%= f.select(:breed_id, options_for_select(@breeds_array, selected: f.object ? f.object.breed_id : ""), {selected: "", disabled: "", prompt: "#{t('breed', count:1)} *"}, { autocomplete:'off' }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <h4 class="form-section-title"><%= t('cat_info.kitten_specific').capitalize %></h4>
+  </div>
+  <% end %>
+
+  <div class="row">
     <div class="col s12 m6">
       <div class="input-field">
         <%= f.label :name do %>
@@ -22,21 +67,16 @@
       </div>
       <%= render 'shared/error_messages', object: @cat, field: :name %>
     </div>
-    <% if @form == "kitten" %>
-    </div>
-    <div class="row">
-      <div class="col s12 m6 l4">
-      <% elsif @form == "parent" %>
-      <div class="col s12 m6">
-    <% end %>
-    <div class="input-field">
-      <%= f.select(:breed_id, options_for_select(@breeds_array, selected: f.object ? f.object.breed_id : ""), {selected: "", disabled: "", prompt: "#{t('breed', count:1)} *"}, { autocomplete:'off' }) %>
-    </div>
+    <% if @form == "parent" %>
+    <div class="col s12 m6">
+      <div class="input-field">
+        <%= f.select(:breed_id, options_for_select(@breeds_array, selected: f.object ? f.object.breed_id : ""), {selected: "", disabled: "", prompt: "#{t('breed', count:1)} *"}, { autocomplete:'off' }) %>
+      </div>
     <%= render 'shared/error_messages', object: @cat, field: :breed_id %>
     </div>
-  <% if @form == "parent" %>
+    <% end %>
   </div>
-  <% end %>
+
   <div class="row">
     <div class="col s12 m6 l4">
       <div class="input-field">
@@ -61,8 +101,6 @@
   </div>
 
   <% if @form == "parent" %>
-    <% f.hidden_field :is_parent %>
-
     <div class="row">
       <div class="col s12 l4">
         <div class="input-field">
@@ -91,38 +129,6 @@
   <% end %>
 
   <% if @form == "kitten" %>
-    <div class="row">
-      <div class="col s8 l4">
-        <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect inner-form-btn", id:"getNewLitterNumber" do %>
-          <span><%= t('buttons.new_litter') %></span>
-          <i class="material-icons right">add</i>
-        <% end %>
-
-        <%= link_to cats_new_litter_path, remote: true, class:"btn waves-effect inner-form-btn", id:"showExistingLitters" do %>
-          <span><%= t('buttons.existing_litter') %></span>
-          <i class="material-icons right">restore</i>
-        <% end %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s12 m7">
-        <div class="input-field">
-          <%= f.select(:litter_number, options_for_select(@litter_numbers, selected: f.object ? f.object.litter_number : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.litter_nr')} *"}, { autocomplete:'off' }) %>
-        </div>
-        <%= render 'shared/error_messages', object: @cat, field: :litter_number %>
-      </div>
-      <div class="col s12 m5">
-        <div class="input-field">
-        <%= f.label :birth_date do %>
-          <%= t('cat_info.birth_date') %> *
-          <% end %>
-          <%= f.text_field :birth_date, class:"datepicker" %>
-        </div>
-        <%= render 'shared/error_messages', object: @cat, field: :birth_date %>
-      </div>
-    </div>
-
     <div class="row">
       <div class="col s12 m6 l4">
         <div class="input-field">
@@ -157,7 +163,6 @@
       </div>
     </div>      
   <% end %>
-  </div>
 
   <div class="row">
     <h4 class="form-section-title"><%= t('words.main_picture') %></h4>
@@ -166,7 +171,7 @@
   <div class="row">
     <div class="col s12">
       <% if @cat.new_record? and !@cat.card_picture.attached? %>
-      <div class="dropzone dropzone-default dz-clickable single" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="2" data-dropzone-accepted-files="image/*">
+      <div class="dropzone dropzone-default dz-clickable single" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
         <%= f.hidden_field :card_picture, id:"hidden_cat_card_picture", value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
         <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
         <div class="dropzone-msg dz-message needsclick">
@@ -177,7 +182,7 @@
       <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
         <%= f.hidden_field :card_picture, id:"hidden_cat_card_picture", value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
         <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
-        <div class="dropzone-msg dz-message needsclick helper-text">
+        <div class="dropzone-msg dz-message needsclick">
           <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
           <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
           <div class="card-picture-preview">
@@ -188,7 +193,7 @@
       <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
         <%= f.hidden_field :card_picture, id:"hidden_cat_card_picture", value: f.object.card_picture.signed_id if @cat.card_picture.attached? %>
         <%= f.file_field :card_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
-        <div class="dropzone-msg dz-message needsclick helper-text">
+        <div class="dropzone-msg dz-message needsclick">
           <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_single') %></h3>
           <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
           <div class="card-picture-preview">
@@ -224,7 +229,7 @@
             <%= f.hidden_field :pictures, id:"hidden_cat_card_picture_#{index}", value: picture.signed_id, multiple: true %>
           <% end %>
           <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
-          <div class="dropzone-msg dz-message needsclick helper-text">
+          <div class="dropzone-msg dz-message needsclick">
             <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>
             <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
             <div class="pictures-preview">
@@ -241,7 +246,7 @@
             <%= f.hidden_field :pictures, id:"hidden_cat_card_picture_#{index}", value: picture.signed_id, multiple: true %>
           <% end %>
           <%= f.file_field :pictures, direct_upload: true, multiple:true, data: { target: 'dropzone.input' } %>
-          <div class="dropzone-msg dz-message needsclick helper-text">
+          <div class="dropzone-msg dz-message needsclick">
             <h3 class="dropzone-msg-title"><%= t('form.dropzone.drag_or_click_plural') %></h3>
             <span class="dropzone-msg-desc text-sm"><%= t('form.dropzone.allowed_file_type') %> <%= t('form.dropzone.allowed_file_size') %></span>
             <div class="pictures-preview">

@@ -88,10 +88,13 @@ class UsersController < ApplicationController
     end
   end
 
-  def birth_date
+  def litter_info
     user = current_user
-    @birth_date = Cat.user_id(user.id).find_by(litter_number: params[:litter_number]).birth_date
-    render json: @birth_date
+    litter = Cat.user_id(user.id).find_by(litter_number: params[:litter_number])
+    birth_date = litter.birth_date
+    breed_id = litter.breed_id
+    parents_id = litter.pair_id
+    render json: { cat_birth_date: birth_date, cat_breed_id: breed_id, cat_pair_id: parents_id }
   end
 
   def new_litter
