@@ -32,6 +32,10 @@ a {
 
 .container {
   margin: 0 auto;
+
+  @include medium-and-up {
+    width: 80%;
+  }
 }
 
 .card {

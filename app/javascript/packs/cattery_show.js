@@ -2,12 +2,11 @@ import * as base from '../shared/base.js'
 import { closeSelectOnDisabledOption } from '../shared/base.js'
 import ('objectFitPolyfill/dist/objectFitPolyfill.min')
 
-if (base.pathname.includes(base.catteriesPath.concat('/')) && !base.pathname.endsWith('my-cattery')) {
+if (base.pathname.includes(base.catteriesPath.concat('/')) && !base.pathname.endsWith('my-cattery')) {  
   // Remove the inlined overflow:hidden added by the materialize card reveal
   $('.card-reveal .card-title').on('click', function() {
     var el = $(this);
     setTimeout(function() { $(el).closest('.card').addClass('overflow-visible'); }, 300);
-    
   });
 
   $('.card-reveal-link.activator').on('click', function() {
@@ -68,7 +67,7 @@ if (base.pathname.includes(base.catteriesPath.concat('/')) && !base.pathname.end
   });
 
   // Cattery show page filtering
-  $('.form-filter').on('change', function() {
+  $('body').on('change', '.form-filter', function() {
     var currentSection = $(this).closest('.section');
 
     // Reset the next filters
