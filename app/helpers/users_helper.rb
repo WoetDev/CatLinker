@@ -33,6 +33,8 @@ module UsersHelper
     else
       location = location
     end
+
+    capitalized_name(location)
   end
 
   def cattery_parent_count(user)

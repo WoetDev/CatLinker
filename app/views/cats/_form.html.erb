@@ -74,6 +74,18 @@
       </div>
     <%= render 'shared/error_messages', object: @cat, field: :breed_id %>
     </div>
+    <% else %>
+    <div class="col s12 m5 offset-m1">
+      <div class="input-field">
+        <div class="switch">
+          <label class="checkbox-label">
+            <%= f.check_box :is_available %>
+            <span class="lever lever-no-margin"></span>
+            <%= t('cat_info.available') %>
+          </label>
+        </div>
+      </div>
+    </div>
     <% end %>
   </div>
 
@@ -87,16 +99,16 @@
 
     <div class="col s12 m6 l4">
       <div class="input-field">
-        <%= f.select(:color_id, options_for_select(@colors_array, selected: f.object ? f.object.color_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.dominant_color')} *"}, { autocomplete:'off' }) %>
+        <%= f.select(:coat_pattern_id, options_for_select(@coat_patterns_array, selected: f.object ? f.object.coat_pattern_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.coat')} *"}, { autocomplete:'off' }) %>
       </div>
-      <%= render 'shared/error_messages', object: @cat, field: :color_id %>
+      <%= render 'shared/error_messages', object: @cat, field: :coat_pattern_id %>
     </div>
 
     <div class="col s12 m6 l4">
       <div class="input-field">
-        <%= f.select(:coat_pattern_id, options_for_select(@coat_patterns_array, selected: f.object ? f.object.coat_pattern_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.coat')} *"}, { autocomplete:'off' }) %>
+        <%= f.select(:color_id, options_for_select(@colors_array, selected: f.object ? f.object.color_id : ""), {selected: "", disabled: "", prompt: "#{t('cat_info.dominant_color')} *"}, { autocomplete:'off' }) %>
       </div>
-      <%= render 'shared/error_messages', object: @cat, field: :coat_pattern_id %>
+      <%= render 'shared/error_messages', object: @cat, field: :color_id %>
     </div>
   </div>
 
@@ -150,22 +162,11 @@
     </div>
 
     <div class="row">
-      <div class="col s12 m6 l4">
-        <div class="input-field">
-          <div class="switch">
-            <label class="checkbox-label">
-              <%= f.check_box :is_available %>
-              <span class="lever lever-no-margin"></span>
-              <%= t('cat_info.available') %>
-            </label>
-          </div>
-        </div>
-      </div>
     </div>      
   <% end %>
 
   <div class="row">
-    <h4 class="form-section-title"><%= t('words.main_picture') %></h4>
+    <h4 class="form-section-title"><%= t('words.main_picture') %> *</h4>
   </div>
   
   <div class="row">
