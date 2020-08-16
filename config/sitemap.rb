@@ -68,7 +68,7 @@ SitemapGenerator::Sitemap.create do
       catteries_alternates.push(alternate)
     end
 
-    add(cattery_path(cattery), :priority => 0.9, :changefreq => 'always', :lastmod => catteries.updated_at, :alternates => catteries_alternates)
+    add(cattery_path(cattery), :priority => 0.9, :changefreq => 'always', :lastmod => cattery.updated_at, :alternates => catteries_alternates)
   end
 
   add(breeds_path, :priority => 1, :changefreq => 'always', :alternates => [{
