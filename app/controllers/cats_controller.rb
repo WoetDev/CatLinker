@@ -89,6 +89,7 @@ class CatsController < ApplicationController
       end
 
       if @cat.save
+        update_pictures_dimensions(@cat)
         update_cat_breed_tags(@cat)
         update_cat_location_tags(@cat)
         update_litter_birth_date(@cat)
@@ -122,7 +123,7 @@ class CatsController < ApplicationController
     @cat = user.cats.friendly.find(params[:id])
     @form = params[:form]
 
-    if current_user == user
+    if @cat.user_id == user.id
       all_colors
       all_coat_patterns
 
@@ -146,6 +147,7 @@ class CatsController < ApplicationController
   def update
     user = current_user
     @cat = user.cats.friendly.find(params[:id])
+    @form = params[:form]
 
     Cat.sanitize_filename(@cat.card_picture) if @cat.card_picture.attached?
     if @cat.pictures.attached?
@@ -154,9 +156,7 @@ class CatsController < ApplicationController
       end
     end
 
-    @form = params[:form]
-
-    if current_user == user
+    if @cat.user_id == user.id
       all_colors
       all_coat_patterns
       @cat.name = custom_titleize(params[:cat][:name]) if params[:cat][:name].present?
@@ -185,10 +185,11 @@ class CatsController < ApplicationController
         litters(user)
 
         if @cat.update(kitten_params)
+          update_pictures_dimensions(@cat)
           update_cat_breed_tags(@cat)
           update_cat_location_tags(@cat)
           update_litter_birth_date(@cat)
-
+          
           flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
                             kind: (I18n.t 'kitten', count: 1), 
                             action: (I18n.t 'action.updated'))
@@ -219,7 +220,7 @@ class CatsController < ApplicationController
     user = current_user
     @cat = user.cats.friendly.find(params[:id])
 
-    if current_user == user
+    if @cat.user_id == user.id
       if @form == 'parent'
         if @cat.destroy
           flash[:notice] = (I18n.t "cattery_overview.toast.successful_action", 
@@ -300,7 +301,7 @@ class CatsController < ApplicationController
     params.require(:cat).permit(:name, :gender, :color, :is_available, :is_vaccinated, 
                                 :is_castrated, :card_picture, :breed_id, :coat_pattern_id, 
                                 :color_id, :user_id, :pair_id, :litter_number, :birth_date, 
-                                :breed_tag_list, :location_tag_list, pictures: [])
+                                :breed_tag_list, :location_tag_list, :pictures_dimensions, pictures: [])
   end
 
   def all_available_breeds
@@ -350,12 +351,31 @@ class CatsController < ApplicationController
     @litter_numbers = litter_number_information.reverse.map { |l| ["#{l[0]} - #{I18n.l(l[2].to_date, format: :default)} - #{custom_titleize(Pair.find(l[1]).male.name)} & #{custom_titleize(Pair.find(l[1]).female.name)}", l[0]] }.sort_by { |p| p[0] }.reverse
   end
 
+  def image_dimensions(image)
+    metadata = ActiveStorage::Analyzer::ImageAnalyzer.new(image).metadata
+
+    dimensions = { width: metadata[:width], height: metadata[:height] }
+    return dimensions
+  end
+
+  def update_pictures_dimensions(cat)
+    dimensions_hash = {}
+
+    if cat.pictures.attached?
+      cat.pictures.each_with_index do |picture, index|
+        dimensions_hash = dimensions_hash.merge({ index => { width: image_dimensions(picture)[:width], height: image_dimensions(picture)[:height] } })
+      end
+    end
+
+    cat.update(pictures_dimensions: dimensions_hash)
+  end
+
   def update_cat_location_tags(cat)
-    cat.update_attributes(:location_tag_list => ["#{Country.find(@user.country_id).name}-#{@user.city.capitalize}"])
+    cat.update(location_tag_list: "#{Country.find(@user.country_id).name}-#{@user.city.capitalize}")
   end
 
   def update_cat_breed_tags(cat)
-    cat.update_attributes(:breed_tag_list => ["#{Breed.find(params[:cat][:breed_id]).name}"])
+    cat.update(breed_tag_list: "#{Breed.find(params[:cat][:breed_id]).name}")
   end
 
   def update_litter_birth_date(cat)

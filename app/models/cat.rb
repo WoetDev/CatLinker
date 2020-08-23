@@ -10,6 +10,7 @@ class Cat < ApplicationRecord
   has_many :countries
   has_one_attached :card_picture
   has_many_attached :pictures
+  serialize :pictures_dimensions
 
   # friendly_id
   friendly_id :slug_candidates, use: :slugged

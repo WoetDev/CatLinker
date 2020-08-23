@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_232726) do
+ActiveRecord::Schema.define(version: 2020_08_22_212740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_232726) do
     t.text "tests"
     t.bigint "color_id", null: false
     t.bigint "coat_pattern_id", null: false
+    t.text "pictures_dimensions"
     t.index ["coat_pattern_id"], name: "index_cats_on_coat_pattern_id"
     t.index ["color_id"], name: "index_cats_on_color_id"
     t.index ["pair_id"], name: "index_cats_on_pair_id"

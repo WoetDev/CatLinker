@@ -12,6 +12,12 @@ module CatsHelper
     end
     location = capitalized_name(location)
   end
+  
+  def kitten_pictures_dimensions(cat, image)
+    metadata = cat.pictures_dimensions[image]
+    dimensions = { width: metadata[:width], height: metadata[:height] }
+    return dimensions
+  end
 
   def cat_father(cat)
     Cat.find(Pair.find(cat.pair_id).male_id)

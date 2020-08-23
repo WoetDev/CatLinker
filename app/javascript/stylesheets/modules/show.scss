@@ -204,6 +204,15 @@
       display: inline-block;
       padding: 0.5em;
 
+      a {
+        cursor: zoom-in;
+        transition: opacity .4s;
+
+        &:hover {
+          opacity: .8;
+        }
+      }
+
       .thumbnail {
         width: 100%;
         height: auto;
@@ -470,7 +479,7 @@
 
 // Breed show page
 .breed-show {
-  img, .paragraph-block, .disclaimer-block {
+  img, .paragraph-block, .disclaimer-block, .overlay {
     border-radius: 10px;
   }
 
