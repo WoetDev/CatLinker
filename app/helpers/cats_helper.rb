@@ -14,9 +14,7 @@ module CatsHelper
   end
   
   def kitten_pictures_dimensions(cat, image)
-    metadata = cat.pictures_dimensions[image]
-    dimensions = { width: metadata[:width], height: metadata[:height] }
-    return dimensions
+    cat.pictures_dimensions[image]
   end
 
   def cat_father(cat)
