@@ -70,7 +70,7 @@
       </div>
       
       <% if @user.profile_picture.attached? %>
-      <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+      <div class="dropzone dropzone-default dz-clickable single existing-thumbnail" data-controller="dropzone" data-dropzone-max-file-size="5" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
         <%= f.hidden_field :profile_picture, id:"hidden_profile_picture", value: f.object.profile_picture.signed_id if @user.profile_picture.attached? %>
         <%= f.file_field :profile_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
         
@@ -83,7 +83,7 @@
         </div>
       </div>
       <% else %>
-      <div class="dropzone dropzone-default dz-clickable single" data-controller="dropzone" data-dropzone-max-file-size="2" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
+      <div class="dropzone dropzone-default dz-clickable single" data-controller="dropzone" data-dropzone-max-file-size="5" data-dropzone-max-files="1" data-dropzone-accepted-files="image/*">
         <%= f.hidden_field :profile_picture, id:"hidden_profile_picture", value: f.object.profile_picture.signed_id if @user.profile_picture.attached? %>
         <%= f.file_field :profile_picture, direct_upload: true, data: { target: 'dropzone.input' } %>
         <div class="dropzone-msg dz-message needsclick">
