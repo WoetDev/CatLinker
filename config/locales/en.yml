@@ -57,7 +57,7 @@ en:
   select:
     which_breeds_are_you_looking_for: "Which breed(s) are you looking for?"
     which_locations_do_you_prefer: "Which location(s) do you prefer?"
-    select_parents_to_filter: "Select parent(s) to filter pairs, litters and kittens"
+    select_parents_to_filter: "Select parent(s) to filter litters and kittens"
     select_litters_to_filter: "Select litter(s) to filter kittens"
   buttons:
     search: "Search"
@@ -331,7 +331,7 @@ en:
     cattery_name: "Cattery name"
     edit_cats: "Edit cats"
     view_page: "View page"
-    profile_picture: "Profile picture"
+    profile_picture: "Cattery profile picture"
     address: "Address"
     postal_code: "Postal code"
     city: "City"

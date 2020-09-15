@@ -57,7 +57,7 @@ nl:
   select:
     which_breeds_are_you_looking_for: "Naar welk ras ben je op zoek?"
     which_locations_do_you_prefer: "Welke locatie(s) verkies je?"
-    select_parents_to_filter: "Selecteer ouder(s) om koppels, nestjes en kittens te filteren"
+    select_parents_to_filter: "Selecteer ouder(s) om nestjes en kittens te filteren"
     select_litters_to_filter: "Selecteer nestjes om kittens te filteren"
   buttons:
     search: "Zoek"
@@ -332,7 +332,7 @@ nl:
     cattery_name: "Cattery naam"
     edit_cats: "Wijzig katten"
     view_page: "Bekijk pagina"
-    profile_picture: "Profielfoto"
+    profile_picture: "Cattery profielfoto"
     address: "Adres"
     postal_code: "Postcode"
     city: "Stad"

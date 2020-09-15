@@ -177,8 +177,8 @@ class UsersController < ApplicationController
   end
 
   def all_cattery_litters(user)
-    litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).distinct.pluck(:litter_number, :pair_id, :birth_date)
-    @all_litters = litter_number_information.reverse.map { |l| ["#{I18n.l(l[2].to_date, format: :default)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }.sort_by{|l| l[0]}.reverse
+    litter_number_information = Cat.user_id(user.id).where.not(litter_number: nil).order(:birth_date).distinct.pluck(:litter_number, :pair_id, :birth_date)
+    @all_litters = litter_number_information.reverse.map { |l| ["#{I18n.l(l[2].to_date, format: :default)} - #{Pair.find_by(id: l[1]).male.name.titlecase} & #{Pair.find_by(id: l[1]).female.name.titlecase}", l[0]] }
   end
 
   def cattery_pairs(user)

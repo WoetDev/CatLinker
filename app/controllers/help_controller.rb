@@ -7,6 +7,6 @@ class HelpController < ApplicationController
   end
 
   def what_is_catlinker
-    
+    @video_title = "#{I18n.locale.upcase}_CATLINKER_INTRO"
   end
 end
