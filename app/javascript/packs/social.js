@@ -1,5 +1,14 @@
 import * as base from '../shared/base.js'
 
+// Start Cat Linker intro video to currentTime
+if(document.querySelector('#clIntro')) {
+  let clIntro = document.querySelector('#clIntro');
+  clIntro.addEventListener('loadedmetadata', function() {
+    this.currentTime = 1;
+  }, false);
+}
+
+
 // Google Analytics
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}

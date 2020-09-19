@@ -250,7 +250,7 @@ en:
     tests: "Tests"
     main_picture: "Main picture"
     other_pictures: "Additional pictures"
-    litter: "nestje"
+    litter: "litter"
 
   # pluralization
   cattery:
