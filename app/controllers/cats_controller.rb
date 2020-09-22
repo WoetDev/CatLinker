@@ -322,7 +322,7 @@ class CatsController < ApplicationController
   end
 
   def all_breeds
-    breeds = Breed.all
+    breeds = Breed.where(hidden: false)
     @breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{breed.breed_code}.name")}", breed.id] }.sort_by { |b| b[0] }
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_22_212740) do
+ActiveRecord::Schema.define(version: 2020_09_22_202632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_08_22_212740) do
     t.string "breed_code"
     t.string "name_en"
     t.string "name_nl"
+    t.boolean "hidden", default: false
     t.index ["cat_id"], name: "index_breeds_on_cat_id"
     t.index ["slug"], name: "index_breeds_on_slug", unique: true
   end

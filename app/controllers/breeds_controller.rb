@@ -8,12 +8,12 @@ class BreedsController < ApplicationController
       breed_filter = params[:breeds_filter].flatten.reject(&:blank?)
 
       if breed_filter.empty?
-        @pagy, @breeds = pagy_countless(Breed.all.order("name_#{I18n.locale} ASC"))
+        @pagy, @breeds = pagy_countless(Breed.where(hidden: false).order("name_#{I18n.locale} ASC"))
       else
         @pagy, @breeds = pagy_countless(Breed.where(id: breed_filter).distinct(:id).order("name_#{I18n.locale} ASC"))
       end
     else
-      @pagy, @breeds = pagy_countless(Breed.all.order("name_#{I18n.locale} ASC"))
+      @pagy, @breeds = pagy_countless(Breed.where(hidden: false).order("name_#{I18n.locale} ASC"))
     end
   end
 
@@ -30,7 +30,7 @@ class BreedsController < ApplicationController
   private
 
   def all_available_breeds
-    breeds = Breed.all
+    breeds = Breed.where(hidden: false)
     @all_available_breeds_array = breeds.map { |breed| ["#{(I18n.t "breeds.#{breed.breed_code}.name")}", breed.id, data: {"icon": url_for(breed.icon_thumbnail)}] }.sort_by{|b| b[0]}
   end
 end
