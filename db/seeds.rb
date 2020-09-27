@@ -26,7 +26,7 @@ colors = [{ name: "black" }, { name: "blue" }, { name: "brown" }, { name: "cinna
 # end
 
 # UPDATE BREEDS INFORMATION
-breeds = [ { id: 11, filepath: '../BreedImages/nebelung_placeholder.jpg', filename: 'nebelung.jpg' } ]
+breeds = [ { id: 21, filepath: '../BreedImages/selkirk_rex_placeholder.jpg', filename: 'selkirk_rex.jpg' } ]
 #breeds = [ { id: 1, filepath:'https://00e9e64bace206f306135f3c2a8c90e714b4958ad2006ff988-apidata.googleusercontent.com/download/storage/v1/b/catlinker/o/breeds%2Famerican_shorthair_placeholder.jpg?qk=AD5uMEsjUzeM9lEo5Mf3N0zQ6VN6kTc8I83q8ZFkepZ3ycGUNaXN-WJtjym75eMdrqAXCSuRNts9o_j1x2oTgLguf4XNNuzAysw_9M-JRD8iT8zfgUDB3Rr8sfsRW5F9pVPOC_50C7JaiCZR4hckTy-yu-GGWc9IA8d9aqpjWz1sJm2DQbDUEAJ1sPj4zSmdXq5ofiUyYigJfnCcQSzxMbS_gCyNXVeqZs4a9m_kVKhj3bkQTc4QFpEZ56Jw-w2O7st2bQ4vwsobY20sUkGr2fdMqf6HSwzOUWv6Oo208MYgI6TUNuddis2DYhTt5Q-bZ4exOlnC7WscC2jT5aW1mtjqAi4PnhuGgdw8an64e474hq6nemHPUfgwKnFznJhiuSchyfbWRMpN5krTVlZGQVD8n8b2gnsc882JV8LwXLZfvCrVHCb-KJjKLkx6GSNhnDir1K59j23tvjDbUgolHREdTNlHmzJPXnKMilN-pGCabYMR7RnLP2Wm4dXINc0mtmn81IAHB9SecfsComSQlsoh5HyKhZyU90x7UKMI12m5VCXKAfLIbfsInUv0WhK-eicfLW2r08MPn72QqEkeGp8khVJX86vChd7hvSZqE_RgfC09ft7ufPSy6p4kYu8nu4LFUzdNAIGPWFn8pOIQYFurJIKV3vZzvlv8hyLWkrP3yZx-zpxRhKCo_1g-WZI5MVOajb77_OO2UB0GsxL9mja30IqXgoJfEOvqqJijgsiI1vLpL0S8ZD4nykLWiWf7vG_FDPXAycnCslWz4t_n5rMqoFHHLQnjN89R2qgRb3yfYDi7LqicfblsmlsD_MDX-s8Plz5KT8v8ZOl9T8zr7sBXulmo5OEuVw&isca=1', filename: 'american_shorthair_placeholder.jpg' }]
 
 # breeds.each do |breed_hash|
